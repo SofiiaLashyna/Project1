@@ -138,6 +138,36 @@ public:
         std::vector<bool> visited(vertices.size(), false);
         dfsRecursive(startId, visited);
     }
+
+    void DFS_iterative(int startId) {
+        if (startId >= vertices.size()) return;
+
+        std::vector<bool> visited(vertices.size(), false);
+        std::vector<int> stack;
+        stack.push_back(startId);
+
+        std::cout << "DFS (iterative) order: ";
+
+        while (!stack.empty()) {
+            int v = stack.back();
+            stack.pop_back();
+
+            if (visited[v]) continue;
+            visited[v] = true;
+
+            std::cout << vertices[v].data << " ";
+
+            for (int i = (int)adjacencyList[v].size() - 1; i >= 0; --i) {
+                int neighbor = adjacencyList[v][i].first;
+                if (!visited[neighbor]) {
+                    stack.push_back(neighbor);
+                }
+            }
+        }
+        std::cout << std::endl;
+    }
+
+
     int Dijkstra(int startId, int endId) {
         int V = vertices.size();
         std::vector<int> dist(V, INT_MAX);
