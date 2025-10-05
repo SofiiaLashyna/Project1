@@ -7,4 +7,5 @@ add_executable(Project1 main.cpp
         Graph.h
         Queue.h
         CelestialObjects.h
+        Galaxy.h
 )
