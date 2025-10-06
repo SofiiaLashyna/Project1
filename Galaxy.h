@@ -30,7 +30,7 @@ public:
     void addSystem(StarSystem& system);
     void connectSystems(int id1, int id2);
 
-    void generateRandomGalaxy(int numSystems);
+    void generateGalaxy(int numSystems);
     void showGalaxy();
 };
 #endif //GALAXY_H
