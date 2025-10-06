@@ -74,6 +74,15 @@ public:
         vertices.push_back(vertex);
         adjacencyList.resize(vertices.size());
     }
+    void addVertex(int id) {
+        for (auto& v : vertices) {
+            if (v.id == id) return;
+        }
+        Vertex<T> vertex;
+        vertex.id = id;
+        vertices.push_back(vertex);
+        adjacencyList.resize(vertices.size());
+    }
     void addEdge(int f, int t, int weight = 1) {
         if (f >= vertices.size() || t >= vertices.size()) return;
         if (edgeExists(f, t)) return;
@@ -256,6 +265,7 @@ public:
             }
         }
     }
+
 private:
     void dfsRecursive(int v, std::vector<bool>& visited) {
         visited[v] = true;

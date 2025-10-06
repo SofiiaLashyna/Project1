@@ -17,10 +17,9 @@ public:
 };
 
 class Nebula : public CelestialObjects{
+public:
     enum class nebulaType{Planetary, Supernova, Emission, Reflection, Dark};
     nebulaType nebula_type;
-
-public:
     Nebula(const std::string& name, double mass, nebulaType type);
 
     void displayInfo() const override;
@@ -29,9 +28,9 @@ public:
 class Star : public CelestialObjects {
 private:
     double temperature;
+public:
     enum class starType {Red_Giant, White_Dwarf, Neutron_Star, Red_Dwarf, Brown_Dwarf, Main_sequence_Star};
     starType star_type;
-public:
     Star(const std::string& name, double mass, double temperature, starType type);
 
     void displayInfo() const override;
@@ -39,12 +38,12 @@ public:
 };
 class Planet : public CelestialObjects{
 private:
-    enum class planetType {Gas_Giant, Dwarf, Terrestrial_Planet};
-    planetType planet_type;
     double orbitRadius;
     double orbitSpeed;
     double currentAngle;
 public:
+    enum class planetType {Gas_Giant, Dwarf, Terrestrial_Planet};
+    planetType planet_type;
     Planet(const std::string& name, double mass, double orbit, double speed, double angle, planetType type);
 
     void displayInfo() const override;

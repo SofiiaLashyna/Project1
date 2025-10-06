@@ -9,4 +9,5 @@ add_executable(Project1 main.cpp
         CelestialObjects.h
         Galaxy.h
         CelestialObjects.cpp
+        Galaxy.cpp
 )
