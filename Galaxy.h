@@ -1,7 +1,7 @@
 #ifndef GALAXY_H
 #define GALAXY_H
 #include <vector>
-#include "CelestialObjects.h"
+#include "CelestialObject.h"
 #include "Graph.h"
 
 class StarSystem {
@@ -33,7 +33,7 @@ public:
 
     void addSystem(StarSystem& system);
     void connectSystems(int id1, int id2, int distance);
-    Graph<StarSystem*> getGraph();
+    Graph<StarSystem*>& getGraph();
     void showGalaxy();
 };
 #endif //GALAXY_H

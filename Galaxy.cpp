@@ -48,7 +48,7 @@ Galaxy::Galaxy() {
 
 void Galaxy::addSystem(StarSystem &system) {
     systems.push_back(system);
-    systemGraph.addVertex(systems.back().getId());
+    systemGraph.addVertex(systems.back().getId(), &systems.back());
 }
 
 void Galaxy::connectSystems(int id1, int id2, int distance) {
@@ -67,7 +67,7 @@ void Galaxy::showGalaxy() {
     }
 }
 
-Graph<StarSystem *> Galaxy::getGraph() {
+Graph<StarSystem *>& Galaxy::getGraph() {
     return systemGraph;
 }
 

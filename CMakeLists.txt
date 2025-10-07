@@ -6,8 +6,9 @@ set(CMAKE_CXX_STANDARD 20)
 add_executable(Project1 main.cpp
         Graph.h
         Queue.h
-        CelestialObjects.h
+        CelestialObject.h
         Galaxy.h
-        CelestialObjects.cpp
+        CelestialObject.cpp
         Galaxy.cpp
+        Algorithm.h
 )

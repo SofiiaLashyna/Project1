@@ -1,7 +1,9 @@
 #include <iostream>
-#include "Graph.h"
+
+#include "Algorithm.h"
+// #include "Graph.h"
 #include "Galaxy.h"
-#include "CelestialObjects.h"
+#include "CelestialObject.h"
 
 int main() {
 
@@ -24,9 +26,9 @@ int main() {
     MilkyWay.addSystem(sir_b);
     MilkyWay.addSystem(betel);
 
-    MilkyWay.connectSystems(0,1,4);
-    MilkyWay.connectSystems(1,2,6);
-    MilkyWay.connectSystems(0,2,16);
+    MilkyWay.connectSystems(1,2,4);
+    MilkyWay.connectSystems(2,3,6);
+    MilkyWay.connectSystems(1,3,16);
 
 
     std::cout<<"~~GALAXY~~\n";
@@ -37,56 +39,61 @@ int main() {
     sir_b.showSystem();
     std::cout<<std::endl;
 
-    int dist = MilkyWay.getGraph().Dijkstra(0,2);
-    if (dist == -1)
-            std::cout << "No path exists between Sirius and Polaris.\n";
-            else
-                    std::cout << "Shortest distance from Sirius to Sun: " << dist << "\n";
 
+
+    GraphAlgorithm<StarSystem*>* distance = new DijkstraAlgorithm<StarSystem*>();
+    distance->run(MilkyWay.getGraph(),1,3);
     return 0;
 
-    // std::cout << "Hello, World!" << std::endl;
+// ----------------------------------------------------
+    //  std::cout << "Hello, World!" << std::endl;
     //
-    // Graph<std::string> galaxy;
+    //  Graph<std::string> galaxy;
     //
-    // galaxy.addVertex(0, "Sirius");
-    // galaxy.addVertex(1, "Vega");
-    // galaxy.addVertex(2, "Betelgeus");
-    // galaxy.addVertex(3, "Polaris");
+    //  galaxy.addVertex(0, "Sirius");
+    //  galaxy.addVertex(1, "Vega");
+    //  galaxy.addVertex(2, "Betelgeus");
+    //  galaxy.addVertex(3, "Polaris");
     //
-    // galaxy.addEdge(0, 1, 5);
-    // galaxy.addEdge(1, 2, 2);
-    // galaxy.addEdge(0, 2, 8);
-    // galaxy.addEdge(2, 3, 4);
+    //  galaxy.addEdge(0, 1, 5);
+    //  galaxy.addEdge(1, 2, 2);
+    //  galaxy.addEdge(0, 2, 8);
+    //  galaxy.addEdge(2, 3, 4);
     //
-    // galaxy.constructAdjacency();
+    //  galaxy.constructAdjacency();
     //
-    // galaxy.print();
-    // std::cout << std::endl;
+    //  galaxy.print();
+    //  std::cout << std::endl;
     //
-    // galaxy.BFS(0);
-    // galaxy.DFS(0);
-    // std::cout << std::endl;
-    // galaxy.DFS_iterative(0);
+    //  // galaxy.BFS(0);
+    //  // galaxy.DFS(0);
+    //  // std::cout << std::endl;
+    //  // galaxy.DFS_iterative(0);
     //
-    // std::cout << "\nNeighbors of Sirius: ";
-    // for (auto n: galaxy.getNeighbors(0)) {
-    //     std::cout << n << " ";
-    // }
-    // std::cout << std::endl;
+    //  std::cout << "\nNeighbors of Sirius: ";
+    //  for (auto n: galaxy.getNeighbors(0)) {
+    //      std::cout << n << " ";
+    //  }
+    //  std::cout << std::endl;
     //
-    // galaxy.removeEdge(0, 2);
-    // std::cout << "After removing edge 0 2: \n";
-    // galaxy.print();
+    //  galaxy.removeEdge(0, 2);
+    //  std::cout << "After removing edge 0 2: \n";
+    //  galaxy.print();
     //
-    // galaxy.removeVertex(1);
-    // std::cout << "After removing Vega: \n";
-    // galaxy.print();
+    //  galaxy.removeVertex(1);
+    //  std::cout << "After removing Vega: \n";
+    //  galaxy.print();
     //
-    // int dist = galaxy.Dijkstra(0, 3);
-    // if (dist == -1)
-    //     std::cout << "No path exists between Sirius and Polaris.\n";
-    // else
-    //     std::cout << "Shortest distance from Sirius to Polaris: " << dist << "\n";
+    // Algorithms<std::string> alg(galaxy);
+    // std::cout << "Graph connected (list): " << std::boolalpha << alg.isConnectedList() << std::endl;
+    // std::cout << "Graph connected (matrix): " << std::boolalpha << alg.isConnectedMatrix() << std::endl;
+
+     // int dist = galaxy.Dijkstra(0, 3);
+     // if (dist == -1)
+     //     std::cout << "No path exists between Sirius and Polaris.\n";
+     // else
+     //     std::cout << "Shortest distance from Sirius to Polaris: " << dist << "\n";
+     //
+    return  0;
 
 }

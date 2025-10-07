@@ -2,12 +2,12 @@
 #define CELESTIALOBJECTS_H
 #include <string>
 
-class CelestialObjects {
+class CelestialObject {
 public:
     std::string name;
     double mass;
-    CelestialObjects(const std::string& name, double mass);
-    virtual ~CelestialObjects() = default;
+    CelestialObject(const std::string& name, double mass);
+    virtual ~CelestialObject() = default;
 
     virtual void displayInfo() const = 0;
     virtual std::string getType() const = 0;
@@ -16,7 +16,7 @@ public:
     double getMass();
 };
 
-class Nebula : public CelestialObjects{
+class Nebula : public CelestialObject{
 public:
     enum class nebulaType{Planetary, Supernova, Emission, Reflection, Dark};
     nebulaType nebula_type;
@@ -25,7 +25,7 @@ public:
     void displayInfo() const override;
     std::string getType() const override;
 };
-class Star : public CelestialObjects {
+class Star : public CelestialObject {
 private:
     double temperature;
 public:
@@ -36,7 +36,7 @@ public:
     void displayInfo() const override;
     std::string getType() const override;
 };
-class Planet : public CelestialObjects{
+class Planet : public CelestialObject{
 private:
     double orbitRadius;
     double orbitSpeed;

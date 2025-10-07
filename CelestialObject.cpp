@@ -1,11 +1,11 @@
-#include "CelestialObjects.h"
+#include "CelestialObject.h"
 
 #include <iostream>
 
-CelestialObjects::CelestialObjects(const std::string &name, double mass) : name(name), mass(mass){}
-Planet::Planet(const std::string &name, double mass, double orbit, double speed, double angle, planetType type) : CelestialObjects(name, mass), orbitRadius(orbit), orbitSpeed(speed), currentAngle(angle), planet_type(type){}
-Star::Star(const std::string &name, double mass, double temperature, starType type) : CelestialObjects(name, mass), temperature(temperature), star_type(type){}
-Nebula::Nebula(const std::string &name, double mass, nebulaType type) : CelestialObjects(name, mass), nebula_type(type){}
+CelestialObject::CelestialObject(const std::string &name, double mass) : name(name), mass(mass){}
+Planet::Planet(const std::string &name, double mass, double orbit, double speed, double angle, planetType type) : CelestialObject(name, mass), orbitRadius(orbit), orbitSpeed(speed), currentAngle(angle), planet_type(type){}
+Star::Star(const std::string &name, double mass, double temperature, starType type) : CelestialObject(name, mass), temperature(temperature), star_type(type){}
+Nebula::Nebula(const std::string &name, double mass, nebulaType type) : CelestialObject(name, mass), nebula_type(type){}
 
 
 
@@ -79,10 +79,10 @@ std::string Star::getType() const {
 std::string Nebula::getType() const {
     return "Nebula";
 }
-std::string CelestialObjects::getName() {
+std::string CelestialObject::getName() {
     return name;
 }
-double CelestialObjects::getMass() {
+double CelestialObject::getMass() {
     return mass;
 }
 
