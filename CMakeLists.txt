@@ -24,4 +24,5 @@ add_executable(Project1 main.cpp
         Edge.h
         Graph_matrix.h
         Graph_list.h
+        StarSystem.h
 )

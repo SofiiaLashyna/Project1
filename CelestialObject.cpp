@@ -4,10 +4,10 @@
 
 CelestialObject::CelestialObject(const std::string &name, double mass) : name(name), mass(mass){}
 
-std::string CelestialObject::getName() {
+std::string CelestialObject::getName() const{
     return name;
 }
-double CelestialObject::getMass() {
+double CelestialObject::getMass() const{
     return mass;
 }
 

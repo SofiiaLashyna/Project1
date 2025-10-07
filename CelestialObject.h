@@ -3,6 +3,8 @@
 #include <string>
 
 class CelestialObject {
+protected:
+    // std::tuple<double, double, double> coord;
 public:
     std::string name;
     double mass;
@@ -15,9 +17,9 @@ public:
 
     virtual std::string getType() const = 0;
 
-    std::string getName();
+    std::string getName() const;
 
-    double getMass();
+    double getMass() const;
 };
 
 

@@ -33,5 +33,5 @@ void Star::displayInfo() const {
             std::cout << "Neutron star";
             break;
     }
-    std::cout << " temperature: " << temperature;
+    std::cout << " temperature: " << temperature <<std::endl;
 }

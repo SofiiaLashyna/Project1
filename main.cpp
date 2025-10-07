@@ -10,6 +10,8 @@
 #include "DFS.h"
 #include "Graph_matrix.h"
 #include "Graph_list.h"
+#include "Nebula.h"
+#include "StarSystem.h"
 
 
 int main() {
@@ -22,32 +24,35 @@ int main() {
 
     StarSystem solar(1, "Solar system", sun);
     StarSystem sir_b(2, " Sirius binary star system", sirius_b);
-    StarSystem betel(3, "Betelgeuse system", betelgeuse);
+
+    Nebula cat_eye(" Cat's Eye Nebula", 0.1, Nebula::nebulaType::Planetary);
 
     solar.addPlanet(earth);
     solar.addPlanet(jupiter);
 
-    Galaxy<Graph_list<StarSystem*>> MilkyWay;
-    MilkyWay.addSystem(solar);
-    MilkyWay.addSystem(sir_b);
-    MilkyWay.addSystem(betel);
+    Galaxy<Graph_list<CelestialObject*>> galaxy("MilkyWay");
+    galaxy.addObject(&solar);
+    galaxy.addObject(&sir_b);
+    galaxy.addObject(&betelgeuse);
+    galaxy.addObject(&cat_eye);
 
-    MilkyWay.connectSystems(1, 2, 4);
-    MilkyWay.connectSystems(2, 3, 6);
-    MilkyWay.connectSystems(1, 3, 16);
+    galaxy.connectObjects(1, 2, 4);
+    galaxy.connectObjects(2, 3, 6);
+    galaxy.connectObjects(1, 3, 16);
+    galaxy.connectObjects(2, 4, 30);
 
 
-    std::cout << "~~GALAXY~~\n";
-    MilkyWay.showGalaxy();
-    std::cout << "\n~~STAR SYSTEM DETAILS~~\n";
-    solar.showSystem();
+    std::cout << "~~~GALAXY~~~\n\n";
+    galaxy.showGalaxy();
+    std::cout << "\n\n~~~STAR SYSTEM DETAILS~~~\n\n";
+    solar.displayInfo();
+    std::cout << std::endl<<std::endl;
+    sir_b.displayInfo();
     std::cout << std::endl;
-    sir_b.showSystem();
-    std::cout << std::endl;
 
 
-    GraphAlgorithm<Graph_list<StarSystem*>, StarSystem *> *distance = new DijkstraAlgorithm<Graph_list<StarSystem*>, StarSystem *>();
-    distance->run(MilkyWay.getGraph(), 1, 3);
+    GraphAlgorithm<Graph_list<CelestialObject*>, CelestialObject *> *distance = new DijkstraAlgorithm<Graph_list<CelestialObject*>, CelestialObject *>();
+    distance->run(galaxy.getGraph(), 1, 3);
     return 0;
 
     // ----------------------------------------------------

@@ -1,8 +1,6 @@
-#include "Galaxy.h"
+#include "StarSystem.h"
 
-#include <algorithm>
-
-StarSystem::StarSystem(int id, std::string naming, Star &star) : id(id), name(naming), centralStar(star) {
+StarSystem::StarSystem(int id, std::string naming, Star &star) : id(id), CelestialObject(naming, star.getMass()), centralStar(star) {
 }
 
 
@@ -18,29 +16,34 @@ Star &StarSystem::getStar() {
     return centralStar;
 }
 
-std::string StarSystem::getName() {
-    return name;
-}
 
 void StarSystem::addPlanet(Planet &planet) {
     planets.push_back(planet);
+    mass += planet.getMass();
 }
 
 void StarSystem::removePlanet(const std::string &name) {
-    planets.erase(
-        std::remove_if(planets.begin(), planets.end(),
-                       [&](Planet &p) { return p.getName() == name; }),
-        planets.end());
+    auto it = std::find_if(planets.begin(), planets.end(),
+                           [&](Planet &p) { return p.getName() == name; });
+    if (it != planets.end()) {
+        mass -= it->getMass();
+        planets.erase(it);
+    }
 }
 
-void StarSystem::showSystem() {
+void StarSystem::displayInfo() const{
     std::cout << "Star system: " << name << "\n Central star: " << centralStar.getName();
-    std::cout << "\n planets int orbit: \n";
+    std::cout << "\n planets in orbit: \n";
     int k = 1;
     for (auto i: planets) {
         std::cout << k << ") " << i.getName() << std::endl;
         k++;
     }
+}
+
+std::string StarSystem::getType() const {
+
+    return "Star system";
 }
 
 
