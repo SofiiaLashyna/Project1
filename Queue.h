@@ -1,12 +1,14 @@
 #ifndef QUEUE_H
 #define QUEUE_H
+
+template <typename T>
 class Queue {
 private:
     struct Node {
-        int vertex;
+        T vertex;
         int dist;
         Node* next;
-        Node(int v, int d) : vertex(v), dist(d), next(nullptr) {}
+        Node(T v, int d) : vertex(v), dist(d), next(nullptr) {}
     };
 
     Node* head = nullptr;
@@ -22,7 +24,7 @@ public:
         }
     }
 
-    void push(int vertex, int dist) {
+    void push(T vertex, int dist) {
         Node* node = new Node(vertex, dist);
         if (!head || dist < head->dist) {
             node->next = head;

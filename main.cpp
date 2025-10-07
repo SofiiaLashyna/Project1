@@ -1,12 +1,18 @@
 #include <iostream>
-
 #include "Algorithm.h"
 // #include "Graph.h"
 #include "Galaxy.h"
 #include "CelestialObject.h"
+#include "Planet.h"
+#include "Star.h"
+#include "Dijkstra.h"
+#include "BFS.h"
+#include "DFS.h"
+#include "Graph_matrix.h"
+#include "Graph_list.h"
+
 
 int main() {
-
     Star sun("Sun", 1.0, 5778, Star::starType::Main_sequence_Star);
     Star betelgeuse("Betelgeuse", 11.6, 3500, Star::starType::Red_Giant);
     Star sirius_b("Sirius B", 1.02, 25000, Star::starType::White_Dwarf);
@@ -21,31 +27,30 @@ int main() {
     solar.addPlanet(earth);
     solar.addPlanet(jupiter);
 
-    Galaxy MilkyWay;
+    Galaxy<Graph_list<StarSystem*>> MilkyWay;
     MilkyWay.addSystem(solar);
     MilkyWay.addSystem(sir_b);
     MilkyWay.addSystem(betel);
 
-    MilkyWay.connectSystems(1,2,4);
-    MilkyWay.connectSystems(2,3,6);
-    MilkyWay.connectSystems(1,3,16);
+    MilkyWay.connectSystems(1, 2, 4);
+    MilkyWay.connectSystems(2, 3, 6);
+    MilkyWay.connectSystems(1, 3, 16);
 
 
-    std::cout<<"~~GALAXY~~\n";
+    std::cout << "~~GALAXY~~\n";
     MilkyWay.showGalaxy();
-    std::cout<<"\n~~STAR SYSTEM DETAILS~~\n";
+    std::cout << "\n~~STAR SYSTEM DETAILS~~\n";
     solar.showSystem();
-    std::cout<<std::endl;
+    std::cout << std::endl;
     sir_b.showSystem();
-    std::cout<<std::endl;
+    std::cout << std::endl;
 
 
-
-    GraphAlgorithm<StarSystem*>* distance = new DijkstraAlgorithm<StarSystem*>();
-    distance->run(MilkyWay.getGraph(),1,3);
+    GraphAlgorithm<Graph_list<StarSystem*>, StarSystem *> *distance = new DijkstraAlgorithm<Graph_list<StarSystem*>, StarSystem *>();
+    distance->run(MilkyWay.getGraph(), 1, 3);
     return 0;
 
-// ----------------------------------------------------
+    // ----------------------------------------------------
     //  std::cout << "Hello, World!" << std::endl;
     //
     //  Graph<std::string> galaxy;
@@ -88,12 +93,11 @@ int main() {
     // std::cout << "Graph connected (list): " << std::boolalpha << alg.isConnectedList() << std::endl;
     // std::cout << "Graph connected (matrix): " << std::boolalpha << alg.isConnectedMatrix() << std::endl;
 
-     // int dist = galaxy.Dijkstra(0, 3);
-     // if (dist == -1)
-     //     std::cout << "No path exists between Sirius and Polaris.\n";
-     // else
-     //     std::cout << "Shortest distance from Sirius to Polaris: " << dist << "\n";
-     //
-    return  0;
-
+    // int dist = galaxy.Dijkstra(0, 3);
+    // if (dist == -1)
+    //     std::cout << "No path exists between Sirius and Polaris.\n";
+    // else
+    //     std::cout << "Shortest distance from Sirius to Polaris: " << dist << "\n";
+    //
+    return 0;
 }

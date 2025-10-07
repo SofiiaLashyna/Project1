@@ -1,25 +1,26 @@
 #ifndef ALGORITHM_H
 #define ALGORITHM_H
 #include "Graph.h"
+#include "Queue.h"
 
-template <typename T>
+template <typename GraphType, typename  T>
 class Algorithms {
-    Graph<T>& graph;
+    GraphType& graph;
 public:
-    Algorithms(Graph<T>& g) : graph(g) {}
+    Algorithms(GraphType& g) : graph(g) {}
 
     void BFS(int startId) {
         int start = graph.findIndexById(startId);
         if (start == -1) return;
 
-        std::vector<bool> visited(graph.vertices.size(), false);
-        Queue q; q.push(start, 0);
+        std::vector<bool> visited(graph.getVertices().size(), false);
+        Queue<T> q; q.push(start, 0);
         visited[start] = true;
 
         std::cout << "BFS order: ";
         while (!q.empty()) {
             auto [u, d] = q.popMin();
-            std::cout << graph.vertices[u].data << " ";
+            std::cout << graph.getVertices()[u].data << " ";
             for (auto& [v, w] : graph.adjacencyList[u]) {
                 if (!visited[v]) { visited[v] = true; q.push(v, 0); }
             }
@@ -31,7 +32,7 @@ public:
         int start = graph.findIndexById(startId);
         if (start == -1) return;
 
-        std::vector<bool> visited(graph.vertices.size(), false);
+        std::vector<bool> visited(graph.getVertices().size(), false);
         std::cout << "DFS order: ";
         dfsRecursive(start, visited);
         std::cout << std::endl;
@@ -41,7 +42,7 @@ public:
         int start = graph.findIndexById(startId);
         if (start == -1) return;
 
-        std::vector<bool> visited(graph.vertices.size(), false);
+        std::vector<bool> visited(graph.getVertices().size(), false);
         std::vector<int> stack; stack.push_back(start);
 
         std::cout << "DFS (iterative) order: ";
@@ -49,7 +50,7 @@ public:
             int v = stack.back(); stack.pop_back();
             if (visited[v]) continue;
             visited[v] = true;
-            std::cout << graph.vertices[v].data << " ";
+            std::cout << graph.getVertices()[v].data << " ";
 
             for (int i = (int)graph.adjacencyList[v].size() - 1; i >= 0; --i) {
                 int neighbor = graph.adjacencyList[v][i].first;
@@ -64,11 +65,11 @@ public:
         int end = graph.findIndexById(endId);
         if (start == -1 || end == -1) return -1;
 
-        int V = graph.vertices.size();
+        int V = graph.getVertices().size();
         std::vector<int> dist(V, INT_MAX);
         dist[start] = 0;
 
-        Queue q; q.push(start, 0);
+        Queue<int> q; q.push(start, 0);
         while (!q.empty()) {
             auto [u, d] = q.popMin();
             for (auto& [v, w] : graph.adjacencyList[u]) {
@@ -112,7 +113,7 @@ public:
 private:
     void dfsRecursive(int v, std::vector<bool>& visited) {
         visited[v] = true;
-        std::cout << graph.vertices[v].data << " ";
+        std::cout << graph.getVertices()[v].data << " ";
         for (auto& [neighbor, w] : graph.adjacencyList[v])
             if (!visited[neighbor]) dfsRecursive(neighbor, visited);
     }
@@ -124,46 +125,15 @@ private:
     }
 };
 
-template<typename T>
+template<typename GraphType, typename T>
 class GraphAlgorithm {
 public:
     virtual ~GraphAlgorithm() = default;
-    virtual int run(Graph<T>& g, int startId, int endId = -1) = 0;
+    virtual int run(GraphType& g, int startId, int endId = -1) = 0;
 };
 
-template<typename T>
-class DijkstraAlgorithm : public GraphAlgorithm<T> {
-public:
-    int run(Graph<T>& g, int startId, int endId) override {
-        Algorithms<T> alg(g);
-        int res = alg.Dijkstra(startId, endId);
-        std::cout << "Shortest path weight = " << res << std::endl;
-        return res;
-    }
-    ~DijkstraAlgorithm()= default;
-};
 
-template<typename T>
-class BFSAlgorithm : public GraphAlgorithm<T> {
-public:
-    int run(Graph<T>& g, int startId, int endId = -1) override {
-        Algorithms<T> alg(g);
-        alg.BFS(startId);
-        return 0;
-    }
-    ~BFSAlgorithm() = default;
-};
 
-template<typename T>
-class DFSAlgorithm : public GraphAlgorithm<T> {
-public:
-    int run(Graph<T>& g, int startId, int endId = -1) override {
-        Algorithms<T> alg(g);
-        alg.DFS(startId);
-        return 0;
-    }
-    ~DFSAlgorithm() = default;
-};
 
 
 #endif //ALGORITHM_H

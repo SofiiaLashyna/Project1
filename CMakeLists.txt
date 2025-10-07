@@ -11,4 +11,17 @@ add_executable(Project1 main.cpp
         CelestialObject.cpp
         Galaxy.cpp
         Algorithm.h
+        Nebula.h
+        Nebula.cpp
+        Star.h
+        Star.cpp
+        Planet.h
+        Planet.cpp
+        Dijkstra.h
+        DFS.h
+        BFS.h
+        Vertex.h
+        Edge.h
+        Graph_matrix.h
+        Graph_list.h
 )
