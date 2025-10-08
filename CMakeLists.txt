@@ -10,7 +10,7 @@ add_executable(Project1
         CelestialObject.h
         Galaxy.h
         CelestialObject.cpp
-        Galaxy.cpp
+        StarSystem.cpp
         Algorithm.h
         Nebula.h
         Nebula.cpp
@@ -41,4 +41,10 @@ add_executable(Project1
         IsConnected_matrix.h
         IsConnectedListTesting.h
         IsConnectedMatrixTesting.h
+        EdgeTesting.h
+        VertexTesting.h
+        StarSystemTesting.h
+        NebulaTesting.h
+        PlanetTesting.h
+        StarTesting.h
 )

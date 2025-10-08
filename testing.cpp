@@ -8,63 +8,72 @@
 #include "QueueTesting.h"
 #include "IsConnectedListTesting.h"
 #include "IsConnectedMatrixTesting.h"
+#include "EdgeTesting.h"
+#include "VertexTesting.h"
+#include "StarSystemTesting.h"
+#include "NebulaTesting.h"
+#include "PlanetTesting.h"
+#include "StarTesting.h"
 
 int main() {
     std::cout << "1. BFS unit tests:\n";
     std::cout << "list:\n";
     BFS_tests_list bfs_list;
-    bfs_list.testBFS_basic();
-    bfs_list.testBFS_emptyGraph();
-    bfs_list.testBFS_singleVertex();
+    bfs_list.runAll();
     std::cout << "\nmatrix:\n";
     BFS_tests_matrix bfs_matrix;
-    bfs_matrix.testBFS_basic();
-    bfs_matrix.testBFS_emptyGraph();
-    bfs_matrix.testBFS_singleVertex();
+    bfs_matrix.runAll();
 
     std::cout << "\n2. DFS unit test:\n";
     std::cout << "list:\n";
     DFS_tests_list dfs_list;
-    dfs_list.testDFS_basic();
-    dfs_list.testDFS_emptyGraph();
-    dfs_list.testDFS_singleVertex();
+    dfs_list.runAll();
     std::cout << "\nmatrix:\n";
     DFS_tests_matrix dfs_matrix;
-    dfs_matrix.testDFS_basic();
-    dfs_matrix.testDFS_emptyGraph();
-    dfs_matrix.testDFS_singleVertex();
+    dfs_matrix.runAll();
 
     std::cout << "\n\n3. Dijkstra unit test:\n";
     std::cout << "list:\n";
     Dijkstra_tests_list dijkstra_list;
-    dijkstra_list.testDijkstra_basic();
-    dijkstra_list.testDijkstra_noPath();
-    dijkstra_list.testDijkstra_multiplePaths();
-    dijkstra_list.testDijkstra_invalidNodes();
+    dijkstra_list.runAll();
     std::cout << "matrix:\n";
     Dijkstra_tests_matrix dijkstra_matrix;
-    dijkstra_matrix.testDijkstra_basic();
-    dijkstra_matrix.testDijkstra_noPath();
-    dijkstra_matrix.testDijkstra_multiplePaths();
-    dijkstra_matrix.testDijkstra_invalidNodes();
+    dijkstra_matrix.runAll();
 
     std::cout << "\n4. Queue unit test:\n";
     Queue_tests queue_tests;
-    queue_tests.testPopEmptyQueue();
-    queue_tests.testPushPopOrder();
+    queue_tests.runAll();
 
     std::cout << "\n5. Is Connected unit test:\n";
     std::cout << "list:\n";
     IsConnectedListTests is_connected_list_tests;
-    is_connected_list_tests.testList_emptyGraph();
-    is_connected_list_tests.testList_singleVertex();
-    is_connected_list_tests.testList_connectedGraph();
-    is_connected_list_tests.testList_disconnectedGraph();
+    is_connected_list_tests.runAll();
     std::cout << "matrix:\n";
     IsConnectedMatrixTests is_connected_matrix_tests;
-    is_connected_matrix_tests.testMatrix_emptyGraph();
-    is_connected_matrix_tests.testMatrix_singleVertex();
-    is_connected_matrix_tests.testMatrix_connectedGraph();
-    is_connected_matrix_tests.testMatrix_disconnectedGraph();
+    is_connected_matrix_tests.runAll();
+
+    std::cout << "\n6. Edge unit test:\n";
+    EdgeTesting edge_testing;
+    edge_testing.runAll();
+
+    std::cout << "\n7. Vertex unit test:\n";
+    VertexTesting vertex_testing;
+    vertex_testing.runAll();
+
+    std::cout<<"\n8. Star system unit test:\n";
+    StarSystemTesting star_system_testing;
+    star_system_testing.runAll();
+
+    std::cout<<"\n9. Nebula unit test:\n";
+    NebulaTesting nebula_testing;
+    nebula_testing.runAll();
+
+    std::cout<<"\n9. Planet unit test:\n";
+    PlanetTesting planet_testing;
+    planet_testing.runAll();
+
+    std::cout<<"\n10. Star unit test:\n";
+    StarTesting star_testing;
+    star_testing.runAll();
     return 0;
 }

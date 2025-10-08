@@ -9,7 +9,13 @@
 
 class DFS_tests_list {
 public:
-    void testDFS_basic() {
+    static void runAll() {
+        testDFS_basic();
+        testDFS_emptyGraph();
+        testDFS_singleVertex();
+    }
+private:
+    static void testDFS_basic() {
         Graph_list<std::string> g;
         g.addVertex(1, "A");
         g.addVertex(2, "B");
@@ -32,14 +38,14 @@ public:
         std::cout << "1/3 passed\n";
     }
 
-    void testDFS_emptyGraph() {
+    static void testDFS_emptyGraph() {
         Graph_list<std::string> g;
         Algorithms<Graph_list<std::string>, std::string> alg(g);
         alg.DFS_list(1);
         std::cout << "2/3 passed\n";
     }
 
-    void testDFS_singleVertex() {
+    static void testDFS_singleVertex() {
         Graph_list<std::string> g;
         g.addVertex(1, "A");
 

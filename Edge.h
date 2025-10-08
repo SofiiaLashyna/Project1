@@ -6,7 +6,9 @@ class Edge {
 public:
     int from;
     int to;
-    int weight = 0;
+    int weight;
+
+    Edge() : from(-1), to(-1), weight(0) {}
 
     void changeWeight(int w) { weight = w; }
     void connect(int u, int v) { from = u; to = v; }

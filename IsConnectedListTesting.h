@@ -7,14 +7,21 @@
 
 class IsConnectedListTests {
 public:
-    void testList_emptyGraph() {
+    static void runAll() {
+        testList_emptyGraph();
+        testList_singleVertex();
+        testList_connectedGraph();
+        testList_disconnectedGraph();
+    }
+private:
+    static void testList_emptyGraph() {
         Graph_list<std::string> g;
         IsConnectedList<std::string> alg;
         assert(alg.run(g) == 1 && "Empty graph should be connected");
         std::cout << "1/4 passed\n";
     }
 
-    void testList_singleVertex() {
+    static void testList_singleVertex() {
         Graph_list<std::string> g;
         g.addVertex(1, "A");
         IsConnectedList<std::string> alg;
@@ -22,7 +29,7 @@ public:
         std::cout << "2/4 passed\n";
     }
 
-    void testList_connectedGraph() {
+    static void testList_connectedGraph() {
         Graph_list<std::string> g;
         g.addVertex(1, "A");
         g.addVertex(2, "B");
@@ -34,7 +41,7 @@ public:
         std::cout << "3/4 passed\n";
     }
 
-    void testList_disconnectedGraph() {
+    static void testList_disconnectedGraph() {
         Graph_list<std::string> g;
         g.addVertex(1, "A");
         g.addVertex(2, "B");

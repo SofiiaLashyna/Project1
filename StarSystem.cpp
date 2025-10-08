@@ -43,7 +43,7 @@ void StarSystem::displayInfo() const{
 
 std::string StarSystem::getType() const {
 
-    return "Star system";
+    return "StarSystem";
 }
 
 

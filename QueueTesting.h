@@ -7,7 +7,12 @@
 
 class Queue_tests {
 public:
-    void testPushPopOrder() {
+    static void runAll() {
+        testPushPopOrder();
+        testPopEmptyQueue();
+    }
+private:
+    static void testPushPopOrder() {
         Queue<int> q;
         q.push(5, 10);
         q.push(1, 3);
@@ -24,7 +29,7 @@ public:
         std::cout << "1/2 passed\n";
     }
 
-    void testPopEmptyQueue() {
+    static void testPopEmptyQueue() {
         Queue<int> q;
         auto [v, d] = q.popMin();
         assert(v == -1 && d == -1);

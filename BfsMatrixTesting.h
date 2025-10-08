@@ -8,7 +8,13 @@
 
 class BFS_tests_matrix {
 public:
-    void testBFS_basic() {
+    static void runAll() {
+        testBFS_basic();
+        testBFS_emptyGraph();
+        testBFS_singleVertex();
+    }
+private:
+    static void testBFS_basic() {
         Graph_matrix<std::string> g;
         g.addVertex(1, "A");
         g.addVertex(2, "B");
@@ -31,7 +37,7 @@ public:
         std::cout << "1/3 passed\n";
     }
 
-    void testBFS_emptyGraph() {
+    static void testBFS_emptyGraph() {
         Graph_matrix<std::string> g;
         Algorithms<Graph_matrix<std::string>, std::string> alg(g);
         alg.BFS_matrix(1);
@@ -39,7 +45,7 @@ public:
         std::cout << "2/3 passed\n";
     }
 
-    void testBFS_singleVertex() {
+    static void testBFS_singleVertex() {
         Graph_matrix<std::string> g;
         g.addVertex(1, "A");
 

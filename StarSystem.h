@@ -10,7 +10,7 @@
 class StarSystem : public CelestialObject {
 private:
     int id;
-    Star centralStar;
+    Star& centralStar;
     std::vector<Planet> planets;
 
 public:

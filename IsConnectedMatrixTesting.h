@@ -7,14 +7,21 @@
 
 class IsConnectedMatrixTests {
 public:
-    void testMatrix_emptyGraph() {
+    static void runAll() {
+        testMatrix_emptyGraph();
+        testMatrix_singleVertex();
+        testMatrix_connectedGraph();
+        testMatrix_disconnectedGraph();
+    }
+private:
+    static void testMatrix_emptyGraph() {
         Graph_matrix<std::string> g;
         IsConnectedMatrix<std::string> alg;
         assert(alg.run(g) == 1 && "Empty graph should be connected");
         std::cout << "1/4 passed\n";
     }
 
-    void testMatrix_singleVertex() {
+    static void testMatrix_singleVertex() {
         Graph_matrix<std::string> g;
         g.addVertex(1, "A");
         IsConnectedMatrix<std::string> alg;
@@ -22,7 +29,7 @@ public:
         std::cout << "2/4 passed\n";
     }
 
-    void testMatrix_connectedGraph() {
+    static void testMatrix_connectedGraph() {
         Graph_matrix<std::string> g;
         g.addVertex(1, "A");
         g.addVertex(2, "B");
@@ -34,7 +41,7 @@ public:
         std::cout << "3/4 passed\n";
     }
 
-    void testMatrix_disconnectedGraph() {
+    static void testMatrix_disconnectedGraph() {
         Graph_matrix<std::string> g;
         g.addVertex(1, "A");
         g.addVertex(2, "B");

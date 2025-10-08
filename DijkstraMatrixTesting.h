@@ -7,7 +7,14 @@
 
 class Dijkstra_tests_matrix {
 public:
-    void testDijkstra_basic() {
+    static void runAll() {
+        testDijkstra_basic();
+        testDijkstra_noPath();
+        testDijkstra_multiplePaths();
+        testDijkstra_invalidNodes();
+    }
+private:
+    static void testDijkstra_basic() {
         Graph_matrix<std::string> g;
         g.addVertex(1, "A");
         g.addVertex(2, "B");
@@ -22,7 +29,7 @@ public:
         std::cout << "1/4 passed\n";
     }
 
-    void testDijkstra_noPath() {
+    static void testDijkstra_noPath() {
         Graph_matrix<std::string> g;
         g.addVertex(1, "A");
         g.addVertex(2, "B");
@@ -35,7 +42,7 @@ public:
         std::cout << "2/4 passed\n";
     }
 
-    void testDijkstra_multiplePaths() {
+    static void testDijkstra_multiplePaths() {
         Graph_matrix<std::string> g;
         g.addVertex(1, "A");
         g.addVertex(2, "B");
@@ -52,7 +59,7 @@ public:
         std::cout << "3/4 passed\n";
     }
 
-    void testDijkstra_invalidNodes() {
+    static void testDijkstra_invalidNodes() {
         Graph_matrix<std::string> g;
         g.addVertex(1, "A");
         g.addVertex(2, "B");
