@@ -36,4 +36,9 @@ add_executable(Project1
         DijkstraListTesting.h
         DijkstraMatrixTesting.h
         Dijkstra_matrix.h
+        QueueTesting.h
+        IsConnected_list.h
+        IsConnected_matrix.h
+        IsConnectedListTesting.h
+        IsConnectedMatrixTesting.h
 )
