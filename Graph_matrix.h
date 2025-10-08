@@ -19,8 +19,8 @@ public:
         adjacencyMatrix.assign(n, std::vector<int>(n, 0));
         for (auto &edge: this->edges) {
             if (edge.isActive()) {
-                adjacencyMatrix[edge.from][edge.to] = 1;
-                adjacencyMatrix[edge.to][edge.from] = 1;
+                adjacencyMatrix[edge.from][edge.to] = edge.weight;
+                adjacencyMatrix[edge.to][edge.from] = edge.weight;
             }
         }
     }

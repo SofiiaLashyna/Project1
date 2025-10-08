@@ -3,7 +3,8 @@ project(Project1)
 
 set(CMAKE_CXX_STANDARD 20)
 
-add_executable(Project1 main.cpp
+add_executable(Project1
+#        main.cpp
         Graph.h
         Queue.h
         CelestialObject.h
@@ -17,12 +18,22 @@ add_executable(Project1 main.cpp
         Star.cpp
         Planet.h
         Planet.cpp
-        Dijkstra.h
-        DFS.h
-        BFS.h
+        Dijkstra_list.h
+        DFS_list.h
+        BFS_list.h
         Vertex.h
         Edge.h
         Graph_matrix.h
         Graph_list.h
         StarSystem.h
+        testing.cpp
+        BfsListTesting.h
+        BfsMatrixTesting.h
+        BFS_matrix.h
+        DfsListTesting.h
+        DfsMatrixTesting.h
+        DFS_matrix.h
+        DijkstraListTesting.h
+        DijkstraMatrixTesting.h
+        Dijkstra_matrix.h
 )
