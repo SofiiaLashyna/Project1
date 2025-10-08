@@ -3,8 +3,6 @@
 #include <string>
 
 class CelestialObject {
-protected:
-    // std::tuple<double, double, double> coord;
 public:
     std::string name;
     double mass;

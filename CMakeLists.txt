@@ -47,4 +47,7 @@ add_executable(Project1
         NebulaTesting.h
         PlanetTesting.h
         StarTesting.h
+        GraphTesting.h
+        GalaxyTesting.h
+        GraphListMatrixTesting.h
 )

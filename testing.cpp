@@ -14,6 +14,9 @@
 #include "NebulaTesting.h"
 #include "PlanetTesting.h"
 #include "StarTesting.h"
+#include "GraphTesting.h"
+#include "GalaxyTesting.h"
+#include "GraphListMatrixTesting.h"
 
 int main() {
     std::cout << "1. BFS unit tests:\n";
@@ -75,5 +78,31 @@ int main() {
     std::cout<<"\n10. Star unit test:\n";
     StarTesting star_testing;
     star_testing.runAll();
+
+
+    std::cout<<"\n11. Graph unit test:\n";
+    std::cout << "list:\n";
+    GraphTesting<Graph_list<std::string>> graph_testing1;
+    graph_testing1.runAll();
+    std::cout << "matrix:\n";
+    GraphTesting<Graph_matrix<std::string>> graph_testing2;
+    graph_testing2.runAll();
+
+    std::cout << "\n12. Galaxy unit test:\n";
+    std::cout << "list:\n";
+    GalaxyTesting<Graph_list<CelestialObject*>>::runAll();
+
+    std::cout << "matrix:\n";
+    GalaxyTesting<Graph_matrix<CelestialObject*>>::runAll();
+
+    std::cout<<"\n13. Graph list and matrix unit test:\n";
+    std::cout << "list:\n";
+    GraphUnitTest<Graph_list<std::string>> graph_unit_test_list;
+    graph_unit_test_list.runAll();
+
+    std::cout << "matrix:\n";
+    GraphUnitTest<Graph_matrix<std::string>> graph_unit_test_matrix;
+    graph_unit_test_matrix.runAll();
+
     return 0;
 }

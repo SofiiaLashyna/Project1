@@ -70,7 +70,7 @@ public:
         if (idx == -1) return;
 
         this->vertices[idx].id = -1;
-        this->vertices[idx].data = "";
+        this->vertices[idx].data = T{};
 
         for (auto &edge : this->edges) {
             if (edge.from == idx || edge.to == idx) edge.disconnect();
