@@ -1,7 +1,7 @@
 #ifndef DFSMATRIXTESTING_H
 #define DFSMATRIXTESTING_H
 
-#include "Graph_matrix.h"
+#include "GraphMatrix.h"
 #include "Algorithm.h"
 #include <cassert>
 #include <sstream>
@@ -17,14 +17,14 @@ public:
     }
 private:
     static void testDFS_basic() {
-        Graph_matrix<std::string> g;
+        GraphMatrix<std::string> g;
         g.addVertex(1, "A");
         g.addVertex(2, "B");
         g.addVertex(3, "C");
         g.addEdge(1, 2, 1);
         g.addEdge(1, 3, 1);
 
-        Algorithms<Graph_matrix<std::string>, std::string> alg(g);
+        Algorithms<GraphMatrix<std::string>, std::string> alg(g);
 
         std::stringstream out;
         std::streambuf* oldCout = std::cout.rdbuf(out.rdbuf());
@@ -40,17 +40,17 @@ private:
     }
 
     static void testDFS_emptyGraph() {
-        Graph_matrix<std::string> g;
-        Algorithms<Graph_matrix<std::string>, std::string> alg(g);
+        GraphMatrix<std::string> g;
+        Algorithms<GraphMatrix<std::string>, std::string> alg(g);
         alg.DFS_matrix(1);
         std::cout << "2/3 passed\n";
     }
 
     static void testDFS_singleVertex() {
-        Graph_matrix<std::string> g;
+        GraphMatrix<std::string> g;
         g.addVertex(1, "A");
 
-        Algorithms<Graph_matrix<std::string>, std::string> alg(g);
+        Algorithms<GraphMatrix<std::string>, std::string> alg(g);
         std::stringstream out;
         std::streambuf* oldCout = std::cout.rdbuf(out.rdbuf());
 

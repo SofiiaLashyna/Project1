@@ -1,55 +1,55 @@
-#ifndef ISCONNECTEDTESTING_H
-#define ISCONNECTEDTESTING_H
-#include "Graph_list.h"
+#ifndef ISCONNECTEDMATRIXTESTING_H
+#define ISCONNECTEDMATRIXTESTING_H
+#include "GraphMatrix.h"
 #include <cassert>
 #include <iostream>
-#include "IsConnected_list.h"
+#include "IsConnectedMatrix.h"
 
-class IsConnectedListTests {
+class IsConnectedMatrixTests {
 public:
     static void runAll() {
-        testList_emptyGraph();
-        testList_singleVertex();
-        testList_connectedGraph();
-        testList_disconnectedGraph();
+        testMatrix_emptyGraph();
+        testMatrix_singleVertex();
+        testMatrix_connectedGraph();
+        testMatrix_disconnectedGraph();
     }
 private:
-    static void testList_emptyGraph() {
-        Graph_list<std::string> g;
-        IsConnectedList<std::string> alg;
+    static void testMatrix_emptyGraph() {
+        GraphMatrix<std::string> g;
+        IsConnectedMatrix<std::string> alg;
         assert(alg.run(g) == 1 && "Empty graph should be connected");
         std::cout << "1/4 passed\n";
     }
 
-    static void testList_singleVertex() {
-        Graph_list<std::string> g;
+    static void testMatrix_singleVertex() {
+        GraphMatrix<std::string> g;
         g.addVertex(1, "A");
-        IsConnectedList<std::string> alg;
+        IsConnectedMatrix<std::string> alg;
         assert(alg.run(g) == 1 && "Single vertex graph should be connected");
         std::cout << "2/4 passed\n";
     }
 
-    static void testList_connectedGraph() {
-        Graph_list<std::string> g;
+    static void testMatrix_connectedGraph() {
+        GraphMatrix<std::string> g;
         g.addVertex(1, "A");
         g.addVertex(2, "B");
         g.addVertex(3, "C");
         g.addEdge(1, 2);
         g.addEdge(2, 3);
-        IsConnectedList<std::string> alg;
+        IsConnectedMatrix<std::string> alg;
         assert(alg.run(g) == 1 && "Connected graph should be connected");
         std::cout << "3/4 passed\n";
     }
 
-    static void testList_disconnectedGraph() {
-        Graph_list<std::string> g;
+    static void testMatrix_disconnectedGraph() {
+        GraphMatrix<std::string> g;
         g.addVertex(1, "A");
         g.addVertex(2, "B");
         g.addVertex(3, "C");
         g.addEdge(1, 2);
-        IsConnectedList<std::string> alg;
+        IsConnectedMatrix<std::string> alg;
         assert(alg.run(g) == 0 && "Disconnected graph should not be connected");
         std::cout << "4/4 passed\n";
     }
 };
-#endif //ISCONNECTEDTESTING_H
+#endif //ISCONNECTEDMATRIXTESTING_H

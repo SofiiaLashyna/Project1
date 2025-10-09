@@ -1,12 +1,12 @@
 #ifndef ISCONNECTED_LIST_H
 #define ISCONNECTED_LIST_H
 #include "Algorithm.h"
-#include "Graph_list.h"
+#include "GraphList.h"
 
 template<typename T>
-class IsConnectedList : public GraphAlgorithm<Graph_list<T>, T> {
+class IsConnectedList : public GraphAlgorithm<GraphList<T>, T> {
 public:
-    int run(Graph_list<T> &g, int startId = 0, int endId = -1) override {
+    int run(GraphList<T> &g, int startId = 0, int endId = -1) override {
         int n = g.getVertices().size();
         if (n == 0) return 1;
 

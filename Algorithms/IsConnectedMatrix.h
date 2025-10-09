@@ -1,12 +1,12 @@
 #ifndef ISCONNECTED_MATRIX_H
 #define ISCONNECTED_MATRIX_H
 #include "Algorithm.h"
-#include "Graph_matrix.h"
+#include "GraphMatrix.h"
 
 template<typename T>
-class IsConnectedMatrix : public GraphAlgorithm<Graph_matrix<T>, T> {
+class IsConnectedMatrix : public GraphAlgorithm<GraphMatrix<T>, T> {
 public:
-    int run(Graph_matrix<T> &g, int startId = 0, int endId = -1) override {
+    int run(GraphMatrix<T> &g, int startId = 0, int endId = -1) override {
         int n = g.adjacencyMatrix.size();
         if (n == 0) return 1;
 

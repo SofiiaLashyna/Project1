@@ -1,6 +1,6 @@
 #ifndef DFSLISTTESTING_H
 #define DFSLISTTESTING_H
-#include "Graph_list.h"
+#include "GraphList.h"
 #include "Algorithm.h"
 #include <cassert>
 #include <sstream>
@@ -16,14 +16,14 @@ public:
     }
 private:
     static void testDFS_basic() {
-        Graph_list<std::string> g;
+        GraphList<std::string> g;
         g.addVertex(1, "A");
         g.addVertex(2, "B");
         g.addVertex(3, "C");
         g.addEdge(1, 2, 1);
         g.addEdge(1, 3, 1);
 
-        Algorithms<Graph_list<std::string>, std::string> alg(g);
+        Algorithms<GraphList<std::string>, std::string> alg(g);
 
         std::stringstream out;
         std::streambuf* oldCout = std::cout.rdbuf(out.rdbuf());
@@ -39,17 +39,17 @@ private:
     }
 
     static void testDFS_emptyGraph() {
-        Graph_list<std::string> g;
-        Algorithms<Graph_list<std::string>, std::string> alg(g);
+        GraphList<std::string> g;
+        Algorithms<GraphList<std::string>, std::string> alg(g);
         alg.DFS_list(1);
         std::cout << "2/3 passed\n";
     }
 
     static void testDFS_singleVertex() {
-        Graph_list<std::string> g;
+        GraphList<std::string> g;
         g.addVertex(1, "A");
 
-        Algorithms<Graph_list<std::string>, std::string> alg(g);
+        Algorithms<GraphList<std::string>, std::string> alg(g);
         std::stringstream out;
         std::streambuf* oldCout = std::cout.rdbuf(out.rdbuf());
 

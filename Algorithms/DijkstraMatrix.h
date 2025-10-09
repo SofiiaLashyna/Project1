@@ -1,13 +1,13 @@
 #ifndef DIJKSTRA_MATRIX_H
 #define DIJKSTRA_MATRIX_H
 #include "Algorithm.h"
-#include "Graph_matrix.h"
+#include "GraphMatrix.h"
 
 template< typename T>
-class DijkstraAlgorithm : public GraphAlgorithm<Graph_matrix<T>, T> {
+class DijkstraAlgorithm : public GraphAlgorithm<GraphMatrix<T>, T> {
 public:
-    int run(Graph_matrix<T>& g, int startId, int endId) override {
-        Algorithms<Graph_matrix<T>, T> alg(g);
+    int run(GraphMatrix<T>& g, int startId, int endId) override {
+        Algorithms<GraphMatrix<T>, T> alg(g);
         int res = alg.Dijkstra_list(startId, endId);
         std::cout << "Shortest path weight = " << res << std::endl;
         return res;

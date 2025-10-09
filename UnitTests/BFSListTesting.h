@@ -4,7 +4,7 @@
 #include <sstream>
 #include <string>
 #include "Algorithm.h"
-#include "Graph_list.h"
+#include "GraphList.h"
 
 class BFS_tests_list {
 public:
@@ -15,14 +15,14 @@ public:
     }
 private:
     static void testBFS_basic() {
-        Graph_list<std::string> g;
+        GraphList<std::string> g;
         g.addVertex(1, "A");
         g.addVertex(2, "B");
         g.addVertex(3, "C");
         g.addEdge(1, 2, 1);
         g.addEdge(1, 3, 1);
 
-        Algorithms<Graph_list<std::string>, std::string> alg(g);
+        Algorithms<GraphList<std::string>, std::string> alg(g);
         std::stringstream out;
         std::streambuf* oldCout = std::cout.rdbuf(out.rdbuf());
 
@@ -37,17 +37,17 @@ private:
     }
 
     static void testBFS_emptyGraph() {
-        Graph_list<std::string> g;
-        Algorithms<Graph_list<std::string>, std::string> alg(g);
+        GraphList<std::string> g;
+        Algorithms<GraphList<std::string>, std::string> alg(g);
         alg.BFS_list(1);
 
         std::cout<<"2/3 passed\n";
     }
     static void testBFS_singleVertex() {
-        Graph_list<std::string> g;
+        GraphList<std::string> g;
         g.addVertex(1, "A");
 
-        Algorithms<Graph_list<std::string>, std::string> alg(g);
+        Algorithms<GraphList<std::string>, std::string> alg(g);
 
         std::stringstream out;
         std::streambuf* oldCout = std::cout.rdbuf(out.rdbuf());

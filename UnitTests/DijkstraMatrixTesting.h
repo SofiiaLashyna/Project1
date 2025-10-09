@@ -1,11 +1,11 @@
-#ifndef DIJKSTRALISTTESTING_H
-#define DIJKSTRALISTTESTING_H
-#include "Graph_list.h"
+#ifndef DIJKSTRAMATRIXTESTING_H
+#define DIJKSTRAMATRIXTESTING_H
+#include "GraphMatrix.h"
 #include "Algorithm.h"
 #include <cassert>
 #include <iostream>
 
-class Dijkstra_tests_list {
+class Dijkstra_tests_matrix {
 public:
     static void runAll() {
         testDijkstra_basic();
@@ -15,7 +15,7 @@ public:
     }
 private:
     static void testDijkstra_basic() {
-        Graph_list<std::string> g;
+        GraphMatrix<std::string> g;
         g.addVertex(1, "A");
         g.addVertex(2, "B");
         g.addVertex(3, "C");
@@ -23,27 +23,27 @@ private:
         g.addEdge(2, 3, 5);
         g.addEdge(1, 3, 10);
 
-        Algorithms<Graph_list<std::string>, std::string> alg(g);
-        int dist = alg.Dijkstra_list(1, 3);
+        Algorithms<GraphMatrix<std::string>, std::string> alg(g);
+        int dist = alg.Dijkstra_matrix(1, 3);
         assert(dist == 9);
         std::cout << "1/4 passed\n";
     }
 
     static void testDijkstra_noPath() {
-        Graph_list<std::string> g;
+        GraphMatrix<std::string> g;
         g.addVertex(1, "A");
         g.addVertex(2, "B");
         g.addVertex(3, "C");
         g.addEdge(1, 2, 3);
 
-        Algorithms<Graph_list<std::string>, std::string> alg(g);
-        int dist = alg.Dijkstra_list(1, 3);
+        Algorithms<GraphMatrix<std::string>, std::string> alg(g);
+        int dist = alg.Dijkstra_matrix(1, 3);
         assert(dist == -1);
         std::cout << "2/4 passed\n";
     }
 
     static void testDijkstra_multiplePaths() {
-        Graph_list<std::string> g;
+        GraphMatrix<std::string> g;
         g.addVertex(1, "A");
         g.addVertex(2, "B");
         g.addVertex(3, "C");
@@ -53,23 +53,23 @@ private:
         g.addEdge(1, 3, 2);
         g.addEdge(3, 4, 1);
 
-        Algorithms<Graph_list<std::string>, std::string> alg(g);
-        int dist = alg.Dijkstra_list(1, 4);
-        assert(dist == 2);
+        Algorithms<GraphMatrix<std::string>, std::string> alg(g);
+        int dist = alg.Dijkstra_matrix(1, 4); // A → D
+        assert(dist == 2); // обираємо A → B → D = 1 + 1
         std::cout << "3/4 passed\n";
     }
 
     static void testDijkstra_invalidNodes() {
-        Graph_list<std::string> g;
+        GraphMatrix<std::string> g;
         g.addVertex(1, "A");
         g.addVertex(2, "B");
 
-        Algorithms<Graph_list<std::string>, std::string> alg(g);
-        int dist1 = alg.Dijkstra_list(0, 2);
-        int dist2 = alg.Dijkstra_list(1, 3);
+        Algorithms<GraphMatrix<std::string>, std::string> alg(g);
+        int dist1 = alg.Dijkstra_matrix(0, 2);
+        int dist2 = alg.Dijkstra_matrix(1, 3);
         assert(dist1 == -1 && dist2 == -1);
         std::cout << "4/4 passed\n";
     }
 };
 
-#endif // DIJKSTRALISTTESTING_H
+#endif //DIJKSTRAMATRIXTESTING_H

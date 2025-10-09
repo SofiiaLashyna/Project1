@@ -4,9 +4,9 @@
 #include "CelestialObject.h"
 #include "Planet.h"
 #include "Star.h"
-#include "Dijkstra_list.h"
+#include "DijkstraList.h"
 #include "GraphWidget.h"
-#include "Graph_list.h"
+#include "GraphList.h"
 #include "Nebula.h"
 #include "StarSystem.h"
 #include <QtWidgets/QApplication>
@@ -29,7 +29,7 @@ int main(int argc, char *argv[]) {
     solar.addPlanet(earth);
     solar.addPlanet(jupiter);
 
-    Galaxy<Graph_list<CelestialObject*>> galaxy("MilkyWay");
+    Galaxy<GraphList<CelestialObject*>> galaxy("MilkyWay");
     galaxy.addObject(&solar);
     galaxy.addObject(&sir_b);
     galaxy.addObject(&betelgeuse);
@@ -50,7 +50,7 @@ int main(int argc, char *argv[]) {
     std::cout << std::endl;
 
 
-    GraphAlgorithm<Graph_list<CelestialObject*>, CelestialObject *> *distance = new DijkstraAlgorithm< CelestialObject *>();
+    GraphAlgorithm<GraphList<CelestialObject*>, CelestialObject *> *distance = new DijkstraAlgorithm< CelestialObject *>();
     distance->run(galaxy.getGraph(), 1, 3);
 
 
