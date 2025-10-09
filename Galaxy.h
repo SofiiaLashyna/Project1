@@ -1,6 +1,7 @@
 #ifndef GALAXY_H
 #define GALAXY_H
 #include <utility>
+#include <iostream>
 #include <vector>
 #include "CelestialObject.h"
 
@@ -19,7 +20,11 @@ public:
 
     void addObject(CelestialObject *obj) {
         celestial_objects.push_back(obj);
-        systemGraph.addVertex(celestial_objects.size() - 1, obj);
+        systemGraph.addVertex(celestial_objects.size(), obj);
+    }
+
+    std::vector<CelestialObject *> getObject() {
+        return celestial_objects;
     }
 
     void connectObjects(int id1, int id2, int distance) {

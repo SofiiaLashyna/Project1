@@ -50,10 +50,10 @@ private:
         g.addObject(&star1);
         g.addObject(&star2);
 
-        g.connectObjects(0, 1, 100);
+        g.connectObjects(1, 2, 100);
 
-        assert(g.getGraph().edgeExists(0, 1) && "Vertices should be connected");
-        assert(!g.getGraph().edgeExists(0, 2) && "Non-existent vertex should not crash");
+        assert(g.getGraph().edgeExists(1, 2) && "Vertices should be connected");
+        assert(!g.getGraph().edgeExists(1, 3) && "Non-existent vertex should not crash");
 
         std::cout << "3/5 passed\n";
     }

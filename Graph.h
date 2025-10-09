@@ -71,4 +71,4 @@ public:
 
 };
 
-#endif //GRAPH_H
+#endif //GRAPH

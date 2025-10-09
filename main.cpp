@@ -4,13 +4,15 @@
 #include "CelestialObject.h"
 #include "Planet.h"
 #include "Star.h"
-#include "Dijkstra.h"
+#include "Dijkstra_list.h"
+#include "GraphWidget.h"
 #include "Graph_list.h"
 #include "Nebula.h"
 #include "StarSystem.h"
+#include <QtWidgets/QApplication>
 
 
-int main() {
+int main(int argc, char *argv[]) {
 
     Star sun("Sun", 1.0, 5778, Star::starType::Main_sequence_Star);
     Star betelgeuse("Betelgeuse", 11.6, 3500, Star::starType::Red_Giant);
@@ -36,7 +38,7 @@ int main() {
     galaxy.connectObjects(1, 2, 4);
     galaxy.connectObjects(2, 3, 6);
     galaxy.connectObjects(1, 3, 16);
-    galaxy.connectObjects(2, 4, 30);
+    galaxy.connectObjects(3, 4, 30);
 
 
     std::cout << "~~~GALAXY~~~\n\n";
@@ -48,7 +50,35 @@ int main() {
     std::cout << std::endl;
 
 
-    GraphAlgorithm<Graph_list<CelestialObject*>, CelestialObject *> *distance = new DijkstraAlgorithm<Graph_list<CelestialObject*>, CelestialObject *>();
+    GraphAlgorithm<Graph_list<CelestialObject*>, CelestialObject *> *distance = new DijkstraAlgorithm< CelestialObject *>();
     distance->run(galaxy.getGraph(), 1, 3);
-    return 0;
+
+
+    QApplication app(argc, argv);
+    std::vector<W_Vertex> vertices;
+    int i = 0;
+    for (auto obj : galaxy.getObject()) {
+        vertices.push_back({i, 0, 0, QString::fromStdString(obj->getName())}); // додамо ім'я для виводу
+        ++i;
+    }
+
+    std::vector<W_Edge> edges;
+    for (auto &e : galaxy.getGraph().getEdges()) {
+        edges.push_back({e.from, e.to, e.weight});
+    }
+
+    int n = vertices.size();
+    int radius = 150;
+    int cx = 200, cy = 200;
+    for(int i = 0; i < n; ++i) {
+        vertices[i].x = cx + radius * cos(2*M_PI*i/n);
+        vertices[i].y = cy + radius * sin(2*M_PI*i/n);
+    }
+
+    GraphWidget graphWidget;
+    graphWidget.resize(400, 400);
+    graphWidget.setGraph(vertices, edges);
+    graphWidget.show();
+
+    return app.exec();
 }
