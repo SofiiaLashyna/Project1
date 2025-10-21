@@ -104,6 +104,18 @@ target_link_libraries(DFSListTests PRIVATE ProjectLib gtest gtest_main Qt6::Core
 add_executable(DFSMatrixTests GoogleTests/DFSMatrixTests.cpp)
 target_link_libraries(DFSMatrixTests PRIVATE ProjectLib gtest gtest_main Qt6::Core Qt6::Widgets)
 
+add_executable(BFSListTests GoogleTests/BFSListTests.cpp)
+target_link_libraries(BFSListTests PRIVATE ProjectLib gtest gtest_main Qt6::Core Qt6::Widgets)
+
+add_executable(BFSMatrixTests GoogleTests/BFSMatrixTests.cpp)
+target_link_libraries(BFSMatrixTests PRIVATE ProjectLib gtest gtest_main Qt6::Core Qt6::Widgets)
+
+add_executable(GraphListTests GoogleTests/GraphListTests.cpp)
+target_link_libraries(GraphListTests PRIVATE ProjectLib gtest gtest_main Qt6::Core Qt6::Widgets)
+
+add_executable(GraphMatrixTests GoogleTests/GraphMatrixTests.cpp)
+target_link_libraries(GraphMatrixTests PRIVATE ProjectLib gtest gtest_main Qt6::Core Qt6::Widgets)
+
 
 add_executable(ProjectTests
         ${SOURCE_TESTS}

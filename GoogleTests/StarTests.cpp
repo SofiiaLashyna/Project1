@@ -1,8 +1,6 @@
 #include <gtest/gtest.h>
 #include "Star.h"
 
-// Тести для Star
-
 TEST(StarTest, Initialization) {
     Star star("Sun", 1.0, 5778.0, Star::starType::Main_sequence_Star);
 
