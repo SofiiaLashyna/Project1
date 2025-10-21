@@ -89,6 +89,21 @@ target_link_libraries(DijkstraListTests PRIVATE ProjectLib gtest gtest_main Qt6:
 add_executable(DijkstraMatrixTests GoogleTests/DijkstraMatrixTests.cpp)
 target_link_libraries(DijkstraMatrixTests PRIVATE ProjectLib gtest gtest_main Qt6::Core Qt6::Widgets)
 
+add_executable(QueueTests GoogleTests/QueueTests.cpp)
+target_link_libraries(QueueTests PRIVATE ProjectLib gtest gtest_main Qt6::Core Qt6::Widgets)
+
+add_executable(IsConnectedListTests GoogleTests/IsConnectedListTests.cpp)
+target_link_libraries(IsConnectedListTests PRIVATE ProjectLib gtest gtest_main Qt6::Core Qt6::Widgets)
+
+add_executable(IsConnectedMatrixTests GoogleTests/IsConnectedMatrixTests.cpp)
+target_link_libraries(IsConnectedMatrixTests PRIVATE ProjectLib gtest gtest_main Qt6::Core Qt6::Widgets)
+
+add_executable(DFSListTests GoogleTests/DFSListTests.cpp)
+target_link_libraries(DFSListTests PRIVATE ProjectLib gtest gtest_main Qt6::Core Qt6::Widgets)
+
+add_executable(DFSMatrixTests GoogleTests/DFSMatrixTests.cpp)
+target_link_libraries(DFSMatrixTests PRIVATE ProjectLib gtest gtest_main Qt6::Core Qt6::Widgets)
+
 
 add_executable(ProjectTests
         ${SOURCE_TESTS}
