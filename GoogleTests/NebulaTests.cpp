@@ -1,23 +1,27 @@
-#include <gtest/gtest.h>
+#include "gtest/gtest.h"
 #include "Nebula.h"
 
 TEST(NebulaTest, Initialization) {
-    Nebula nebula("Orion", 5.0, Nebula::nebulaType::Emission);
+    Nebula* nebula = new Nebula("Orion", 5.0, Nebula::nebulaType::Emission);
 
-    EXPECT_EQ(nebula.getName(), "Orion") << "Name should be correctly assigned";
-    EXPECT_DOUBLE_EQ(nebula.getMass(), 5.0) << "Mass should match constructor parameter";
-    EXPECT_EQ(nebula.nebula_type, Nebula::nebulaType::Emission)
+    EXPECT_EQ(nebula->getName(), "Orion") << "Name should be correctly assigned";
+    EXPECT_DOUBLE_EQ(nebula->getMass(), 5.0) << "Mass should match constructor parameter";
+    EXPECT_EQ(nebula->getNebulaType(), Nebula::nebulaType::Emission)
         << "Nebula type should match constructor parameter";
+delete nebula;
 }
 
 TEST(NebulaTest, GetType) {
-    Nebula nebula("Crab", 2.5, Nebula::nebulaType::Supernova);
-    std::string type = nebula.getType();
+    Nebula* nebula = new Nebula("Crab", 2.5, Nebula::nebulaType::Supernova);
+    std::string type = nebula->getType();
 
     EXPECT_EQ(type, "Nebula") << "getType() should return correct nebula type string";
+delete nebula;
 }
 
-int main(int argc, char **argv) {
-    ::testing::InitGoogleTest(&argc, argv);
-    return RUN_ALL_TESTS();
+
+TEST(NebulaTest, InvalidMass) {
+    EXPECT_THROW({
+        Nebula* s = new Nebula("Invalid", -1.0, Nebula::nebulaType::Emission);
+    }, std::invalid_argument);
 }

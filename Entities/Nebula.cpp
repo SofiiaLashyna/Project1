@@ -3,6 +3,9 @@
 #include <iostream>
 
 Nebula::Nebula(const std::string &name, double mass, nebulaType type) : CelestialObject(name, mass), nebula_type(type) {
+    if (mass<=0)
+        throw std::invalid_argument("Mass should be above zero!");
+
 }
 
 
@@ -30,4 +33,22 @@ void Nebula::displayInfo() const {
 
 std::string Nebula::getType() const {
     return "Nebula";
+}
+
+Nebula::nebulaType Nebula::getNebulaType() {
+    return nebula_type;
+}
+
+
+void Nebula::setNebulaType(std::string newtype) {
+    if(newtype == "Reflection nebula" || newtype == "reflection nebula")
+        nebula_type = nebulaType::Reflection;
+    if(newtype == "Emission nebula" || newtype == "emission nebula")
+        nebula_type = nebulaType::Emission;
+    if(newtype == "Supernova" || newtype == "supernova")
+        nebula_type = nebulaType::Supernova;
+    if(newtype == "Planetary nebula" || newtype == "planetary nebula")
+        nebula_type = nebulaType::Planetary;
+    if(newtype == "Dark nebula" || newtype == "dark nebula")
+        nebula_type = nebulaType::Dark;
 }

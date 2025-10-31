@@ -1,4 +1,4 @@
-#include <gtest/gtest.h>
+#include "gtest/gtest.h"
 #include "Queue.h"
 
 TEST(QueueTest, PushPopOrder) {
@@ -25,9 +25,4 @@ TEST(QueueTest, PopEmptyQueue) {
 
     EXPECT_EQ(v, -1) << "Popping from empty queue should return (-1, -1)";
     EXPECT_EQ(d, -1) << "Popping from empty queue should return (-1, -1)";
-}
-
-int main(int argc, char **argv) {
-    ::testing::InitGoogleTest(&argc, argv);
-    return RUN_ALL_TESTS();
 }

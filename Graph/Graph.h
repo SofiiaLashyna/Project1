@@ -19,7 +19,7 @@ public:
 
     int findIndexById(int id) const{
         for (int i = 0; i < vertices.size(); ++i)
-            if (vertices[i].id == id) return i;
+            if (vertices[i].getId() == id) return i;
         return -1;
     }
 
@@ -37,8 +37,8 @@ public:
 
     std::string vertexSearch(int id) {
             for(auto vert : vertices) {
-                if(vert.id == id) {
-                    return vert.data;
+                if(vert.getId() == id) {
+                    return vert.getData();
                 }
             }
             return "none";
@@ -62,8 +62,8 @@ public:
 
         for (auto& ed : edges) {
             if (!ed.isActive()) continue;
-            if (ed.from == idx) neighbors.push_back(vertexSearch(this->vertices[ed.to].id));
-            else if (ed.to == idx) neighbors.push_back(vertexSearch(this->vertices[ed.from].id));
+            if (ed.from == idx) neighbors.push_back(vertexSearch(this->vertices[ed.to].getId()));
+            else if (ed.to == idx) neighbors.push_back(vertexSearch(this->vertices[ed.from].getId()));
         }
         return neighbors;
     }

@@ -1,4 +1,5 @@
-#include <gtest/gtest.h>
+#include "TestFixtures.h"
+#include "gtest/gtest.h"
 #include "GraphList.h"
 #include "IsConnectedList.h"
 
@@ -17,17 +18,11 @@ TEST(IsConnectedListTest, SingleVertex) {
     EXPECT_EQ(alg.run(g), 1) << "Graph with one vertex should be connected";
 }
 
-TEST(IsConnectedListTest, ConnectedGraph) {
-    GraphList<std::string> g;
-    g.addVertex(1, "A");
-    g.addVertex(2, "B");
-    g.addVertex(3, "C");
-    g.addEdge(1, 2);
-    g.addEdge(2, 3);
-
+TEST_F(GraphListFixture, ConnectedGraph) {
     IsConnectedList<std::string> alg;
     EXPECT_EQ(alg.run(g), 1) << "Graph with a full path between all vertices should be connected";
 }
+
 
 TEST(IsConnectedListTest, DisconnectedGraph) {
     GraphList<std::string> g;
@@ -38,9 +33,4 @@ TEST(IsConnectedListTest, DisconnectedGraph) {
 
     IsConnectedList<std::string> alg;
     EXPECT_EQ(alg.run(g), 0) << "Graph with isolated vertices should not be connected";
-}
-
-int main(int argc, char **argv) {
-    ::testing::InitGoogleTest(&argc, argv);
-    return RUN_ALL_TESTS();
 }

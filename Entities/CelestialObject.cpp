@@ -10,5 +10,8 @@ std::string CelestialObject::getName() const{
 double CelestialObject::getMass() const{
     return mass;
 }
+void CelestialObject::setName(const std::string& newName) {
+    name = newName;
+}
 
 

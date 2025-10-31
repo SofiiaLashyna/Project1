@@ -16,7 +16,7 @@ private:
 public:
     StarSystem(int id, std::string name, Star &star);
 
-    void addPlanet(Planet &planet);
+    void addPlanet(Planet *planet);
 
     void removePlanet(const std::string &name);
 
@@ -28,7 +28,11 @@ public:
 
     std::string getType() const override;
 
+    double calculateMass();
+
     int getId();
+
+    void lifeExists(Planet& planet);
 
 };
 #endif //STARSYSTEM_H

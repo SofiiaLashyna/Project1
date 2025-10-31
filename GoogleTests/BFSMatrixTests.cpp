@@ -1,17 +1,37 @@
-#include <gtest/gtest.h>
-#include "GraphMatrix.h"
-#include "Algorithm.h"
-#include <sstream>
-#include <string>
+#include <RAIIGuard.h>
 
+#include "Algorithm.h"
+#include "GraphMatrix.h"
+#include <string>
+#include "gtest/gtest.h"
+#include "TestFixtures.h"
+
+TEST_F(BFSMatrixFixture, BasicBFS) {
+    std::stringstream out;
+    CoutGuard guard(out);
+    alg->BFS_matrix(1);
+
+
+    std::string bfsOutput = out.str();
+
+    std::istringstream iss(bfsOutput);
+    std::vector<std::string> words;
+    std::string word;
+
+    while (iss >> word) words.push_back(word);
+
+    std::vector<std::string> bfsVertices(words.begin() + 3, words.end());
+    std::vector<std::string> expectedOrder = {"A", "B", "C"};
+
+    EXPECT_EQ(bfsVertices, expectedOrder) << "BFS order should be A, B, C";
+}
 TEST(BFSMatrixTests, EmptyGraph) {
     GraphMatrix<std::string> g;
     Algorithms<GraphMatrix<std::string>, std::string> alg(g);
 
     std::stringstream out;
-    std::streambuf* oldCout = std::cout.rdbuf(out.rdbuf());
+    CoutGuard guard(out);
     alg.BFS_matrix(1);
-    std::cout.rdbuf(oldCout);
 
     std::string output = out.str();
     EXPECT_TRUE(output.empty()) << "BFS on empty graph should produce no output";
@@ -24,9 +44,8 @@ TEST(BFSMatrixTests, SingleVertex) {
     Algorithms<GraphMatrix<std::string>, std::string> alg(g);
 
     std::stringstream out;
-    std::streambuf* oldCout = std::cout.rdbuf(out.rdbuf());
+    CoutGuard guard(out);
     alg.BFS_matrix(1);
-    std::cout.rdbuf(oldCout);
 
     std::string bfsOutput = out.str();
     EXPECT_NE(bfsOutput.find("A"), std::string::npos) << "BFS should visit vertex A";
@@ -38,31 +57,4 @@ TEST(BFSMatrixTests, SingleVertex) {
         pos++;
     }
     EXPECT_EQ(countA, 1) << "BFS should output vertex A only once";
-}
-
-TEST(BFSMatrixTests, BasicBFS) {
-    GraphMatrix<std::string> g;
-    g.addVertex(1, "A");
-    g.addVertex(2, "B");
-    g.addVertex(3, "C");
-    g.addEdge(1, 2, 1);
-    g.addEdge(1, 3, 1);
-
-    Algorithms<GraphMatrix<std::string>, std::string> alg(g);
-
-    std::stringstream out;
-    std::streambuf* oldCout = std::cout.rdbuf(out.rdbuf());
-    alg.BFS_matrix(1);
-    std::cout.rdbuf(oldCout);
-
-    std::string bfsOutput = out.str();
-
-    EXPECT_NE(bfsOutput.find("A"), std::string::npos) << "BFS should visit A";
-    EXPECT_NE(bfsOutput.find("B"), std::string::npos) << "BFS should visit B";
-    EXPECT_NE(bfsOutput.find("C"), std::string::npos) << "BFS should visit C";
-}
-
-int main(int argc, char **argv) {
-    ::testing::InitGoogleTest(&argc, argv);
-    return RUN_ALL_TESTS();
 }

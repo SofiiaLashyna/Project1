@@ -26,8 +26,8 @@ TEST(DijkstraListTest, NoPath) {
 
     Algorithms<GraphList<std::string>, std::string> alg(g);
     int dist = alg.Dijkstra_list(1, 3);
-
-    EXPECT_EQ(dist, -1) << "If no path exists, Dijkstra should return -1";
+    constexpr int NO_PATH = -1;
+    EXPECT_EQ(dist, NO_PATH) << "If no path exists, Dijkstra should return -1";
 }
 
 TEST(DijkstraListTest, MultiplePaths) {
@@ -56,12 +56,7 @@ TEST(DijkstraListTest, InvalidNodes) {
     Algorithms<GraphList<std::string>, std::string> alg(g);
     int dist1 = alg.Dijkstra_list(0, 2);
     int dist2 = alg.Dijkstra_list(1, 3);
-
-    EXPECT_EQ(dist1, -1) << "Invalid start node should return -1";
-    EXPECT_EQ(dist2, -1) << "Invalid end node should return -1";
-}
-
-int main(int argc, char **argv) {
-    ::testing::InitGoogleTest(&argc, argv);
-    return RUN_ALL_TESTS();
+    constexpr int NO_PATH = -1;
+    EXPECT_EQ(dist1, NO_PATH) << "Invalid start node should return -1";
+    EXPECT_EQ(dist2, NO_PATH) << "Invalid end node should return -1";
 }

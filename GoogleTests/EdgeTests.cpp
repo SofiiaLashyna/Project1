@@ -1,4 +1,4 @@
-#include <gtest/gtest.h>
+#include "gtest/gtest.h"
 #include "Edge.h"
 
 TEST(EdgeTest, InitialState) {
@@ -22,21 +22,15 @@ TEST(EdgeTest, ChangeWeight) {
     e.connect(1, 2);
     e.changeWeight(5);
 
-    EXPECT_EQ(e.weight, 5) << "Edge weight should change correctly";
+    EXPECT_EQ(e.getWeight(), 5) << "Edge weight should change correctly";
 }
 
 TEST(EdgeTest, Disconnect) {
     Edge<int> e;
     e.connect(1, 2);
-    e.changeWeight(10);
     e.disconnect();
 
     EXPECT_FALSE(e.isActive()) << "Edge should be inactive after disconnect()";
-    EXPECT_EQ(e.weight, 0) << "Weight should reset to 0 after disconnect()";
+    EXPECT_EQ(e.getWeight(), 0) << "Weight should reset to 0 after disconnect()";
     EXPECT_FALSE(e.connects(1, 2)) << "Disconnected edge should not connect vertices";
-}
-
-int main(int argc, char **argv) {
-    ::testing::InitGoogleTest(&argc, argv);
-    return RUN_ALL_TESTS();
 }

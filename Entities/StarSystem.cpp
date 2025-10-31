@@ -17,9 +17,9 @@ Star &StarSystem::getStar() {
 }
 
 
-void StarSystem::addPlanet(Planet &planet) {
-    planets.push_back(planet);
-    mass += planet.getMass();
+void StarSystem::addPlanet(Planet *planet) {
+    planets.push_back(*planet);
+    mass += (*planet).getMass();
 }
 
 void StarSystem::removePlanet(const std::string &name) {
@@ -46,4 +46,53 @@ std::string StarSystem::getType() const {
     return "StarSystem";
 }
 
+double StarSystem::calculateMass() {
+    double mass =0;
+    mass += centralStar.mass;
+    for (auto i : planets) {
+        mass += i.mass;
+    }
+    return mass;
+}
 
+
+void StarSystem::lifeExists(Planet& planet) {
+    double radius = planet.getOrbit();
+    if(centralStar.getStarType() == Star::starType::Main_sequence_Star) {
+        if(radius>= 0.8 && radius<= 30)
+            planet.setLifeExistence(true);
+        else
+            planet.setLifeExistence(false);
+    }
+    else if(centralStar.getStarType() == Star::starType::Red_Dwarf) {
+        if(radius>=0.01 && radius<=0.3)
+            planet.setLifeExistence(true);
+        else
+            planet.setLifeExistence(false);
+    }
+
+    else if(centralStar.getStarType() == Star::starType::Red_Giant) {
+        if(radius>=10 && radius<=100)
+            planet.setLifeExistence(true);
+        else
+            planet.setLifeExistence(false);
+    }
+
+    else if(centralStar.getStarType() == Star::starType::White_Dwarf) {
+        if(radius>=0.001 && radius<=0.02)
+            planet.setLifeExistence(true);
+        else
+            planet.setLifeExistence(false);
+    }
+
+    else if(centralStar.getStarType() == Star::starType::Brown_Dwarf) {
+        if(radius>=0.0005 && radius<=0.002)
+            planet.setLifeExistence(true);
+        else
+            planet.setLifeExistence(false);
+    }
+
+    else if(centralStar.getStarType() == Star::starType::Neutron_Star) {
+        planet.setLifeExistence(false);
+    }
+}

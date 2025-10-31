@@ -3,28 +3,23 @@
 #include "GraphList.h"
 #include <sstream>
 #include <string>
+#include "TestFixtures.h"
+#include "RAIIGuard.h"
 
-TEST(BFSTest, BasicBFS) {
-    GraphList<std::string> g;
-    g.addVertex(1, "A");
-    g.addVertex(2, "B");
-    g.addVertex(3, "C");
-    g.addEdge(1, 2, 1);
-    g.addEdge(1, 3, 1);
-
-    Algorithms<GraphList<std::string>, std::string> alg(g);
-
+TEST_F(BFSListFixture, BasicBFS) {
     std::stringstream out;
-    std::streambuf* oldCout = std::cout.rdbuf(out.rdbuf());
+    CoutGuard guard(out);
+    alg->BFS_list(1);
 
-    alg.BFS_list(1);
-    std::cout.rdbuf(oldCout);
-
-    std::string bfsOutput = out.str();
-    EXPECT_NE(bfsOutput.find("A"), std::string::npos);
-    EXPECT_NE(bfsOutput.find("B"), std::string::npos);
-    EXPECT_NE(bfsOutput.find("C"), std::string::npos);
+    std::vector<std::string> expectedOrder = { "A", "B", "C"};
+    std::stringstream ss(out.str());
+    std::string word;
+    std::vector<std::string> bfsOrder;
+    while (ss >> word) bfsOrder.push_back(word);
+    std::vector<std::string> bfsVertices(bfsOrder.begin() + 2, bfsOrder.end());
+    EXPECT_EQ(bfsVertices, expectedOrder);
 }
+
 
 TEST(BFSTest, EmptyGraph) {
     GraphList<std::string> g;
@@ -38,12 +33,9 @@ TEST(BFSTest, SingleVertex) {
     g.addVertex(1, "A");
 
     Algorithms<GraphList<std::string>, std::string> alg(g);
-
     std::stringstream out;
-    std::streambuf* oldCout = std::cout.rdbuf(out.rdbuf());
-
+    CoutGuard guard(out);
     alg.BFS_list(1);
-    std::cout.rdbuf(oldCout);
 
     std::string bfsOutput = out.str();
     EXPECT_NE(bfsOutput.find("A"), std::string::npos);
@@ -55,9 +47,4 @@ TEST(BFSTest, SingleVertex) {
         pos++;
     }
     EXPECT_EQ(countA, 1);
-}
-
-int main(int argc, char **argv) {
-    ::testing::InitGoogleTest(&argc, argv);
-    return RUN_ALL_TESTS();
 }

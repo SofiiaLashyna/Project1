@@ -1,20 +1,14 @@
-#include <gtest/gtest.h>
+#include "gtest/gtest.h"
 #include "GraphMatrix.h"
 #include "Algorithm.h"
-#include <sstream>
 #include <string>
-
+#include "TestFixtures.h"
 TEST(DFSMatrixTests, EmptyGraph) {
     GraphMatrix<std::string> g;
     Algorithms<GraphMatrix<std::string>, std::string> alg(g);
 
-    std::stringstream out;
-    std::streambuf* oldCout = std::cout.rdbuf(out.rdbuf());
-    alg.DFS_matrix(1);
-    std::cout.rdbuf(oldCout);
-
-    std::string output = out.str();
-    EXPECT_TRUE(output.empty()) << "DFS on empty graph should produce no output";
+    auto dfsResult = alg.DFS_matrix(1);
+    EXPECT_TRUE(dfsResult.empty()) << "DFS on empty graph should produce no output";
 }
 
 TEST(DFSMatrixTests, SingleVertex) {
@@ -23,46 +17,14 @@ TEST(DFSMatrixTests, SingleVertex) {
 
     Algorithms<GraphMatrix<std::string>, std::string> alg(g);
 
-    std::stringstream out;
-    std::streambuf* oldCout = std::cout.rdbuf(out.rdbuf());
-    alg.DFS_matrix(1);
-    std::cout.rdbuf(oldCout);
+    auto dfsResult = alg.DFS_matrix(1);
 
-    std::string dfsOutput = out.str();
-    EXPECT_NE(dfsOutput.find("A"), std::string::npos) << "DFS should visit vertex A";
-
-    int countA = 0;
-    size_t pos = 0;
-    while ((pos = dfsOutput.find("A", pos)) != std::string::npos) {
-        countA++;
-        pos++;
-    }
-    EXPECT_EQ(countA, 1) << "DFS should output vertex A only once";
+    ASSERT_EQ(dfsResult.size(), 1);
+    EXPECT_EQ(dfsResult[0], "A") << "DFS should visit only vertex A";
 }
+TEST_F(BFSMatrixFixture, BasicDFS_Clean) {
+    auto dfsVertices = alg->DFS_matrix(1);
+    std::vector<std::string> expected = {"A", "B", "C"};
+    EXPECT_EQ(dfsVertices, expected) << "DFS order should be A, B, C";
 
-TEST(DFSMatrixTests, BasicDFS) {
-    GraphMatrix<std::string> g;
-    g.addVertex(1, "A");
-    g.addVertex(2, "B");
-    g.addVertex(3, "C");
-    g.addEdge(1, 2, 1);
-    g.addEdge(1, 3, 1);
-
-    Algorithms<GraphMatrix<std::string>, std::string> alg(g);
-
-    std::stringstream out;
-    std::streambuf* oldCout = std::cout.rdbuf(out.rdbuf());
-    alg.DFS_matrix(1);
-    std::cout.rdbuf(oldCout);
-
-    std::string dfsOutput = out.str();
-
-    EXPECT_NE(dfsOutput.find("A"), std::string::npos) << "DFS should visit A";
-    EXPECT_NE(dfsOutput.find("B"), std::string::npos) << "DFS should visit B";
-    EXPECT_NE(dfsOutput.find("C"), std::string::npos) << "DFS should visit C";
-}
-
-int main(int argc, char **argv) {
-    ::testing::InitGoogleTest(&argc, argv);
-    return RUN_ALL_TESTS();
 }

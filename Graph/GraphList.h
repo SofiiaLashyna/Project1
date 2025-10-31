@@ -34,7 +34,7 @@ public:
 
     void addVertex(int id, T data) override {
         if (this->findIndexById(id) != -1) return;
-        Vertex<T> vertex; vertex.id = id; vertex.data = data;
+        Vertex<T> vertex; vertex.setId(id); vertex.setData(data);
         this->vertices.push_back(vertex);
         adjacencyList.resize(this->vertices.size());
      }
@@ -43,11 +43,11 @@ public:
         int idx = this->findIndexById(id);
         if (idx == -1) return;
 
-        this->vertices[idx].id = -1;
-        this->vertices[idx].data = T{};
+        this->vertices[idx].setId(-1);
+        this->vertices[idx].setData(T{});
 
         for (auto &edge : this->edges) {
-            if (edge.from == idx || edge.to == idx) edge.disconnect();
+            if (edge.getFrom() == idx || edge.getTo() == idx) edge.disconnect();
         }
 
         constructAdjacency();
@@ -59,7 +59,7 @@ public:
         if (f == -1 || t == -1) return;
 
         for (auto &edge : this->edges) {
-            if ((edge.from == f && edge.to == t) || (edge.from == t && edge.to == f))
+            if ((edge.getFrom() == f && edge.getTo() == t) || (edge.getFrom() == t && edge.getTo() == f))
                 edge.disconnect();
         }
 
@@ -69,10 +69,10 @@ public:
     void print() const override{
             std::cout << "Graph adjacency list:\n";
             for (size_t i = 0; i < adjacencyList.size(); i++) {
-                if(this->vertices[i].id !=-1) {
-                    std::cout << "Vertex " << this->vertices[i].id << " (" << this->vertices[i].data << "): ";
+                if(this->vertices[i].getId() !=-1) {
+                    std::cout << "Vertex " << this->vertices[i].getId() << " (" << this->vertices[i].getData() << "): ";
                     for (auto& [neighborIdx, weight] : adjacencyList[i]) {
-                        std::cout << this->vertices[neighborIdx].data << " (w=" << weight << ") ";
+                        std::cout << this->vertices[neighborIdx].getData() << " (w=" << weight << ") ";
                     }
                     std::cout << std::endl;
                 }

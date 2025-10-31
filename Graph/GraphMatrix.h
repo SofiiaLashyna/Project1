@@ -39,7 +39,7 @@ public:
 
     void addVertex(int id, T data)  override {
         if (this->findIndexById(id) != -1) return;
-        Vertex<T> vertex; vertex.id = id; vertex.data = data;
+        Vertex<T> vertex; vertex.setId(id); vertex.setData(data);
         this->vertices.push_back(vertex);
         constructAdjacency();
     }
@@ -53,11 +53,11 @@ public:
 
         std::cout << "    ";
         for (const auto &v : this->vertices)
-            std::cout << v.id << " ";
+            std::cout << v.getId() << " ";
         std::cout << "\n";
 
         for (int i = 0; i < n; ++i) {
-            std::cout << this->vertices[i].id << " : ";
+            std::cout << this->vertices[i].getId() << " : ";
             for (int j = 0; j < n; ++j) {
                 std::cout << adjacencyMatrix[i][j] << " ";
             }
@@ -69,8 +69,8 @@ public:
         int idx = this->findIndexById(id);
         if (idx == -1) return;
 
-        this->vertices[idx].id = -1;
-        this->vertices[idx].data = T{};
+        this->vertices[idx].setId(-1);
+        this->vertices[idx].setData(T{});
 
         for (auto &edge : this->edges) {
             if (edge.from == idx || edge.to == idx) edge.disconnect();
