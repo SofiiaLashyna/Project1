@@ -1,0 +1,60 @@
+#include <RAIIGuard.h>
+
+#include "Algorithm.h"
+#include "GraphMatrix.h"
+#include <string>
+#include "gtest/gtest.h"
+#include "TestFixtures.h"
+
+TEST_F(BFSMatrixFixture, BasicBFS) {
+    std::stringstream out;
+    CoutGuard guard(out);
+    alg->BFS_matrix(1);
+
+
+    std::string bfsOutput = out.str();
+
+    std::istringstream iss(bfsOutput);
+    std::vector<std::string> words;
+    std::string word;
+
+    while (iss >> word) words.push_back(word);
+
+    std::vector<std::string> bfsVertices(words.begin() + 3, words.end());
+    std::vector<std::string> expectedOrder = {"A", "B", "C"};
+
+    EXPECT_EQ(bfsVertices, expectedOrder) << "BFS order should be A, B, C";
+}
+TEST(BFSMatrixTests, EmptyGraph) {
+    GraphMatrix<std::string> g;
+    Algorithms<GraphMatrix<std::string>, std::string> alg(g);
+
+    std::stringstream out;
+    CoutGuard guard(out);
+    alg.BFS_matrix(1);
+
+    std::string output = out.str();
+    EXPECT_TRUE(output.empty()) << "BFS on empty graph should produce no output";
+}
+
+TEST(BFSMatrixTests, SingleVertex) {
+    GraphMatrix<std::string> g;
+    g.addVertex(1, "A");
+
+    Algorithms<GraphMatrix<std::string>, std::string> alg(g);
+
+    std::stringstream out;
+    CoutGuard guard(out);
+    alg.BFS_matrix(1);
+
+    std::string bfsOutput = out.str();
+    EXPECT_NE(bfsOutput.find("A"), std::string::npos) << "BFS should visit vertex A";
+
+    int countA = 0;
+    size_t pos = 0;
+    while ((pos = bfsOutput.find("A", pos)) != std::string::npos) {
+        countA++;
+        pos++;
+    }
+    EXPECT_EQ(countA, 1) << "BFS should output vertex A only once";
+}

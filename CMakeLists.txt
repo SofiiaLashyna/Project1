@@ -8,38 +8,90 @@ include_directories(
         Graph
         Algorithms
         UnitTests
+        GoogleTests
+        GalaxyView
+        RandomGalaxy
+        Include
 )
+include(FetchContent)
+
+FetchContent_Declare(
+        googletest
+        URL https://github.com/google/googletest/archive/refs/heads/main.zip
+)
+set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
+
+FetchContent_MakeAvailable(googletest)
+
 
 file(GLOB SOURCES_MAIN
         "main.cpp"
         "Entities/*.cpp"
         "Graph/*.cpp"
         "Algorithms/*.cpp"
+        "MainWindow/*.cpp"
 )
 
 file(GLOB SOURCE_TESTS
         "UnitTests/*.cpp"
-        "Entities/*.cpp"
-        "Graph/*.cpp"
-        "Algorithms/*.cpp"
 )
+
+set(CMAKE_AUTOUIC ON)
+set(CMAKE_AUTOMOC ON)
+set(CMAKE_AUTORCC ON)
 
 set(CMAKE_PREFIX_PATH "D:/Qt/6.9.3/mingw_64")
 
 find_package(Qt6 COMPONENTS Core Widgets REQUIRED)
 
-
 qt6_wrap_cpp(MOC_SOURCES Graph/GraphWidget.h)
 
-add_executable(Project1
+add_library(ProjectLib STATIC
         ${SOURCES_MAIN}
         ${MOC_SOURCES}
 )
 
-add_executable(ProjectTests
-        ${SOURCE_TESTS}
+target_link_libraries(ProjectLib PRIVATE Qt6::Core Qt6::Widgets)
 
+add_executable(Project1
+        main.cpp
+        MainWindow/windowinterface.cpp
+        MainWindow/windowinterface.h
+        MainWindow/windowinterface.ui
+        GalaxyView/galaxyview.cpp
+        GalaxyView/galaxyview.h
+        GalaxyView/galaxyview.ui
 )
 
-target_link_libraries(Project1 PRIVATE Qt6::Core Qt6::Widgets)
+target_link_libraries(Project1 PRIVATE ProjectLib Qt6::Core Qt6::Widgets)
 
+add_executable(AllTests
+        GoogleTests/AllTests.cpp
+        GoogleTests/PlanetTests.cpp
+        GoogleTests/GraphMatrixTests.cpp
+        GoogleTests/GraphListTests.cpp
+        GoogleTests/BFSMatrixTests.cpp
+        GoogleTests/BFSListTests.cpp
+        GoogleTests/DFSMatrixTests.cpp
+        GoogleTests/DFSListTests.cpp
+        GoogleTests/IsConnectedMatrixTests.cpp
+        GoogleTests/IsConnectedListTests.cpp
+        GoogleTests/QueueTests.cpp
+        GoogleTests/DijkstraMatrixTests.cpp
+        GoogleTests/DijkstraListTests.cpp
+        GoogleTests/VertexTests.cpp
+        GoogleTests/EdgeTests.cpp
+        GoogleTests/GalaxyMatrixTests.cpp
+        GoogleTests/GalaxyListTests.cpp
+        GoogleTests/StarSystemTests.cpp
+        GoogleTests/StarTests.cpp
+        GoogleTests/NebulaTests.cpp
+        GoogleTests/PlanetTests.cpp
+)
+target_link_libraries(AllTests PRIVATE ProjectLib gtest gtest_main Qt6::Core Qt6::Widgets)
+
+
+add_executable(ProjectTests
+        ${SOURCE_TESTS}
+)
+target_link_libraries(ProjectTests PRIVATE ProjectLib Qt6::Core Qt6::Widgets)

@@ -23,7 +23,7 @@ public:
         std::cout << "BFS order: ";
         while (!q.empty()) {
             auto [u, d] = q.popMin();
-            std::cout << graph.getVertices()[u].data << " ";
+            std::cout << graph.getVertices()[u].getData() << " ";
             for (auto &[v, w]: graph.adjacencyList[u]) {
                 if (!visited[v]) {
                     visited[v] = true;
@@ -48,7 +48,7 @@ public:
 
         while (!q.empty()) {
             auto [u, _] = q.popMin();
-            std::cout << graph.getVertices()[u].data << " ";
+            std::cout << graph.getVertices()[u].getData() << " ";
 
             for (int v = 0; v < n; ++v) {
                 if (graph.adjacencyMatrix[u][v] && !visited[v]) {
@@ -75,7 +75,7 @@ public:
             stack.pop_back();
             if (visited[v]) continue;
             visited[v] = true;
-            std::cout << graph.getVertices()[v].data << " ";
+            std::cout << graph.getVertices()[v].getData() << " ";
 
             for (int i = (int) graph.adjacencyList[v].size() - 1; i >= 0; --i) {
                 int neighbor = graph.adjacencyList[v][i].first;
@@ -84,26 +84,26 @@ public:
         }
         std::cout << std::endl;
     }
-
-    void DFS_matrix(int startId) {
+    std::vector<T> DFS_matrix(int startId) {
         int start = graph.findIndexById(startId);
-        if (start == -1 || graph.adjacencyMatrix.empty()) return;
+        if (start == -1 || graph.adjacencyMatrix.empty())
+            return {};
 
         int n = graph.adjacencyMatrix.size();
         std::vector<bool> visited(n, false);
         std::vector<int> stack;
+        std::vector<T> dfsOrder;
         stack.push_back(start);
-
-        std::cout << "DFS (matrix) order: ";
 
         while (!stack.empty()) {
             int v = stack.back();
             stack.pop_back();
 
-            if (visited[v]) continue;
+            if (visited[v])
+                continue;
             visited[v] = true;
 
-            std::cout << graph.getVertices()[v].data << " ";
+            dfsOrder.push_back(graph.getVertices()[v].getData()); // ✅ додаємо вершину у результат
 
             for (int u = n - 1; u >= 0; --u) {
                 if (graph.adjacencyMatrix[v][u] && !visited[u]) {
@@ -112,8 +112,9 @@ public:
             }
         }
 
-        std::cout << std::endl;
+        return dfsOrder;
     }
+
 
 
     int Dijkstra_list(int startId, int endId) {
