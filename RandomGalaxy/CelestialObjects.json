@@ -1,0 +1,96 @@
+{
+  "Nebulae": [
+    {
+      "nebulaType": "Planetary",
+      "mass": [33300, 333000],
+      "name": "C:/Users/Prj/Project1/RandomGalaxy/names/planetaryNebula.txt"
+    },
+    {
+      "nebulaType": "Supernova",
+      "mass": [333000, 16650000],
+      "name": "C:/Users/Prj/Project1/RandomGalaxy/names/supernova.txt"
+    },
+    {
+      "nebulaType": "Emission",
+      "mass": [33000000, 3300000000],
+      "name": "C:/Users/Prj/Project1/RandomGalaxy/names/emissionNebula.txt"
+    },
+    {
+      "nebulaType": "Reflection",
+      "mass": [33000000, 666000000],
+      "name": "C:/Users/Prj/Project1/RandomGalaxy/names/reflectionNebula.txt"
+    },
+    {
+      "nebulaType": "Dark",
+      "mass": [333000000, 333000000000],
+      "name": "C:/Users/Prj/Project1/RandomGalaxy/names/darkNebula.txt"
+    }
+  ],
+  "Planets": [
+    {
+      "planetType": "Gas_Giant",
+      "orbitRadius": [5, 30],
+      "orbitSpeed": [5.4, 13.1],
+      "Inclination": [0, 3],
+      "mass": [14, 318],
+      "name": "C:/Users/Prj/Project1/RandomGalaxy/names/gasGiant.txt"
+    },
+    {
+      "planetType": "Dwarf",
+      "orbitRadius": [2.8, 68],
+      "orbitSpeed": [3.4, 18],
+      "Inclination": [10, 44],
+      "mass": [0.003, 0.04],
+      "name": "C:/Users/Prj/Project1/RandomGalaxy/names/dwarfPlanet.txt"
+    },
+    {
+      "planetType": "Terrestrial_Planet",
+      "orbitRadius": [0.3, 1.5],
+      "orbitSpeed": [24, 47.9],
+      "Inclination": [0, 7],
+      "mass": [0.05, 1],
+      "name": "C:/Users/Prj/Project1/RandomGalaxy/names/terrestrialPlanet.txt"
+    }
+  ],
+  "Stars": [
+    {
+      "starType": "Red_Giant",
+      "temperature": [3000, 5000],
+      "mass": [100000, 2664000],
+      "name": "C:/Users/Prj/Project1/RandomGalaxy/names/redGiant.txt"
+    },
+    {
+      "starType": "White_Dwarf",
+      "temperature": [4000, 150000],
+      "mass": [6600, 480000],
+      "name": "C:/Users/Prj/Project1/RandomGalaxy/names/whiteDwarf.txt"
+    },
+    {
+      "starType": "Red_Dwarf",
+      "temperature": [2400, 3900],
+      "mass": [26640, 200000],
+      "name": "C:/Users/Prj/Project1/RandomGalaxy/names/redDwarf.txt"
+    },
+    {
+      "starType": "Main_sequence_Star",
+      "temperature": [2400, 40000],
+      "mass": [26640, 33300000],
+      "name": "C:/Users/Prj/Project1/RandomGalaxy/names/mainSequenceStar.txt"
+    },
+    {
+      "starType": "Brown_Dwarf",
+      "temperature": [300, 2800],
+      "mass": [4330, 26640],
+      "name": "C:/Users/Prj/Project1/RandomGalaxy/names/brownDwarf.txt"
+    },
+    {
+      "starType": "Neutron_Star",
+      "temperature": [300, 2800],
+      "mass": [366000, 733000],
+      "name": "C:/Users/Prj/Project1/RandomGalaxy/names/neutronStar.txt"
+    }
+  ],
+  "Galaxy": [
+  "C:/Users/Prj/Project1/RandomGalaxy/names/galaxy.txt"
+]
+}

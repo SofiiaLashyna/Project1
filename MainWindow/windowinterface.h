@@ -1,15 +1,44 @@
+// #ifndef WINDOWINTERFACE_H
+// #define WINDOWINTERFACE_H
+//
+// #include <QWidget>
+//
+//
+// QT_BEGIN_NAMESPACE
+// namespace Ui { class WindowInterface; }
+// QT_END_NAMESPACE
+//
+// class WindowInterface : public QWidget {
+// Q_OBJECT
+//
+// public:
+//     explicit WindowInterface(QWidget *parent = nullptr);
+//     ~WindowInterface() override;
+//
+// private:
+//     Ui::WindowInterface *ui;
+//     void generateGalaxy();
+// };
+//
+//
+// #endif //WINDOWINTERFACE_H
 #ifndef WINDOWINTERFACE_H
 #define WINDOWINTERFACE_H
 
 #include <QWidget>
-
+#include "RandomUtilities.h"
+#include "nlohmann/json.hpp"
+#include <fstream>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class WindowInterface; }
 QT_END_NAMESPACE
 
-class WindowInterface : public QWidget {
-Q_OBJECT
+class GalaxyView; // оголошення
+
+class WindowInterface : public QWidget
+{
+    Q_OBJECT
 
 public:
     explicit WindowInterface(QWidget *parent = nullptr);
@@ -17,7 +46,12 @@ public:
 
 private:
     Ui::WindowInterface *ui;
+    GalaxyView *galaxyView;
+    RandomGenerator rng;
+    nlohmann::json data;
+    bool dataLoaded = false;
+
+    void loadJsonData();
 };
 
-
-#endif //WINDOWINTERFACE_H
+#endif // WINDOWINTERFACE_H

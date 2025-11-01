@@ -12,7 +12,7 @@ struct W_Edge {
 
 struct W_Vertex {
     int id;
-    int x, y; // координати на вікні
+    int x, y;
     QString name;
 };
 
