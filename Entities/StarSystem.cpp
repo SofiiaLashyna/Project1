@@ -31,6 +31,11 @@ void StarSystem::removePlanet(const std::string &name) {
     }
 }
 
+void StarSystem::removePlanet() {
+    planets.pop_back();
+}
+
+
 void StarSystem::displayInfo() const{
     std::cout << "Star system: " << name << "\n Central star: " << centralStar.getName();
     std::cout << "\n planets in orbit: \n";
@@ -50,7 +55,7 @@ double StarSystem::calculateMass() {
     double mass =0;
     mass += centralStar.mass;
     for (auto i : planets) {
-        mass += i.mass;
+        mass += i.getMass();
     }
     return mass;
 }

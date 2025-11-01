@@ -18,6 +18,8 @@ public:
 
     void addPlanet(Planet *planet);
 
+    void removePlanet();
+
     void removePlanet(const std::string &name);
 
     Star &getStar();

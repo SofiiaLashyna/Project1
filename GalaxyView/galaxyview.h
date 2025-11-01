@@ -10,7 +10,6 @@
 #include <cmath>
 #include <qboxlayout.h>
 #include <QDialog>
-#include <QLabel>
 #include <qlineedit.h>
 #include <QPushButton>
 #include <QSpinBox>
@@ -53,10 +52,14 @@ public:
                               RandomGenerator* rng,
                               const nlohmann::json* data,
                               QWidget* parent = nullptr);
+
+
     QString getNewGalaxyName() const;
     private slots:
         void on_addStarSystem_clicked();
     void on_addNebula_clicked();
+    signals:
+    void galaxyModified();
 private:
     Galaxy<GraphList<CelestialObject*>>* galaxy;
     QLineEdit* nameEdit;

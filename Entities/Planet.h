@@ -18,6 +18,7 @@ public:
 
     double getOrbit();
 
+
     bool isHabitable();
 
     void setLifeExistence(bool life);

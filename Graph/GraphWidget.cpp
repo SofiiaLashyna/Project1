@@ -1,5 +1,6 @@
 #include "GraphWidget.h"
 #include <QtGui/QPainter>
+#include <QMouseEvent>
 
 GraphWidget::GraphWidget(QWidget *parent)
     : QWidget(parent) {}
@@ -37,3 +38,5 @@ void GraphWidget::paintEvent(QPaintEvent *event) {
         painter.drawText(vertex.x + 12, vertex.y, vertex.name);
     }
 }
+
+
