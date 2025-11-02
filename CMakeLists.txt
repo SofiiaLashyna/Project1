@@ -12,6 +12,8 @@ include_directories(
         GalaxyView
         RandomGalaxy
         Include
+        StarSystemView
+        NebulaView
 )
 include(FetchContent)
 

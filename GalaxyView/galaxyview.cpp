@@ -10,14 +10,13 @@
 #include <QDebug>
 #include <QMessageBox>
 
-GalaxyView::GalaxyView(QWidget *parent) :
-    QWidget(parent), ui(new Ui::GalaxyView) {
+GalaxyView::GalaxyView(QWidget *parent) : QWidget(parent), ui(new Ui::GalaxyView) {
     ui->setupUi(this);
 
     graphWidget = new GraphWidget(this);
 
     if (ui->graphArea->layout() == nullptr) {
-        QVBoxLayout* layout = new QVBoxLayout(ui->graphArea);
+        QVBoxLayout *layout = new QVBoxLayout(ui->graphArea);
         layout->setContentsMargins(0, 0, 0, 0);
     }
 
@@ -45,10 +44,13 @@ GalaxyView::GalaxyView(QWidget *parent) :
     infoText->setText("Galaxy not generated yet.");
     infoText->setStyleSheet("background-color: #444; color: #eee; border: none;");
 
-    QPushButton* editButton = new QPushButton("✎ Edit..", paramsWindow);
+    QPushButton *editButton = new QPushButton("✎ Edit..", paramsWindow);
     this->editButton = editButton;
     editButton->setStyleSheet("font-size: 14px; padding: 5px 10px;");
 
+    zoomOutButton = new QPushButton("⬅ Zoom Out", this);
+    zoomOutButton->setStyleSheet("font-size: 14px; padding: 5px 10px;");
+    zoomOutButton->hide();
 
     paramsLayout->addWidget(titleLabel);
     paramsLayout->addWidget(infoText);
@@ -60,6 +62,9 @@ GalaxyView::GalaxyView(QWidget *parent) :
 
     connect(paramsButton, &QPushButton::clicked, this, &GalaxyView::on_paramsButton_clicked);
     connect(editButton, &QPushButton::clicked, this, &GalaxyView::on_editButton_clicked);
+    connect(zoomOutButton, &QPushButton::clicked, this, &GalaxyView::on_zoomOutButton_clicked);
+    connect(graphWidget, &GraphWidget::vertexDoubleClicked,
+            this, &GalaxyView::on_vertexDoubleClicked);
     paramsWindow->hide();
 }
 
@@ -70,6 +75,7 @@ GalaxyView::~GalaxyView() {
     }
     delete ui;
 }
+
 void GalaxyView::on_paramsButton_clicked() {
     if (paramsWindow->isVisible()) {
         paramsWindow->hide();
@@ -89,8 +95,15 @@ void GalaxyView::resizeEvent(QResizeEvent *event) {
         paramsButton->move(btn_x, btn_y);
 
         int win_x = width() - paramsWindow->width() - margin;
-        int win_y = btn_y + paramsButton->height() + 10; // 10px відступ від кнопки
+        int win_y = btn_y + paramsButton->height() + 10;
         paramsWindow->move(win_x, win_y);
+
+        if (zoomOutButton) {
+            zoomOutButton->resize(150, 35);
+            int zoom_x = margin;
+            int zoom_y = margin;
+            zoomOutButton->move(zoom_x, zoom_y);
+        }
     }
 }
 
@@ -105,9 +118,7 @@ void GalaxyView::updateGraphDisplay() {
     int nVerticesTotal = static_cast<int>(galaxy->getObject().size());
 
     if (nVerticesTotal > currentPositionsSize) {
-
         for (int i = currentPositionsSize; i < nVerticesTotal; ++i) {
-
             int cx = 550;
             int cy = 350;
             double radius = rngPtr->getDouble(150, 250);
@@ -124,35 +135,39 @@ void GalaxyView::updateGraphDisplay() {
         }
     }
     std::vector<W_Vertex> vertices;
+    vertices.resize(nVerticesTotal);
 
     for (int i = 0; i < nVerticesTotal; ++i) {
-        const auto& v = galaxy->getGraph().getVertices()[i];
+        const auto &v = galaxy->getGraph().getVertices()[i];
         if (v.getId() != -1) {
             QPointF pos = vertexPositions[i];
-
-            vertices.push_back({
-                v.getId(),
+            vertices[i] = {
+                i,
                 static_cast<int>(pos.x()),
                 static_cast<int>(pos.y()),
                 QString::fromStdString(galaxy->getObject()[i]->getName())
-            });
+            };
+        } else {
+            vertices[i] = {-1, 0, 0, QString()};
         }
     }
 
     std::vector<W_Edge> edges;
-    for (const auto &e : galaxy->getGraph().getEdges()) {
-        if (e.isActive()) {
-            edges.push_back({e.from, e.to, e.weight});
-        }
+    for (const auto &e: galaxy->getGraph().getEdges()) {
+        if (!e.isActive()) continue;
+        if (e.from < 0 || e.from >= nVerticesTotal) continue;
+        if (e.to < 0 || e.to >= nVerticesTotal) continue;
+        if (vertices[e.from].id == -1 || vertices[e.to].id == -1) continue;
+        edges.push_back({e.from, e.to, e.weight});
     }
 
     if (graphWidget) {
-        graphWidget->setGraph(vertices, edges);
+        graphWidget->setGraph(vertices, edges, &galaxy->getObject());
         graphWidget->update();
     }
 }
 
-void GalaxyView::generateAndDisplayGalaxy(const nlohmann::json& data, RandomGenerator& rng) {
+void GalaxyView::generateAndDisplayGalaxy(const nlohmann::json &data, RandomGenerator &rng) {
     qDebug() << "Generating and displaying galaxy in GalaxyView...";
 
     if (galaxy) {
@@ -166,11 +181,11 @@ void GalaxyView::generateAndDisplayGalaxy(const nlohmann::json& data, RandomGene
     }
     std::string randomGalaxyName = rng.getRandomNameFromFile(galaxyNameFile);
 
-    galaxy = new Galaxy<GraphList<CelestialObject*>>(randomGalaxyName);
+    galaxy = new Galaxy<GraphList<CelestialObject *> >(randomGalaxyName);
 
     galaxy->generateGalaxy(data, rng);
 
-    this->dataPtr = const_cast<nlohmann::json*>(&data);
+    this->dataPtr = const_cast<nlohmann::json *>(&data);
     this->rngPtr = &rng;
 
     qDebug() << "Galaxy successfully generated:" << QString::fromStdString(randomGalaxyName);
@@ -182,9 +197,8 @@ void GalaxyView::generateAndDisplayGalaxy(const nlohmann::json& data, RandomGene
 
     int n_active = 0;
     for (int i = 0; i < nVerticesTotal; ++i) {
-        const auto& v = galaxy->getGraph().getVertices()[i];
+        const auto &v = galaxy->getGraph().getVertices()[i];
         if (v.getId() != -1) {
-
             int cx = 550;
             int cy = 350;
             double radius = rng.getDouble(150, 250);
@@ -203,8 +217,9 @@ void GalaxyView::generateAndDisplayGalaxy(const nlohmann::json& data, RandomGene
     updateGraphDisplay();
     updateParametersWindow();
 }
+
 void GalaxyView::updateParametersWindow() {
-    QTextEdit *infoText = paramsWindow->findChild<QTextEdit*>("infoTextWidget");
+    QTextEdit *infoText = paramsWindow->findChild<QTextEdit *>("infoTextWidget");
 
     if (infoText && galaxy) {
         infoText->setText(galaxy->getGalaxyParameters());
@@ -214,22 +229,21 @@ void GalaxyView::updateParametersWindow() {
 }
 
 
-GalaxyEditDialog::GalaxyEditDialog(Galaxy<GraphList<CelestialObject*>>* g,
-                                   RandomGenerator* rng,
-                                   const nlohmann::json* data,
-                                   QWidget* parent)
-    : QDialog(parent), galaxy(g), rngPtr(rng), dataPtr(data)
-{
+GalaxyEditDialog::GalaxyEditDialog(Galaxy<GraphList<CelestialObject *> > *g,
+                                   RandomGenerator *rng,
+                                   const nlohmann::json *data,
+                                   QWidget *parent)
+    : QDialog(parent), galaxy(g), rngPtr(rng), dataPtr(data) {
     setWindowTitle("Edit Galaxy: " + QString::fromStdString(g->getName()));
 
-    QVBoxLayout* layout = new QVBoxLayout(this);
+    QVBoxLayout *layout = new QVBoxLayout(this);
 
-    QLabel* nameLabel = new QLabel("Galaxy Name:", this);
+    QLabel *nameLabel = new QLabel("Galaxy Name:", this);
     nameEdit = new QLineEdit(QString::fromStdString(galaxy->getName()), this);
 
-    QPushButton* saveNameButton = new QPushButton("Save Name", this);
+    QPushButton *saveNameButton = new QPushButton("Save Name", this);
 
-    QHBoxLayout* nameLayout = new QHBoxLayout;
+    QHBoxLayout *nameLayout = new QHBoxLayout;
     nameLayout->addWidget(nameEdit);
     nameLayout->addWidget(saveNameButton);
 
@@ -238,9 +252,9 @@ GalaxyEditDialog::GalaxyEditDialog(Galaxy<GraphList<CelestialObject*>>* g,
 
     layout->addWidget(new QWidget(this));
 
-    QLabel* addLabel = new QLabel("Add New Object:", this);
-    QPushButton* addStarSystem = new QPushButton("Add Star System", this);
-    QPushButton* addNebula = new QPushButton("Add Nebula", this);
+    QLabel *addLabel = new QLabel("Add New Object:", this);
+    QPushButton *addStarSystem = new QPushButton("Add Star System", this);
+    QPushButton *addNebula = new QPushButton("Add Nebula", this);
 
     layout->addWidget(addLabel);
     layout->addWidget(addStarSystem);
@@ -248,7 +262,7 @@ GalaxyEditDialog::GalaxyEditDialog(Galaxy<GraphList<CelestialObject*>>* g,
 
     layout->addWidget(new QWidget(this));
 
-    QPushButton* closeButton = new QPushButton("Close", this);
+    QPushButton *closeButton = new QPushButton("Close", this);
     layout->addWidget(closeButton);
 
     connect(closeButton, &QPushButton::clicked, this, &QDialog::accept);
@@ -260,18 +274,15 @@ GalaxyEditDialog::GalaxyEditDialog(Galaxy<GraphList<CelestialObject*>>* g,
         galaxy->setName(nameEdit->text().toStdString());
         setWindowTitle("Edit Galaxy: " + nameEdit->text());
     });
-
-
 }
 
-AddStarSystemDialog::AddStarSystemDialog(RandomGenerator& rngRef,
-                                         const nlohmann::json& dataRef,
-                                         QWidget* parent)
-    : QDialog(parent), rng(rngRef), data(dataRef)
-{
+AddStarSystemDialog::AddStarSystemDialog(RandomGenerator &rngRef,
+                                         const nlohmann::json &dataRef,
+                                         QWidget *parent)
+    : QDialog(parent), rng(rngRef), data(dataRef) {
     setWindowTitle("Add Star System");
 
-    QVBoxLayout* layout = new QVBoxLayout(this);
+    QVBoxLayout *layout = new QVBoxLayout(this);
 
     layout->addWidget(new QLabel("System Name:", this));
     nameEdit = new QLineEdit("New Star System", this);
@@ -293,10 +304,10 @@ AddStarSystemDialog::AddStarSystemDialog(RandomGenerator& rngRef,
     starTypeComboBox->addItem("Red_Dwarf");
     layout->addWidget(starTypeComboBox);
 
-    QPushButton* okButton = new QPushButton("Add", this);
-    QPushButton* cancelButton = new QPushButton("Cancel", this);
+    QPushButton *okButton = new QPushButton("Add", this);
+    QPushButton *cancelButton = new QPushButton("Cancel", this);
 
-    QHBoxLayout* buttonLayout = new QHBoxLayout;
+    QHBoxLayout *buttonLayout = new QHBoxLayout;
     buttonLayout->addWidget(okButton);
     buttonLayout->addWidget(cancelButton);
     layout->addLayout(buttonLayout);
@@ -305,14 +316,13 @@ AddStarSystemDialog::AddStarSystemDialog(RandomGenerator& rngRef,
     connect(cancelButton, &QPushButton::clicked, this, &QDialog::reject);
 }
 
-AddNebulaDialog::AddNebulaDialog(RandomGenerator& rngRef,
-                                 const nlohmann::json& dataRef,
-                                 QWidget* parent)
-    : QDialog(parent), rng(rngRef), data(dataRef)
-{
+AddNebulaDialog::AddNebulaDialog(RandomGenerator &rngRef,
+                                 const nlohmann::json &dataRef,
+                                 QWidget *parent)
+    : QDialog(parent), rng(rngRef), data(dataRef) {
     setWindowTitle("Add Nebula");
 
-    QVBoxLayout* layout = new QVBoxLayout(this);
+    QVBoxLayout *layout = new QVBoxLayout(this);
 
     layout->addWidget(new QLabel("Nebula Name:", this));
     nameEdit = new QLineEdit("New Nebula", this);
@@ -327,10 +337,10 @@ AddNebulaDialog::AddNebulaDialog(RandomGenerator& rngRef,
     nebulaTypeComboBox->addItem("Planetary");
     layout->addWidget(nebulaTypeComboBox);
 
-    QPushButton* okButton = new QPushButton("Add", this);
-    QPushButton* cancelButton = new QPushButton("Cancel", this);
+    QPushButton *okButton = new QPushButton("Add", this);
+    QPushButton *cancelButton = new QPushButton("Cancel", this);
 
-    QHBoxLayout* buttonLayout = new QHBoxLayout;
+    QHBoxLayout *buttonLayout = new QHBoxLayout;
     buttonLayout->addWidget(okButton);
     buttonLayout->addWidget(cancelButton);
     layout->addLayout(buttonLayout);
@@ -348,7 +358,7 @@ void GalaxyEditDialog::on_addStarSystem_clicked() {
 
     if (dlg.exec() == QDialog::Accepted) {
         int oldSize = static_cast<int>(galaxy->getObject().size());
-        StarSystem* newSystem = dlg.getNewStarSystem(oldSize);
+        StarSystem *newSystem = dlg.getNewStarSystem(oldSize);
 
         if (newSystem) {
             galaxy->addObject(newSystem);
@@ -373,6 +383,7 @@ void GalaxyEditDialog::on_addStarSystem_clicked() {
         emit galaxyModified();
     }
 }
+
 void GalaxyEditDialog::on_addNebula_clicked() {
     if (!rngPtr || !dataPtr) {
         qWarning() << "Generator or data not initialized!";
@@ -381,7 +392,7 @@ void GalaxyEditDialog::on_addNebula_clicked() {
     AddNebulaDialog dlg(*rngPtr, *dataPtr, this);
 
     if (dlg.exec() == QDialog::Accepted) {
-        Nebula* newNebula = dlg.getNewNebula();
+        Nebula *newNebula = dlg.getNewNebula();
         int oldSize = static_cast<int>(galaxy->getObject().size());
 
         if (newNebula) {
@@ -414,11 +425,10 @@ QString GalaxyEditDialog::getNewGalaxyName() const {
 }
 
 
-StarSystem* AddStarSystemDialog::getNewStarSystem(int id) const {
+StarSystem *AddStarSystemDialog::getNewStarSystem(int id) const {
+    Galaxy<GraphList<CelestialObject *> > temp_galaxy;
 
-    Galaxy<GraphList<CelestialObject*>> temp_galaxy;
-
-    StarSystem* system = temp_galaxy.generateStarSystem(id, rng, data);
+    StarSystem *system = temp_galaxy.generateStarSystem(id, rng, data);
 
     if (!system) return nullptr;
 
@@ -431,16 +441,15 @@ StarSystem* AddStarSystemDialog::getNewStarSystem(int id) const {
 
 
     int targetPlanetCount = planetCountSpinBox->value();
-    if (targetPlanetCount<system->getPlanets().size()) {
+    if (targetPlanetCount < system->getPlanets().size()) {
         int dif = system->getPlanets().size() - targetPlanetCount;
-        for (auto i=0; i!= dif; ++i) {
+        for (auto i = 0; i != dif; ++i) {
             system->removePlanet();
         }
-    }
-    else if (targetPlanetCount>system->getPlanets().size()) {
-        int dif =targetPlanetCount -system->getPlanets().size();
-        for (auto i=0; i!= dif; ++i) {
-            Planet* planet = temp_galaxy.generatePlanet(rng, data);
+    } else if (targetPlanetCount > system->getPlanets().size()) {
+        int dif = targetPlanetCount - system->getPlanets().size();
+        for (auto i = 0; i != dif; ++i) {
+            Planet *planet = temp_galaxy.generatePlanet(rng, data);
             system->addPlanet(planet);
         }
     }
@@ -448,11 +457,10 @@ StarSystem* AddStarSystemDialog::getNewStarSystem(int id) const {
 }
 
 
-Nebula* AddNebulaDialog::getNewNebula() const {
+Nebula *AddNebulaDialog::getNewNebula() const {
+    Galaxy<GraphList<CelestialObject *> > temp_galaxy;
 
-    Galaxy<GraphList<CelestialObject*>> temp_galaxy;
-
-    Nebula* nebula = temp_galaxy.generateNebula(rng, data);
+    Nebula *nebula = temp_galaxy.generateNebula(rng, data);
 
     if (!nebula) return nullptr;
 
@@ -467,7 +475,6 @@ Nebula* AddNebulaDialog::getNewNebula() const {
 }
 
 
-
 void GalaxyView::on_editButton_clicked() {
     if (!galaxy) {
         QMessageBox::warning(this, "Error", "Can't generate Galaxy!");
@@ -477,12 +484,12 @@ void GalaxyView::on_editButton_clicked() {
     GalaxyEditDialog dlg(galaxy, rngPtr, dataPtr, this);
 
     connect(&dlg, &GalaxyEditDialog::galaxyModified, this,
-        [this]() {
-            updateParametersWindow();
-            updateGraphDisplay();
-            QApplication::processEvents();
-        },
-        Qt::DirectConnection);
+            [this]() {
+                updateParametersWindow();
+                updateGraphDisplay();
+                QApplication::processEvents();
+            },
+            Qt::DirectConnection);
 
     if (dlg.exec() == QDialog::Accepted) {
         updateParametersWindow();
@@ -492,4 +499,32 @@ void GalaxyView::on_editButton_clicked() {
         updateGraphDisplay();
         QApplication::processEvents();
     }
+}
+
+void GalaxyView::on_vertexDoubleClicked(int vertexId) {
+    if (!galaxy || vertexId < 0 || vertexId >= galaxy->getObject().size()) {
+        qWarning() << "Invalid galaxy object index clicked:" << vertexId;
+        return;
+    }
+
+    if (graphWidget) {
+        graphWidget->zoomToVertex(vertexId);
+    }
+    if (zoomOutButton) {
+        zoomOutButton->show();
+        zoomOutButton->raise();
+    }
+
+    paramsButton->hide();
+    ui->galaxyNameLabel->hide();
+}
+
+void GalaxyView::on_zoomOutButton_clicked() {
+    if (graphWidget) {
+        graphWidget->resetZoom();
+    }
+    zoomOutButton->hide();
+    paramsButton->show();
+    ui->galaxyNameLabel->show();
+    updateParametersWindow();
 }

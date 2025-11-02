@@ -15,83 +15,125 @@
 #include <QSpinBox>
 
 #include <QComboBox>
+#include <QLabel>
+#include <QTextEdit>
 
 QT_BEGIN_NAMESPACE
-namespace Ui { class GalaxyView; }
+
+namespace Ui {
+    class GalaxyView;
+}
+
 QT_END_NAMESPACE
 
 class GalaxyView : public QWidget {
     Q_OBJECT
-    protected:
+
+protected:
     void resizeEvent(QResizeEvent *event) override;
+
 public:
     explicit GalaxyView(QWidget *parent = nullptr);
+
     ~GalaxyView() override;
-    void generateAndDisplayGalaxy(const nlohmann::json& data, RandomGenerator& rng);
+
+    void generateAndDisplayGalaxy(const nlohmann::json &data, RandomGenerator &rng);
+
 private slots:
-        void on_paramsButton_clicked();
-        void on_editButton_clicked();
+    void on_paramsButton_clicked();
+
+    void on_editButton_clicked();
+
+    void on_vertexDoubleClicked(int vertexId);
+
+    void on_zoomOutButton_clicked();
+
+    // void showObjectParameters(CelestialObject *obj);
+
 private:
     Ui::GalaxyView *ui;
-    Galaxy<GraphList<CelestialObject*>>* galaxy = nullptr;
+    Galaxy<GraphList<CelestialObject *> > *galaxy = nullptr;
+
     void updateParametersWindow();
+
     void updateGraphDisplay();
+
     GraphWidget *graphWidget = nullptr;
     QPushButton *paramsButton = nullptr;
     QWidget *paramsWindow = nullptr;
-    RandomGenerator* rngPtr = nullptr;
-    nlohmann::json* dataPtr = nullptr;
+    RandomGenerator *rngPtr = nullptr;
+    nlohmann::json *dataPtr = nullptr;
     QPushButton *editButton = nullptr;
+    QPushButton *zoomOutButton = nullptr;
     std::vector<QPointF> vertexPositions;
 };
 
 class GalaxyEditDialog : public QDialog {
     Q_OBJECT
+
 public:
-    explicit GalaxyEditDialog(Galaxy<GraphList<CelestialObject*>>* g,
-                              RandomGenerator* rng,
-                              const nlohmann::json* data,
-                              QWidget* parent = nullptr);
+    explicit GalaxyEditDialog(Galaxy<GraphList<CelestialObject *> > *g,
+                              RandomGenerator *rng,
+                              const nlohmann::json *data,
+                              QWidget *parent = nullptr);
 
 
     QString getNewGalaxyName() const;
-    private slots:
-        void on_addStarSystem_clicked();
-    void on_addNebula_clicked();
-    signals:
-    void galaxyModified();
-private:
-    Galaxy<GraphList<CelestialObject*>>* galaxy;
-    QLineEdit* nameEdit;
 
-    RandomGenerator* rngPtr;
-    const nlohmann::json* dataPtr;
+private slots:
+    void on_addStarSystem_clicked();
+
+    void on_addNebula_clicked();
+
+signals:
+    void galaxyModified();
+
+private:
+    Galaxy<GraphList<CelestialObject *> > *galaxy;
+    QLineEdit *nameEdit;
+
+    RandomGenerator *rngPtr;
+    const nlohmann::json *dataPtr;
 };
 
 class AddStarSystemDialog : public QDialog {
     Q_OBJECT
+
 public:
-    explicit AddStarSystemDialog(RandomGenerator& rng, const nlohmann::json& data, QWidget* parent = nullptr);
-    StarSystem* getNewStarSystem(int id) const;
+    explicit AddStarSystemDialog(RandomGenerator &rng, const nlohmann::json &data, QWidget *parent = nullptr);
+
+    StarSystem *getNewStarSystem(int id) const;
+
 private:
-    QLineEdit* nameEdit;
-    QSpinBox* planetCountSpinBox;
-    QComboBox* starTypeComboBox;
-    RandomGenerator& rng;
-    const nlohmann::json& data;
+    QLineEdit *nameEdit;
+    QSpinBox *planetCountSpinBox;
+    QComboBox *starTypeComboBox;
+    RandomGenerator &rng;
+    const nlohmann::json &data;
 };
 
 class AddNebulaDialog : public QDialog {
     Q_OBJECT
+
 public:
-    explicit AddNebulaDialog(RandomGenerator& rng, const nlohmann::json& data, QWidget* parent = nullptr);
-    Nebula* getNewNebula() const;
+    explicit AddNebulaDialog(RandomGenerator &rng, const nlohmann::json &data, QWidget *parent = nullptr);
+
+    Nebula *getNewNebula() const;
+
 private:
-    QLineEdit* nameEdit;
-    QComboBox* nebulaTypeComboBox;
-    RandomGenerator& rng;
-    const nlohmann::json& data;
+    QLineEdit *nameEdit;
+    QComboBox *nebulaTypeComboBox;
+    RandomGenerator &rng;
+    const nlohmann::json &data;
 };
 
+class ObjectDetailDialog : public QDialog {
+    Q_OBJECT
+public:
+    explicit ObjectDetailDialog(CelestialObject* obj, QWidget* parent = nullptr);
+private:
+    CelestialObject* celestialObject;
+    void setupView(CelestialObject* obj);
+};
 
 #endif //GALAXYVIEW_H

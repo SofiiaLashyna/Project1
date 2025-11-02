@@ -1,5 +1,7 @@
 #ifndef PLANET_H
 #define PLANET_H
+#include <QColor>
+
 #include "CelestialObject.h"
 
 class Planet : public CelestialObject {
@@ -8,7 +10,7 @@ private:
     double orbitSpeed;
     double inclination;
     bool habitable;
-
+    QColor color = QColor(0,0,0);
 public:
     enum class planetType { Gas_Giant, Dwarf, Terrestrial_Planet };
 
@@ -18,6 +20,9 @@ public:
 
     double getOrbit();
 
+    void setColor(QColor newColor);
+
+    QColor getColor();
 
     bool isHabitable();
 

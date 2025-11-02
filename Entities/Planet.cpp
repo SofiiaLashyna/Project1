@@ -52,3 +52,12 @@ double Planet::getOrbit() {
     return orbitRadius;
 }
 
+QColor Planet::getColor() {
+    return color;
+}
+
+void Planet::setColor(QColor newColor) {
+    color = newColor;
+}
+
+

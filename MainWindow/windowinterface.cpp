@@ -1,28 +1,3 @@
-// #include "windowinterface.h"
-// #include "ui_WindowInterface.h"
-// #include <QDebug>
-// #include "galaxyview.h"
-//
-// WindowInterface::WindowInterface(QWidget *parent) :
-//     QWidget(parent),
-// ui(new Ui::WindowInterface) {
-//     ui->setupUi(this);
-//
-//     connect(ui->pushButton, &QPushButton::clicked, this, [this](){
-//         qDebug() << "Generate Galaxy clicked!";
-//         generateGalaxy();
-//         GalaxyView *view = new GalaxyView(this);
-//         view->show();
-//     });
-// }
-//
-// void WindowInterface::generateGalaxy() {
-//     qDebug() << "Galaxy is being generated...";
-// }
-//
-// WindowInterface::~WindowInterface() {
-//     delete ui;
-// }
 #include "windowinterface.h"
 #include "ui_WindowInterface.h"
 #include "galaxyview.h"

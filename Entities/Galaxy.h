@@ -34,7 +34,7 @@ public:
         systemGraph.addVertex(static_cast<int>(celestial_objects.size())-1, obj);
     }
 
-    std::vector<CelestialObject *> getObject() {
+    std::vector<CelestialObject *>& getObject() {
         return celestial_objects;
     }
 
