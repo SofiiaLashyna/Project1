@@ -97,6 +97,8 @@ add_executable(AllTests
         GoogleTests/StarTests.cpp
         GoogleTests/NebulaTests.cpp
         GoogleTests/PlanetTests.cpp
+        GoogleTests/RandomUtilitiesTests.cpp
+        GoogleTests/GalaxyGenerationTests.cpp
 )
 target_link_libraries(AllTests PRIVATE ProjectLib gtest gtest_main Qt6::Core Qt6::Widgets)
 

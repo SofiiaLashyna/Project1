@@ -24,7 +24,7 @@ public:
 
     QColor getColor();
 
-    bool isHabitable();
+    bool isHabitable() const;
 
     void setLifeExistence(bool life);
 

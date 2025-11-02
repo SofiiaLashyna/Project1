@@ -35,7 +35,7 @@ std::string Planet::getType() const {
     return "Planet";
 }
 
-bool Planet::isHabitable() {
+bool Planet::isHabitable() const {
     return  habitable;
 }
 

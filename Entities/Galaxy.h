@@ -146,7 +146,9 @@ public:
         for (int i = 0; i < planetCount; ++i) {
             Planet *planet = generatePlanet(rng, data);
             system->addPlanet(planet);
-            system->lifeExists(*planet);
+            Planet &copiedPlanet = system->getPlanets().back();
+            system->lifeExists(copiedPlanet);
+            delete planet;
         }
         return system;
     }
