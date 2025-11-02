@@ -146,12 +146,15 @@ void GraphWidget::paintEvent(QPaintEvent *event) {
                 painter.drawEllipse(focusedV.x - nebulaRadius - 5, focusedV.y - nebulaRadius - 5,
                                     (nebulaRadius + 5) * 2, (nebulaRadius + 5) * 2);
 
-                painter.setPen(Qt::white);
                 QFont font = painter.font();
-                font.setPointSize(10);
-                font.setBold(true);
+                font.setPointSize(12);
+                font.setBold(false);
+                font.setFamily("Ravie");
                 painter.setFont(font);
-                painter.drawText(focusedV.x - 60, focusedV.y - nebulaRadius - 20, focusedV.name);
+                painter.setPen(QPen(QColor(200, 200, 200), 2)); // Світло-сірий колір
+                painter.drawText(focusedV.x - nebulaRadius - 150,
+                                 focusedV.y - nebulaRadius + 155,
+                                 focusedV.name);
             }
         } else if (obj->getType() == "StarSystem") {
             StarSystem *system = dynamic_cast<StarSystem *>(obj);
@@ -183,12 +186,15 @@ void GraphWidget::paintEvent(QPaintEvent *event) {
                 painter.drawEllipse(focusedV.x - starRadius, focusedV.y - starRadius,
                                     starRadius * 2, starRadius * 2);
 
-                painter.setPen(Qt::white);
+                painter.setPen(QPen(QColor(200, 200, 200), 2)); // Світло-сірий колір
                 QFont font = painter.font();
-                font.setPointSize(10);
-                font.setBold(true);
+                font.setPointSize(8);
+                font.setBold(false);
+                font.setFamily("Ravie");
                 painter.setFont(font);
-                painter.drawText(focusedV.x - 60, focusedV.y - starRadius - 15, focusedV.name);
+                painter.drawText(focusedV.x - starRadius - 170,
+                                 focusedV.y + starRadius + 85,
+                                 focusedV.name);
 
                 double minMass = std::numeric_limits<double>::max();
                 double maxMass = std::numeric_limits<double>::lowest();

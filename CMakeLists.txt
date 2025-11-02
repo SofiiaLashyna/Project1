@@ -32,6 +32,7 @@ file(GLOB SOURCES_MAIN
         "Graph/*.cpp"
         "Algorithms/*.cpp"
         "MainWindow/*.cpp"
+        "GalaxyView/*.cpp"
 )
 
 file(GLOB SOURCE_TESTS
@@ -55,14 +56,28 @@ add_library(ProjectLib STATIC
 
 target_link_libraries(ProjectLib PRIVATE Qt6::Core Qt6::Widgets)
 
+file(GLOB SOURCES_UI
+        "main.cpp"
+        "MainWindow/*.cpp"
+        "GalaxyView/*.cpp"
+)
+
 add_executable(Project1
-        main.cpp
-        MainWindow/windowinterface.cpp
+#        ${SOURCE_UI}
         MainWindow/windowinterface.h
         MainWindow/windowinterface.ui
-        GalaxyView/galaxyview.cpp
         GalaxyView/galaxyview.h
         GalaxyView/galaxyview.ui
+        GalaxyView/AddStarSystemDialog.h
+        GalaxyView/AddNebulaDialog.h
+        GalaxyView/EditStarSystemDialog.h
+        GalaxyView/EditNebulaDialog.h
+        GalaxyView/GalaxyEditDialog.h
+        GalaxyView/AddStarSystemDialog.cpp
+        GalaxyView/AddNebulaDialog.cpp
+        GalaxyView/EditStarSystemDialog.cpp
+        GalaxyView/EditNebulaDialog.cpp
+        GalaxyView/GalaxyEditDialog.cpp
 )
 
 target_link_libraries(Project1 PRIVATE ProjectLib Qt6::Core Qt6::Widgets)

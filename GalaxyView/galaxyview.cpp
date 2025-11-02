@@ -1,7 +1,11 @@
 #include "galaxyview.h"
 #include "ui_GalaxyView.h"
+#include "GalaxyEditDialog.h"
+#include "EditStarSystemDialog.h"
+#include "EditNebulaDialog.h"
+#include "AddNebulaDialog.h"
+#include "AddStarSystemDialog.h"
 #include <QApplication>
-#include <QInputDialog>
 #include <QPushButton>
 #include <QTextEdit>
 #include <QResizeEvent>
@@ -61,7 +65,6 @@ GalaxyView::GalaxyView(QWidget *parent) : QWidget(parent), ui(new Ui::GalaxyView
     paramsWindow->resize(250, 210);
 
     connect(paramsButton, &QPushButton::clicked, this, &GalaxyView::on_paramsButton_clicked);
-    // connect(editButton, &QPushButton::clicked, this, &GalaxyView::on_editButton_clicked);
     connect(zoomOutButton, &QPushButton::clicked, this, &GalaxyView::on_zoomOutButton_clicked);
     connect(graphWidget, &GraphWidget::vertexDoubleClicked,
             this, &GalaxyView::on_vertexDoubleClicked);
@@ -229,253 +232,6 @@ void GalaxyView::updateParametersWindow() {
     }
 }
 
-
-GalaxyEditDialog::GalaxyEditDialog(Galaxy<GraphList<CelestialObject *> > *g,
-                                   RandomGenerator *rng,
-                                   const nlohmann::json *data,
-                                   QWidget *parent)
-    : QDialog(parent), galaxy(g), rngPtr(rng), dataPtr(data) {
-    setWindowTitle("Edit Galaxy: " + QString::fromStdString(g->getName()));
-
-    QVBoxLayout *layout = new QVBoxLayout(this);
-
-    QLabel *nameLabel = new QLabel("Galaxy Name:", this);
-    nameEdit = new QLineEdit(QString::fromStdString(galaxy->getName()), this);
-
-    QPushButton *saveNameButton = new QPushButton("Save Name", this);
-
-    QHBoxLayout *nameLayout = new QHBoxLayout;
-    nameLayout->addWidget(nameEdit);
-    nameLayout->addWidget(saveNameButton);
-
-    layout->addWidget(nameLabel);
-    layout->addLayout(nameLayout);
-
-    layout->addWidget(new QWidget(this));
-
-    QLabel *addLabel = new QLabel("Add New Object:", this);
-    QPushButton *addStarSystem = new QPushButton("Add Star System", this);
-    QPushButton *addNebula = new QPushButton("Add Nebula", this);
-
-    layout->addWidget(addLabel);
-    layout->addWidget(addStarSystem);
-    layout->addWidget(addNebula);
-
-    layout->addWidget(new QWidget(this));
-
-    QPushButton *closeButton = new QPushButton("Close", this);
-    layout->addWidget(closeButton);
-
-    connect(closeButton, &QPushButton::clicked, this, &QDialog::accept);
-
-    connect(addStarSystem, &QPushButton::clicked, this, &GalaxyEditDialog::on_addStarSystem_clicked);
-    connect(addNebula, &QPushButton::clicked, this, &GalaxyEditDialog::on_addNebula_clicked);
-
-    connect(saveNameButton, &QPushButton::clicked, this, [this]() {
-        galaxy->setName(nameEdit->text().toStdString());
-        setWindowTitle("Edit Galaxy: " + nameEdit->text());
-    });
-}
-
-AddStarSystemDialog::AddStarSystemDialog(RandomGenerator &rngRef,
-                                         const nlohmann::json &dataRef,
-                                         QWidget *parent)
-    : QDialog(parent), rng(rngRef), data(dataRef) {
-    setWindowTitle("Add Star System");
-
-    QVBoxLayout *layout = new QVBoxLayout(this);
-
-    layout->addWidget(new QLabel("System Name:", this));
-    nameEdit = new QLineEdit("New Star System", this);
-    layout->addWidget(nameEdit);
-
-    layout->addWidget(new QLabel("Number of Planets:", this));
-    planetCountSpinBox = new QSpinBox(this);
-    planetCountSpinBox->setRange(0, 10);
-    planetCountSpinBox->setValue(3);
-    layout->addWidget(planetCountSpinBox);
-
-    layout->addWidget(new QLabel("Star Type:", this));
-    starTypeComboBox = new QComboBox(this);
-    starTypeComboBox->addItem("Main_sequence_Star");
-    starTypeComboBox->addItem("Red_Giant");
-    starTypeComboBox->addItem("White_Dwarf");
-    starTypeComboBox->addItem("Brown_Dwarf");
-    starTypeComboBox->addItem("Neutron_Star");
-    starTypeComboBox->addItem("Red_Dwarf");
-    layout->addWidget(starTypeComboBox);
-
-    QPushButton *okButton = new QPushButton("Add", this);
-    QPushButton *cancelButton = new QPushButton("Cancel", this);
-
-    QHBoxLayout *buttonLayout = new QHBoxLayout;
-    buttonLayout->addWidget(okButton);
-    buttonLayout->addWidget(cancelButton);
-    layout->addLayout(buttonLayout);
-
-    connect(okButton, &QPushButton::clicked, this, &QDialog::accept);
-    connect(cancelButton, &QPushButton::clicked, this, &QDialog::reject);
-}
-
-AddNebulaDialog::AddNebulaDialog(RandomGenerator &rngRef,
-                                 const nlohmann::json &dataRef,
-                                 QWidget *parent)
-    : QDialog(parent), rng(rngRef), data(dataRef) {
-    setWindowTitle("Add Nebula");
-
-    QVBoxLayout *layout = new QVBoxLayout(this);
-
-    layout->addWidget(new QLabel("Nebula Name:", this));
-    nameEdit = new QLineEdit("New Nebula", this);
-    layout->addWidget(nameEdit);
-
-    layout->addWidget(new QLabel("Nebula Type:", this));
-    nebulaTypeComboBox = new QComboBox(this);
-    nebulaTypeComboBox->addItem("Emission");
-    nebulaTypeComboBox->addItem("Reflection");
-    nebulaTypeComboBox->addItem("Dark");
-    nebulaTypeComboBox->addItem("Supernova");
-    nebulaTypeComboBox->addItem("Planetary");
-    layout->addWidget(nebulaTypeComboBox);
-
-    QPushButton *okButton = new QPushButton("Add", this);
-    QPushButton *cancelButton = new QPushButton("Cancel", this);
-
-    QHBoxLayout *buttonLayout = new QHBoxLayout;
-    buttonLayout->addWidget(okButton);
-    buttonLayout->addWidget(cancelButton);
-    layout->addLayout(buttonLayout);
-
-    connect(okButton, &QPushButton::clicked, this, &QDialog::accept);
-    connect(cancelButton, &QPushButton::clicked, this, &QDialog::reject);
-}
-
-void GalaxyEditDialog::on_addStarSystem_clicked() {
-    if (!rngPtr || !dataPtr) {
-        qWarning() << "Generator or data not initialized!";
-        return;
-    }
-    AddStarSystemDialog dlg(*rngPtr, *dataPtr, this);
-
-    if (dlg.exec() == QDialog::Accepted) {
-        int oldSize = static_cast<int>(galaxy->getObject().size());
-        StarSystem *newSystem = dlg.getNewStarSystem(oldSize);
-
-        if (newSystem) {
-            galaxy->addObject(newSystem);
-            int newObjectIdx = oldSize;
-
-            int existingObjectCount = oldSize;
-            if (existingObjectCount > 0) {
-                int maxEdges = existingObjectCount;
-                int edgesCount = rngPtr->getInt(1, maxEdges);
-                std::vector<int> targets;
-                for (int i = 0; i < existingObjectCount; ++i) targets.push_back(i);
-
-                std::random_shuffle(targets.begin(), targets.end());
-
-                for (int i = 0; i < edgesCount && i < targets.size(); ++i) {
-                    int targetIdx = targets[i];
-                    int dist = rngPtr->getInt(10, 1000);
-                    galaxy->getGraph().addEdge(newObjectIdx, targetIdx, dist);
-                }
-            }
-        }
-        emit galaxyModified();
-    }
-}
-
-void GalaxyEditDialog::on_addNebula_clicked() {
-    if (!rngPtr || !dataPtr) {
-        qWarning() << "Generator or data not initialized!";
-        return;
-    }
-    AddNebulaDialog dlg(*rngPtr, *dataPtr, this);
-
-    if (dlg.exec() == QDialog::Accepted) {
-        Nebula *newNebula = dlg.getNewNebula();
-        int oldSize = static_cast<int>(galaxy->getObject().size());
-
-        if (newNebula) {
-            galaxy->addObject(newNebula);
-            int newObjectIdx = oldSize;
-            int existingObjectCount = oldSize;
-
-            if (existingObjectCount > 0) {
-                int maxEdges = std::min(3, existingObjectCount);
-                int edgesCount = rngPtr->getInt(1, maxEdges);
-
-                std::vector<int> targets;
-                for (int i = 0; i < existingObjectCount; ++i) targets.push_back(i);
-
-                std::random_shuffle(targets.begin(), targets.end()); // Перемішуємо
-
-                for (int i = 0; i < edgesCount && i < targets.size(); ++i) {
-                    int targetIdx = targets[i];
-                    int dist = rngPtr->getInt(10, 1000);
-                    galaxy->getGraph().addEdge(newObjectIdx, targetIdx, dist);
-                }
-            }
-        }
-        emit galaxyModified();
-    }
-}
-
-QString GalaxyEditDialog::getNewGalaxyName() const {
-    return nameEdit->text();
-}
-
-
-StarSystem *AddStarSystemDialog::getNewStarSystem(int id) const {
-    Galaxy<GraphList<CelestialObject *> > temp_galaxy;
-
-    StarSystem *system = temp_galaxy.generateStarSystem(id, rng, data);
-
-    if (!system) return nullptr;
-
-    std::string newName = nameEdit->text().toStdString();
-    system->setName(newName);
-
-    std::string starTypeStr = starTypeComboBox->currentText().toStdString();
-
-    system->getStar().setStarType(starTypeStr);
-
-
-    int targetPlanetCount = planetCountSpinBox->value();
-    if (targetPlanetCount < system->getPlanets().size()) {
-        int dif = system->getPlanets().size() - targetPlanetCount;
-        for (auto i = 0; i != dif; ++i) {
-            system->removePlanet();
-        }
-    } else if (targetPlanetCount > system->getPlanets().size()) {
-        int dif = targetPlanetCount - system->getPlanets().size();
-        for (auto i = 0; i != dif; ++i) {
-            Planet *planet = temp_galaxy.generatePlanet(rng, data);
-            system->addPlanet(planet);
-        }
-    }
-    return system;
-}
-
-
-Nebula *AddNebulaDialog::getNewNebula() const {
-    Galaxy<GraphList<CelestialObject *> > temp_galaxy;
-
-    Nebula *nebula = temp_galaxy.generateNebula(rng, data);
-
-    if (!nebula) return nullptr;
-
-    std::string newName = nameEdit->text().toStdString();
-    nebula->setName(newName);
-
-    std::string typeStr = nebulaTypeComboBox->currentText().toStdString();
-    nebula->setNebulaType(typeStr);
-
-
-    return nebula;
-}
-
-
 void GalaxyView::on_editButton_clicked() {
     if (!galaxy) {
         QMessageBox::warning(this, "Error", "Can't generate Galaxy!");
@@ -519,12 +275,13 @@ void GalaxyView::on_vertexDoubleClicked(int vertexId) {
 
     paramsButton->show();
     paramsButton->raise();
-    ui->galaxyNameLabel->hide();
+
     showObjectParameters(obj);
-    if (editButton) {
-        editButton->show();
-        editButton->raise();
+    if (paramsWindow) {
+        paramsWindow->hide();
     }
+
+    ui->galaxyNameLabel->hide();
     disconnect(editButton, &QPushButton::clicked, this, &GalaxyView::on_editButton_clicked);
     connect(editButton, &QPushButton::clicked, this, &GalaxyView::on_editObjectButton_clicked);
 }
@@ -622,113 +379,6 @@ void GalaxyView::on_editObjectButton_clicked() {
     } else {
         QMessageBox::information(this, "Edit", "Editing of this object is not implemented yet");
     }
-}
-
-EditStarSystemDialog::EditStarSystemDialog(StarSystem *system,
-                                           RandomGenerator *rng,
-                                           const nlohmann::json *data,
-                                           QWidget *parent)
-    : QDialog(parent), starSystem(system), rngPtr(rng), dataPtr(data) {
-    setWindowTitle("Edit Star System: " + QString::fromStdString(system->getName()));
-
-    QVBoxLayout *layout = new QVBoxLayout(this);
-
-    layout->addWidget(new QLabel("System Name:", this));
-    nameEdit = new QLineEdit(QString::fromStdString(starSystem->getName()), this);
-    layout->addWidget(nameEdit);
-
-    layout->addWidget(new QLabel("Star Type:", this));
-    starTypeComboBox = new QComboBox(this);
-    starTypeComboBox->addItem("Main_sequence_Star");
-    starTypeComboBox->addItem("Red_Giant");
-    starTypeComboBox->addItem("White_Dwarf");
-    starTypeComboBox->addItem("Brown_Dwarf");
-    starTypeComboBox->addItem("Neutron_Star");
-    starTypeComboBox->addItem("Red_Dwarf");
-    starTypeComboBox->setCurrentText(QString::fromStdString(starSystem->getStar().getStarTypeString()));
-    layout->addWidget(starTypeComboBox);
-
-    layout->addWidget(new QLabel("Number of Planets:", this));
-    planetCountSpinBox = new QSpinBox(this);
-    planetCountSpinBox->setRange(0, 10);
-    planetCountSpinBox->setValue(static_cast<int>(starSystem->getPlanets().size()));
-    layout->addWidget(planetCountSpinBox);
-
-    QPushButton *saveButton = new QPushButton("Save", this);
-    QPushButton *cancelButton = new QPushButton("Cancel", this);
-
-    QHBoxLayout *buttonLayout = new QHBoxLayout;
-    buttonLayout->addWidget(saveButton);
-    buttonLayout->addWidget(cancelButton);
-    layout->addLayout(buttonLayout);
-
-    connect(saveButton, &QPushButton::clicked, this, &QDialog::accept);
-    connect(cancelButton, &QPushButton::clicked, this, &QDialog::reject);
-}
-
-void EditStarSystemDialog::saveChanges() {
-    starSystem->setName(nameEdit->text().toStdString());
-    starSystem->getStar().setStarType(starTypeComboBox->currentText().toStdString());
-
-    int targetCount = planetCountSpinBox->value();
-    int currentCount = static_cast<int>(starSystem->getPlanets().size());
-
-    if (targetCount < currentCount) {
-        int diff = currentCount - targetCount;
-        for (int i = 0; i < diff; ++i) {
-            starSystem->removePlanet();
-        }
-    } else if (targetCount > currentCount) {
-        // Add new planets
-        int diff = targetCount - currentCount;
-        Galaxy<GraphList<CelestialObject *> > temp_galaxy; // Temporary galaxy to use generator
-        for (int i = 0; i < diff; ++i) {
-            Planet *planet = temp_galaxy.generatePlanet(*rngPtr, *dataPtr);
-            starSystem->addPlanet(planet);
-            starSystem->lifeExists(*starSystem->getPlanets().rbegin()); // Check habitability for new planet
-        }
-    }
-}
-
-EditNebulaDialog::EditNebulaDialog(Nebula *nebulaRef, QWidget *parent)
-    : QDialog(parent), nebula(nebulaRef) {
-    setWindowTitle("Edit Nebula: " + QString::fromStdString(nebula->getName()));
-
-    QVBoxLayout *layout = new QVBoxLayout(this);
-
-    // Name
-    layout->addWidget(new QLabel("Nebula Name:", this));
-    nameEdit = new QLineEdit(QString::fromStdString(nebula->getName()), this);
-    layout->addWidget(nameEdit);
-
-    // Nebula Type
-    layout->addWidget(new QLabel("Nebula Type:", this));
-    nebulaTypeComboBox = new QComboBox(this);
-    nebulaTypeComboBox->addItem("Emission");
-    nebulaTypeComboBox->addItem("Reflection");
-    nebulaTypeComboBox->addItem("Dark");
-    nebulaTypeComboBox->addItem("Supernova");
-    nebulaTypeComboBox->addItem("Planetary");
-    nebulaTypeComboBox->setCurrentText(QString::fromStdString(nebula->getNebulaTypeString()));
-    // Assume you add getNebulaTypeString()
-    layout->addWidget(nebulaTypeComboBox);
-
-    // Buttons
-    QPushButton *saveButton = new QPushButton("Save", this);
-    QPushButton *cancelButton = new QPushButton("Cancel", this);
-
-    QHBoxLayout *buttonLayout = new QHBoxLayout;
-    buttonLayout->addWidget(saveButton);
-    buttonLayout->addWidget(cancelButton);
-    layout->addLayout(buttonLayout);
-
-    connect(saveButton, &QPushButton::clicked, this, &QDialog::accept);
-    connect(cancelButton, &QPushButton::clicked, this, &QDialog::reject);
-}
-
-void EditNebulaDialog::saveChanges() {
-    nebula->setName(nameEdit->text().toStdString());
-    nebula->setNebulaType(nebulaTypeComboBox->currentText().toStdString());
 }
 
 void GalaxyView::editStarSystem(StarSystem *system) {
