@@ -48,7 +48,7 @@ Planet::planetType Planet::getPlanetType() {
 }
 
 
-double Planet::getOrbit() {
+double Planet::getOrbit() const{
     return orbitRadius;
 }
 

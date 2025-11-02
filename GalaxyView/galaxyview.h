@@ -48,7 +48,9 @@ private slots:
 
     void on_zoomOutButton_clicked();
 
-    // void showObjectParameters(CelestialObject *obj);
+    void showObjectParameters(CelestialObject *obj);
+
+    void on_editObjectButton_clicked();
 
 private:
     Ui::GalaxyView *ui;
@@ -66,6 +68,8 @@ private:
     QPushButton *editButton = nullptr;
     QPushButton *zoomOutButton = nullptr;
     std::vector<QPointF> vertexPositions;
+    void editStarSystem(StarSystem* system);
+    void editNebula(Nebula* nebula);
 };
 
 class GalaxyEditDialog : public QDialog {
@@ -125,6 +129,39 @@ private:
     QComboBox *nebulaTypeComboBox;
     RandomGenerator &rng;
     const nlohmann::json &data;
+};
+
+class EditStarSystemDialog : public QDialog {
+    Q_OBJECT
+
+public:
+    explicit EditStarSystemDialog(StarSystem *system, RandomGenerator *rng, const nlohmann::json *data, QWidget *parent = nullptr);
+
+    void saveChanges();
+
+private:
+    StarSystem *starSystem;
+    QLineEdit *nameEdit;
+    QSpinBox *planetCountSpinBox;
+    QComboBox *starTypeComboBox;
+    RandomGenerator *rngPtr;
+    const nlohmann::json *dataPtr;
+
+    void updatePlanetCount();
+};
+
+class EditNebulaDialog : public QDialog {
+    Q_OBJECT
+
+public:
+    explicit EditNebulaDialog(Nebula *nebula, QWidget *parent = nullptr);
+
+    void saveChanges();
+
+private:
+    Nebula *nebula;
+    QLineEdit *nameEdit;
+    QComboBox *nebulaTypeComboBox;
 };
 
 class ObjectDetailDialog : public QDialog {

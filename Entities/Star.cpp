@@ -22,19 +22,18 @@ std::string Star::getType() const {
 }
 
 void Star::setStarType(std::string type) {
-    if (type == "Red giant" || type == "red giant")
+    if (type == "Red_Giant" || type == "Red Giant" || type == "red giant")
         star_type = starType::Red_Giant;
-    else if (type == "White dwarf" || type == "white dwarf")
+    else if (type == "White_Dwarf" || type == "White Dwarf" || type == "white dwarf")
         star_type = starType::White_Dwarf;
-    else if (type == "Brown dwarf" || type == "brown dwarf")
+    else if (type == "Brown_Dwarf" || type == "Brown Dwarf" || type == "brown dwarf")
         star_type = starType::Brown_Dwarf;
-    else if (type == "Red dwarf" || type == "red dwarf")
+    else if (type == "Red_Dwarf" || type == "Red Dwarf" || type == "red dwarf")
         star_type = starType::Red_Dwarf;
-    else if (type == "Main sequence star" || type == "main sequence star")
+    else if (type == "Main_sequence_Star" || type == "Main sequence star" || type == "main sequence star") // << ЗМІНЕНО/ДОДАНО
         star_type = starType::Main_sequence_Star;
-    else if (type == "Neutron star" || type == "neutron star")
+    else if (type == "Neutron_Star" || type == "Neutron Star" || type == "neutron star")
         star_type = starType::Neutron_Star;
-
 }
 
 
@@ -61,4 +60,26 @@ void Star::displayInfo() const {
             break;
     }
     std::cout << " temperature: " << temperature <<std::endl;
+}
+
+double Star::getTemperature() {
+    return  temperature;
+}
+
+std::string Star::getStarTypeString() const {
+    switch (star_type) {
+        case starType::Red_Giant:
+            return "Red_Giant";
+        case starType::White_Dwarf:
+            return "White_Dwarf";
+        case starType::Brown_Dwarf:
+            return "Brown_Dwarf";
+        case starType::Red_Dwarf:
+            return "Red_Dwarf";
+        case starType::Main_sequence_Star:
+            return "Main_sequence_Star";
+        case starType::Neutron_Star:
+            return "Neutron_Star";
+    }
+    return "Unknown_Star_Type";
 }

@@ -26,6 +26,8 @@ public:
     void setGraph(const std::vector<W_Vertex>& v, const std::vector<W_Edge>& e, const std::vector<CelestialObject*>* objects);
     void zoomToVertex(int vertexId);
     void resetZoom();
+
+    int getDetailedVertexId() const;
     signals:
         void vertexDoubleClicked(int vertexId);
 protected:

@@ -10,8 +10,10 @@
 class StarSystem : public CelestialObject {
 private:
     int id;
-    Star& centralStar;
+    Star &centralStar;
     std::vector<Planet> planets;
+
+    void sortPlanetsByOrbit();
 
 public:
     StarSystem(int id, std::string name, Star &star);
@@ -34,7 +36,6 @@ public:
 
     int getId();
 
-    void lifeExists(Planet& planet);
-
+    void lifeExists(Planet &planet);
 };
 #endif //STARSYSTEM_H

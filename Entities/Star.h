@@ -17,6 +17,10 @@ public:
 
     starType getStarType();
 
+    std::string getStarTypeString() const;
+
+    double getTemperature();
+
 private:
     double temperature;
     starType star_type;

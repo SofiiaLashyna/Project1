@@ -41,6 +41,10 @@ void GraphWidget::mouseDoubleClickEvent(QMouseEvent *event) {
     QWidget::mouseDoubleClickEvent(event);
 }
 
+int GraphWidget::getDetailedVertexId() const {
+    return detailedVertexId;
+}
+
 void GraphWidget::zoomToVertex(int vertexId) {
     this->detailedVertexId = vertexId;
     this->isDetailMode = true;

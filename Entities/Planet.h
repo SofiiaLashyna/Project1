@@ -18,7 +18,7 @@ public:
 
     void displayInfo() const override;
 
-    double getOrbit();
+    double getOrbit() const;
 
     void setColor(QColor newColor);
 
