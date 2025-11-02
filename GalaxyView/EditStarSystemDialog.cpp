@@ -62,11 +62,11 @@ void EditStarSystemDialog::saveChanges() {
         }
     } else if (targetCount > currentCount) {
         int diff = targetCount - currentCount;
-        Galaxy<GraphList<CelestialObject *> > temp_galaxy; // Temporary galaxy to use generator
+        Galaxy<GraphList<CelestialObject *> > temp_galaxy;
         for (int i = 0; i < diff; ++i) {
             Planet *planet = temp_galaxy.generatePlanet(*rngPtr, *dataPtr);
             starSystem->addPlanet(planet);
-            starSystem->lifeExists(*starSystem->getPlanets().rbegin()); // Check habitability for new planet
+            starSystem->lifeExists(*starSystem->getPlanets().rbegin());
         }
     }
 }

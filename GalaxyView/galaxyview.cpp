@@ -68,7 +68,7 @@ GalaxyView::GalaxyView(QWidget *parent) : QWidget(parent), ui(new Ui::GalaxyView
     connect(zoomOutButton, &QPushButton::clicked, this, &GalaxyView::on_zoomOutButton_clicked);
     connect(graphWidget, &GraphWidget::vertexDoubleClicked,
             this, &GalaxyView::on_vertexDoubleClicked);
-    connect(editButton, &QPushButton::clicked, this, &GalaxyView::on_editObjectButton_clicked);
+    connect(editButton, &QPushButton::clicked, this, &GalaxyView::on_editButton_clicked);
     paramsWindow->hide();
 }
 
@@ -298,6 +298,10 @@ void GalaxyView::on_zoomOutButton_clicked() {
     }
     disconnect(editButton, &QPushButton::clicked, this, &GalaxyView::on_editObjectButton_clicked);
     connect(editButton, &QPushButton::clicked, this, &GalaxyView::on_editButton_clicked);
+    QLabel *titleLabel = paramsWindow->findChild<QLabel *>();
+    if (titleLabel) {
+        titleLabel->setText("Galaxy Parameters: \n");
+    }
     updateParametersWindow();
 }
 
@@ -312,13 +316,16 @@ void GalaxyView::showObjectParameters(CelestialObject *obj) {
     if (obj->getType() == "StarSystem") {
         StarSystem *system = dynamic_cast<StarSystem *>(obj);
         if (system) {
+            for (Planet &planet : system->getPlanets()) {
+                system->lifeExists(planet);
+            }
             parametersText = QString::fromStdString(
                 "Name: " + system->getName() + "\n" +
                 "Type: Star System\n" +
-                "Mass: " + std::to_string(system->getMass()) + " solar masses\n\n" +
+                "Mass: " + QString::number(system->getMass(), 'e', 3).toStdString()+ " solar masses\n\n" +
                 "Star Information:\n" +
                 "  Type: " + system->getStar().getStarTypeString() + "\n" +
-                "  Mass: " + std::to_string(system->getStar().getMass()) + " solar masses\n" +
+                "  Mass: " + QString::number(system->getStar().getMass(), 'e', 3).toStdString() + " solar masses\n" +
                 "  Temperature: " + std::to_string(system->getStar().getTemperature()) + " K\n\n" +
                 "Planets: " + std::to_string(system->getPlanets().size()) + "\n"
             );
@@ -341,14 +348,14 @@ void GalaxyView::showObjectParameters(CelestialObject *obj) {
                 "Name: " + nebula->getName() + "\n" +
                 "Type: Nebula\n" +
                 "Nebula Type: " + nebula->getNebulaTypeString() + "\n" +
-                "Mass: " + std::to_string(nebula->getMass()) + " solar masses\n"
+                "Mass: " + QString::number(nebula->getMass(), 'e', 3).toStdString() + " solar masses\n"
             );
         }
     } else {
         parametersText = QString::fromStdString(
             "Name: " + obj->getName() + "\n" +
             "Type: " + obj->getType() + "\n" +
-            "Mass: " + std::to_string(obj->getMass()) + "\n"
+            "Mass: " + QString::number(obj->getMass(), 'e', 3).toStdString() + "\n"
         );
     }
 
