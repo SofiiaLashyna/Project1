@@ -7,7 +7,6 @@ include_directories(
         Entities
         Graph
         Algorithms
-        UnitTests
         GoogleTests
         GalaxyView
         RandomGalaxy
@@ -34,11 +33,6 @@ file(GLOB SOURCES_MAIN
         "MainWindow/*.cpp"
         "GalaxyView/*.cpp"
 )
-
-file(GLOB SOURCE_TESTS
-        "UnitTests/*.cpp"
-)
-
 set(CMAKE_AUTOUIC ON)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
@@ -63,7 +57,6 @@ file(GLOB SOURCES_UI
 )
 
 add_executable(Project1
-#        ${SOURCE_UI}
         MainWindow/windowinterface.h
         MainWindow/windowinterface.ui
         GalaxyView/galaxyview.h
@@ -107,8 +100,3 @@ add_executable(AllTests
 )
 target_link_libraries(AllTests PRIVATE ProjectLib gtest gtest_main Qt6::Core Qt6::Widgets)
 
-
-add_executable(ProjectTests
-        ${SOURCE_TESTS}
-)
-target_link_libraries(ProjectTests PRIVATE ProjectLib Qt6::Core Qt6::Widgets)
