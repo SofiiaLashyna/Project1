@@ -150,6 +150,7 @@ public:
             system->lifeExists(copiedPlanet);
             delete planet;
         }
+        system->mass = system->calculateMass();
         return system;
     }
 
