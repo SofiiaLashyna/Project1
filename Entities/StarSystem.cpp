@@ -20,6 +20,7 @@ Star &StarSystem::getStar() {
 void StarSystem::addPlanet(Planet *planet) {
     planets.push_back(*planet);
     mass += (*planet).getMass();
+    sortPlanetsByOrbit();
 }
 
 void StarSystem::removePlanet(const std::string &name) {
@@ -30,6 +31,11 @@ void StarSystem::removePlanet(const std::string &name) {
         planets.erase(it);
     }
 }
+
+void StarSystem::removePlanet() {
+    planets.pop_back();
+}
+
 
 void StarSystem::displayInfo() const{
     std::cout << "Star system: " << name << "\n Central star: " << centralStar.getName();
@@ -50,7 +56,7 @@ double StarSystem::calculateMass() {
     double mass =0;
     mass += centralStar.mass;
     for (auto i : planets) {
-        mass += i.mass;
+        mass += i.getMass();
     }
     return mass;
 }
@@ -95,4 +101,11 @@ void StarSystem::lifeExists(Planet& planet) {
     else if(centralStar.getStarType() == Star::starType::Neutron_Star) {
         planet.setLifeExistence(false);
     }
+}
+
+void StarSystem::sortPlanetsByOrbit() {
+    std::sort(planets.begin(), planets.end(),
+              [](const Planet& a, const Planet& b) {
+                  return a.getOrbit() < b.getOrbit();
+              });
 }

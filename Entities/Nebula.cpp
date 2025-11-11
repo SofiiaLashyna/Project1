@@ -39,16 +39,26 @@ Nebula::nebulaType Nebula::getNebulaType() {
     return nebula_type;
 }
 
+std::string Nebula::getNebulaTypeString() const {
+    switch (nebula_type) {
+        case nebulaType::Dark: return "Dark";
+        case nebulaType::Emission: return "Emission";
+        case nebulaType::Planetary: return "Planetary";
+        case nebulaType::Supernova: return "Supernova";
+        case nebulaType::Reflection: return "Reflection";
+    }
+    return "Unknown";
+}
 
 void Nebula::setNebulaType(std::string newtype) {
-    if(newtype == "Reflection nebula" || newtype == "reflection nebula")
+    if(newtype == "Reflection" || newtype == "reflection")
         nebula_type = nebulaType::Reflection;
-    if(newtype == "Emission nebula" || newtype == "emission nebula")
+    if(newtype == "Emission" || newtype == "emission")
         nebula_type = nebulaType::Emission;
     if(newtype == "Supernova" || newtype == "supernova")
         nebula_type = nebulaType::Supernova;
-    if(newtype == "Planetary nebula" || newtype == "planetary nebula")
+    if(newtype == "Planetary" || newtype == "planetary")
         nebula_type = nebulaType::Planetary;
-    if(newtype == "Dark nebula" || newtype == "dark nebula")
+    if(newtype == "Dark" || newtype == "dark")
         nebula_type = nebulaType::Dark;
 }

@@ -7,11 +7,12 @@ include_directories(
         Entities
         Graph
         Algorithms
-        UnitTests
         GoogleTests
         GalaxyView
         RandomGalaxy
         Include
+        StarSystemView
+        NebulaView
 )
 include(FetchContent)
 
@@ -30,12 +31,8 @@ file(GLOB SOURCES_MAIN
         "Graph/*.cpp"
         "Algorithms/*.cpp"
         "MainWindow/*.cpp"
+        "GalaxyView/*.cpp"
 )
-
-file(GLOB SOURCE_TESTS
-        "UnitTests/*.cpp"
-)
-
 set(CMAKE_AUTOUIC ON)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
@@ -53,14 +50,27 @@ add_library(ProjectLib STATIC
 
 target_link_libraries(ProjectLib PRIVATE Qt6::Core Qt6::Widgets)
 
+file(GLOB SOURCES_UI
+        "main.cpp"
+        "MainWindow/*.cpp"
+        "GalaxyView/*.cpp"
+)
+
 add_executable(Project1
-        main.cpp
-        MainWindow/windowinterface.cpp
         MainWindow/windowinterface.h
         MainWindow/windowinterface.ui
-        GalaxyView/galaxyview.cpp
         GalaxyView/galaxyview.h
         GalaxyView/galaxyview.ui
+        GalaxyView/AddStarSystemDialog.h
+        GalaxyView/AddNebulaDialog.h
+        GalaxyView/EditStarSystemDialog.h
+        GalaxyView/EditNebulaDialog.h
+        GalaxyView/GalaxyEditDialog.h
+        GalaxyView/AddStarSystemDialog.cpp
+        GalaxyView/AddNebulaDialog.cpp
+        GalaxyView/EditStarSystemDialog.cpp
+        GalaxyView/EditNebulaDialog.cpp
+        GalaxyView/GalaxyEditDialog.cpp
 )
 
 target_link_libraries(Project1 PRIVATE ProjectLib Qt6::Core Qt6::Widgets)
@@ -87,11 +97,8 @@ add_executable(AllTests
         GoogleTests/StarTests.cpp
         GoogleTests/NebulaTests.cpp
         GoogleTests/PlanetTests.cpp
+        GoogleTests/RandomUtilitiesTests.cpp
+        GoogleTests/GalaxyGenerationTests.cpp
 )
 target_link_libraries(AllTests PRIVATE ProjectLib gtest gtest_main Qt6::Core Qt6::Widgets)
 
-
-add_executable(ProjectTests
-        ${SOURCE_TESTS}
-)
-target_link_libraries(ProjectTests PRIVATE ProjectLib Qt6::Core Qt6::Widgets)

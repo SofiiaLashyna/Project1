@@ -25,12 +25,16 @@ public:
     Galaxy(std::string name = "Unnamed Galaxy") : name(std::move(name)) {
     }
 
-    void addObject(CelestialObject *obj) {
-        celestial_objects.push_back(obj);
-        systemGraph.addVertex(celestial_objects.size(), obj);
+    int objectCount() {
+        return celestial_objects.size();
     }
 
-    std::vector<CelestialObject *> getObject() {
+    void addObject(CelestialObject *obj) {
+        celestial_objects.push_back(obj);
+        systemGraph.addVertex(static_cast<int>(celestial_objects.size())-1, obj);
+    }
+
+    std::vector<CelestialObject *>& getObject() {
         return celestial_objects;
     }
 
@@ -64,22 +68,19 @@ public:
         int nebulae = 0;
         double galaxyMass = 0;
         for (auto i: celestial_objects) {
-            if(i->getType() == "Nebula") {
+            if (i->getType() == "Nebula") {
                 nebulae++;
-                galaxyMass += i->mass;
+                galaxyMass += i->getMass();
             }
-            if(i->getType() == "StarSystem") {
+            if (i->getType() == "StarSystem") {
                 starSystems++;
-                StarSystem* system = dynamic_cast<StarSystem*>(i);
+                StarSystem *system = dynamic_cast<StarSystem *>(i);
 
-                if(system) {
+                if (system) {
                     planets += system->getPlanets().size();
-                    galaxyMass += i->getMass();
+                    galaxyMass += system->calculateMass();
                 }
-
             }
-
-
         }
         QString info;
         info += QString("<ul>");
@@ -93,40 +94,9 @@ public:
         return info;
     }
 
-StarSystem* generateStarSystem(int id, RandomGenerator& rng,const json& data) {
-
-        if (!data.contains("Stars") || !data["Stars"].is_array()) {
-            std::cerr << "Stars key missing or not an array!" << std::endl;
-            return 0;
-        }
-
-    const auto& stars = data["Stars"];
-    const auto& sData = stars[rng.getInt(0, static_cast<int>(stars.size()) - 1)];
-
-    std::string starFile = sData["name"];
-    std::string starName = rng.getRandomNameFromFile(starFile);
-    std::string typeStr = sData["starType"];
-
-    double starMass = rng.getDouble(sData["mass"][0], sData["mass"][1]);
-    double temperature = rng.getDouble(sData["temperature"][0], sData["temperature"][1]);
-
-    Star::starType sType;
-    if (typeStr == "White_Dwarf") sType = Star::starType::White_Dwarf;
-    else if (typeStr == "Red_Giant") sType = Star::starType::Red_Giant;
-    else if (typeStr == "Main_sequence_Star") sType = Star::starType::Main_sequence_Star;
-    else if (typeStr == "Brown_Dwarf") sType = Star::starType::Brown_Dwarf;
-    else if (typeStr == "Neutron_Star") sType = Star::starType::Neutron_Star;
-    else sType = Star::starType::Red_Dwarf;
-
-    Star* star = new Star(starName, starMass, temperature, sType);
-
-    int planetCount = rng.getInt(0, 5);
-    const auto& planets = data["Planets"];
-
-    std::string name = starName + "'s system";
-    auto* system = new StarSystem(id, name, *star);
-    for (int i = 0; i < planetCount; ++i) {
-        const auto& pData = planets[rng.getInt(0, static_cast<int>(planets.size()) - 1)];
+    Planet *generatePlanet(RandomGenerator &rng, const json &data) {
+        const auto &planets = data["Planets"];
+        const auto &pData = planets[rng.getInt(0, static_cast<int>(planets.size()) - 1)];
         std::string planetFile = pData["name"];
         std::string planetName = rng.getRandomNameFromFile(planetFile);
         std::string pTypeStr = pData["planetType"];
@@ -139,45 +109,78 @@ StarSystem* generateStarSystem(int id, RandomGenerator& rng,const json& data) {
         if (pTypeStr == "Gas_Giant") pType = Planet::planetType::Gas_Giant;
         else if (pTypeStr == "Terrestrial_Planet") pType = Planet::planetType::Terrestrial_Planet;
         else if (pTypeStr == "Dwarf") pType = Planet::planetType::Dwarf;
-        Planet* planet = new Planet(planetName, planetMass, distance, speed, inclination, pType, false);
-        system->addPlanet(planet);
-        system->lifeExists(*planet);
+        Planet *planet = new Planet(planetName, planetMass, distance, speed, inclination, pType, false);
+        return planet;
     }
-    celestial_objects.push_back(system);
-    systemGraph.addVertex(id, system);
-    return system;
-}
 
-Nebula* generateNebula(RandomGenerator& rng, const json& data) {
-    const auto& nebulae = data["Nebulae"];
-    const auto& nData = nebulae[rng.getInt(0, static_cast<int>(nebulae.size()) - 1)];
-    std::string nebulaFile = nData["name"];
-    std::string nebulaName = rng.getRandomNameFromFile(nebulaFile);
-    std::string typeStr = nData["nebulaType"];
-    double mass = rng.getDouble(nData["mass"][0], nData["mass"][1]);
+    StarSystem *generateStarSystem(int id, RandomGenerator &rng, const json &data) {
+        if (!data.contains("Stars") || !data["Stars"].is_array()) {
+            std::cerr << "Stars key missing or not an array!" << std::endl;
+            return 0;
+        }
 
-    Nebula::nebulaType nType;
-    if (typeStr == "Emission") nType = Nebula::nebulaType::Emission;
-    else if (typeStr == "Reflection") nType = Nebula::nebulaType::Reflection;
-    else if (typeStr == "Dark") nType = Nebula::nebulaType::Dark;
-    else if (typeStr == "Supernova") nType = Nebula::nebulaType::Supernova;
-    else nType = Nebula::nebulaType::Planetary;
+        const auto &stars = data["Stars"];
+        const auto &sData = stars[rng.getInt(0, static_cast<int>(stars.size()) - 1)];
 
-    Nebula* nebula = new Nebula(nebulaName, mass, nType);
-    celestial_objects.push_back(nebula);
-    systemGraph.addVertex(static_cast<int>(celestial_objects.size()) - 1, nebula);
-    return nebula;
-}
+        std::string starFile = sData["name"];
+        std::string starName = rng.getRandomNameFromFile(starFile);
+        std::string typeStr = sData["starType"];
 
-void generateGalaxy(const json& data, RandomGenerator& rng) {
+        double starMass = rng.getDouble(sData["mass"][0], sData["mass"][1]);
+        double temperature = rng.getDouble(sData["temperature"][0], sData["temperature"][1]);
 
-    int systemCount = rng.getInt(3, 10);
-    for (int i = 0; i < systemCount; ++i)
-        this->generateStarSystem(i, rng, data);
+        Star::starType sType;
+        if (typeStr == "White_Dwarf") sType = Star::starType::White_Dwarf;
+        else if (typeStr == "Red_Giant") sType = Star::starType::Red_Giant;
+        else if (typeStr == "Main_sequence_Star") sType = Star::starType::Main_sequence_Star;
+        else if (typeStr == "Brown_Dwarf") sType = Star::starType::Brown_Dwarf;
+        else if (typeStr == "Neutron_Star") sType = Star::starType::Neutron_Star;
+        else sType = Star::starType::Red_Dwarf;
 
-    int nebulaCount = rng.getInt(1, 15);
-    for (int i = 0; i < nebulaCount; ++i)
-        this->generateNebula(rng, data);
+        Star *star = new Star(starName, starMass, temperature, sType);
+
+        int planetCount = rng.getInt(0, 5);
+
+        std::string name = starName + "'s system";
+        auto *system = new StarSystem(id, name, *star);
+        for (int i = 0; i < planetCount; ++i) {
+            Planet *planet = generatePlanet(rng, data);
+            system->addPlanet(planet);
+            Planet &copiedPlanet = system->getPlanets().back();
+            system->lifeExists(copiedPlanet);
+            delete planet;
+        }
+        system->mass = system->calculateMass();
+        return system;
+    }
+
+    Nebula *generateNebula(RandomGenerator &rng, const json &data) {
+        const auto &nebulae = data["Nebulae"];
+        const auto &nData = nebulae[rng.getInt(0, static_cast<int>(nebulae.size()) - 1)];
+        std::string nebulaFile = nData["name"];
+        std::string nebulaName = rng.getRandomNameFromFile(nebulaFile);
+        std::string typeStr = nData["nebulaType"];
+        double mass = rng.getDouble(nData["mass"][0], nData["mass"][1]);
+
+        Nebula::nebulaType nType;
+        if (typeStr == "Emission") nType = Nebula::nebulaType::Emission;
+        else if (typeStr == "Reflection") nType = Nebula::nebulaType::Reflection;
+        else if (typeStr == "Dark") nType = Nebula::nebulaType::Dark;
+        else if (typeStr == "Supernova") nType = Nebula::nebulaType::Supernova;
+        else nType = Nebula::nebulaType::Planetary;
+
+        Nebula *nebula = new Nebula(nebulaName, mass, nType);
+        return nebula;
+    }
+
+    void generateGalaxy(const json &data, RandomGenerator &rng) {
+        int systemCount = rng.getInt(3, 10);
+        for (int i = 0; i < systemCount; ++i)
+            this->addObject(this->generateStarSystem(i, rng, data));
+
+        int nebulaCount = rng.getInt(1, 15);
+        for (int i = 0; i < nebulaCount; ++i)
+            this->addObject(this->generateNebula(rng, data));
 
         for (int i = 0; i < celestial_objects.size() - 1; ++i) {
             int j = rng.getInt(i + 1, celestial_objects.size() - 1);
@@ -186,11 +189,7 @@ void generateGalaxy(const json& data, RandomGenerator& rng) {
         }
 
 
-    std::cout << "Galaxy successfully generated!" << std::endl;
-}
-
-
-
-
+        std::cout << "Galaxy successfully generated!" << std::endl;
+    }
 };
 #endif //GALAXY_H

@@ -1,18 +1,51 @@
-// //
-// // Created by Пользовтель on 15.10.2025.
-// //
-//
-// // You may need to build the project (run Qt uic code generator) to get "ui_WindowInterface.h" resolved
-//
-// #include "windowinterface.h"
-// // #include "ui_WindowInterface.h"
-//
-//
-// WindowInterface::WindowInterface(QWidget *parent) :
-//     QWidget(parent), ui(new Ui::WindowInterface) {
-//     ui->setupUi(this);
-// }
-//
-// WindowInterface::~WindowInterface() {
-//     delete ui;
-// }
+#include "windowinterface.h"
+#include "ui_WindowInterface.h"
+#include "galaxyview.h"
+
+WindowInterface::WindowInterface(QWidget *parent)
+    : QWidget(parent),
+      ui(new Ui::WindowInterface)
+{
+    ui->setupUi(this);
+
+    loadJsonData();
+
+    galaxyView = new GalaxyView(this);
+
+    ui->stackedWidget->addWidget(galaxyView);
+
+    connect(ui->pushButton, &QPushButton::clicked, this, [this]() {
+        if (dataLoaded) {
+            galaxyView->generateAndDisplayGalaxy(data,rng);
+
+            ui->stackedWidget->setCurrentWidget(galaxyView);
+        }else {
+            qDebug() << "Error: JSON data not loaded";
+        }
+    });
+}
+
+void WindowInterface::loadJsonData() {
+    std::ifstream inFile("C:/Users/Prj/Project1/RandomGalaxy/CelestialObjects.json");
+    if (!inFile.is_open()) {
+        qDebug() << "Cannot open JSON file!";
+        return;
+    }
+
+    try {
+        inFile >> data;
+        if (!data.contains("Stars") || !data["Stars"].is_array()) {
+            qDebug() << "Stars key missing or not an array in JSON!";
+            return;
+        }
+        dataLoaded = true;
+        qDebug() << "JSON data loaded successfully.";
+    } catch (const std::exception& e) {
+        qDebug() << "JSON parsing error:" << e.what();
+    }
+}
+
+WindowInterface::~WindowInterface()
+{
+    delete ui;
+}

@@ -35,7 +35,7 @@ std::string Planet::getType() const {
     return "Planet";
 }
 
-bool Planet::isHabitable() {
+bool Planet::isHabitable() const {
     return  habitable;
 }
 
@@ -48,7 +48,16 @@ Planet::planetType Planet::getPlanetType() {
 }
 
 
-double Planet::getOrbit() {
+double Planet::getOrbit() const{
     return orbitRadius;
 }
+
+QColor Planet::getColor() {
+    return color;
+}
+
+void Planet::setColor(QColor newColor) {
+    color = newColor;
+}
+
 

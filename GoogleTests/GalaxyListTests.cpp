@@ -19,10 +19,12 @@ TEST_F(GalaxyListFixture, AddObject) {
 
 TEST_F(GalaxyListFixture, ConnectObjects) {
     Star* star2 = new Star("Alpha", 1.0, 5000, Star::starType::Main_sequence_Star);
+
     g.addObject(star);
     g.addObject(star2);
-    g.connectObjects(1, 2, 100);
-    EXPECT_TRUE(g.getGraph().edgeExists(1, 2));
+    g.connectObjects(0, 1, 100);
+    EXPECT_TRUE(g.getGraph().edgeExists(0, 1));
+
     delete star2;
 }
 TEST_F(GalaxyListFixture, GetGraph) {

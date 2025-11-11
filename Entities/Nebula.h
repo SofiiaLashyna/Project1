@@ -14,6 +14,8 @@ public:
 
     nebulaType getNebulaType();
 
+    std::string getNebulaTypeString() const;
+
     void setNebulaType(std::string newtype);
 private:
     nebulaType nebula_type;

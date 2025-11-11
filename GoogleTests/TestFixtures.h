@@ -6,14 +6,17 @@
 #include "GraphMatrix.h"
 #include <string>
 #include "gtest/gtest.h"
+#include "nlohmann//json.hpp"
+#include "RandomUtilities.h"
+using json = nlohmann::json;
 
-using GalaxyType = Galaxy<GraphMatrix<CelestialObject*>>;
+using GalaxyType = Galaxy<GraphMatrix<CelestialObject *> >;
 
 class GalaxyMatrixFixture : public ::testing::Test {
 protected:
     GalaxyType g;
-    Star* star = nullptr;
-    Planet* planet = nullptr;
+    Star *star = nullptr;
+    Planet *planet = nullptr;
 
     void SetUp() override {
         star = new Star("Sun", 1.0, 5778, Star::starType::Main_sequence_Star);
@@ -27,13 +30,13 @@ protected:
 };
 
 
-using GalaxyType2 = Galaxy<GraphList<CelestialObject*>>;
+using GalaxyType2 = Galaxy<GraphList<CelestialObject *> >;
 
 class GalaxyListFixture : public ::testing::Test {
 protected:
     GalaxyType2 g;
-    Star* star = nullptr;
-    Planet* planet = nullptr;
+    Star *star = nullptr;
+    Planet *planet = nullptr;
 
     void SetUp() override {
         star = new Star("Sun", 1.0, 5778, Star::starType::Main_sequence_Star);
@@ -48,8 +51,8 @@ protected:
 
 class StarSystemFixture : public ::testing::Test {
 protected:
-    Star* star;
-    StarSystem* system;
+    Star *star;
+    StarSystem *system;
 
     void SetUp() override {
         star = new Star("Sun", 1.0, 5778.0, Star::starType::Main_sequence_Star);
@@ -66,6 +69,7 @@ class GraphMatrixFixture : public ::testing::Test {
 protected:
     GraphMatrix<std::string> g;
     int NOT_FOUND = -1;
+
     void SetUp() override {
         g.addVertex(1, "A");
         g.addVertex(2, "B");
@@ -74,12 +78,13 @@ protected:
         g.addEdge(1, 3);
     }
 
-    void TearDown() override {}
+    void TearDown() override {
+    }
 };
 
 class BFSMatrixFixture : public GraphMatrixFixture {
 protected:
-    Algorithms<GraphMatrix<std::string>, std::string>* alg;
+    Algorithms<GraphMatrix<std::string>, std::string> *alg;
 
     void SetUp() override {
         GraphMatrixFixture::SetUp();
@@ -97,6 +102,7 @@ class GraphListFixture : public ::testing::Test {
 protected:
     GraphList<std::string> g;
     int NOT_FOUND = -1;
+
     void SetUp() override {
         g.addVertex(1, "A");
         g.addVertex(2, "B");
@@ -105,11 +111,13 @@ protected:
         g.addEdge(1, 3);
     }
 
-    void TearDown() override {}
+    void TearDown() override {
+    }
 };
+
 class BFSListFixture : public GraphListFixture {
 protected:
-    Algorithms<GraphList<std::string>, std::string>* alg;
+    Algorithms<GraphList<std::string>, std::string> *alg;
 
     void SetUp() override {
         GraphListFixture::SetUp();
@@ -122,5 +130,30 @@ protected:
     }
 };
 
+class RandomGeneratorTest : public ::testing::Test {
+protected:
+    RandomGenerator rng;
+};
 
+class GalaxyGenerationTestFixture : public GalaxyListFixture {
+protected:
+    RandomGenerator rng;
+
+    nlohmann::json testData = nlohmann::json::parse(R"({
+        "Stars": [
+            {"starType": "Main_sequence_Star", "temperature": [1000, 5000], "mass": [1, 5], "name": "C:/Users/Prj/Project1/RandomGalaxy/names/mainSequenceStar.txt"}
+        ],
+        "Planets": [
+            {"planetType": "Terrestrial_Planet",
+             "orbitRadius": [1.5, 1.5],
+             "orbitSpeed": [1, 1],
+             "Inclination": [0, 0],
+             "mass": [1, 1],
+             "name": "C:/Users/Prj/Project1/RandomGalaxy/names/terrestrialPlanet.txt"}
+        ],
+        "Nebulae": [
+             {"nebulaType": "Emission", "mass": [1, 100], "name": "C:/Users/Prj/Project1/RandomGalaxy/names/emissionNebula.txt"}
+        ]
+    })");
+};
 #endif //TESTFIXTURES_H

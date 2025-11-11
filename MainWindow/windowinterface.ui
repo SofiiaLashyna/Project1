@@ -1,22 +1,109 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
-    <author/>
-    <comment/>
-    <exportmacro/>
-    <class>WindowInterface</class>
-    <widget class="QWidget" name="WindowInterface">
-        <property name="geometry">
-            <rect>
-                <x>0</x>
-                <y>0</y>
-                <width>400</width>
-                <height>300</height>
-            </rect>
-        </property>
-        <property name="windowTitle">
-            <string>WindowInterface</string>
-        </property>
+ <class>WindowInterface</class>
+ <widget class="QWidget" name="WindowInterface">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1228</width>
+    <height>689</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>WindowInterface</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">background-color: rgb(0, 0, 0);</string>
+  </property>
+  <widget class="QStackedWidget" name="stackedWidget">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>-10</y>
+     <width>1231</width>
+     <height>681</height>
+    </rect>
+   </property>
+   <property name="currentIndex">
+    <number>0</number>
+   </property>
+   <widget class="QWidget" name="page">
+    <widget class="QLabel" name="label">
+     <property name="geometry">
+      <rect>
+       <x>190</x>
+       <y>160</y>
+       <width>841</width>
+       <height>51</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">font: 26pt &quot;Ravie&quot;;
+background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0 rgba(0, 0, 0, 0), stop:1 rgba(0, 0, 0, 0));</string>
+     </property>
+     <property name="text">
+      <string>Welcome to the Galaxy Simulator!</string>
+     </property>
     </widget>
-    <pixmapfunction/>
-    <connections/>
+    <widget class="QPushButton" name="pushButton">
+     <property name="geometry">
+      <rect>
+       <x>420</x>
+       <y>310</y>
+       <width>331</width>
+       <height>71</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">font: 28pt &quot;Segoe Print&quot;;
+background-color: qlineargradient(spread:pad, x1:0.091, y1:0.097, x2:1, y2:1, stop:0 rgba(104, 0, 123, 197), stop:1 rgba(255, 255, 255, 0));
+border-top-color: rgb(225, 0, 255);</string>
+     </property>
+     <property name="text">
+      <string>Generate Galaxy</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="pushButton_2">
+     <property name="geometry">
+      <rect>
+       <x>420</x>
+       <y>420</y>
+       <width>331</width>
+       <height>71</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">font: 20pt &quot;Segoe Print&quot;;
+background-color: qlineargradient(spread:pad, x1:0.091, y1:0.097, x2:1, y2:1, stop:0 rgba(0, 109, 202, 188), stop:1 rgba(255, 255, 255, 0));
+border-top-color: rgb(255, 170, 0);</string>
+     </property>
+     <property name="text">
+      <string>Input existing Galaxy</string>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QWidget" name="page_2">
+    <widget class="QPushButton" name="pushButton_3">
+     <property name="geometry">
+      <rect>
+       <x>998</x>
+       <y>640</y>
+       <width>181</width>
+       <height>41</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-color: qlineargradient(spread:pad, x1:0, y1:0.003, x2:1, y2:1, stop:0 rgba(200, 108, 0, 197), stop:1 rgba(255, 255, 255, 0));
+font: 16pt &quot;Segoe Print&quot;;</string>
+     </property>
+     <property name="text">
+      <string>Return to home</string>
+     </property>
+    </widget>
+   </widget>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
 </ui>
