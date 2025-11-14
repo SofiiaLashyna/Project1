@@ -29,6 +29,21 @@ GalaxyView::GalaxyView(QWidget *parent) : QWidget(parent), ui(new Ui::GalaxyView
     paramsButton = new QPushButton("⚙️ Parameters", this);
     paramsButton->setStyleSheet("font-size: 14px; padding: 5px 10px;");
 
+    switch3DButton = new QPushButton("🌌 3D View", this);
+    switch3DButton->setStyleSheet("font-size: 14px; padding: 5px 10px;");
+    connect(switch3DButton, &QPushButton::clicked, this, [this]() {
+        is3DView = !is3DView;
+
+        if (is3DView) {
+            switch3DButton->setText("🪐 2D View");
+            qDebug() << "Switched to 3D visualization";
+        } else {
+            switch3DButton->setText("🌕 3D View");
+            qDebug() << "Switched to 2D visualization";
+        }
+    });
+
+
     paramsWindow = new QWidget(this);
     paramsWindow->setStyleSheet(
         "background-color: #333; color: white; border: 1px solid #555; border-radius: 5px;"
@@ -97,6 +112,14 @@ void GalaxyView::resizeEvent(QResizeEvent *event) {
         int btn_x = width() - paramsButton->width() - margin;
         int btn_y = margin;
         paramsButton->move(btn_x, btn_y);
+
+        if (switch3DButton) {
+            switch3DButton->resize(150, 35);
+            int margin = 20;
+            int btn_x = width() - paramsButton->width() - switch3DButton->width() - margin - 10;
+            int btn_y = margin;
+            switch3DButton->move(btn_x, btn_y);
+        }
 
         int win_x = width() - paramsWindow->width() - margin;
         int win_y = btn_y + paramsButton->height() + 10;
@@ -412,4 +435,8 @@ void GalaxyView::editNebula(Nebula *nebula) {
         updateGraphDisplay();
         QApplication::processEvents();
     }
+}
+
+void GalaxyView::show3DView() {
+    qDebug() << "TODO: implement 3D view with Qt3D or QOpenGLWidget";
 }

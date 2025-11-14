@@ -49,37 +49,37 @@ background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0 rgb
     <widget class="QPushButton" name="pushButton">
      <property name="geometry">
       <rect>
-       <x>420</x>
+       <x>410</x>
        <y>310</y>
-       <width>331</width>
+       <width>411</width>
        <height>71</height>
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">font: 28pt &quot;Segoe Print&quot;;
+      <string notr="true">font: 25pt &quot;Segoe Print&quot;;
 background-color: qlineargradient(spread:pad, x1:0.091, y1:0.097, x2:1, y2:1, stop:0 rgba(104, 0, 123, 197), stop:1 rgba(255, 255, 255, 0));
 border-top-color: rgb(225, 0, 255);</string>
      </property>
      <property name="text">
-      <string>Generate Galaxy</string>
+      <string>Generate 2D Galaxy</string>
      </property>
     </widget>
     <widget class="QPushButton" name="pushButton_2">
      <property name="geometry">
       <rect>
-       <x>420</x>
+       <x>410</x>
        <y>420</y>
-       <width>331</width>
+       <width>411</width>
        <height>71</height>
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">font: 20pt &quot;Segoe Print&quot;;
+      <string notr="true">font: 25pt &quot;Segoe Print&quot;;
 background-color: qlineargradient(spread:pad, x1:0.091, y1:0.097, x2:1, y2:1, stop:0 rgba(0, 109, 202, 188), stop:1 rgba(255, 255, 255, 0));
 border-top-color: rgb(255, 170, 0);</string>
      </property>
      <property name="text">
-      <string>Input existing Galaxy</string>
+      <string>Generate 3D Galaxy</string>
      </property>
     </widget>
    </widget>

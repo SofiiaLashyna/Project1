@@ -8,7 +8,7 @@ class DijkstraAlgorithm : public GraphAlgorithm<GraphMatrix<T>, T> {
 public:
     int run(GraphMatrix<T>& g, int startId, int endId) override {
         Algorithms<GraphMatrix<T>, T> alg(g);
-        int res = alg.Dijkstra_list(startId, endId);
+        int res = alg.Dijkstra_matrix(startId, endId);
         std::cout << "Shortest path weight = " << res << std::endl;
         return res;
     }

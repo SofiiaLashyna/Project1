@@ -11,6 +11,7 @@ namespace Ui { class WindowInterface; }
 QT_END_NAMESPACE
 
 class GalaxyView;
+class GalaxyView3D;
 
 class WindowInterface : public QWidget
 {
@@ -23,6 +24,7 @@ public:
 private:
     Ui::WindowInterface *ui;
     GalaxyView *galaxyView;
+    GalaxyView3D *galaxyView3D;
     RandomGenerator rng;
     nlohmann::json data;
     bool dataLoaded = false;

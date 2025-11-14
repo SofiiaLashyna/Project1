@@ -1,25 +1,35 @@
 #include "windowinterface.h"
 #include "ui_WindowInterface.h"
 #include "galaxyview.h"
+#include "galaxyview3d.h"
 
 WindowInterface::WindowInterface(QWidget *parent)
     : QWidget(parent),
-      ui(new Ui::WindowInterface)
-{
+      ui(new Ui::WindowInterface) {
     ui->setupUi(this);
 
     loadJsonData();
 
     galaxyView = new GalaxyView(this);
+    galaxyView3D = new GalaxyView3D(this);
 
     ui->stackedWidget->addWidget(galaxyView);
+    ui->stackedWidget->addWidget(galaxyView3D);
 
     connect(ui->pushButton, &QPushButton::clicked, this, [this]() {
         if (dataLoaded) {
-            galaxyView->generateAndDisplayGalaxy(data,rng);
-
+            galaxyView->generateAndDisplayGalaxy(data, rng);
             ui->stackedWidget->setCurrentWidget(galaxyView);
-        }else {
+        } else {
+            qDebug() << "Error: JSON data not loaded";
+        }
+    });
+
+    connect(ui->pushButton_2, &QPushButton::clicked, this, [this]() {
+        if (dataLoaded) {
+            galaxyView3D->generateAndDisplayGalaxy(data, rng);
+            ui->stackedWidget->setCurrentWidget(galaxyView3D);
+        } else {
             qDebug() << "Error: JSON data not loaded";
         }
     });
@@ -40,12 +50,11 @@ void WindowInterface::loadJsonData() {
         }
         dataLoaded = true;
         qDebug() << "JSON data loaded successfully.";
-    } catch (const std::exception& e) {
+    } catch (const std::exception &e) {
         qDebug() << "JSON parsing error:" << e.what();
     }
 }
 
-WindowInterface::~WindowInterface()
-{
+WindowInterface::~WindowInterface() {
     delete ui;
 }

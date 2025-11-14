@@ -1,5 +1,5 @@
-#ifndef GALAXYVIEW_H
-#define GALAXYVIEW_H
+#ifndef GALAXYVIEW3D_H
+#define GALAXYVIEW3D_H
 
 #include "RandomUtilities.h"
 #include "CelestialObject.h"
@@ -10,36 +10,40 @@
 #include <cmath>
 #include <qboxlayout.h>
 #include <QPushButton>
+#include <QtQuickWidgets/QQuickWidget>
+#include "CelestialObject3DModel.h"
 
 class GalaxyEditDialog;
 class AddStarSystemDialog;
 class AddNebulaDialog;
 class EditStarSystemDialog;
 class EditNebulaDialog;
+class StarSystem;
+class Nebula;
 
 QT_BEGIN_NAMESPACE
 
 namespace Ui {
-    class GalaxyView;
+    class GalaxyView3D;
 }
 
 QT_END_NAMESPACE
 
-class GalaxyView : public QWidget {
+class GalaxyView3D : public QWidget {
     Q_OBJECT
 
 protected:
     void resizeEvent(QResizeEvent *event) override;
 
 public:
-    explicit GalaxyView(QWidget *parent = nullptr);
+    explicit GalaxyView3D(QWidget *parent = nullptr);
 
-    ~GalaxyView() override;
+    ~GalaxyView3D() override;
 
     void generateAndDisplayGalaxy(const nlohmann::json &data, RandomGenerator &rng);
 
-    private slots:
-        void on_paramsButton_clicked();
+private slots:
+    void on_paramsButton_clicked();
 
     void on_editButton_clicked();
 
@@ -52,29 +56,25 @@ public:
     void on_editObjectButton_clicked();
 
 private:
-    Ui::GalaxyView *ui;
+    Ui::GalaxyView3D *ui;
     Galaxy<GraphList<CelestialObject *> > *galaxy = nullptr;
 
+    int detailedVertexId = -1;
     void updateParametersWindow();
 
-    void updateGraphDisplay();
-
-    GraphWidget *graphWidget = nullptr;
     QPushButton *paramsButton = nullptr;
     QWidget *paramsWindow = nullptr;
     RandomGenerator *rngPtr = nullptr;
     nlohmann::json *dataPtr = nullptr;
     QPushButton *editButton = nullptr;
     QPushButton *zoomOutButton = nullptr;
-    std::vector<QPointF> vertexPositions;
+
+    std::vector<QVector3D> vertexPositions3D;
+
+    QQuickWidget *quickWidget = nullptr;
+    CelestialObject3DModel *celestialModelPtr = nullptr;
     void editStarSystem(StarSystem* system);
     void editNebula(Nebula* nebula);
-
-    void show3DView();
-
-    QPushButton *switch3DButton = nullptr;
-    bool is3DView = false;
-
 };
 
-#endif //GALAXYVIEW_H
+#endif //GALAXYVIEW3D_H

@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/">
+        <file>Galaxy3DView.qml</file>
+    </qresource>
+</RCC>
