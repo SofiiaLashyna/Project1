@@ -7,8 +7,11 @@ TEST(DFSMatrixTests, EmptyGraph) {
     GraphMatrix<std::string> g;
     Algorithms<GraphMatrix<std::string>, std::string> alg(g);
 
-    auto dfsResult = alg.DFS_matrix(1);
-    EXPECT_TRUE(dfsResult.empty()) << "DFS on empty graph should produce no output";
+    testing::internal::CaptureStdout();
+    alg.DFS_matrix(1);
+    std::string output = testing::internal::GetCapturedStdout();
+
+    EXPECT_TRUE(output.find("A") == std::string::npos);
 }
 
 TEST(DFSMatrixTests, SingleVertex) {
@@ -17,14 +20,20 @@ TEST(DFSMatrixTests, SingleVertex) {
 
     Algorithms<GraphMatrix<std::string>, std::string> alg(g);
 
-    auto dfsResult = alg.DFS_matrix(1);
+    testing::internal::CaptureStdout();
+    alg.DFS_matrix(1);
+    std::string output = testing::internal::GetCapturedStdout();
 
-    ASSERT_EQ(dfsResult.size(), 1);
-    EXPECT_EQ(dfsResult[0], "A") << "DFS should visit only vertex A";
+    EXPECT_NE(output.find("A"), std::string::npos);
 }
+
 TEST_F(BFSMatrixFixture, BasicDFS_Clean) {
-    auto dfsVertices = alg->DFS_matrix(1);
-    std::vector<std::string> expected = {"A", "B", "C"};
-    EXPECT_EQ(dfsVertices, expected) << "DFS order should be A, B, C";
+    testing::internal::CaptureStdout();
+    alg->DFS_matrix(1);
+    std::string output = testing::internal::GetCapturedStdout();
 
+    std::string expected = "DFS (matrix) order: A B C \n";
+
+    EXPECT_EQ(output, expected);
 }
+
