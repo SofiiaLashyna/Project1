@@ -31,7 +31,8 @@ TEST_F(GraphMatrixFixture, RemoveVertex) {
 TEST_F(GraphMatrixFixture, VertexSearch) {
     EXPECT_EQ(g.vertexSearch(1), "A");
     EXPECT_EQ(g.vertexSearch(2), "B");
-    EXPECT_EQ(g.vertexSearch(5), "none");
+    EXPECT_THROW(g.vertexSearch(4), std::runtime_error);
+
 }
 
 TEST_F(GraphMatrixFixture, GetNeighbors) {

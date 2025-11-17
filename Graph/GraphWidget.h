@@ -1,44 +1,100 @@
-
 #ifndef GRAPHWIDGET_H
 #define GRAPHWIDGET_H
 #include <CelestialObject.h>
 #include <QtWidgets/QWidget>
 #include <vector>
 #include <QTimer>
-
+/**
+ * @file GraphWidget.h
+ * @brief Defines a custom Qt widget for rendering a galaxy graph with vertices and edges.
+ */
+/**
+ * @struct W_Edge
+ * @brief A lightweight struct for passing edge data to the GraphWidget.
+ */
 struct W_Edge {
-    int from;
-    int to;
-    int weight;
+    int from; ///< The index of the 'from' vertex.
+    int to; ///< The index of the 'to' vertex.
+    int weight; ///< The weight of the edge.
 };
-
+/**
+ * @struct W_Vertex
+ * @brief A lightweight struct for passing vertex data to the GraphWidget.
+ */
 struct W_Vertex {
-    int id;
-    int x, y;
-    QString name;
+    int id; ///< The public ID of the vertex.
+    int x, y; ///< The 2D coordinates for drawing.
+    QString name; ///< The display name.
 };
+/**
+ * @file GraphWidget.h
+ * @brief Defines the GraphWidget class, a Qt widget for custom 2D rendering.
+ */
 
+/**
+ * @class GraphWidget
+ * @brief A custom QWidget that handles all painting (QPainter) for the
+ * galaxy graph, star systems, and nebulae, including zoom and animation.
+ */
 class GraphWidget : public QWidget {
     Q_OBJECT
 public:
+    /**
+     * @brief Constructor for GraphWidget.
+     * @param parent The parent Qt widget.
+     */
     GraphWidget(QWidget *parent = nullptr);
-
+    /**
+             * @brief Sets the graph data (vertices and edges) to be rendered.
+             * @param v The vector of vertices.
+             * @param e The vector of edges.
+             * @param objects A non-owning pointer to the main celestial objects vector.
+             */
     void setGraph(const std::vector<W_Vertex>& v, const std::vector<W_Edge>& e, const std::vector<CelestialObject*>* objects);
+    /**
+         * @brief Enters "detail mode" (zoom) for a specific vertex.
+         * @param vertexId The index of the vertex to focus on.
+         */
     void zoomToVertex(int vertexId);
+    /**
+     * @brief Exits "detail mode" and resets the zoom.
+     */
     void resetZoom();
-
+    /**
+             * @brief Gets the ID of the vertex currently in focus (detail mode).
+             * @return The ID of the detailed vertex, or -1 if not in detail mode.
+             */
     int getDetailedVertexId() const;
     signals:
+
+    /**
+     * @brief Qt Signal: Emitted when a user double-clicks on a vertex.
+     * @param vertexId The ID of the vertex that was clicked.
+     */
         void vertexDoubleClicked(int vertexId);
 protected:
+    /**
+     * @brief Overridden Qt event handler for all custom painting.
+     * @param event The paint event.
+     */
     void paintEvent(QPaintEvent *event) override;
+    /**
+        * @brief Overridden Qt event handler for detecting clicks on vertices.
+        * @param event The mouse event.
+        */
     void mouseDoubleClickEvent(QMouseEvent *event) override;
 private:
+    ///< Local copy of the vertices to be drawn.
     std::vector<W_Vertex> vertices;
+    ///< Local copy of the edges to be drawn.
     std::vector<W_Edge> edges;
+    ///< Non-owning pointer to the original CelestialObject vector (for dynamic_cast).
     const std::vector<CelestialObject*>* celestialObjectsPtr = nullptr;
+    ///< Flag to toggle between galaxy view and detail (zoom) view.
     bool isDetailMode = false;
+    ///< The ID of the vertex currently in focus (-1 if none).
     int detailedVertexId = -1;
+    ///< Qt Timer used to drive animations in detail mode (e.g., planet orbits).
     QTimer *animationTimer = nullptr;
 };
 
