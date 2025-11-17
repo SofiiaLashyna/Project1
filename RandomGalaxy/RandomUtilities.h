@@ -66,6 +66,8 @@ public:
         if (names.empty()) return "Unnamed";
         return getChoice(names);
     }
+    std::mt19937& getEngine() { return gen; }
+
 
 
 };

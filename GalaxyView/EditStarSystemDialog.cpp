@@ -66,7 +66,8 @@ void EditStarSystemDialog::saveChanges() {
         for (int i = 0; i < diff; ++i) {
             Planet *planet = temp_galaxy.generatePlanet(*rngPtr, *dataPtr);
             starSystem->addPlanet(planet);
-            starSystem->lifeExists(**starSystem->getPlanets().rbegin());
+            starSystem->lifeExists(*starSystem->getPlanets().back());
+
         }
     }
 }
