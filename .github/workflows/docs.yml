@@ -7,13 +7,16 @@ on:
       - feature/docs-ci
 
 permissions:
-  contents: write
+  contents: read
   pages: write
   id-token: write
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
 
     steps:
       - name: Checkout repository
@@ -21,17 +24,22 @@ jobs:
 
       - name: Install Doxygen and Graphviz
         run: |
-            sudo apt-get update
-            sudo apt-get install -y doxygen graphviz
+          sudo apt-get update
+          sudo apt-get install -y doxygen graphviz
 
       - name: Generate Doxygen documentation
         run: |
           doxygen Doxyfile
-          touch docs/html/.nojekyll
+          # touch docs/html/.nojekyll (Цей крок більше не потрібен з configure-pages)
+
+      - name: Setup GitHub Pages
+        uses: actions/configure-pages@v4
+
+      - name: Upload Doxygen Artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: 'docs/html'
 
       - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./docs/html
-          publish_branch: gh-pages
+        id: deployment
+        uses: actions/deploy-pages@v4
