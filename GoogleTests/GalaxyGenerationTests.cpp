@@ -47,7 +47,7 @@ TEST_F(GalaxyGenerationTestFixture, GenerateStarSystemCreatesValidSystem) {
     EXPECT_LE(planetCount, 5);
 
     if (planetCount > 0) {
-        EXPECT_TRUE(system->getPlanets()[0].isHabitable());
+        EXPECT_TRUE(system->getPlanets()[0]->isHabitable());
     }
 
     delete system;

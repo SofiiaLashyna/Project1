@@ -56,12 +56,11 @@ protected:
 
     void SetUp() override {
         star = new Star("Sun", 1.0, 5778.0, Star::starType::Main_sequence_Star);
-        system = new StarSystem(1, "Solar", *star);
+        system = new StarSystem(1, "Solar", star);
     }
 
     void TearDown() override {
         delete system;
-        delete star;
     }
 };
 

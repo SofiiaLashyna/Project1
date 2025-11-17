@@ -316,7 +316,8 @@ void GalaxyView::showObjectParameters(CelestialObject *obj) {
     if (obj->getType() == "StarSystem") {
         StarSystem *system = dynamic_cast<StarSystem *>(obj);
         if (system) {
-            for (Planet &planet : system->getPlanets()) {
+            for (Planet *planetPtr : system->getPlanets()) {
+                Planet &planet = *planetPtr;
                 system->lifeExists(planet);
             }
             parametersText = QString::fromStdString(
@@ -331,7 +332,8 @@ void GalaxyView::showObjectParameters(CelestialObject *obj) {
             );
 
             for (size_t i = 0; i < system->getPlanets().size(); ++i) {
-                Planet &planet = system->getPlanets()[i];
+                Planet* planetPtr = system->getPlanets()[i];
+                Planet &planet = *planetPtr;
                 parametersText += QString::fromStdString(
                     "\nPlanet " + std::to_string(i + 1) + ":\n" +
                     "  Name: " + planet.getName() + "\n" +
