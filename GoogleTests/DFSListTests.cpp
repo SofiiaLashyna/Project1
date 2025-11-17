@@ -43,14 +43,15 @@ TEST_F(BFSListFixture, BasicDFSOrder) {
     CoutGuard guard(out);
     alg->DFS_list(1);
 
-
     std::string dfsOutput = out.str();
     std::istringstream iss(dfsOutput);
     std::vector<std::string> words;
     std::string word;
     while (iss >> word) words.push_back(word);
 
-    std::vector<std::string> dfsVertices(words.begin() + 3, words.end());
+    ASSERT_GE(words.size(), 2) << "Output is too short to contain DFS data";
+
+    std::vector<std::string> dfsVertices(words.begin() + 2, words.end());
 
     std::vector<std::string> expectedOrder = {"A", "B", "C"};
     EXPECT_EQ(dfsVertices, expectedOrder);
