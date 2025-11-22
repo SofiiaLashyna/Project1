@@ -2,11 +2,29 @@ cmake_minimum_required(VERSION 3.29)
 project(Project1)
 
 set(CMAKE_CXX_STANDARD 20)
+include(FetchContent)
+
+set(USE_DOUBLE_PRECISION ON CACHE BOOL "Use double precision" FORCE)
+set(BUILD_CPU_DEMOS OFF CACHE BOOL "Don't build demos" FORCE)
+set(BUILD_BULLET2_DEMOS OFF CACHE BOOL "Don't build demos" FORCE)
+set(BUILD_EXTRAS OFF CACHE BOOL "Don't build extras" FORCE)
+set(BUILD_UNIT_TESTS OFF CACHE BOOL "Don't build tests" FORCE)
+
+add_compile_definitions(BT_USE_DOUBLE_PRECISION)
+
+FetchContent_Declare(
+        bullet3
+        GIT_REPOSITORY https://github.com/bulletphysics/bullet3.git
+        GIT_TAG master
+)
+FetchContent_MakeAvailable(bullet3)
+include_directories(${bullet3_SOURCE_DIR}/src)
 
 include_directories(
         Entities
         Graph
         Algorithms
+        Algorithms/PhysicsAlgorithms
         GoogleTests
         GalaxyView
         RandomGalaxy
@@ -31,6 +49,7 @@ file(GLOB SOURCES_MAIN
         "Entities/*.cpp"
         "Graph/*.cpp"
         "Algorithms/*.cpp"
+        "Algorithms/PhysicsAlgorithms/*.cpp"
         "MainWindow/*.cpp"
         "GalaxyView/*.cpp"
         "3DView/*.cpp"
@@ -49,7 +68,7 @@ add_library(ProjectLib STATIC
         ${MOC_SOURCES}
 )
 
-target_link_libraries(ProjectLib PRIVATE Qt6::Core Qt6::Widgets Qt6::Quick Qt6::Quick3D Qt6::QuickWidgets)
+target_link_libraries(ProjectLib PRIVATE Qt6::Core Qt6::Widgets Qt6::Quick Qt6::Quick3D Qt6::QuickWidgets BulletDynamics BulletCollision LinearMath)
 
 file(GLOB SOURCES_UI
         "main.cpp"
@@ -81,7 +100,7 @@ add_executable(Project1
         3DView/galaxyview3d.h
 )
 
-target_link_libraries(Project1 PRIVATE ProjectLib Qt6::Core Qt6::Widgets Qt6::Quick Qt6::Quick3D Qt6::QuickWidgets)
+target_link_libraries(Project1 PRIVATE ProjectLib Qt6::Core Qt6::Widgets Qt6::Quick Qt6::Quick3D Qt6::QuickWidgets BulletDynamics BulletCollision LinearMath)
 
 add_executable(AllTests
         GoogleTests/AllTests.cpp
