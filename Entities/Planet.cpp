@@ -13,7 +13,7 @@ Planet::Planet(const std::string &name, double mass, double orbit, double speed,
 
 
 void Planet::displayInfo() const {
-    std::cout << "Planet name: " << name << " type: ";
+    std::cout << "Planet name: " << getName() << " type: ";
     switch (planet_type) {
         case planetType::Terrestrial_Planet:
             std::cout << "Terrestrial planet";

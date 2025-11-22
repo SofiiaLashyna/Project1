@@ -13,6 +13,7 @@
 #include <QLabel>
 #include <QDebug>
 #include <QMessageBox>
+#include <algorithm>
 
 GalaxyView::GalaxyView(QWidget *parent) : QWidget(parent), ui(new Ui::GalaxyView) {
     ui->setupUi(this);
@@ -118,26 +119,45 @@ void GalaxyView::updateGraphDisplay() {
         return;
     }
 
-    int currentPositionsSize = static_cast<int>(vertexPositions.size());
     int nVerticesTotal = static_cast<int>(galaxy->getObject().size());
 
-    if (nVerticesTotal > currentPositionsSize) {
-        for (int i = currentPositionsSize; i < nVerticesTotal; ++i) {
+    // Ensure vertexPositions has the same length as vertices
+    vertexPositions.resize(nVerticesTotal, QPointF(0, 0));
+
+    // Count active vertices first
+    int n_active = 0;
+    for (int i = 0; i < nVerticesTotal; ++i) {
+        if (galaxy->getGraph().getVertices()[i].getId() != -1) {
+            n_active++;
+        }
+    }
+    if (n_active == 0) n_active = 1;
+
+    int active_idx_counter = 0;
+
+    // For every vertex index, assign position if not assigned yet (or it's default (0,0))
+    for (int i = 0; i < nVerticesTotal; ++i) {
+        const auto &v = galaxy->getGraph().getVertices()[i];
+        if (v.getId() == -1) continue;
+
+        // if position is default (0,0), generate it; otherwise keep existing position
+        if (vertexPositions[i].isNull() || (vertexPositions[i].x() == 0 && vertexPositions[i].y() == 0)) {
             int cx = 550;
             int cy = 350;
             double radius = rngPtr->getDouble(150, 250);
-
-            double angle = rngPtr->getDouble(0, 2 * M_PI);
+            double angle = 2 * M_PI * active_idx_counter / static_cast<double>(n_active);
 
             QPointF newPos(
                 cx + radius * std::cos(angle),
                 cy + radius * std::sin(angle)
             );
 
-            vertexPositions.push_back(newPos);
-            qDebug() << "Generated position for new object at index" << i;
+            vertexPositions[i] = newPos;
+            qDebug() << "Generated/assigned position for object index" << i;
         }
+        active_idx_counter++;
     }
+
     std::vector<W_Vertex> vertices;
     vertices.resize(nVerticesTotal);
 
@@ -196,28 +216,38 @@ void GalaxyView::generateAndDisplayGalaxy(const nlohmann::json &data, RandomGene
 
     ui->galaxyNameLabel->setText(QString("Created Galaxy: ") + QString::fromStdString(randomGalaxyName));
 
-    vertexPositions.clear();
-    int nVerticesTotal = galaxy->getObject().size();
+    // Prepare/resize vertexPositions for all vertices
+    vertexPositions.resize(galaxy->getObject().size(), QPointF(0, 0));
+    int nVerticesTotal = static_cast<int>(galaxy->getObject().size());
 
+    // Count active vertices
     int n_active = 0;
     for (int i = 0; i < nVerticesTotal; ++i) {
-        const auto &v = galaxy->getGraph().getVertices()[i];
-        if (v.getId() != -1) {
+        if (galaxy->getGraph().getVertices()[i].getId() != -1) {
+            n_active++;
+        }
+    }
+    if (n_active == 0) n_active = 1;
+
+    int active_idx_counter = 0;
+    for (int i = 0; i < nVerticesTotal; ++i) {
+        if (galaxy->getGraph().getVertices()[i].getId() != -1) {
             int cx = 550;
             int cy = 350;
             double radius = rng.getDouble(150, 250);
 
-            double angle = 2 * M_PI * n_active / nVerticesTotal;
+            double angle = 2 * M_PI * active_idx_counter / static_cast<double>(n_active);
 
             QPointF pos(
                 cx + radius * std::cos(angle),
                 cy + radius * std::sin(angle)
             );
 
-            vertexPositions.push_back(pos);
-            n_active++;
+            vertexPositions[i] = pos;
+            active_idx_counter++;
         }
     }
+
     updateGraphDisplay();
     updateParametersWindow();
 }
@@ -316,7 +346,8 @@ void GalaxyView::showObjectParameters(CelestialObject *obj) {
     if (obj->getType() == "StarSystem") {
         StarSystem *system = dynamic_cast<StarSystem *>(obj);
         if (system) {
-            for (Planet &planet : system->getPlanets()) {
+            for (Planet *planetPtr : system->getPlanets()) {
+                Planet &planet = *planetPtr;
                 system->lifeExists(planet);
             }
             parametersText = QString::fromStdString(
@@ -331,7 +362,8 @@ void GalaxyView::showObjectParameters(CelestialObject *obj) {
             );
 
             for (size_t i = 0; i < system->getPlanets().size(); ++i) {
-                Planet &planet = system->getPlanets()[i];
+                Planet* planetPtr = system->getPlanets()[i];
+                Planet &planet = *planetPtr;
                 parametersText += QString::fromStdString(
                     "\nPlanet " + std::to_string(i + 1) + ":\n" +
                     "  Name: " + planet.getName() + "\n" +

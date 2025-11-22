@@ -1,22 +1,31 @@
+
 #ifndef TESTFIXTURES_H
 #define TESTFIXTURES_H
+
 #include "Algorithm.h"
 #include "Galaxy.h"
 #include "GraphList.h"
 #include "GraphMatrix.h"
 #include <string>
 #include "gtest/gtest.h"
-#include "nlohmann//json.hpp"
+#include "nlohmann/json.hpp"
 #include "RandomUtilities.h"
+
 using json = nlohmann::json;
 
+/**
+ * @brief Fixture for testing Galaxy with GraphMatrix.
+ *
+ * Provides a Star and a Planet for basic setup.
+ * Cleans up resources after each test.
+ */
 using GalaxyType = Galaxy<GraphMatrix<CelestialObject *> >;
 
 class GalaxyMatrixFixture : public ::testing::Test {
 protected:
     GalaxyType g;
-    Star *star = nullptr;
-    Planet *planet = nullptr;
+    Star* star = nullptr;
+    Planet* planet = nullptr;
 
     void SetUp() override {
         star = new Star("Sun", 1.0, 5778, Star::starType::Main_sequence_Star);
@@ -29,14 +38,16 @@ protected:
     }
 };
 
-
+/**
+ * @brief Fixture for testing Galaxy with GraphList.
+ */
 using GalaxyType2 = Galaxy<GraphList<CelestialObject *> >;
 
 class GalaxyListFixture : public ::testing::Test {
 protected:
     GalaxyType2 g;
-    Star *star = nullptr;
-    Planet *planet = nullptr;
+    Star* star = nullptr;
+    Planet* planet = nullptr;
 
     void SetUp() override {
         star = new Star("Sun", 1.0, 5778, Star::starType::Main_sequence_Star);
@@ -49,22 +60,27 @@ protected:
     }
 };
 
+/**
+ * @brief Fixture for testing StarSystem.
+ */
 class StarSystemFixture : public ::testing::Test {
 protected:
-    Star *star;
-    StarSystem *system;
+    Star* star;
+    StarSystem* system;
 
     void SetUp() override {
         star = new Star("Sun", 1.0, 5778.0, Star::starType::Main_sequence_Star);
-        system = new StarSystem(1, "Solar", *star);
+        system = new StarSystem(1, "Solar", star);
     }
 
     void TearDown() override {
         delete system;
-        delete star;
     }
 };
 
+/**
+ * @brief Fixture for testing GraphMatrix with basic vertices and edges.
+ */
 class GraphMatrixFixture : public ::testing::Test {
 protected:
     GraphMatrix<std::string> g;
@@ -77,18 +93,17 @@ protected:
         g.addEdge(1, 2);
         g.addEdge(1, 3);
     }
-
-    void TearDown() override {
-    }
 };
 
+/**
+ * @brief Fixture for testing BFS algorithms on GraphMatrix.
+ */
 class BFSMatrixFixture : public GraphMatrixFixture {
 protected:
-    Algorithms<GraphMatrix<std::string>, std::string> *alg;
+    Algorithms<GraphMatrix<std::string>, std::string>* alg;
 
     void SetUp() override {
         GraphMatrixFixture::SetUp();
-
         alg = new Algorithms<GraphMatrix<std::string>, std::string>(g);
     }
 
@@ -98,6 +113,9 @@ protected:
     }
 };
 
+/**
+ * @brief Fixture for testing GraphList with basic vertices and edges.
+ */
 class GraphListFixture : public ::testing::Test {
 protected:
     GraphList<std::string> g;
@@ -110,14 +128,14 @@ protected:
         g.addEdge(1, 2);
         g.addEdge(1, 3);
     }
-
-    void TearDown() override {
-    }
 };
 
+/**
+ * @brief Fixture for testing BFS algorithms on GraphList.
+ */
 class BFSListFixture : public GraphListFixture {
 protected:
-    Algorithms<GraphList<std::string>, std::string> *alg;
+    Algorithms<GraphList<std::string>, std::string>* alg;
 
     void SetUp() override {
         GraphListFixture::SetUp();
@@ -130,11 +148,17 @@ protected:
     }
 };
 
+/**
+ * @brief Fixture for testing RandomGenerator.
+ */
 class RandomGeneratorTest : public ::testing::Test {
 protected:
     RandomGenerator rng;
 };
 
+/**
+ * @brief Fixture for testing Galaxy generation using JSON data.
+ */
 class GalaxyGenerationTestFixture : public GalaxyListFixture {
 protected:
     RandomGenerator rng;
@@ -156,4 +180,5 @@ protected:
         ]
     })");
 };
-#endif //TESTFIXTURES_H
+
+#endif // TESTFIXTURES_H

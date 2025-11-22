@@ -13,6 +13,7 @@ include_directories(
         Include
         StarSystemView
         NebulaView
+        examples
 )
 include(FetchContent)
 
@@ -32,6 +33,7 @@ file(GLOB SOURCES_MAIN
         "Algorithms/*.cpp"
         "MainWindow/*.cpp"
         "GalaxyView/*.cpp"
+        "examples/*.cpp"
 )
 set(CMAKE_AUTOUIC ON)
 set(CMAKE_AUTOMOC ON)
@@ -101,4 +103,3 @@ add_executable(AllTests
         GoogleTests/GalaxyGenerationTests.cpp
 )
 target_link_libraries(AllTests PRIVATE ProjectLib gtest gtest_main Qt6::Core Qt6::Widgets)
-

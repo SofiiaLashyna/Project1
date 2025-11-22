@@ -11,7 +11,6 @@ TEST_F(BFSMatrixFixture, BasicBFS) {
     CoutGuard guard(out);
     alg->BFS_matrix(1);
 
-
     std::string bfsOutput = out.str();
 
     std::istringstream iss(bfsOutput);
@@ -20,10 +19,13 @@ TEST_F(BFSMatrixFixture, BasicBFS) {
 
     while (iss >> word) words.push_back(word);
 
-    std::vector<std::string> bfsVertices(words.begin() + 3, words.end());
-    std::vector<std::string> expectedOrder = {"A", "B", "C"};
-
-    EXPECT_EQ(bfsVertices, expectedOrder) << "BFS order should be A, B, C";
+    if (words.size() >= 2) {
+        std::vector<std::string> bfsVertices(words.begin() + 2, words.end());
+        std::vector<std::string> expectedOrder = {"A", "B", "C"};
+        EXPECT_EQ(bfsVertices, expectedOrder) << "BFS order should be A, B, C";
+    } else {
+        FAIL() << "Output is too short to contain BFS data";
+    }
 }
 TEST(BFSMatrixTests, EmptyGraph) {
     GraphMatrix<std::string> g;

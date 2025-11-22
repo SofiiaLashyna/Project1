@@ -2,10 +2,29 @@
 #define ISCONNECTED_MATRIX_H
 #include "Algorithm.h"
 #include "GraphMatrix.h"
+/**
+ * @file isConnectedMatrix.h
+ * @brief Defines the IsConnectedMatrix class, which implements
+ * the check for connectivity.
+ */
 
+/**
+ * @class IsConnectedMatrix
+ * @brief A strategy class that executes a check for connectivity.
+ * @tparam T The data type stored in the graph vertices.
+ */
 template<typename T>
 class IsConnectedMatrix : public GraphAlgorithm<GraphMatrix<T>, T> {
 public:
+    /**
+         * @brief Performs a connection check algorithm for a graph
+         * represented by an adjacency matrix.
+         *
+         * @param g The GraphMatrix object to traverse.
+         * @param startId The ID of the starting vertex.
+         * @param endId (Unused) Included to match the base class signature.
+         * @return Always returns 1 if true, else 0.
+         */
     int run(GraphMatrix<T> &g, int startId = 0, int endId = -1) override {
         int n = g.adjacencyMatrix.size();
         if (n == 0) return 1;
@@ -32,6 +51,8 @@ public:
 
         return 1;
     }
+    /// @brief Default destructor.
+    virtual ~IsConnectedMatrix() = default;
 };
 
 #endif //ISCONNECTED_MATRIX_H
