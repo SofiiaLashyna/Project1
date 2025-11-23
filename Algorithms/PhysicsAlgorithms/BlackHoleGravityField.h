@@ -22,7 +22,7 @@ private:
     double mass_;  // Mass of the black hole
     double posX_, posY_, posZ_;  // Position of the black hole
 
-    static constexpr double G = 6.67430e-11; // Gravitational constant
+    static constexpr double G = 1.0;
 
     void applyForce(CelestialBodyToRigidWrapper* body, double deltaTime);
 };

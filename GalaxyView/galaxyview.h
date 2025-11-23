@@ -10,6 +10,10 @@
 #include <cmath>
 #include <qboxlayout.h>
 #include <QPushButton>
+#include "PhysicsEngine.h"
+#include "BlackHoleGravityField.h"
+#include "CelestialBodyToRigidWrapper.h"
+#include "GalaxyPhysicsController.h"
 
 class GalaxyEditDialog;
 class AddStarSystemDialog;
@@ -51,6 +55,8 @@ public:
 
     void on_editObjectButton_clicked();
 
+    void onPhysicsTimerTick();
+
 private:
     Ui::GalaxyView *ui;
     Galaxy<GraphList<CelestialObject *> > *galaxy = nullptr;
@@ -74,6 +80,19 @@ private:
 
     QPushButton *switch3DButton = nullptr;
     bool is3DView = false;
+
+    PhysicsEngine* physicsEngine = nullptr;
+    GalaxyPhysicsController* physicsController = nullptr;
+    BlackHoleGravityField* blackHoleField = nullptr;
+    QTimer* simulationTimer = nullptr;
+
+    void initPhysicsSimulation();
+
+    void checkForNewObjects();
+
+    void createPhysicsBody(CelestialObject* obj);
+
+    QPointF physicsToScreen(double x, double y);
 
 };
 

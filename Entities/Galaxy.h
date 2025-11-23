@@ -184,7 +184,7 @@ public:
 
         for (int i = 0; i < celestial_objects.size() - 1; ++i) {
             int j = rng.getInt(i + 1, celestial_objects.size() - 1);
-            int dist = rng.getInt(10, 1000);
+            int dist = rng.getInt(100, 450);
             systemGraph.addEdge(i, j, dist);
         }
 
