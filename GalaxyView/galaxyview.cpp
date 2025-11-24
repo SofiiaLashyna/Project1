@@ -13,6 +13,8 @@
 #include <QLabel>
 #include <QDebug>
 #include <QMessageBox>
+
+#include "DijkstraPathList.h"
 static constexpr double PHYSICS_MASS_SCALE = 1.0e-7;
 
 GalaxyView::GalaxyView(QWidget *parent) : QWidget(parent), ui(new Ui::GalaxyView) {
@@ -71,10 +73,12 @@ GalaxyView::GalaxyView(QWidget *parent) : QWidget(parent), ui(new Ui::GalaxyView
 
     connect(paramsButton, &QPushButton::clicked, this, &GalaxyView::on_paramsButton_clicked);
     connect(zoomOutButton, &QPushButton::clicked, this, &GalaxyView::on_zoomOutButton_clicked);
-    connect(graphWidget, &GraphWidget::vertexDoubleClicked,
-            this, &GalaxyView::on_vertexDoubleClicked);
+    connect(graphWidget, &GraphWidget::vertexDoubleClicked, this, &GalaxyView::on_vertexDoubleClicked);
+    connect(graphWidget, &GraphWidget::vertexClicked, this, &GalaxyView::onVertexClicked);
+    connect(graphWidget, &GraphWidget::backgroundClicked, this, &GalaxyView::onBackgroundClicked);
     connect(editButton, &QPushButton::clicked, this, &GalaxyView::on_editButton_clicked);
     connect(simulationTimer, &QTimer::timeout, this, &GalaxyView::onPhysicsTimerTick);
+    setupPathInfoWidget();
     paramsWindow->hide();
 }
 
@@ -118,6 +122,12 @@ void GalaxyView::resizeEvent(QResizeEvent *event) {
             zoomOutButton->move(zoom_x, zoom_y);
         }
     }
+    if (pathInfoWidget) {
+        int margin = 20;
+        int px = width() - pathInfoWidget->width() - margin;
+        int py = height() - pathInfoWidget->height() - margin;
+        pathInfoWidget->move(px, py);
+    }
 }
 
 void GalaxyView::updateGraphDisplay() {
@@ -149,17 +159,31 @@ void GalaxyView::updateGraphDisplay() {
         }
     }
 
-    std::vector<W_Edge> edges;
-    for (const auto &e: galaxy->getGraph().getEdges()) {
-        if (!e.isActive()) continue;
-        if (e.from < 0 || e.from >= nVerticesTotal) continue;
-        if (e.to < 0 || e.to >= nVerticesTotal) continue;
-        if (vertices[e.from].id == -1 || vertices[e.to].id == -1) continue;
-        edges.push_back({e.from, e.to, e.weight});
+    std::vector<W_Edge> edgesToDraw;
+
+    if (!pathEdges.empty()) {
+
+        auto& allEdges = galaxy->getGraph().getEdges();
+
+        for (const auto& pair : pathEdges) {
+            int u = pair.first;
+            int v = pair.second;
+
+            for (const auto& realEdge : allEdges) {
+                if (!realEdge.isActive()) continue;
+
+                if ((realEdge.from == u && realEdge.to == v) ||
+                    (realEdge.from == v && realEdge.to == u)) {
+
+                    edgesToDraw.push_back({realEdge.from, realEdge.to, realEdge.weight});
+                    break;
+                    }
+            }
+        }
     }
 
     if (graphWidget) {
-        graphWidget->setGraph(vertices, edges, &galaxy->getObject());
+        graphWidget->setGraph(vertices, edgesToDraw, &galaxy->getObject());
         graphWidget->update();
     }
 }
@@ -208,7 +232,7 @@ void GalaxyView::createPhysicsBody(CelestialObject *obj) {
     wrapper->setPosition(physX, physY, 0);
 
     double realBlackHoleMass = 1.3e12;
-    double simBlackHoleMass = realBlackHoleMass * PHYSICS_MASS_SCALE; // ~130,000
+    double simBlackHoleMass = realBlackHoleMass * PHYSICS_MASS_SCALE;
     double G = 1.0;
 
     double dist = std::sqrt(physX * physX + physY * physY);
@@ -391,6 +415,26 @@ void GalaxyView::onPhysicsTimerTick() {
     }
 
     updateGraphDisplay();
+
+    if (pathInfoWidget && pathInfoWidget->isVisible() && !pathEdges.empty()) {
+        double totalDistance = 0;
+
+        auto& graphEdges = galaxy->getGraph().getEdges();
+        for (const auto& pair : pathEdges) {
+            int u = pair.first;
+            int v = pair.second;
+
+            for (const auto& edge : graphEdges) {
+                if (!edge.isActive()) continue;
+                if ((edge.from == u && edge.to == v) || (edge.from == v && edge.to == u)) {
+                    totalDistance += edge.weight;
+                    break;
+                }
+            }
+        }
+
+        pathDistanceLabel->setText("Total Distance: " + QString::number((int)totalDistance));
+    }
 }
 
 QPointF GalaxyView::physicsToScreen(double x, double y) {
@@ -465,6 +509,102 @@ void GalaxyView::on_vertexDoubleClicked(int vertexId) {
     ui->galaxyNameLabel->hide();
     disconnect(editButton, &QPushButton::clicked, this, &GalaxyView::on_editButton_clicked);
     connect(editButton, &QPushButton::clicked, this, &GalaxyView::on_editObjectButton_clicked);
+}
+
+void GalaxyView::onVertexClicked(int vertexId) {
+    if (!galaxy || vertexId < 0) return;
+
+    std::string objName = galaxy->getObject()[vertexId]->getName();
+
+    if (startNodeId != -1 && endNodeId != -1) {
+        resetPathSelection();
+        startNodeId = vertexId;
+        pathInfoWidget->show();
+        pathStatusLabel->setText("Start Selected");
+        pathDetailsLabel->setText("Start: " + QString::fromStdString(objName) + "\nChoose Destination...");
+        pathDistanceLabel->setText("");
+        return;
+    }
+
+    if (startNodeId == -1) {
+        startNodeId = vertexId;
+        pathInfoWidget->show();
+        pathStatusLabel->setText("Start Selected");
+        pathDetailsLabel->setText("Start: " + QString::fromStdString(objName) + "\nChoose Destination...");
+        pathDistanceLabel->clear();
+    } else {
+        if (vertexId == startNodeId) return;
+
+        endNodeId = vertexId;
+        std::string startName = galaxy->getObject()[startNodeId]->getName();
+
+        pathStatusLabel->setText("Path Calculated");
+        pathDetailsLabel->setText(QString("From: %1\nTo: %2").arg(QString::fromStdString(startName), QString::fromStdString(objName)));
+
+        calculateShortestPath();
+    }
+}
+
+void GalaxyView::onBackgroundClicked() {
+    resetPathSelection();
+}
+
+void GalaxyView::resetPathSelection() {
+    startNodeId = -1;
+    endNodeId = -1;
+    pathEdges.clear();
+
+    if (pathInfoWidget) pathInfoWidget->hide();
+
+    ui->galaxyNameLabel->show();
+
+    updateGraphDisplay();
+}
+
+void GalaxyView::calculateShortestPath() {
+    DijkstraPathList<CelestialObject*> solver;
+
+    std::vector<int> pathIndices = solver.findShortestPath(galaxy->getGraph(), startNodeId, endNodeId);
+
+    pathEdges.clear();
+    if (pathIndices.empty()) {
+    } else {
+        for (size_t i = 0; i < pathIndices.size() - 1; ++i) {
+            pathEdges.push_back({pathIndices[i], pathIndices[i+1]});
+        }
+    }
+    updateGraphDisplay();
+}
+
+void GalaxyView::setupPathInfoWidget() {
+    pathInfoWidget = new QWidget(this);
+    pathInfoWidget->setStyleSheet(
+        "background-color: rgba(20, 20, 40, 200); "
+        "border: 1px solid #55aaff; "
+        "border-radius: 8px; "
+        "color: white;"
+    );
+
+    QVBoxLayout* layout = new QVBoxLayout(pathInfoWidget);
+
+    pathStatusLabel = new QLabel("Select Start Point", pathInfoWidget);
+    pathStatusLabel->setStyleSheet("font-weight: bold; font-size: 14px; color: #55aaff; border: none; background: none;");
+    pathStatusLabel->setAlignment(Qt::AlignCenter);
+
+    pathDetailsLabel = new QLabel("", pathInfoWidget);
+    pathDetailsLabel->setStyleSheet("font-size: 12px; border: none; background: none;");
+    pathDetailsLabel->setWordWrap(true);
+
+    pathDistanceLabel = new QLabel("", pathInfoWidget);
+    pathDistanceLabel->setStyleSheet("font-weight: bold; font-size: 12px; color: #00ff00; border: none; background: none;");
+
+    layout->addWidget(pathStatusLabel);
+    layout->addWidget(pathDetailsLabel);
+    layout->addWidget(pathDistanceLabel);
+
+    pathInfoWidget->setLayout(layout);
+    pathInfoWidget->resize(220, 120);
+    pathInfoWidget->hide();
 }
 
 void GalaxyView::on_zoomOutButton_clicked() {

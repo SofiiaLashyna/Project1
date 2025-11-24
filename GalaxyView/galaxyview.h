@@ -5,10 +5,12 @@
 #include "CelestialObject.h"
 #include "Galaxy.h"
 #include "GraphList.h"
+#include "DijkstraList.h"
 #include "nlohmann/json.hpp"
 #include "GraphWidget.h"
 #include <cmath>
 #include <qboxlayout.h>
+#include <QLabel>
 #include <QPushButton>
 #include "PhysicsEngine.h"
 #include "BlackHoleGravityField.h"
@@ -43,11 +45,15 @@ public:
     void generateAndDisplayGalaxy(const nlohmann::json &data, RandomGenerator &rng);
 
     private slots:
-        void on_paramsButton_clicked();
+    void on_paramsButton_clicked();
 
     void on_editButton_clicked();
 
     void on_vertexDoubleClicked(int vertexId);
+
+    void onVertexClicked(int vertexId);
+
+    void onBackgroundClicked();
 
     void on_zoomOutButton_clicked();
 
@@ -89,7 +95,22 @@ private:
 
     QPointF physicsToScreen(double x, double y);
 
+    int startNodeId = -1;
+    int endNodeId = -1;
 
+    std::vector<std::pair<int, int>> pathEdges;
+
+    void resetPathSelection();
+
+    void calculateShortestPath();
+
+    QWidget* pathInfoWidget = nullptr;
+    QLabel* pathStatusLabel = nullptr;
+    QLabel* pathDetailsLabel = nullptr;
+    QLabel* pathDistanceLabel = nullptr;
+
+    void setupPathInfoWidget();
+    void updatePathDistanceText();
 
 };
 

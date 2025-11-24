@@ -30,9 +30,14 @@ public:
     int getDetailedVertexId() const;
     signals:
         void vertexDoubleClicked(int vertexId);
+        void vertexClicked(int id);
+        void backgroundClicked();
 protected:
     void paintEvent(QPaintEvent *event) override;
     void mouseDoubleClickEvent(QMouseEvent *event) override;
+
+    void mousePressEvent(QMouseEvent *event) override;
+
 private:
     std::vector<W_Vertex> vertices;
     std::vector<W_Edge> edges;

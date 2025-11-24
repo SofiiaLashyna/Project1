@@ -67,6 +67,7 @@ qt6_wrap_cpp(MOC_SOURCES Graph/GraphWidget.h)
 add_library(ProjectLib STATIC
         ${SOURCES_MAIN}
         ${MOC_SOURCES}
+        Algorithms/DijkstraPathList.h
 )
 
 target_link_libraries(ProjectLib PRIVATE Qt6::Core Qt6::Widgets Qt6::Quick Qt6::Quick3D Qt6::QuickWidgets BulletDynamics BulletCollision LinearMath)

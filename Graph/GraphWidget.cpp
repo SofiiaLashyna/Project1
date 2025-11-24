@@ -41,6 +41,28 @@ void GraphWidget::mouseDoubleClickEvent(QMouseEvent *event) {
     QWidget::mouseDoubleClickEvent(event);
 }
 
+void GraphWidget::mousePressEvent(QMouseEvent *event) {
+    if (event->button() == Qt::LeftButton) {
+        QPoint clickPt = event->position().toPoint();
+        bool clickedOnVertex = false;
+        for (size_t i = 0; i < vertices.size(); ++i) {
+            const auto &vertex = vertices[i];
+            if (vertex.id < 0) continue;
+            int dx = clickPt.x() - vertex.x;
+            int dy = clickPt.y() - vertex.y;
+            if (dx * dx + dy * dy <= 10 * 10) {
+                emit vertexClicked(vertex.id);
+                clickedOnVertex = true;
+                return;
+            }
+        }
+        if (!clickedOnVertex) {
+            emit backgroundClicked();
+        }
+    }
+    QWidget::mousePressEvent(event);
+}
+
 int GraphWidget::getDetailedVertexId() const {
     return detailedVertexId;
 }
@@ -151,7 +173,7 @@ void GraphWidget::paintEvent(QPaintEvent *event) {
                 font.setBold(false);
                 font.setFamily("Ravie");
                 painter.setFont(font);
-                painter.setPen(QPen(QColor(200, 200, 200), 2)); // Світло-сірий колір
+                painter.setPen(QPen(QColor(200, 200, 200), 2));
                 painter.drawText(focusedV.x - nebulaRadius - 150,
                                  focusedV.y - nebulaRadius + 155,
                                  focusedV.name);
@@ -186,7 +208,7 @@ void GraphWidget::paintEvent(QPaintEvent *event) {
                 painter.drawEllipse(focusedV.x - starRadius, focusedV.y - starRadius,
                                     starRadius * 2, starRadius * 2);
 
-                painter.setPen(QPen(QColor(200, 200, 200), 2)); // Світло-сірий колір
+                painter.setPen(QPen(QColor(200, 200, 200), 2));
                 QFont font = painter.font();
                 font.setPointSize(8);
                 font.setBold(false);
@@ -253,7 +275,7 @@ void GraphWidget::paintEvent(QPaintEvent *event) {
             }
         }
     } else {
-        painter.setPen(Qt::white);
+        painter.setPen(QPen(Qt::white, 1, Qt::DashLine));
 
         for (const auto &edge: edges) {
             if (edge.from < 0 || edge.from >= (int) vertices.size()) continue;
@@ -265,7 +287,9 @@ void GraphWidget::paintEvent(QPaintEvent *event) {
             painter.drawLine(fromV.x, fromV.y, toV.x, toV.y);
             int mx = (fromV.x + toV.x) / 2;
             int my = (fromV.y + toV.y) / 2;
+            painter.setPen(Qt::yellow);
             painter.drawText(mx, my, QString::number(edge.weight));
+            painter.setPen(QPen(Qt::white, 1, Qt::DashLine));
         }
 
         for (size_t i = 0; i < vertices.size(); ++i) {
