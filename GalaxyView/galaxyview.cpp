@@ -13,6 +13,7 @@
 #include <QLabel>
 #include <QDebug>
 #include <QMessageBox>
+static constexpr double PHYSICS_MASS_SCALE = 1.0e-7;
 
 GalaxyView::GalaxyView(QWidget *parent) : QWidget(parent), ui(new Ui::GalaxyView) {
     ui->setupUi(this);
@@ -30,19 +31,6 @@ GalaxyView::GalaxyView(QWidget *parent) : QWidget(parent), ui(new Ui::GalaxyView
     paramsButton = new QPushButton("⚙️ Parameters", this);
     paramsButton->setStyleSheet("font-size: 14px; padding: 5px 10px;");
 
-    switch3DButton = new QPushButton("🌌 3D View", this);
-    switch3DButton->setStyleSheet("font-size: 14px; padding: 5px 10px;");
-    connect(switch3DButton, &QPushButton::clicked, this, [this]() {
-        is3DView = !is3DView;
-
-        if (is3DView) {
-            switch3DButton->setText("🪐 2D View");
-            qDebug() << "Switched to 3D visualization";
-        } else {
-            switch3DButton->setText("🌕 3D View");
-            qDebug() << "Switched to 2D visualization";
-        }
-    });
 
 
     paramsWindow = new QWidget(this);
@@ -118,14 +106,6 @@ void GalaxyView::resizeEvent(QResizeEvent *event) {
         int btn_x = width() - paramsButton->width() - margin;
         int btn_y = margin;
         paramsButton->move(btn_x, btn_y);
-
-        if (switch3DButton) {
-            switch3DButton->resize(150, 35);
-            int margin = 20;
-            int btn_x = width() - paramsButton->width() - switch3DButton->width() - margin - 10;
-            int btn_y = margin;
-            switch3DButton->move(btn_x, btn_y);
-        }
 
         int win_x = width() - paramsWindow->width() - margin;
         int win_y = btn_y + paramsButton->height() + 10;
@@ -214,10 +194,10 @@ void GalaxyView::generateAndDisplayGalaxy(const nlohmann::json &data, RandomGene
     updateParametersWindow();
 }
 
-void GalaxyView::createPhysicsBody(CelestialObject* obj) {
+void GalaxyView::createPhysicsBody(CelestialObject *obj) {
     if (!physicsEngine || !physicsController) return;
 
-    auto* wrapper = new CelestialBodyToRigidWrapper(obj, physicsEngine->getWorld());
+    auto *wrapper = new CelestialBodyToRigidWrapper(obj, physicsEngine->getWorld());
 
     double radius = rngPtr->getDouble(100, 600);
     double angle = rngPtr->getDouble(0, 2 * M_PI);
@@ -227,12 +207,12 @@ void GalaxyView::createPhysicsBody(CelestialObject* obj) {
 
     wrapper->setPosition(physX, physY, 0);
 
-    double blackHoleMass = 50000.0;
+    double realBlackHoleMass = 1.3e12;
+    double simBlackHoleMass = realBlackHoleMass * PHYSICS_MASS_SCALE; // ~130,000
     double G = 1.0;
 
-    double dist = std::sqrt(physX*physX + physY*physY);
-    double vMag = std::sqrt((G * blackHoleMass) / dist);
-
+    double dist = std::sqrt(physX * physX + physY * physY);
+    double vMag = std::sqrt((1.0 * simBlackHoleMass) / dist);
     btVector3 vel(-physY, physX, 0);
     vel.normalize();
     vel *= vMag;
@@ -245,36 +225,102 @@ void GalaxyView::createPhysicsBody(CelestialObject* obj) {
 }
 
 void GalaxyView::initPhysicsSimulation() {
-    if (!simulationTimer) {
-        qDebug() << "CRITICAL ERROR: simulationTimer is null!";
-        return;
-    }
+    if (!simulationTimer) return;
     simulationTimer->stop();
 
-    if (physicsController) { delete physicsController; physicsController = nullptr; }
-    if (physicsEngine) { delete physicsEngine; physicsEngine = nullptr; }
+    if (physicsController) {
+        delete physicsController;
+        physicsController = nullptr;
+    }
+    if (physicsEngine) {
+        delete physicsEngine;
+        physicsEngine = nullptr;
+    }
+    if (blackHoleField) {
+        delete blackHoleField;
+        blackHoleField = nullptr;
+    }
 
     physicsEngine = new PhysicsEngine();
     physicsController = new GalaxyPhysicsController(physicsEngine);
 
-    double blackHoleMass = 50000.0;
-    blackHoleField = new BlackHoleGravityField(blackHoleMass, 0, 0, 0);
-    physicsController->addGravityField(blackHoleField);
+
+    double realBlackHoleMass = 1.3e12;
+
+    double simBlackHoleMass = realBlackHoleMass * PHYSICS_MASS_SCALE;
+
+    blackHoleField = new BlackHoleGravityField(simBlackHoleMass, 0, 0, 0);
 
     vertexPositions.clear();
-
     if (!galaxy) return;
 
+    std::vector<CelestialBodyToRigidWrapper *> wrappersMap(galaxy->getObject().size(), nullptr);
     int nVerticesTotal = galaxy->getObject().size();
-    for (int i = 0; i < nVerticesTotal; ++i) {
-        CelestialObject* obj = galaxy->getObject()[i];
 
+    for (int i = 0; i < nVerticesTotal; ++i) {
+        CelestialObject *obj = galaxy->getObject()[i];
         if (galaxy->getGraph().getVertices()[i].getId() == -1) {
-            vertexPositions.push_back(QPointF(0,0));
+            vertexPositions.push_back(QPointF(0, 0));
             continue;
         }
 
-        createPhysicsBody(obj);
+        auto *wrapper = new CelestialBodyToRigidWrapper(obj, physicsEngine->getWorld());
+        wrappersMap[i] = wrapper;
+
+        double radius = rngPtr->getDouble(200, 600);
+        double angle = rngPtr->getDouble(0, 2 * M_PI);
+        wrapper->setPosition(radius * std::cos(angle), radius * std::sin(angle), 0);
+
+        wrapper->getRigidBody()->setDamping(0.95, 0.95);
+        wrapper->getRigidBody()->setActivationState(DISABLE_DEACTIVATION);
+
+        physicsController->addCelestialBody(wrapper);
+    }
+
+    for (const auto &edge: galaxy->getGraph().getEdges()) {
+        if (!edge.isActive()) continue;
+        if (wrappersMap[edge.from] && wrappersMap[edge.to]) {
+            physicsController->addSpring(wrappersMap[edge.from], wrappersMap[edge.to], edge.weight);
+        }
+    }
+
+    qDebug() << "Pre-calculating positions...";
+    for (int i = 0; i < 500; ++i) {
+        physicsController->simulateStep(0.016);
+    }
+
+    physicsController->clearSprings();
+    physicsController->addGravityField(blackHoleField);
+
+    double G = 1.0;
+
+    for (int i = 0; i < nVerticesTotal; ++i) {
+        if (!wrappersMap[i]) {
+            if (i >= vertexPositions.size()) vertexPositions.push_back(QPointF(0, 0));
+            continue;
+        }
+
+        auto *wrapper = wrappersMap[i];
+        wrapper->updateFromPhysics();
+
+        wrapper->getRigidBody()->setLinearVelocity(btVector3(0, 0, 0));
+        wrapper->getRigidBody()->setDamping(0.0, 0.0);
+
+        double x = wrapper->getX();
+        double y = wrapper->getY();
+        double dist = std::sqrt(x * x + y * y);
+        if (dist < 10.0) dist = 10.0;
+
+        double vMag = std::sqrt((G * simBlackHoleMass) / dist);
+
+        btVector3 vel(-y, x, 0);
+        vel.normalize();
+        vel *= vMag;
+
+        wrapper->getRigidBody()->setLinearVelocity(vel);
+
+        if (i < vertexPositions.size()) vertexPositions[i] = physicsToScreen(x, y);
+        else vertexPositions.push_back(physicsToScreen(x, y));
     }
 
     simulationTimer->start(16);
@@ -291,12 +337,12 @@ void GalaxyView::checkForNewObjects() {
         qDebug() << "Found new objects! Adding to physics engine...";
 
         for (int i = knownObjects; i < totalObjectsInGalaxy; ++i) {
-            CelestialObject* obj = galaxy->getObject()[i];
+            CelestialObject *obj = galaxy->getObject()[i];
 
             if (galaxy->getGraph().getVertices()[i].getId() != -1) {
                 createPhysicsBody(obj);
             } else {
-                vertexPositions.push_back(QPointF(0,0));
+                vertexPositions.push_back(QPointF(0, 0));
             }
         }
     }
@@ -307,20 +353,41 @@ void GalaxyView::onPhysicsTimerTick() {
 
     physicsController->simulateStep(1.0 / 60.0);
 
-    const auto& bodies = physicsController->getBodies();
+    const auto &bodies = physicsController->getBodies();
 
     int bodyIndex = 0;
     for (int i = 0; i < vertexPositions.size(); ++i) {
-         if (galaxy->getGraph().getVertices()[i].getId() == -1) continue;
+        if (galaxy->getGraph().getVertices()[i].getId() == -1) continue;
 
-         if (bodyIndex < bodies.size()) {
-             auto* wrapper = bodies[bodyIndex];
-             double px = wrapper->getX();
-             double py = wrapper->getY();
+        if (bodyIndex < bodies.size()) {
+            auto *wrapper = bodies[bodyIndex];
+            double px = wrapper->getX();
+            double py = wrapper->getY();
 
-             vertexPositions[i] = physicsToScreen(px, py);
-             bodyIndex++;
-         }
+            vertexPositions[i] = physicsToScreen(px, py);
+            bodyIndex++;
+        }
+    }
+
+    auto &edges = galaxy->getGraph().getEdges();
+
+    for (auto &edge: edges) {
+        if (!edge.isActive()) continue;
+
+        int idA = edge.from;
+        int idB = edge.to;
+
+        if (idA >= 0 && idA < vertexPositions.size() &&
+            idB >= 0 && idB < vertexPositions.size()) {
+            QPointF pA = vertexPositions[idA];
+            QPointF pB = vertexPositions[idB];
+
+            double dx = pA.x() - pB.x();
+            double dy = pA.y() - pB.y();
+            double realDistance = std::sqrt(dx * dx + dy * dy);
+
+            edge.changeWeight(static_cast<int>(realDistance));
+        }
     }
 
     updateGraphDisplay();
@@ -430,13 +497,13 @@ void GalaxyView::showObjectParameters(CelestialObject *obj) {
     if (obj->getType() == "StarSystem") {
         StarSystem *system = dynamic_cast<StarSystem *>(obj);
         if (system) {
-            for (Planet &planet : system->getPlanets()) {
+            for (Planet &planet: system->getPlanets()) {
                 system->lifeExists(planet);
             }
             parametersText = QString::fromStdString(
                 "Name: " + system->getName() + "\n" +
                 "Type: Star System\n" +
-                "Mass: " + QString::number(system->getMass(), 'e', 3).toStdString()+ " solar masses\n\n" +
+                "Mass: " + QString::number(system->getMass(), 'e', 3).toStdString() + " solar masses\n\n" +
                 "Star Information:\n" +
                 "  Type: " + system->getStar().getStarTypeString() + "\n" +
                 "  Mass: " + QString::number(system->getStar().getMass(), 'e', 3).toStdString() + " solar masses\n" +
@@ -526,8 +593,4 @@ void GalaxyView::editNebula(Nebula *nebula) {
         updateGraphDisplay();
         QApplication::processEvents();
     }
-}
-
-void GalaxyView::show3DView() {
-    qDebug() << "TODO: implement 3D view with Qt3D or QOpenGLWidget";
 }

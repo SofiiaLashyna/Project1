@@ -38,7 +38,7 @@ void GalaxyPhysicsController::addSpring(CelestialBodyToRigidWrapper* a, Celestia
     spring.bodyB = b;
     spring.targetLength = length;
 
-    spring.stiffness = 1.0;
+    spring.stiffness = 50.0;
 
     springs_.push_back(spring);
 }

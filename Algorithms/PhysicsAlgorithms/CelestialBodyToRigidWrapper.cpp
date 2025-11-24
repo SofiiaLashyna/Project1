@@ -22,8 +22,7 @@ btRigidBody* CelestialBodyToRigidWrapper::buildRigidBody() {
     shape_ = new btSphereShape(btScalar(1.0));
 
     btVector3 inertia(0, 0, 0);
-    btScalar mass = celestial_->mass > 0 ? btScalar(celestial_->mass) : btScalar(1.0);
-
+    btScalar mass = 1.0;
     if (mass != 0)
         shape_->calculateLocalInertia(mass, inertia);
 

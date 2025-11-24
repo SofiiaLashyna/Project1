@@ -13,8 +13,8 @@ protected:
 public:
     virtual ~Graph() = default;
 
-    const std::vector<Vertex<T>>& getVertices() const { return vertices; }
-    const std::vector<Edge<T>>& getEdges() const { return edges; }
+    std::vector<Vertex<T>>& getVertices() { return vertices; }
+    std::vector<Edge<T>>& getEdges() { return edges; }
 
 
     int findIndexById(int id) const{

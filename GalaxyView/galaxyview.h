@@ -76,11 +76,6 @@ private:
     void editStarSystem(StarSystem* system);
     void editNebula(Nebula* nebula);
 
-    void show3DView();
-
-    QPushButton *switch3DButton = nullptr;
-    bool is3DView = false;
-
     PhysicsEngine* physicsEngine = nullptr;
     GalaxyPhysicsController* physicsController = nullptr;
     BlackHoleGravityField* blackHoleField = nullptr;
@@ -93,6 +88,8 @@ private:
     void createPhysicsBody(CelestialObject* obj);
 
     QPointF physicsToScreen(double x, double y);
+
+
 
 };
 

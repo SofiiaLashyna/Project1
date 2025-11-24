@@ -28,8 +28,7 @@ void BlackHoleGravityField::applyForce(CelestialBodyToRigidWrapper* body, double
     if (distanceSq < 1e-6) return;
 
     double distance = std::sqrt(distanceSq);
-    double forceMagnitude = G * mass_ * body->getCelestial()->mass / distanceSq;
-
+    double forceMagnitude = (G * mass_ * 1.0) / distanceSq;
     double fx = forceMagnitude * dx / distance;
     double fy = forceMagnitude * dy / distance;
     double fz = forceMagnitude * dz / distance;
