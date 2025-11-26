@@ -5,6 +5,7 @@
 #include <QtWidgets/QWidget>
 #include <vector>
 #include <QTimer>
+#include <unordered_set>
 
 struct W_Edge {
     int from;
@@ -26,7 +27,7 @@ public:
     void setGraph(const std::vector<W_Vertex>& v, const std::vector<W_Edge>& e, const std::vector<CelestialObject*>* objects);
     void zoomToVertex(int vertexId);
     void resetZoom();
-    void setSelectedNodes(int id1, int id2);
+    void setHighlightedNodes(const std::vector<int>& ids);
     int getDetailedVertexId() const;
     signals:
         void vertexDoubleClicked(int vertexId);
@@ -45,8 +46,7 @@ private:
     bool isDetailMode = false;
     int detailedVertexId = -1;
     QTimer *animationTimer = nullptr;
-    int selectedId1 = -1;
-    int selectedId2 = -1;
+    std::unordered_set<int> highlightedIds;
 };
 
 #endif //GRAPHWIDGET_H

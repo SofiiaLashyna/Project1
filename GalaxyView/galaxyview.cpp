@@ -536,6 +536,7 @@ void GalaxyView::onVertexClicked(int vertexId) {
         pathStatusLabel->setText("Start Selected");
         pathDetailsLabel->setText("Start: " + QString::fromStdString(objName) + "\nChoose Destination...");
         pathDistanceLabel->setText("");
+        if (graphWidget) graphWidget->setHighlightedNodes({startNodeId});
         return;
     }
 
@@ -545,6 +546,7 @@ void GalaxyView::onVertexClicked(int vertexId) {
         pathStatusLabel->setText("Start Selected");
         pathDetailsLabel->setText("Start: " + QString::fromStdString(objName) + "\nChoose Destination...");
         pathDistanceLabel->clear();
+        if (graphWidget) graphWidget->setHighlightedNodes({startNodeId});
     } else {
         if (vertexId == startNodeId) return;
 
@@ -555,9 +557,6 @@ void GalaxyView::onVertexClicked(int vertexId) {
         pathDetailsLabel->setText(QString("From: %1\nTo: %2").arg(QString::fromStdString(startName), QString::fromStdString(objName)));
 
         calculateShortestPath();
-    }
-    if (graphWidget) {
-        graphWidget->setSelectedNodes(startNodeId, endNodeId);
     }
 }
 
@@ -574,7 +573,7 @@ void GalaxyView::resetPathSelection() {
 
     ui->galaxyNameLabel->show();
     if (graphWidget) {
-        graphWidget->setSelectedNodes(-1, -1);
+        graphWidget->setHighlightedNodes({});
     }
     updateGraphDisplay();
 }
@@ -590,6 +589,9 @@ void GalaxyView::calculateShortestPath() {
         for (size_t i = 0; i < pathIndices.size() - 1; ++i) {
             pathEdges.push_back({pathIndices[i], pathIndices[i+1]});
         }
+    }
+    if (graphWidget) {
+        graphWidget->setHighlightedNodes(pathIndices);
     }
     updateGraphDisplay();
 }

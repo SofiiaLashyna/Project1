@@ -12,6 +12,8 @@ private:
 public:
     RandomGenerator() : gen(std::random_device{}()) {}
 
+    RandomGenerator(unsigned int seed) : gen(seed) {}
+
     int getInt(int min, int max) {
         std::uniform_int_distribution<> dist(min, max);
         return dist(gen);
