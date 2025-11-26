@@ -14,7 +14,7 @@ struct W_Edge {
 
 struct W_Vertex {
     int id;
-    int x, y;
+    double x, y;
     QString name;
 };
 
@@ -26,7 +26,7 @@ public:
     void setGraph(const std::vector<W_Vertex>& v, const std::vector<W_Edge>& e, const std::vector<CelestialObject*>* objects);
     void zoomToVertex(int vertexId);
     void resetZoom();
-
+    void setSelectedNodes(int id1, int id2);
     int getDetailedVertexId() const;
     signals:
         void vertexDoubleClicked(int vertexId);
@@ -45,6 +45,8 @@ private:
     bool isDetailMode = false;
     int detailedVertexId = -1;
     QTimer *animationTimer = nullptr;
+    int selectedId1 = -1;
+    int selectedId2 = -1;
 };
 
 #endif //GRAPHWIDGET_H

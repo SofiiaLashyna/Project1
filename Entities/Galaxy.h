@@ -174,11 +174,11 @@ public:
     }
 
     void generateGalaxy(const json &data, RandomGenerator &rng) {
-        int systemCount = rng.getInt(3, 10);
+        int systemCount = rng.getInt(20, 30);
         for (int i = 0; i < systemCount; ++i)
             this->addObject(this->generateStarSystem(i, rng, data));
 
-        int nebulaCount = rng.getInt(1, 15);
+        int nebulaCount = rng.getInt(10, 35);
         for (int i = 0; i < nebulaCount; ++i)
             this->addObject(this->generateNebula(rng, data));
 

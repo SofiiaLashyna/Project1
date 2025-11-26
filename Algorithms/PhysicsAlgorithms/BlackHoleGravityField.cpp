@@ -18,23 +18,26 @@ void BlackHoleGravityField::applyGravity(std::vector<CelestialBodyToRigidWrapper
         applyForce(body, deltaTime);
     }
 }
-
 void BlackHoleGravityField::applyForce(CelestialBodyToRigidWrapper* body, double deltaTime) {
     double dx = posX_ - body->getX();
     double dy = posY_ - body->getY();
     double dz = posZ_ - body->getZ();
 
     double distanceSq = dx*dx + dy*dy + dz*dz;
-    if (distanceSq < 1e-6) return;
+
+    if (distanceSq < 100.0) distanceSq = 100.0;
 
     double distance = std::sqrt(distanceSq);
+
     double forceMagnitude = (G * mass_ * 1.0) / distanceSq;
+
     double fx = forceMagnitude * dx / distance;
     double fy = forceMagnitude * dy / distance;
     double fz = forceMagnitude * dz / distance;
 
     btRigidBody* rb = body->getRigidBody();
-    if (rb && rb->getInvMass() > 0) {
-        rb->applyCentralImpulse(btVector3(fx * deltaTime, fy * deltaTime, fz * deltaTime));
+    if (rb) {
+        rb->activate(true);
+        rb->applyCentralForce(btVector3(fx, fy, fz));
     }
 }

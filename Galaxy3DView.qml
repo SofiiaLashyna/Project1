@@ -24,10 +24,10 @@ Rectangle {
 
         PerspectiveCamera {
             id: mainCamera
-            position: Qt.vector3d(0, 1000, 2500)
-            eulerRotation: Qt.vector3d(-10, 0, 0)
-            clipNear: 1
-            clipFar: 10000
+            position: Qt.vector3d(0, 10000, 15000)
+            eulerRotation: Qt.vector3d(-35, 0, 0)
+            clipNear: 10
+            clipFar: 1000000
         }
 
         OrbitCameraController {
@@ -42,9 +42,10 @@ Rectangle {
         Node {
             id: galaxyRoot
 
+
             Node {
                 id: galaxyScale
-                scale: Qt.vector3d(0.1, 0.1, 0.1)
+                scale: Qt.vector3d(0.5, 0.5, 0.5)
 
                 DirectionalLight {
                     color: "white"
@@ -85,7 +86,7 @@ Rectangle {
                             source: "#Sphere"
                             pickable: true
 
-                            property real baseScale: model.sizeFactor * 0.5
+                            property real baseScale: model.sizeFactor * 0.1
                             scale: Qt.vector3d(
                                 baseScale * (objectNode.isHovered ? 1.2 : 1.0),
                                 baseScale * (objectNode.isHovered ? 1.2 : 1.0),
@@ -113,7 +114,7 @@ Rectangle {
                             source: "#Sphere"
                             pickable: false
 
-                            property real glowScale: model.sizeFactor * 1.5
+                            property real glowScale: model.sizeFactor * 2.0
                             scale: Qt.vector3d(glowScale, glowScale, glowScale)
                             opacity: 0.2
 

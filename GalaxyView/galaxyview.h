@@ -64,6 +64,7 @@ public:
     void onPhysicsTimerTick();
 
 private:
+    double viewScale = 0.2;
     Ui::GalaxyView *ui;
     Galaxy<GraphList<CelestialObject *> > *galaxy = nullptr;
 

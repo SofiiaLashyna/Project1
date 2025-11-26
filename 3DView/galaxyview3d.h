@@ -12,6 +12,11 @@
 #include <QPushButton>
 #include <QtQuickWidgets/QQuickWidget>
 #include "CelestialObject3DModel.h"
+#include "PhysicsEngine.h"
+#include "GalaxyPhysicsController.h"
+#include "BlackHoleGravityField.h"
+#include "CelestialBodyToRigidWrapper.h"
+#include "CelestialObject3DModel.h"
 
 class GalaxyEditDialog;
 class AddStarSystemDialog;
@@ -55,11 +60,16 @@ private slots:
 
     void on_editObjectButton_clicked();
 
+    void onPhysicsTimerTick();
+
+    void onObjectClicked(int index);
+
 private:
     Ui::GalaxyView3D *ui;
     Galaxy<GraphList<CelestialObject *> > *galaxy = nullptr;
 
     int detailedVertexId = -1;
+
     void updateParametersWindow();
 
     QPushButton *paramsButton = nullptr;
@@ -73,8 +83,21 @@ private:
 
     QQuickWidget *quickWidget = nullptr;
     CelestialObject3DModel *celestialModelPtr = nullptr;
-    void editStarSystem(StarSystem* system);
-    void editNebula(Nebula* nebula);
+
+    void editStarSystem(StarSystem *system);
+
+    void editNebula(Nebula *nebula);
+
+    void updateGraphDisplay();
+
+    PhysicsEngine *physicsEngine = nullptr;
+    GalaxyPhysicsController *physicsController = nullptr;
+    BlackHoleGravityField *blackHoleField = nullptr;
+    QTimer *simulationTimer = nullptr;
+
+    void initPhysicsSimulation();
+
+    void createPhysicsBody3D(CelestialObject *obj);
 };
 
 #endif //GALAXYVIEW3D_H

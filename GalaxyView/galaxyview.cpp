@@ -150,8 +150,8 @@ void GalaxyView::updateGraphDisplay() {
             QPointF pos = vertexPositions[i];
             vertices[i] = {
                 i,
-                static_cast<int>(pos.x()),
-                static_cast<int>(pos.y()),
+                pos.x(),
+                pos.y(),
                 QString::fromStdString(galaxy->getObject()[i]->getName())
             };
         } else {
@@ -223,9 +223,15 @@ void GalaxyView::createPhysicsBody(CelestialObject *obj) {
 
     auto *wrapper = new CelestialBodyToRigidWrapper(obj, physicsEngine->getWorld());
 
-    double radius = rngPtr->getDouble(100, 600);
-    double angle = rngPtr->getDouble(0, 2 * M_PI);
+    double minScreenDimension = std::min(ui->graphArea->width(), ui->graphArea->height());
+    double maxScreenRadius = (minScreenDimension / 2.0) - 50.0;
+    double maxPhysicsRadius = maxScreenRadius / viewScale;
 
+    if (maxPhysicsRadius < 150) maxPhysicsRadius = 200;
+
+    double radius = rngPtr->getDouble(50, maxPhysicsRadius);
+
+    double angle = rngPtr->getDouble(0, 2 * M_PI);
     double physX = radius * std::cos(angle);
     double physY = radius * std::sin(angle);
 
@@ -291,20 +297,29 @@ void GalaxyView::initPhysicsSimulation() {
         auto *wrapper = new CelestialBodyToRigidWrapper(obj, physicsEngine->getWorld());
         wrappersMap[i] = wrapper;
 
-        double radius = rngPtr->getDouble(200, 600);
+        double minScreenDimension = std::min(ui->graphArea->width(), ui->graphArea->height());
+
+        double maxScreenRadius = (minScreenDimension / 2.0) - 50.0;
+
+        double maxPhysicsRadius = maxScreenRadius / viewScale;
+
+        if (maxPhysicsRadius < 200) maxPhysicsRadius = 300;
+
+        double radius = rngPtr->getDouble(100, maxPhysicsRadius);
+
         double angle = rngPtr->getDouble(0, 2 * M_PI);
         wrapper->setPosition(radius * std::cos(angle), radius * std::sin(angle), 0);
-
         wrapper->getRigidBody()->setDamping(0.95, 0.95);
         wrapper->getRigidBody()->setActivationState(DISABLE_DEACTIVATION);
 
         physicsController->addCelestialBody(wrapper);
     }
 
+    double radiusMultiplying = 5;
     for (const auto &edge: galaxy->getGraph().getEdges()) {
         if (!edge.isActive()) continue;
         if (wrappersMap[edge.from] && wrappersMap[edge.to]) {
-            physicsController->addSpring(wrappersMap[edge.from], wrappersMap[edge.to], edge.weight);
+            physicsController->addSpring(wrappersMap[edge.from], wrappersMap[edge.to], edge.weight * radiusMultiplying);
         }
     }
 
@@ -375,8 +390,9 @@ void GalaxyView::checkForNewObjects() {
 void GalaxyView::onPhysicsTimerTick() {
     if (!physicsController) return;
 
-    physicsController->simulateStep(1.0 / 60.0);
-
+    for(int i=0; i<3; ++i) {
+        physicsController->simulateStep(1.0 / 60.0);
+    }
     const auto &bodies = physicsController->getBodies();
 
     int bodyIndex = 0;
@@ -440,10 +456,7 @@ void GalaxyView::onPhysicsTimerTick() {
 QPointF GalaxyView::physicsToScreen(double x, double y) {
     double centerX = ui->graphArea->width() / 2.0;
     double centerY = ui->graphArea->height() / 2.0;
-
-    double scale = 0.8;
-
-    return QPointF(centerX + x * scale, centerY + y * scale);
+    return QPointF(centerX + x * viewScale, centerY + y * viewScale);
 }
 
 void GalaxyView::updateParametersWindow() {
@@ -543,6 +556,9 @@ void GalaxyView::onVertexClicked(int vertexId) {
 
         calculateShortestPath();
     }
+    if (graphWidget) {
+        graphWidget->setSelectedNodes(startNodeId, endNodeId);
+    }
 }
 
 void GalaxyView::onBackgroundClicked() {
@@ -557,7 +573,9 @@ void GalaxyView::resetPathSelection() {
     if (pathInfoWidget) pathInfoWidget->hide();
 
     ui->galaxyNameLabel->show();
-
+    if (graphWidget) {
+        graphWidget->setSelectedNodes(-1, -1);
+    }
     updateGraphDisplay();
 }
 
