@@ -503,6 +503,7 @@ void GalaxyView::on_vertexDoubleClicked(int vertexId) {
     }
     CelestialObject *obj = galaxy->getObject()[vertexId];
 
+    if (pathInfoWidget) resetPathSelection();
     if (graphWidget) {
         graphWidget->zoomToVertex(vertexId);
     }

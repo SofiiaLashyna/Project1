@@ -19,6 +19,12 @@ struct W_Vertex {
     QString name;
 };
 
+struct BackgroundStar {
+    QPointF pos;
+    int alpha;
+    double size;
+};
+
 class GraphWidget : public QWidget {
     Q_OBJECT
 public:
@@ -47,6 +53,8 @@ private:
     int detailedVertexId = -1;
     QTimer *animationTimer = nullptr;
     std::unordered_set<int> highlightedIds;
+    std::vector<BackgroundStar> stars;
+    void generateBackgroundStars();
 };
 
 #endif //GRAPHWIDGET_H

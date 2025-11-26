@@ -14,6 +14,30 @@ GraphWidget::GraphWidget(QWidget *parent)
             this->update();
         }
     });
+    generateBackgroundStars();
+}
+
+void GraphWidget::generateBackgroundStars() {
+    stars.clear();
+    // Використовуємо твій генератор (випадковий)
+    RandomGenerator rng;
+
+    // Кількість зірок на фоні (можна гратися числом)
+    int starCount = 200;
+
+    for (int i = 0; i < starCount; ++i) {
+        BackgroundStar star;
+        // Зберігаємо координати як відсоток від екрану (0.0 - 1.0)
+        star.pos = QPointF(rng.getDouble(0.0, 1.0), rng.getDouble(0.0, 1.0));
+
+        // Різна яскравість (тьмяні, щоб не відволікали)
+        star.alpha = rng.getInt(50, 150);
+
+        // Більшість зірок - дрібні (1px), деякі трохи більші (2px)
+        star.size = (rng.getInt(0, 10) > 8) ? 2.0 : 1.0;
+
+        stars.push_back(star);
+    }
 }
 
 void GraphWidget::setGraph(const std::vector<W_Vertex> &v, const std::vector<W_Edge> &e,
@@ -96,6 +120,16 @@ void GraphWidget::paintEvent(QPaintEvent *event) {
 
     QPainter painter(this);
     painter.setRenderHint(QPainter::Antialiasing);
+
+    painter.setPen(Qt::NoPen);
+
+    for (const auto& star : stars) {
+        double x = star.pos.x() * width();
+        double y = star.pos.y() * height();
+
+        painter.setBrush(QColor(255, 255, 255, star.alpha));
+        painter.drawEllipse(QPointF(x, y), star.size, star.size);
+    }
 
     if (!celestialObjectsPtr) return;
 
