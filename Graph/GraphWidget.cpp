@@ -19,21 +19,16 @@ GraphWidget::GraphWidget(QWidget *parent)
 
 void GraphWidget::generateBackgroundStars() {
     stars.clear();
-    // Використовуємо твій генератор (випадковий)
     RandomGenerator rng;
 
-    // Кількість зірок на фоні (можна гратися числом)
     int starCount = 200;
 
     for (int i = 0; i < starCount; ++i) {
         BackgroundStar star;
-        // Зберігаємо координати як відсоток від екрану (0.0 - 1.0)
         star.pos = QPointF(rng.getDouble(0.0, 1.0), rng.getDouble(0.0, 1.0));
 
-        // Різна яскравість (тьмяні, щоб не відволікали)
         star.alpha = rng.getInt(50, 150);
 
-        // Більшість зірок - дрібні (1px), деякі трохи більші (2px)
         star.size = (rng.getInt(0, 10) > 8) ? 2.0 : 1.0;
 
         stars.push_back(star);
@@ -139,7 +134,7 @@ void GraphWidget::paintEvent(QPaintEvent *event) {
             isDetailMode = false;
             detailedVertexId = -1;
             return;
-        }
+            }
 
         CelestialObject *obj = (*celestialObjectsPtr)[detailedVertexId];
         if (!obj) {
@@ -220,9 +215,9 @@ void GraphWidget::paintEvent(QPaintEvent *event) {
                     double sy = center.y() + r * std::sin(angle);
 
                     if (s % 7 == 0) {
-                        painter.setPen(QPen(QColor(255, 255, 255, 220), 1.5)); // Яскраві
+                        painter.setPen(QPen(QColor(255, 255, 255, 220), 1.5));
                     } else {
-                        painter.setPen(QPen(QColor(255, 255, 255, 140), 1.0)); // Тьмяні
+                        painter.setPen(QPen(QColor(255, 255, 255, 140), 1.0));
                     }
                     painter.drawPoint(QPointF(sx, sy));
                 }
@@ -241,23 +236,41 @@ void GraphWidget::paintEvent(QPaintEvent *event) {
             }
         } else if (obj->getType() == "StarSystem") {
             StarSystem *system = dynamic_cast<StarSystem *>(obj);
+            QColor starColor;
             if (system) {
                 Star::starType type = system->getStar().getStarType();
                 if (type == Star::starType::White_Dwarf) {
-                    painter.setBrush(Qt::lightGray); painter.setPen(Qt::darkMagenta);
+                    starColor= Qt::darkMagenta ;
                 } else if (type == Star::starType::Brown_Dwarf) {
-                    painter.setBrush(Qt::color1); painter.setPen(Qt::white);
+                    starColor  = Qt::white;
                 } else if (type == Star::starType::Main_sequence_Star) {
-                    painter.setBrush(Qt::yellow); painter.setPen(Qt::color0);
+                    starColor= Qt::yellow;
                 } else if (type == Star::starType::Neutron_Star) {
-                    painter.setBrush(Qt::darkBlue); painter.setPen(Qt::white);
+                    starColor =Qt::darkBlue;
                 } else if (type == Star::starType::Red_Giant) {
-                    painter.setBrush(Qt::red); painter.setPen(Qt::darkRed);
+                    starColor =Qt::red;
                 } else if (type == Star::starType::Red_Dwarf) {
-                    painter.setBrush(Qt::green); painter.setPen(Qt::red);
+                    starColor =Qt::green;
                 } else {
-                    painter.setBrush(Qt::white); painter.setPen(Qt::gray);
+                    starColor =Qt::white;
                 }
+
+                painter.setPen(Qt::NoPen);
+
+                double glowRadius = starRadius * 2.5;
+                QRadialGradient glow(center, glowRadius);
+
+
+                glow.setColorAt(0, QColor(starColor.red(), starColor.green(), starColor.blue(), 180));
+
+                glow.setColorAt(0.4, QColor(starColor.red(), starColor.green(), starColor.blue(), 80));
+
+                glow.setColorAt(1, QColor(starColor.red(), starColor.green(), starColor.blue(), 0));
+
+                painter.setBrush(glow);
+                painter.drawEllipse(center, glowRadius, glowRadius);
+
+                painter.setBrush(starColor);
 
                 painter.drawEllipse(center, starRadius, starRadius);
 
@@ -339,7 +352,6 @@ void GraphWidget::paintEvent(QPaintEvent *event) {
             painter.drawLine(p1, p2);
 
             QPointF midPoint = (p1 + p2) / 2.0;
-
             painter.setPen(Qt::yellow);
             painter.drawText(midPoint, QString::number(edge.weight));
             painter.setPen(QPen(Qt::white, 1, Qt::DashLine));
@@ -349,10 +361,41 @@ void GraphWidget::paintEvent(QPaintEvent *event) {
             const auto &vertex = vertices[i];
             if (vertex.id == -1) continue;
 
-            double vertexRadius = 12.0;
-            CelestialObject *obj = (*celestialObjectsPtr)[i];
+            if (i >= celestialObjectsPtr->size() || !(*celestialObjectsPtr)[i]) continue;
 
-            if (obj->getType() == "Nebula") {
+            CelestialObject *obj = (*celestialObjectsPtr)[i];
+            QPointF vCenter(vertex.x, vertex.y);
+            double vertexRadius = 12.0;
+            if (obj->getType() == "StarSystem") {
+                StarSystem *system = dynamic_cast<StarSystem *>(obj);
+                if (system) {
+                    Star::starType sType = system->getStar().getStarType();
+                    QColor starColor;
+
+                    switch (sType) {
+                        case Star::starType::Neutron_Star:       vertexRadius = 3.0; starColor = QColor(100, 100, 255); break;
+                        case Star::starType::White_Dwarf:        vertexRadius = 3.5; starColor = Qt::white; break;
+                        case Star::starType::Brown_Dwarf:        vertexRadius = 4.0; starColor = QColor(165, 42, 42); break;
+                        case Star::starType::Red_Dwarf:          vertexRadius = 4.5; starColor = QColor(255, 69, 0); break;
+                        case Star::starType::Main_sequence_Star: vertexRadius = 5.5; starColor = QColor(255, 255, 200); break;
+                        case Star::starType::Red_Giant:          vertexRadius = 7.0; starColor = QColor(255, 50, 50); break;
+                        default: vertexRadius = 5.0; starColor = Qt::yellow;
+                    }
+
+                    painter.setPen(Qt::NoPen);
+                    double glowRadius = vertexRadius * 3.0;
+                    QRadialGradient glow(vCenter, glowRadius);
+                    glow.setColorAt(0, QColor(starColor.red(), starColor.green(), starColor.blue(), 150));
+                    glow.setColorAt(1, QColor(starColor.red(), starColor.green(), starColor.blue(), 0));
+
+                    painter.setBrush(glow);
+                    painter.drawEllipse(vCenter, glowRadius, glowRadius);
+
+                    painter.setBrush(starColor);
+                    painter.drawEllipse(vCenter, vertexRadius, vertexRadius);
+                }
+            }
+            else if (obj->getType() == "Nebula") {
                 Nebula *nebula = dynamic_cast<Nebula *>(obj);
                 if (nebula) {
                     Nebula::nebulaType nType = nebula->getNebulaType();
@@ -364,116 +407,54 @@ void GraphWidget::paintEvent(QPaintEvent *event) {
                         case Nebula::nebulaType::Dark:       vertexRadius = 20.0; break;
                         default: vertexRadius = 15.0;
                     }
+
+                    QRadialGradient gradient(vCenter, vertexRadius);
+                    painter.setPen(Qt::NoPen);
+
+                    if (nType == Nebula::nebulaType::Planetary) {
+                        gradient.setColorAt(0, QColor(100, 255, 255, 140));
+                        gradient.setColorAt(1, QColor(20, 50, 150, 0));
+                    } else if (nType == Nebula::nebulaType::Supernova) {
+                        gradient.setColorAt(0, QColor(255, 255, 150, 150));
+                        gradient.setColorAt(1, QColor(150, 0, 0, 0));
+                    } else if (nType == Nebula::nebulaType::Emission) {
+                        gradient.setColorAt(0, QColor(255, 100, 150, 140));
+                        gradient.setColorAt(1, QColor(100, 20, 50, 0));
+                    } else if (nType == Nebula::nebulaType::Reflection) {
+                        gradient.setColorAt(0, QColor(150, 200, 255, 140));
+                        gradient.setColorAt(1, QColor(30, 50, 120, 0));
+                    } else if (nType == Nebula::nebulaType::Dark) {
+                        gradient.setColorAt(0, QColor(80, 60, 100, 180));
+                        gradient.setColorAt(1, QColor(20, 10, 30, 0));
+                    } else {
+                        gradient.setColorAt(0, QColor(200, 200, 255, 140));
+                        gradient.setColorAt(1, QColor(50, 50, 100, 0));
+                    }
+
+                    painter.setBrush(gradient);
+                    painter.drawEllipse(vCenter, vertexRadius, vertexRadius);
+
+                    RandomGenerator rng(vertex.id * 9999);
+                    int starCount = static_cast<int>(vertexRadius * 2.5);
+                    for (int s = 0; s < starCount; ++s) {
+                        double angle = rng.getDouble(0, 2 * M_PI);
+                        double r = std::sqrt(rng.getDouble(0.0, 1.0)) * (vertexRadius * 0.9);
+                        double sx = vCenter.x() + r * std::cos(angle);
+                        double sy = vCenter.y() + r * std::sin(angle);
+
+                        if (s % 7 == 0) painter.setPen(QPen(QColor(255, 255, 255, 220), 1.5));
+                        else painter.setPen(QPen(QColor(255, 255, 255, 140), 1.0));
+
+                        painter.drawPoint(QPointF(sx, sy));
+                    }
+                    painter.setPen(Qt::NoPen);
                 }
             }
-            else if (obj->getType() == "StarSystem") {
-                StarSystem *system = dynamic_cast<StarSystem *>(obj);
-                if (system) {
-                    Star::starType sType = system->getStar().getStarType();
-                    switch (sType) {
-                        case Star::starType::Neutron_Star:       vertexRadius = 3.0; break;
-                        case Star::starType::White_Dwarf:        vertexRadius = 3.5; break;
-                        case Star::starType::Brown_Dwarf:        vertexRadius = 4.0; break;
-                        case Star::starType::Red_Dwarf:          vertexRadius = 4.5; break;
-                        case Star::starType::Main_sequence_Star: vertexRadius = 5.5; break;
-                        case Star::starType::Red_Giant:          vertexRadius = 7.0; break;
-                        default: vertexRadius = 5.0;
-                    }
-                }
-            }
-
-            QPointF vCenter(vertex.x, vertex.y);
-
-            if (i < celestialObjectsPtr->size() && (*celestialObjectsPtr)[i]) {
-                CelestialObject *obj = (*celestialObjectsPtr)[i];
-
-                if (obj->getType() == "StarSystem") {
-                     StarSystem *system = dynamic_cast<StarSystem *>(obj);
-                     if (system) {
-                        Star::starType type = system->getStar().getStarType();
-                        if (type == Star::starType::White_Dwarf) {
-                            painter.setBrush(Qt::lightGray); painter.setPen(QPen(Qt::darkMagenta, 2));
-                        } else if (type == Star::starType::Brown_Dwarf) {
-                            painter.setBrush(Qt::color1); painter.setPen(QPen(Qt::white, 2));
-                        } else if (type == Star::starType::Main_sequence_Star) {
-                            painter.setBrush(Qt::yellow); painter.setPen(QPen(Qt::color0, 2));
-                        } else if (type == Star::starType::Neutron_Star) {
-                            painter.setBrush(Qt::darkBlue); painter.setPen(QPen(Qt::white, 2));
-                        } else if (type == Star::starType::Red_Giant) {
-                            painter.setBrush(Qt::red); painter.setPen(QPen(Qt::darkRed, 2));
-                        } else if (type == Star::starType::Red_Dwarf) {
-                            painter.setBrush(Qt::green); painter.setPen(QPen(Qt::red, 2));
-                        } else {
-                            painter.setBrush(Qt::white); painter.setPen(QPen(Qt::gray, 2));
-                        }
-                    }
-                } else if (obj->getType() == "Nebula") {
-                    Nebula *nebula = dynamic_cast<Nebula *>(obj);
-                    if (nebula) {
-                        QRadialGradient gradient(vCenter, vertexRadius);
-                        Nebula::nebulaType type = nebula->getNebulaType();
-
-                        painter.setPen(Qt::NoPen);
-
-                        if (type == Nebula::nebulaType::Planetary) {
-                            gradient.setColorAt(0, QColor(100, 255, 255, 140));
-                            gradient.setColorAt(0.5, QColor(50, 150, 255, 80));
-                            gradient.setColorAt(1, QColor(20, 50, 150, 0));
-                        } else if (type == Nebula::nebulaType::Supernova) {
-                            gradient.setColorAt(0, QColor(255, 255, 150, 150));
-                            gradient.setColorAt(0.4, QColor(255, 100, 50, 90));
-                            gradient.setColorAt(1, QColor(150, 0, 0, 0));
-                        } else if (type == Nebula::nebulaType::Emission) {
-                            gradient.setColorAt(0, QColor(255, 100, 150, 140));
-                            gradient.setColorAt(0.5, QColor(200, 50, 100, 80));
-                            gradient.setColorAt(1, QColor(100, 20, 50, 0));
-                        } else if (type == Nebula::nebulaType::Reflection) {
-                            gradient.setColorAt(0, QColor(150, 200, 255, 140));
-                            gradient.setColorAt(0.5, QColor(80, 120, 200, 80));
-                            gradient.setColorAt(1, QColor(30, 50, 120, 0));
-                        } else if (type == Nebula::nebulaType::Dark) {
-                            gradient.setColorAt(0, QColor(80, 60, 100, 180));
-                            gradient.setColorAt(0.5, QColor(50, 30, 70, 100));
-                            gradient.setColorAt(1, QColor(20, 10, 30, 0));
-                        } else {
-                            gradient.setColorAt(0, QColor(200, 200, 255, 140));
-                            gradient.setColorAt(1, QColor(50, 50, 100, 0));
-                        }
-
-                        painter.setBrush(gradient);
-
-                        RandomGenerator rng(vertex.id * 9999);
-
-                        int starCount = static_cast<int>(vertexRadius * 2.5);
-
-                        for (int s = 0; s < starCount; ++s) {
-                            double angle = rng.getDouble(0, 2 * M_PI);
-
-                            double r = std::sqrt(rng.getDouble(0.0, 1.0)) * (vertexRadius * 0.9);
-
-                            double sx = vCenter.x() + r * std::cos(angle);
-                            double sy = vCenter.y() + r * std::sin(angle);
-
-                            if (s % 7 == 0) {
-                                painter.setPen(QPen(QColor(255, 255, 255, 220), 1.5));
-                            } else {
-                                painter.setPen(QPen(QColor(255, 255, 255, 140), 1.0));
-                            }
-                            painter.drawPoint(QPointF(sx, sy));
-                        }
-
-                        painter.setPen(Qt::NoPen);
-                    }
-                } else {
-                    painter.setBrush(Qt::cyan);
-                    painter.setPen(QPen(Qt::black, 2));
-                }
-            } else {
+            else {
                 painter.setBrush(Qt::cyan);
                 painter.setPen(QPen(Qt::black, 2));
+                painter.drawEllipse(vCenter, 5, 5);
             }
-
-            painter.drawEllipse(vCenter, vertexRadius, vertexRadius);
 
             if (highlightedIds.count(vertex.id)) {
                 painter.setPen(Qt::white);
@@ -481,9 +462,8 @@ void GraphWidget::paintEvent(QPaintEvent *event) {
                 nameFont.setPointSize(10);
                 nameFont.setBold(true);
                 painter.setFont(nameFont);
-
                 painter.drawText(QPointF(vertex.x + vertexRadius + 5, vertex.y - 5), vertex.name);
             }
-         }
+        }
     }
 }
