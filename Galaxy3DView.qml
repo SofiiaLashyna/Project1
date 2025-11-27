@@ -167,6 +167,18 @@ Rectangle {
                     ]
                 }
             }
+            property vector3d defaultCameraPos: Qt.vector3d(0, 1000, 3000)
+            property vector3d defaultCameraTarget: Qt.vector3d(0, 0, 0)
+
+            function cameraZoomTo(x, y, z) {
+                cameraNode.position = Qt.vector3d(x, y + 50, z + 200);
+                cameraNode.lookAt(Qt.vector3d(x, y, z));
+            }
+
+            function cameraReset() {
+                cameraNode.position = defaultCameraPos;
+                cameraNode.lookAt(defaultCameraTarget);
+            }
         }
     }
 

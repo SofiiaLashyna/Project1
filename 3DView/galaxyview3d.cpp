@@ -40,6 +40,7 @@ GalaxyView3D::GalaxyView3D(QWidget *parent)
     paramsButton = new QPushButton("⚙️ Parameters", this);
     paramsButton->setStyleSheet("font-size: 14px; padding: 5px 10px;");
 
+
     paramsWindow = new QWidget(this);
     paramsWindow->setStyleSheet(
         "background-color: #333; color: white; border: 1px solid #555; border-radius: 5px;"
@@ -54,6 +55,7 @@ GalaxyView3D::GalaxyView3D(QWidget *parent)
     titleLabel->setStyleSheet("font-weight: bold; font-size: 16px; margin-bottom: 1px;");
 
     infoText = new QTextEdit(paramsWindow);
+    infoText->setObjectName("infoTextWidget");
     infoText->setReadOnly(true);
     infoText->setStyleSheet("background-color: #444; color: #eee; border: none;");
 
@@ -135,7 +137,9 @@ void GalaxyView3D::generateAndDisplayGalaxy(const nlohmann::json &data, RandomGe
     int n_active = 0;
     for (int i = 0; i < nVerticesTotal; ++i) {
 
-        double radius = std::pow(rng.getDouble(0, 1.0), 2.0) * galaxyRadius;
+        double minSpawnRadius = 300.0;
+        double rFactor = std::pow(rng.getDouble(0, 1.0), 2.0);
+        double radius = minSpawnRadius + rFactor * (galaxyRadius - minSpawnRadius);
 
         double theta = rng.getDouble(0, 2 * M_PI);
 
@@ -327,17 +331,36 @@ void GalaxyView3D::onPhysicsTimerTick() {
 void GalaxyView3D::on_vertexDoubleClicked(int vertexId) {
     if (!galaxy || vertexId < 0 || vertexId >= galaxy->getObject().size()) return;
 
-    CelestialObject *obj = galaxy->getObject()[vertexId];
+    detailedVertexId = vertexId;
 
+    CelestialObject *obj = galaxy->getObject()[vertexId];
     qDebug() << "Selected 3D object:" << QString::fromStdString(obj->getName());
 
-    showObjectParameters(obj);
-    //
-    // if (paramsWindow) {
-    //     paramsWindow->hide();
-    // }
+    double targetX = 0, targetY = 0, targetZ = 0;
 
+    if (vertexId < wrappersMap3D.size() && wrappersMap3D[vertexId]) {
+        targetX = wrappersMap3D[vertexId]->getX() * viewScale;
+        targetY = wrappersMap3D[vertexId]->getY() * viewScale;
+        targetZ = wrappersMap3D[vertexId]->getZ() * viewScale;
+    } else if (vertexId < vertexPositions3D.size()) {
+        targetX = vertexPositions3D[vertexId].x() * viewScale;
+        targetY = vertexPositions3D[vertexId].y() * viewScale;
+        targetZ = vertexPositions3D[vertexId].z() * viewScale;
+    }
+
+    QMetaObject::invokeMethod(quickWidget->rootObject(), "cameraZoomTo",
+        Q_ARG(QVariant, targetX),
+        Q_ARG(QVariant, targetY),
+        Q_ARG(QVariant, targetZ));
+
+    showObjectParameters(obj);
     ui->galaxyNameLabel->hide();
+
+    if (zoomOutButton) {
+        zoomOutButton->show();
+        zoomOutButton->raise();
+    }
+
     disconnect(editButton, &QPushButton::clicked, this, &GalaxyView3D::on_editButton_clicked);
     connect(editButton, &QPushButton::clicked, this, &GalaxyView3D::on_editObjectButton_clicked);
 }
@@ -402,22 +425,202 @@ void GalaxyView3D::showObjectParameters(CelestialObject *obj) {
 
     paramsWindow->show();
     paramsWindow->raise();
+
+    if (editButton) {
+        disconnect(editButton, &QPushButton::clicked, nullptr, nullptr);
+
+        connect(editButton, &QPushButton::clicked, this, &GalaxyView3D::on_editObjectButton_clicked);
+    }
 }
 void GalaxyView3D::on_paramsButton_clicked() {
     if (paramsWindow->isVisible()) {
         paramsWindow->hide();
     } else {
+        updateParametersWindow();
+        if (zoomOutButton) zoomOutButton->hide();
+
         paramsWindow->show();
         paramsWindow->raise();
     }
 }
 
-void GalaxyView3D::on_editButton_clicked() { qDebug() << "edit clicked"; }
-void GalaxyView3D::on_zoomOutButton_clicked() { qDebug() << "zoom out"; }
-void GalaxyView3D::on_editObjectButton_clicked() { qDebug() << "edit obj"; }
+void GalaxyView3D::on_editButton_clicked() {
+    if (!galaxy) return;
+
+    GalaxyEditDialog dlg(galaxy, rngPtr, dataPtr, this);
+
+    connect(&dlg, &GalaxyEditDialog::galaxyModified, this, [this]() {
+        updateParametersWindow();
+        checkForNewObjects();
+        ui->galaxyNameLabel->setText(QString::fromStdString(galaxy->getName()));
+    });
+
+    if (dlg.exec() == QDialog::Accepted) {
+        updateParametersWindow();
+        checkForNewObjects();
+        ui->galaxyNameLabel->setText(QString::fromStdString(galaxy->getName()));
+    }
+}
+
+void GalaxyView3D::checkForNewObjects() {
+    if (!galaxy || !physicsController) return;
+
+    int totalObjects = static_cast<int>(galaxy->getObject().size());
+    int knownObjects = static_cast<int>(wrappersMap3D.size());
+
+    if (totalObjects > knownObjects) {
+        qDebug() << "Found new objects in 3D View! Adding physics...";
+
+        wrappersMap3D.resize(totalObjects, nullptr);
+
+        for (int i = knownObjects; i < totalObjects; ++i) {
+            CelestialObject *obj = galaxy->getObject()[i];
+
+            auto *wrapper = new CelestialBodyToRigidWrapper(obj, physicsEngine->getWorld());
+            wrappersMap3D[i] = wrapper;
+
+            const double galaxyRadius = 4000.0;
+            const double minSpawnRadius = 300.0;
+
+            double rFactor = std::pow(rngPtr->getDouble(0, 1.0), 2.0);
+            double r = minSpawnRadius + rFactor * (galaxyRadius - minSpawnRadius);
+            double theta = rngPtr->getDouble(0, 2 * M_PI);
+            double angle = theta + (r / (galaxyRadius * 0.2));
+
+            double y = (rngPtr->getDouble(-1.0, 1.0) * rngPtr->getDouble(-1.0, 1.0)) * 40.0; // Трохи товщини
+            double x = r * std::cos(angle);
+            double z = r * std::sin(angle);
+
+            setupPhysicsForBody(wrapper, x, y, z);
+
+            physicsController->addCelestialBody(wrapper);
+
+            vertexPositions3D.emplace_back(x, y, z);
+        }
+
+        std::vector<double> xPos, yPos, zPos;
+        for (const auto& pos : vertexPositions3D) {
+            xPos.push_back(pos.x());
+            yPos.push_back(pos.y());
+            zPos.push_back(pos.z());
+        }
+
+        celestialModelPtr->updateObjects(galaxy->getObject());
+        // Оновлюємо позиції
+        celestialModelPtr->updatePositions(xPos, yPos, zPos);
+    }
+}
+
+void GalaxyView3D::setupPhysicsForBody(CelestialBodyToRigidWrapper* wrapper, double x, double y, double z) {
+    wrapper->setPosition(x, y, z);
+
+    btRigidBody* rb = wrapper->getRigidBody();
+    rb->setActivationState(DISABLE_DEACTIVATION);
+    rb->setDamping(0.0, 0.0);
+    rb->setCollisionFlags(rb->getCollisionFlags() | btCollisionObject::CF_NO_CONTACT_RESPONSE);
+    rb->setLinearFactor(btVector3(1, 1, 1));
+
+    double realBlackHoleMass = 1.3e12;
+    double simBlackHoleMass = realBlackHoleMass * 1.0e-7;
+    const double G_const = 1.0;
+    const double velFactor = 0.85;
+
+    double rHoriz = std::sqrt(x * x + z * z);
+    if (rHoriz < 10.0) rHoriz = 10.0;
+
+    double vMag = std::sqrt((G_const * simBlackHoleMass) / rHoriz) * velFactor;
+
+    btVector3 tangential(-z, 0, x);
+    tangential.normalize();
+    tangential *= vMag;
+
+    if (tangential.length2() < 1e-6) {
+        btVector3 radial((btScalar)x, (btScalar)y, (btScalar)z);
+        tangential = btVector3(1, 0, 0).cross(radial);
+        tangential.normalize();
+        tangential *= vMag;
+    }
+
+    rb->setLinearVelocity(tangential);
+}
+void GalaxyView3D::on_zoomOutButton_clicked() {
+    qDebug() << "Zoom out clicked";
+
+    QMetaObject::invokeMethod(quickWidget->rootObject(), "cameraReset");
+
+    zoomOutButton->hide();
+
+    disconnect(editButton, &QPushButton::clicked, this, &GalaxyView3D::on_editObjectButton_clicked);
+    connect(editButton, &QPushButton::clicked, this, &GalaxyView3D::on_editButton_clicked);
+
+    if (paramsWindow) paramsWindow->hide();
+    ui->galaxyNameLabel->show();
+
+    detailedVertexId = -1;
+}
+void GalaxyView3D::on_editObjectButton_clicked() {
+    if (!galaxy || detailedVertexId < 0 || detailedVertexId >= galaxy->getObject().size()) return;
+
+    CelestialObject *obj = galaxy->getObject()[detailedVertexId];
+
+    if (obj->getType() == "StarSystem") {
+        editStarSystem(dynamic_cast<StarSystem*>(obj));
+    }
+    else if (obj->getType() == "Nebula") {
+        editNebula(dynamic_cast<Nebula*>(obj));
+    }
+    else {
+        qDebug() << "Editing not supported for type:" << QString::fromStdString(obj->getType());
+    }
+}
+
 void GalaxyView3D::editStarSystem(StarSystem* system) {
-    //not added yet
+    if (!system || !rngPtr || !dataPtr) return;
+
+    EditStarSystemDialog dlg(system, rngPtr, dataPtr, this);
+
+    if (dlg.exec() == QDialog::Accepted) {
+        dlg.saveChanges();
+
+        showObjectParameters(system);
+
+        celestialModelPtr->updateObjects(galaxy->getObject());
     }
+}
+
 void GalaxyView3D::editNebula(Nebula* nebula) {
-    //not added yet
+    if (!nebula) return;
+
+    EditNebulaDialog dlg(nebula, this);
+
+    if (dlg.exec() == QDialog::Accepted) {
+        dlg.saveChanges();
+
+        showObjectParameters(nebula);
+
+        celestialModelPtr->updateObjects(galaxy->getObject());
     }
+}
+void GalaxyView3D::updateParametersWindow() {
+    QTextEdit *infoTextWidget = paramsWindow->findChild<QTextEdit *>("infoTextWidget");
+
+    if (!infoTextWidget) return;
+
+    if (galaxy) {
+        infoTextWidget->setText(galaxy->getGalaxyParameters());
+    } else {
+        infoTextWidget->setText("Cannot load parameters: Galaxy object is missing.");
+    }
+
+    QLabel *titleLabel = paramsWindow->findChild<QLabel *>("titleLabel");
+    if (titleLabel) {
+        titleLabel->setText("Galaxy Parameters:");
+    }
+
+
+    if (editButton) {
+        disconnect(editButton, &QPushButton::clicked, nullptr, nullptr);
+
+        connect(editButton, &QPushButton::clicked, this, &GalaxyView3D::on_editButton_clicked);
+    }
+}

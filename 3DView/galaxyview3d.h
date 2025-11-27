@@ -18,6 +18,9 @@
 #include "BlackHoleGravityField.h"
 #include "CelestialBodyToRigidWrapper.h"
 #include "GalaxyPhysicsController.h"
+#include "GalaxyEditDialog.h"
+#include "EditStarSystemDialog.h"
+#include "EditNebulaDialog.h"
 
 class StarSystem;
 class Nebula;
@@ -78,6 +81,10 @@ private:
 
     void editStarSystem(StarSystem* system);
     void editNebula(Nebula* nebula);
+
+    void checkForNewObjects();
+
+    void setupPhysicsForBody(CelestialBodyToRigidWrapper* wrapper, double x, double y, double z);
 };
 
 #endif //GALAXYVIEW3D_H
