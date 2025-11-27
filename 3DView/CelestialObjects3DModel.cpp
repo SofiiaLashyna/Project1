@@ -41,16 +41,14 @@ QVariant CelestialObject3DModel::data(const QModelIndex &index, int role) const
             double baseScale;
 
             if (system) {
-                baseScale = (std::log10(mass > 0 ? mass : 1.0) + 1.0) * 15.0;
+                baseScale = std::cbrt(mass > 0 ? mass : 1.0) * 1.0;
             } else if (nebula) {
-                baseScale = 80.0;
+                baseScale = std::cbrt(mass > 0 ? mass : 1.0) * 5.0;
             } else {
                 baseScale = 1.0;
             }
 
-            double finalScale = std::min(baseScale, 200.0);
-
-            if (finalScale < 5.0) finalScale = 5.0;
+            double finalScale = std::min(baseScale, 20.0)*0.1;
 
             if (index.row() == 0)
                 qDebug() << "Size(0):" << finalScale;

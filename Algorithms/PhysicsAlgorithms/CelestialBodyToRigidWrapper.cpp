@@ -18,7 +18,6 @@ CelestialBodyToRigidWrapper::~CelestialBodyToRigidWrapper() {
 }
 
 btRigidBody* CelestialBodyToRigidWrapper::buildRigidBody() {
-    // Sphere by default (can be changed later)
     shape_ = new btSphereShape(btScalar(1.0));
 
     btVector3 inertia(0, 0, 0);
@@ -28,7 +27,7 @@ btRigidBody* CelestialBodyToRigidWrapper::buildRigidBody() {
 
     btTransform transform;
     transform.setIdentity();
-    transform.setOrigin(btVector3(0, 0, 0)); // initial position → можеш прив’язати до CelestialObject
+    transform.setOrigin(btVector3(0, 0, 0));
 
     motionState_ = new btDefaultMotionState(transform);
 

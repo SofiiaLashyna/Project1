@@ -35,4 +35,3 @@ public:
     void updateObjects(std::vector<CelestialObject *> &newObjects);
 };
 #endif //CELESTIALOBJECT3DMODEL_H
-
