@@ -10,7 +10,8 @@ enum CelestialObjectRoles {
     YPosRole,
     ZPosRole,
     SizeFactorRole,
-    ObjectColorRole
+    ObjectColorRole,
+    ObjectTypeRole
 };
 
 class CelestialObject3DModel : public QAbstractListModel {

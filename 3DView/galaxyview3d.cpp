@@ -332,7 +332,6 @@ void GalaxyView3D::onPhysicsTimerTick() {
     if (detailedVertexId != -1 && quickWidget && quickWidget->rootObject()) {
         double targetX = 0, targetY = 0, targetZ = 0;
 
-        // Беремо координати так само, як ти робила в double click
         if (detailedVertexId < static_cast<int>(wrappersMap3D.size()) && wrappersMap3D[detailedVertexId]) {
             targetX = wrappersMap3D[detailedVertexId]->getX() * viewScale;
             targetY = wrappersMap3D[detailedVertexId]->getY() * viewScale;
@@ -385,20 +384,35 @@ void GalaxyView3D::on_vertexDoubleClicked(int vertexId) {
         Q_ARG(QVariant, targetY),
         Q_ARG(QVariant, targetZ));
 
+    QColor objColor = Qt::white;
+    int objType = 0;
+
     if (obj->getType() == "StarSystem") {
+        objType = 1;
         StarSystem* system = dynamic_cast<StarSystem*>(obj);
         planetModelPtr->updateSystem(system);
+        objColor = getStarColorByType(system->getStar().getStarType());
 
-        QColor sColor = getStarColorByType(system->getStar().getStarType());
-
-        QMetaObject::invokeMethod(quickWidget->rootObject(), "setStarColor",
-            Q_ARG(QVariant, sColor.redF()),
-            Q_ARG(QVariant, sColor.greenF()),
-            Q_ARG(QVariant, sColor.blueF()));
-
-    } else {
+    } else if (obj->getType() == "Nebula") {
+        objType = 2;
+        Nebula* nebula = dynamic_cast<Nebula*>(obj);
         planetModelPtr->clear();
+        switch(nebula->getNebulaType()) {
+            case Nebula::nebulaType::Emission: objColor = QColor(255, 0, 127); break;
+            case Nebula::nebulaType::Reflection: objColor = QColor(100, 149, 237); break;
+            case Nebula::nebulaType::Dark: objColor = QColor(40, 40, 40); break;
+            case Nebula::nebulaType::Supernova: objColor = QColor(255, 69, 0); break;
+            case Nebula::nebulaType::Planetary: objColor = QColor(0, 255, 127); break;
+            default: objColor = QColor("purple"); break;
+        }
     }
+    QMetaObject::invokeMethod(quickWidget->rootObject(), "setCurrentSystemType",
+        Q_ARG(QVariant, objType));
+
+    QMetaObject::invokeMethod(quickWidget->rootObject(), "setStarColor",
+        Q_ARG(QVariant, objColor.redF()),
+        Q_ARG(QVariant, objColor.greenF()),
+        Q_ARG(QVariant, objColor.blueF()));
 
     showObjectParameters(obj);
     ui->galaxyNameLabel->hide();
@@ -553,7 +567,6 @@ void GalaxyView3D::checkForNewObjects() {
         }
 
         celestialModelPtr->updateObjects(galaxy->getObject());
-        // Оновлюємо позиції
         celestialModelPtr->updatePositions(xPos, yPos, zPos);
     }
 }
@@ -677,12 +690,12 @@ void GalaxyView3D::updateParametersWindow() {
 
 QColor GalaxyView3D::getStarColorByType(Star::starType type) {
     switch (type) {
-        case Star::starType::Red_Giant: return QColor(255, 60, 60);      // Червоний
-        case Star::starType::Red_Dwarf: return QColor(255, 100, 50);     // Помаранчево-червоний
-        case Star::starType::White_Dwarf: return QColor(200, 240, 255);  // Блакитно-білий
-        case Star::starType::Neutron_Star: return QColor(100, 150, 255); // Електрик-блю
-        case Star::starType::Brown_Dwarf: return QColor(120, 60, 20);    // Темно-коричневий
-        case Star::starType::Main_sequence_Star: return QColor(255, 220, 100); // Жовтий (Сонце)
+        case Star::starType::Red_Giant: return QColor(255, 60, 60);
+        case Star::starType::Red_Dwarf: return QColor(255, 100, 50);
+        case Star::starType::White_Dwarf: return QColor(200, 240, 255);
+        case Star::starType::Neutron_Star: return QColor(100, 150, 255);
+        case Star::starType::Brown_Dwarf: return QColor(120, 60, 20);
+        case Star::starType::Main_sequence_Star: return QColor(255, 220, 100);
         default: return QColor(255, 255, 255);
     }
 }

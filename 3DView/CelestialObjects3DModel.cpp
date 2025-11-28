@@ -55,11 +55,14 @@ QVariant CelestialObject3DModel::data(const QModelIndex &index, int role) const
 
             return finalScale;
         }
-        // У case ObjectColorRole:
+        case ObjectTypeRole: {
+            if (system) return 1;
+            if (nebula) return 2;
+            return 0;
+        }
 
         case ObjectColorRole: {
             if (system) {
-                // Використовуємо типи зірок
                 Star::starType type = system->getStar().getStarType();
                 switch(type) {
                     case Star::starType::Red_Giant: return QColor("red");
@@ -73,11 +76,11 @@ QVariant CelestialObject3DModel::data(const QModelIndex &index, int role) const
             } else if (nebula) {
                 Nebula::nebulaType type = nebula->getNebulaType();
                 switch(type) {
-                    case Nebula::nebulaType::Emission: return QColor(255, 0, 127); // Маджента
-                    case Nebula::nebulaType::Reflection: return QColor(100, 149, 237); // Волошковий
-                    case Nebula::nebulaType::Dark: return QColor(40, 40, 40); // Темно-сірий
-                    case Nebula::nebulaType::Supernova: return QColor(255, 69, 0); // Оранжево-червоний
-                    case Nebula::nebulaType::Planetary: return QColor(0, 255, 127); // Яскраво-зелений
+                    case Nebula::nebulaType::Emission: return QColor(255, 0, 127);
+                    case Nebula::nebulaType::Reflection: return QColor(100, 149, 237);
+                    case Nebula::nebulaType::Dark: return QColor(40, 40, 40);
+                    case Nebula::nebulaType::Supernova: return QColor(255, 69, 0);
+                    case Nebula::nebulaType::Planetary: return QColor(0, 255, 127);
                     default: return QColor("purple");
                 }
             }
@@ -96,6 +99,7 @@ QHash<int, QByteArray> CelestialObject3DModel::roleNames() const
     roles[ZPosRole] = "zPos";
     roles[SizeFactorRole] = "sizeFactor";
     roles[ObjectColorRole] = "objectColor";
+    roles[ObjectTypeRole] = "objectType";
     return roles;
 }
 

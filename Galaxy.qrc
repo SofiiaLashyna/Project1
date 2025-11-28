@@ -1,6 +1,8 @@
 <RCC>
     <qresource prefix="/">
         <file>Galaxy3DView.qml</file>
+        <file>3DView/textures/skybox.hdr</file>
+        <file>3DView/textures/nebula.png</file>
         <file>3DView/textures/dwarf1.jpg</file>
         <file>3DView/textures/dwarf2.jpg</file>
         <file>3DView/textures/dwarf3.jpg</file>
