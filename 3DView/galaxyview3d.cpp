@@ -35,42 +35,38 @@ GalaxyView3D::GalaxyView3D(QWidget *parent)
     simulationTimer = new QTimer(this);
     connect(simulationTimer, &QTimer::timeout, this, &GalaxyView3D::onPhysicsTimerTick);
 
-    paramsButton = new QPushButton("⚙️ Parameters", this);
-    paramsButton->setStyleSheet("font-size: 14px; padding: 5px 10px;");
-
+    paramsButton = new QPushButton("Parameters", this);
 
     paramsWindow = new QWidget(this);
-    paramsWindow->setStyleSheet(
-        "background-color: #333; color: white; border: 1px solid #555; border-radius: 5px;"
-    );
     paramsWindow->hide();
 
     QVBoxLayout *paramsLayout = new QVBoxLayout(paramsWindow);
-    paramsLayout->setContentsMargins(10, 10, 10, 10);
+    paramsLayout->setContentsMargins(15, 15, 15, 15);
 
-    QLabel *titleLabel = new QLabel("Object Info: \n", paramsWindow);
+    QLabel *titleLabel = new QLabel("Object Info:", paramsWindow);
     titleLabel->setObjectName("titleLabel");
-    titleLabel->setStyleSheet("font-weight: bold; font-size: 16px; margin-bottom: 1px;");
+    titleLabel->setAlignment(Qt::AlignCenter);
 
     infoText = new QTextEdit(paramsWindow);
     infoText->setObjectName("infoTextWidget");
     infoText->setReadOnly(true);
-    infoText->setStyleSheet("background-color: #444; color: #eee; border: none;");
 
-    editButton = new QPushButton("✎ Edit..", paramsWindow);
-    editButton->setStyleSheet("font-size: 14px; padding: 5px 10px;");
+    editButton = new QPushButton("Edit Object", paramsWindow);
 
     paramsLayout->addWidget(titleLabel);
     paramsLayout->addWidget(infoText);
     paramsLayout->addWidget(editButton);
     paramsWindow->setLayout(paramsLayout);
 
-    paramsButton->resize(150, 35);
-    paramsWindow->resize(250, 210);
+    paramsButton->resize(160, 40);
+    paramsWindow->resize(240, 220);
 
-    zoomOutButton = new QPushButton("⬅ Zoom Out", this);
-    zoomOutButton->setStyleSheet("font-size: 14px; padding: 5px 10px;");
+    zoomOutButton = new QPushButton("Back to Galaxy", this);
     zoomOutButton->hide();
+
+    setupPathInfoWidget();
+
+    applySpaceStyle();
 
     connect(paramsButton, &QPushButton::clicked, this, &GalaxyView3D::on_paramsButton_clicked);
     connect(zoomOutButton, &QPushButton::clicked, this, &GalaxyView3D::on_zoomOutButton_clicked);
@@ -88,7 +84,6 @@ GalaxyView3D::GalaxyView3D(QWidget *parent)
                 this, SLOT(onBackgroundClicked()));
     }
 
-    setupPathInfoWidget();
 
 }
 
@@ -104,37 +99,51 @@ GalaxyView3D::~GalaxyView3D() {
 
 void GalaxyView3D::setupPathInfoWidget() {
     pathInfoWidget = new QWidget(this);
-    pathInfoWidget->setStyleSheet(
-        "background-color: rgba(20, 20, 40, 200); "
-        "border: 1px solid #55aaff; "
-        "border-radius: 8px; "
-        "color: white;"
-    );
+
+    // Стиль для вікна дистанції
+    QString pathWindowStyle =
+        "QWidget {"
+        "  background-color: rgba(10, 10, 25, 230);"
+        "  border: 2px solid #00aaff;" // Яскравіша рамка
+        "  border-radius: 15px;"
+        "}";
+    pathInfoWidget->setStyleSheet(pathWindowStyle);
+
     QVBoxLayout* layout = new QVBoxLayout(pathInfoWidget);
 
     pathStatusLabel = new QLabel("Select Start Point", pathInfoWidget);
-    pathStatusLabel->setStyleSheet("font-weight: bold; font-size: 14px; color: #55aaff; background: none; border: none;");
+    // Стиль заголовка
+    pathStatusLabel->setStyleSheet(
+        "background: transparent; border: none; color: #00aaff; font-family: 'Ravie'; font-size: 14px;"
+    );
     pathStatusLabel->setAlignment(Qt::AlignCenter);
 
     pathDetailsLabel = new QLabel("", pathInfoWidget);
-    pathDetailsLabel->setStyleSheet("font-size: 12px; background: none; border: none;");
+    pathDetailsLabel->setStyleSheet(
+        "background: transparent; border: none; color: white; font-family: 'Segoe UI'; font-size: 12px;"
+    );
+    pathDetailsLabel->setAlignment(Qt::AlignCenter);
 
     pathDistanceLabel = new QLabel("", pathInfoWidget);
-    pathDistanceLabel->setStyleSheet("font-weight: bold; font-size: 12px; color: #00ff00; background: none; border: none;");
+    pathDistanceLabel->setStyleSheet(
+        "background: transparent; border: none; color: #00ff00; font-family: 'Ravie'; font-size: 13px;"
+    );
+    pathDistanceLabel->setAlignment(Qt::AlignCenter);
 
     layout->addWidget(pathStatusLabel);
     layout->addWidget(pathDetailsLabel);
     layout->addWidget(pathDistanceLabel);
 
     pathInfoWidget->setLayout(layout);
-    pathInfoWidget->resize(220, 120);
+    pathInfoWidget->resize(240, 140);
     pathInfoWidget->hide();
 }
 
 void GalaxyView3D::resizeEvent(QResizeEvent *event) {
     QWidget::resizeEvent(event);
+    int margin = 20;
     if (paramsButton && paramsWindow) {
-        int margin = 20;
+
         int btn_x = width() - paramsButton->width() - margin;
         int btn_y = margin;
         paramsButton->move(btn_x, btn_y);
@@ -142,6 +151,13 @@ void GalaxyView3D::resizeEvent(QResizeEvent *event) {
         int win_x = width() - paramsWindow->width() - margin;
         int win_y = btn_y + paramsButton->height() + 10;
         paramsWindow->move(win_x, win_y);
+    }
+    if (zoomOutButton) {
+        int zoomBtnX = margin;
+
+        int zoomBtnY = margin + 15;
+
+        zoomOutButton->move(zoomBtnX, zoomBtnY);
     }
     if (pathInfoWidget) {
         int margin = 20;
@@ -854,4 +870,56 @@ QVector3D GalaxyView3D::getObjectPosition(int index) {
     }
 
     return QVector3D(x * viewScale, y * viewScale, z * viewScale);
+}
+
+void GalaxyView3D::applySpaceStyle() {
+    QString btnStyle =
+        "QPushButton {"
+        "  background-color: rgba(20, 20, 40, 200);"
+        "  border: 2px solid #00aaff;"
+        "  border-radius: 10px;"
+        "  color: white;"
+        "  font-family: 'Ravie';"
+        "  font-size: 12px;"
+        "  padding: 5px;"
+        "}"
+        "QPushButton:hover {"
+        "  background-color: rgba(0, 170, 255, 50);"
+        "  border: 2px solid #ffffff;"
+        "  color: #00ffff;"
+        "}"
+        "QPushButton:pressed {"
+        "  background-color: rgba(0, 170, 255, 100);"
+        "  border: 2px solid #0088cc;"
+        "}";
+
+    paramsButton->setStyleSheet(btnStyle);
+    editButton->setStyleSheet(btnStyle);
+    zoomOutButton->setStyleSheet(btnStyle);
+
+    QString windowStyle =
+        "QWidget {"
+        "  background-color: rgba(10, 10, 20, 240);"
+        "  border: 1px solid #00aaff;"
+        "  border-radius: 15px;"
+        "}"
+        "QLabel#titleLabel {"
+        "  background: transparent;"
+        "  border: none;"
+        "  color: #00ffff;"
+        "  font-family: 'Ravie';"
+        "  font-size: 14px;"
+        "  margin-bottom: 5px;"
+        "}"
+        "QTextEdit {"
+        "  background-color: rgba(0, 0, 0, 50);"
+        "  border: none;"
+        "  color: #d0e0ff;"
+        "  font-family: 'Segoe UI', sans-serif;"
+        "  font-size: 13px;"
+        "}";
+
+    paramsWindow->setStyleSheet(windowStyle);
+
+    editButton->setStyleSheet(btnStyle);
 }

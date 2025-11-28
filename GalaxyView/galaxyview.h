@@ -83,6 +83,8 @@ private:
     void editStarSystem(StarSystem* system);
     void editNebula(Nebula* nebula);
 
+    void applySpaceStyle();
+
     PhysicsEngine* physicsEngine = nullptr;
     GalaxyPhysicsController* physicsController = nullptr;
     BlackHoleGravityField* blackHoleField = nullptr;

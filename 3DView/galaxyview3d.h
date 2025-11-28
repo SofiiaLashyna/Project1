@@ -107,6 +107,8 @@ private:
 
     QVector3D getObjectPosition(int index);
 
+    void applySpaceStyle();
+
     void initPhysicsSimulation();
 
     void createPhysicsBody(CelestialObject *obj);
