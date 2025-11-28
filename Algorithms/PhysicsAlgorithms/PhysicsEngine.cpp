@@ -13,19 +13,16 @@ PhysicsEngine::PhysicsEngine() {
         collisionConfiguration
     );
 
-    // Симуляція без земної гравітації
     dynamicsWorld->setGravity(btVector3(0, 0, 0));
 }
 
 PhysicsEngine::~PhysicsEngine() {
-    // Видаляємо тіла з світу
     for (btRigidBody* body : bodies) {
         dynamicsWorld->removeRigidBody(body);
         delete body->getMotionState();
         delete body;
     }
 
-    // Видаляємо фігури
     for (btCollisionShape* shape : shapes) {
         delete shape;
     }
