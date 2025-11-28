@@ -13,7 +13,8 @@ public:
         OrbitRadiusRole = Qt::UserRole + 1,
         PlanetSizeRole,
         PlanetColorRole,
-        RotationSpeedRole
+        RotationSpeedRole,
+        TexturePathRole
     };
 
     explicit PlanetarySystemModel(QObject *parent = nullptr);
@@ -22,7 +23,6 @@ public:
     QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override;
     QHash<int, QByteArray> roleNames() const override;
 
-    // Цей метод ми будемо викликати при кліку на зірку
     void updateSystem(StarSystem* system);
     void clear();
 
@@ -32,6 +32,7 @@ private:
         double size;
         QColor color;
         double speed;
+        QString texturePath;
     };
     std::vector<PlanetData> m_planets;
 };

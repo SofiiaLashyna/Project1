@@ -3,7 +3,7 @@
 #include <cmath>
 #include <limits>
 #include <algorithm>
-
+#include <RandomUtilities.h>
 
 PlanetarySystemModel::PlanetarySystemModel(QObject *parent)
     : QAbstractListModel(parent) {}
@@ -24,6 +24,7 @@ QVariant PlanetarySystemModel::data(const QModelIndex &index, int role) const {
         case PlanetSizeRole:  return planet.size;
         case PlanetColorRole: return planet.color;
         case RotationSpeedRole: return planet.speed;
+        case TexturePathRole: return planet.texturePath;
         default: return QVariant();
     }
 }
@@ -34,6 +35,7 @@ QHash<int, QByteArray> PlanetarySystemModel::roleNames() const {
     roles[PlanetSizeRole] = "planetSize";
     roles[PlanetColorRole] = "planetColor";
     roles[RotationSpeedRole] = "rotationSpeed";
+    roles[TexturePathRole] = "texturePath";
     return roles;
 }
 
@@ -42,7 +44,7 @@ void PlanetarySystemModel::updateSystem(StarSystem* system) {
     m_planets.clear();
 
     if (system) {
-        const auto& planets = system->getPlanets();
+        auto& planets = system->getPlanets();
 
         double minMass = std::numeric_limits<double>::max();
         double maxMass = std::numeric_limits<double>::lowest();
@@ -54,26 +56,61 @@ void PlanetarySystemModel::updateSystem(StarSystem* system) {
 
         if (std::abs(maxMass - minMass) < 0.0001) maxMass = minMass + 1.0;
 
-        double starRadius = 25.0;
-        double baseOrbitStart = starRadius * 2.5;
-        double orbitSpacing = 40.0;
-
+        double baseOrbitStart = 250.0;
+        double orbitSpacing = 60.0;
         for (size_t i = 0; i < planets.size(); ++i) {
-            const auto& p = planets[i];
-
+            auto& p = planets[i];
             PlanetData data;
 
             double massNorm = (p.getMass() - minMass) / (maxMass - minMass);
-            data.size = 5.0 + (10.0 * massNorm);
-
+            data.size = 0.1 + (0.1 * massNorm);
             data.orbitRadius = baseOrbitStart + (i * orbitSpacing);
+            data.color = p.getColor().isValid() ? p.getColor() : QColor("white");
+            data.speed = 5.0 * std::pow(data.orbitRadius, 1.5);
 
-            QColor c = p.getColor();
-            if (!c.isValid()) c = QColor::fromHsv((i * 60) % 255, 180, 240);
-            data.color = c;
 
-            data.speed = 10000.0 * std::sqrt(data.orbitRadius * 0.1);
-            
+            if (p.getTexturePath().empty()) {
+                std::string newPath;
+                RandomGenerator rng;
+                int randomNum = rng.getInt(1,3);
+                switch (p.getPlanetType()) {
+                    case Planet::planetType::Gas_Giant:
+                        if (randomNum % 3 == 0) {
+                            newPath ="qrc:/3DView/textures/gas_g1.jpg";
+                        }
+                        else if (randomNum % 3 == 1) {
+                            newPath ="qrc:/3DView/textures/gas_g2.jpg";
+                        }
+                        else{
+                            newPath ="qrc:/3DView/textures/gas_g3.jpg";
+                        }
+                    break;
+
+                    case Planet::planetType::Terrestrial_Planet:
+                        if (p.isHabitable()) {
+                            newPath = "qrc:/3DView/textures/habitable_terrestrial1.jpg";
+                        } else {
+                            if (randomNum % 2 == 0)
+                                newPath = "qrc:/3DView/textures/terrestrial1.jpg";
+                            else
+                                newPath = "qrc:/3DView/textures/terrestrial2.jpg";
+                        }
+                    break;
+
+                    case Planet::planetType::Dwarf:
+                        default:
+                            if (randomNum % 3 == 0)
+                                newPath = "qrc:/3DView/textures/dwarf1.jpg";
+                            else if (randomNum % 3 == 1)
+                                newPath = "qrc:/3DView/textures/dwarf2.jpg";
+                            else
+                                newPath = "qrc:/3DView/textures/dwarf2.jpg";
+                    break;
+                }
+                p.setTexturePath(newPath);
+            }
+            data.texturePath = QString::fromStdString(p.getTexturePath());
+
             m_planets.push_back(data);
         }
     }

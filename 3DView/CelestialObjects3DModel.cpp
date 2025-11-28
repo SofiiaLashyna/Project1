@@ -55,21 +55,34 @@ QVariant CelestialObject3DModel::data(const QModelIndex &index, int role) const
 
             return finalScale;
         }
+        // У case ObjectColorRole:
+
         case ObjectColorRole: {
-        if (system) {
-            Star::starType type = system->getStar().getStarType();
-            if (type == Star::starType::Red_Giant) return QColor("red");
-            if (type == Star::starType::White_Dwarf) return QColor("lightblue");
-            if (type == Star::starType::Main_sequence_Star) return QColor("yellow");
-            return QColor("white");
-        } else if (nebula) {
-            Nebula::nebulaType type = nebula->getNebulaType();
-            if (type == Nebula::nebulaType::Emission) return QColor(255, 100, 150);
-            if (type == Nebula::nebulaType::Dark) return QColor(80, 60, 100);
-            return QColor("purple");
+            if (system) {
+                // Використовуємо типи зірок
+                Star::starType type = system->getStar().getStarType();
+                switch(type) {
+                    case Star::starType::Red_Giant: return QColor("red");
+                    case Star::starType::Red_Dwarf: return QColor(255, 120, 80);
+                    case Star::starType::White_Dwarf: return QColor("cyan");
+                    case Star::starType::Neutron_Star: return QColor("blue");
+                    case Star::starType::Brown_Dwarf: return QColor(139, 69, 19);
+                    case Star::starType::Main_sequence_Star: return QColor("yellow");
+                    default: return QColor("white");
+                }
+            } else if (nebula) {
+                Nebula::nebulaType type = nebula->getNebulaType();
+                switch(type) {
+                    case Nebula::nebulaType::Emission: return QColor(255, 0, 127); // Маджента
+                    case Nebula::nebulaType::Reflection: return QColor(100, 149, 237); // Волошковий
+                    case Nebula::nebulaType::Dark: return QColor(40, 40, 40); // Темно-сірий
+                    case Nebula::nebulaType::Supernova: return QColor(255, 69, 0); // Оранжево-червоний
+                    case Nebula::nebulaType::Planetary: return QColor(0, 255, 127); // Яскраво-зелений
+                    default: return QColor("purple");
+                }
+            }
+            return QColor("gray");
         }
-        return QColor("gray");
-    }
     default:
         return QVariant();
     }

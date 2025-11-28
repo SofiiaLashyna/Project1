@@ -98,6 +98,8 @@ private:
 
     void setupPhysicsForBody(CelestialBodyToRigidWrapper *wrapper, double x, double y, double z);
 
+    QColor getStarColorByType(Star::starType type);
+
     PlanetarySystemModel *planetModelPtr = nullptr;
 };
 

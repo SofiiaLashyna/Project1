@@ -62,6 +62,11 @@ Rectangle {
 
         cameraController.enabled = true;
     }
+    property color currentStarColor: "#ffaa00"
+
+    function setStarColor(r, g, b) {
+        currentStarColor = Qt.rgba(r, g, b, 1);
+    }
 
     View3D {
         id: view3D
@@ -78,8 +83,8 @@ Rectangle {
             id: mainCamera
             position: root.defaultCameraPos
             eulerRotation: Qt.vector3d(-45, 0, 0)
-            clipNear: 1
-            clipFar: 20000
+            clipNear: 0.1
+            clipFar: 100000
         }
 
         Node {
@@ -155,21 +160,31 @@ Rectangle {
             Model {
                 source: "#Sphere"
                 position: Qt.vector3d(0, 0, 0)
-                scale: Qt.vector3d(0.6, 0.6, 0.6)
-                materials: [ DefaultMaterial { diffuseColor: "#ffaa00"; lighting: DefaultMaterial.NoLighting } ]
+                scale: Qt.vector3d(2.5, 2.5, 2.5)
+                castsShadows: false
+                materials: [
+                    DefaultMaterial {
+                        diffuseColor: root.currentStarColor
+                        lighting: DefaultMaterial.NoLighting
+                    }
+                ]
             }
 
             Model {
                 source: "#Sphere"
-                scale: Qt.vector3d(1.5, 1.5, 1.5)
-                opacity: 0.2
-                materials: [ DefaultMaterial { diffuseColor: "orange"; lighting: DefaultMaterial.NoLighting; blendMode: DefaultMaterial.Add } ]
+                scale: Qt.vector3d(4.0, 4.0, 4.0)
+                opacity: 0.15
+                materials: [ DefaultMaterial {
+                    diffuseColor: root.currentStarColor
+                    lighting: DefaultMaterial.NoLighting
+                } ]
             }
 
             PointLight {
-                color: "#ffaa55"
-                brightness: 1.5
+                color: root.currentStarColor
+                brightness: 3.0
                 castsShadow: true
+                shadowMapQuality: Light.ShadowMapQualityHigh
             }
 
             Repeater3D {
@@ -184,20 +199,29 @@ Rectangle {
                     }
 
                     Node {
-                        position: Qt.vector3d(model.orbitRadius * 0.2, 0, 0)
+                        position: Qt.vector3d(model.orbitRadius, 0, 0)
 
                         Model {
                             source: "#Sphere"
-                            scale: Qt.vector3d(model.planetSize * 0.03, model.planetSize * 0.03, model.planetSize * 0.03)
-                            materials: DefaultMaterial { diffuseColor: model.planetColor }
-                        }
-                    }
+                            scale: Qt.vector3d(model.planetSize, model.planetSize, model.planetSize)
+                            materials: PrincipledMaterial {
+                                baseColorMap: Texture {
+                                    source: model.texturePath
+                                    tilingModeHorizontal: Texture.Repeat
+                                    tilingModeVertical: Texture.ClampToEdge
+                                }
 
-                    Model {
-                        source: "#Cylinder"
-                        position: Qt.vector3d(0, 0, 0)
-                        scale: Qt.vector3d(model.orbitRadius * 0.9, 0.005, model.orbitRadius * 0.9)
-                        materials: DefaultMaterial { diffuseColor: "white"; opacity: 0.03; lighting: DefaultMaterial.NoLighting }
+                                metalness: 0.0
+                                roughness: 0.8
+                                baseColor: "white"
+                            }
+
+                            NumberAnimation on eulerRotation.y {
+                                from: 0; to: 360;
+                                duration: 10000 + Math.random() * 10000
+                                loops: Animation.Infinite
+                            }
+                        }
                     }
                 }
             }

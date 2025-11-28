@@ -10,7 +10,9 @@ private:
     double orbitSpeed;
     double inclination;
     bool habitable;
-    QColor color = QColor(0,0,0);
+    QColor color = QColor(0, 0, 0);
+    std::string texturePath;
+
 public:
     enum class planetType { Gas_Giant, Dwarf, Terrestrial_Planet };
 
@@ -24,13 +26,17 @@ public:
 
     QColor getColor() const;
 
+    void setTexturePath(const std::string &path);
+
+    std::string getTexturePath() const;
+
     bool isHabitable() const;
 
     void setLifeExistence(bool life);
 
     std::string getType() const override;
 
-    planetType getPlanetType();
+    planetType getPlanetType() const;
 
 private:
     planetType planet_type;

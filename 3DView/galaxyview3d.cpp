@@ -25,6 +25,8 @@ GalaxyView3D::GalaxyView3D(QWidget *parent)
 
     celestialModelPtr = new CelestialObject3DModel(quickWidget, emptyObjects);
 
+    planetModelPtr = new PlanetarySystemModel(this);
+    quickWidget->rootContext()->setContextProperty("planetModel", planetModelPtr);
     quickWidget->rootContext()->setContextProperty("celestialModel", celestialModelPtr);
     quickWidget->setSource(QUrl("qrc:/Galaxy3DView.qml"));
 
@@ -79,8 +81,6 @@ GalaxyView3D::GalaxyView3D(QWidget *parent)
     connect(editButton, &QPushButton::clicked, this, &GalaxyView3D::on_editButton_clicked);
     connect(simulationTimer, &QTimer::timeout, this, &GalaxyView3D::onPhysicsTimerTick);
 
-    planetModelPtr = new PlanetarySystemModel(this); // Створюємо модель
-    quickWidget->rootContext()->setContextProperty("planetModel", planetModelPtr);
 }
 
 GalaxyView3D::~GalaxyView3D() {
@@ -388,6 +388,14 @@ void GalaxyView3D::on_vertexDoubleClicked(int vertexId) {
     if (obj->getType() == "StarSystem") {
         StarSystem* system = dynamic_cast<StarSystem*>(obj);
         planetModelPtr->updateSystem(system);
+
+        QColor sColor = getStarColorByType(system->getStar().getStarType());
+
+        QMetaObject::invokeMethod(quickWidget->rootObject(), "setStarColor",
+            Q_ARG(QVariant, sColor.redF()),
+            Q_ARG(QVariant, sColor.greenF()),
+            Q_ARG(QVariant, sColor.blueF()));
+
     } else {
         planetModelPtr->clear();
     }
@@ -625,6 +633,8 @@ void GalaxyView3D::editStarSystem(StarSystem* system) {
         showObjectParameters(system);
 
         celestialModelPtr->updateObjects(galaxy->getObject());
+
+        planetModelPtr->updateSystem(system);
     }
 }
 
@@ -662,5 +672,17 @@ void GalaxyView3D::updateParametersWindow() {
         disconnect(editButton, &QPushButton::clicked, nullptr, nullptr);
 
         connect(editButton, &QPushButton::clicked, this, &GalaxyView3D::on_editButton_clicked);
+    }
+}
+
+QColor GalaxyView3D::getStarColorByType(Star::starType type) {
+    switch (type) {
+        case Star::starType::Red_Giant: return QColor(255, 60, 60);      // Червоний
+        case Star::starType::Red_Dwarf: return QColor(255, 100, 50);     // Помаранчево-червоний
+        case Star::starType::White_Dwarf: return QColor(200, 240, 255);  // Блакитно-білий
+        case Star::starType::Neutron_Star: return QColor(100, 150, 255); // Електрик-блю
+        case Star::starType::Brown_Dwarf: return QColor(120, 60, 20);    // Темно-коричневий
+        case Star::starType::Main_sequence_Star: return QColor(255, 220, 100); // Жовтий (Сонце)
+        default: return QColor(255, 255, 255);
     }
 }
