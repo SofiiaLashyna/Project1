@@ -11,10 +11,14 @@ Rectangle {
     height: 800
     color: "#0a0a0f"
     property int currentSystemType: 0
+    property string centralTexturePath: ""
     property vector3d defaultCameraPos: Qt.vector3d(0, 800, 1200)
     property vector3d defaultCameraTarget: Qt.vector3d(0, 0, 0)
     property bool isTracking: false
 
+    function setCentralTexture(path) {
+        centralTexturePath = path;
+    }
     function setCurrentSystemType(type) {
         currentSystemType = type;
     }
@@ -208,7 +212,7 @@ Rectangle {
                                         opacity: 0.4
                                         blendMode: DefaultMaterial.Screen
                                         lighting: DefaultMaterial.NoLighting
-                                        cullMode: Material.Front
+                                        cullMode: Material.NoCulling
                                     }
                                 ]
 
@@ -263,6 +267,10 @@ Rectangle {
                         easing.type: Easing.InOutQuad
                     }
                 }
+                Texture {
+                    id: dynamicStarTexture
+                    source: root.centralTexturePath
+                }
 
                 Model {
                     source: "#Sphere"
@@ -273,6 +281,7 @@ Rectangle {
                         DefaultMaterial {
                             diffuseColor: root.currentStarColor
                             lighting: DefaultMaterial.NoLighting
+                            diffuseMap: root.centralTexturePath !== "" ? dynamicStarTexture : null
                         }
                     ]
                 }
@@ -359,9 +368,8 @@ Rectangle {
 
                     materials: [
                         DefaultMaterial {
-                            diffuseMap: Texture {
-                                source: "qrc:/3DView/textures/nebula.png"
-                            }
+                            diffuseMap: Texture { source: root.centralTexturePath }
+
                             diffuseColor: root.currentStarColor
 
                             opacity: 0.6
@@ -390,9 +398,7 @@ Rectangle {
                     scale: Qt.vector3d(12.0, 12.0, 12.0)
                     materials: [
                         DefaultMaterial {
-                            diffuseMap: Texture {
-                                source: "qrc:/3DView/textures/nebula.png"
-                            }
+                            diffuseMap: Texture { source: root.centralTexturePath }
                             diffuseColor: "white"
                             opacity: 0.3
                             blendMode: DefaultMaterial.Screen

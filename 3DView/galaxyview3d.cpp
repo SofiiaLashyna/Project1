@@ -386,12 +386,14 @@ void GalaxyView3D::on_vertexDoubleClicked(int vertexId) {
 
     QColor objColor = Qt::white;
     int objType = 0;
+    QString texturePath = "";
 
     if (obj->getType() == "StarSystem") {
         objType = 1;
         StarSystem* system = dynamic_cast<StarSystem*>(obj);
         planetModelPtr->updateSystem(system);
         objColor = getStarColorByType(system->getStar().getStarType());
+        texturePath = "";
 
     } else if (obj->getType() == "Nebula") {
         objType = 2;
@@ -405,6 +407,7 @@ void GalaxyView3D::on_vertexDoubleClicked(int vertexId) {
             case Nebula::nebulaType::Planetary: objColor = QColor(0, 255, 127); break;
             default: objColor = QColor("purple"); break;
         }
+        texturePath = "qrc:/3DView/textures/nebula.png";
     }
     QMetaObject::invokeMethod(quickWidget->rootObject(), "setCurrentSystemType",
         Q_ARG(QVariant, objType));
@@ -413,6 +416,9 @@ void GalaxyView3D::on_vertexDoubleClicked(int vertexId) {
         Q_ARG(QVariant, objColor.redF()),
         Q_ARG(QVariant, objColor.greenF()),
         Q_ARG(QVariant, objColor.blueF()));
+
+    QMetaObject::invokeMethod(quickWidget->rootObject(), "setCentralTexture",
+    Q_ARG(QVariant, texturePath));
 
     showObjectParameters(obj);
     ui->galaxyNameLabel->hide();
@@ -644,10 +650,20 @@ void GalaxyView3D::editStarSystem(StarSystem* system) {
         dlg.saveChanges();
 
         showObjectParameters(system);
-
         celestialModelPtr->updateObjects(galaxy->getObject());
-
         planetModelPtr->updateSystem(system);
+
+        QColor sColor = getStarColorByType(system->getStar().getStarType());
+        QString texturePath = "";
+
+        // Відправляємо у QML
+        QMetaObject::invokeMethod(quickWidget->rootObject(), "setStarColor",
+            Q_ARG(QVariant, sColor.redF()),
+            Q_ARG(QVariant, sColor.greenF()),
+            Q_ARG(QVariant, sColor.blueF()));
+
+        QMetaObject::invokeMethod(quickWidget->rootObject(), "setCentralTexture",
+            Q_ARG(QVariant, texturePath));
     }
 }
 
@@ -660,8 +676,27 @@ void GalaxyView3D::editNebula(Nebula* nebula) {
         dlg.saveChanges();
 
         showObjectParameters(nebula);
-
         celestialModelPtr->updateObjects(galaxy->getObject());
+
+        QColor objColor = Qt::white;
+        QString texturePath = "qrc:/3DView/textures/nebula.png";
+
+        switch(nebula->getNebulaType()) {
+            case Nebula::nebulaType::Emission: objColor = QColor(255, 0, 127); break;
+            case Nebula::nebulaType::Reflection: objColor = QColor(100, 149, 237); break;
+            case Nebula::nebulaType::Dark: objColor = QColor(40, 40, 40); break;
+            case Nebula::nebulaType::Supernova: objColor = QColor(255, 69, 0); break;
+            case Nebula::nebulaType::Planetary: objColor = QColor(0, 255, 127); break;
+            default: objColor = QColor("purple"); break;
+        }
+
+        QMetaObject::invokeMethod(quickWidget->rootObject(), "setStarColor",
+            Q_ARG(QVariant, objColor.redF()),
+            Q_ARG(QVariant, objColor.greenF()),
+            Q_ARG(QVariant, objColor.blueF()));
+
+        QMetaObject::invokeMethod(quickWidget->rootObject(), "setCentralTexture",
+            Q_ARG(QVariant, texturePath));
     }
 }
 void GalaxyView3D::updateParametersWindow() {
