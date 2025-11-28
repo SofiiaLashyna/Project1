@@ -78,6 +78,9 @@ GalaxyView3D::GalaxyView3D(QWidget *parent)
     connect(zoomOutButton, &QPushButton::clicked, this, &GalaxyView3D::on_zoomOutButton_clicked);
     connect(editButton, &QPushButton::clicked, this, &GalaxyView3D::on_editButton_clicked);
     connect(simulationTimer, &QTimer::timeout, this, &GalaxyView3D::onPhysicsTimerTick);
+
+    planetModelPtr = new PlanetarySystemModel(this); // Створюємо модель
+    quickWidget->rootContext()->setContextProperty("planetModel", planetModelPtr);
 }
 
 GalaxyView3D::~GalaxyView3D() {
@@ -326,6 +329,30 @@ void GalaxyView3D::onPhysicsTimerTick() {
     if (celestialModelPtr) {
         celestialModelPtr->updatePositions(xPos, yPos, zPos);
     }
+    if (detailedVertexId != -1 && quickWidget && quickWidget->rootObject()) {
+        double targetX = 0, targetY = 0, targetZ = 0;
+
+        // Беремо координати так само, як ти робила в double click
+        if (detailedVertexId < static_cast<int>(wrappersMap3D.size()) && wrappersMap3D[detailedVertexId]) {
+            targetX = wrappersMap3D[detailedVertexId]->getX() * viewScale;
+            targetY = wrappersMap3D[detailedVertexId]->getY() * viewScale;
+            targetZ = wrappersMap3D[detailedVertexId]->getZ() * viewScale;
+        } else if (detailedVertexId < static_cast<int>(vertexPositions3D.size())) {
+            targetX = vertexPositions3D[detailedVertexId].x() * viewScale;
+            targetY = vertexPositions3D[detailedVertexId].y() * viewScale;
+            targetZ = vertexPositions3D[detailedVertexId].z() * viewScale;
+        }
+
+        const double qmlScale = 0.3;
+        targetX *= qmlScale;
+        targetY *= qmlScale;
+        targetZ *= qmlScale;
+
+        QMetaObject::invokeMethod(quickWidget->rootObject(), "updateTargetPosition",
+            Q_ARG(QVariant, targetX),
+            Q_ARG(QVariant, targetY),
+            Q_ARG(QVariant, targetZ));
+    }
 }
 
 void GalaxyView3D::on_vertexDoubleClicked(int vertexId) {
@@ -348,10 +375,22 @@ void GalaxyView3D::on_vertexDoubleClicked(int vertexId) {
         targetZ = vertexPositions3D[vertexId].z() * viewScale;
     }
 
+    const double qmlScale = 0.3;
+    targetX *= qmlScale;
+    targetY *= qmlScale;
+    targetZ *= qmlScale;
+
     QMetaObject::invokeMethod(quickWidget->rootObject(), "cameraZoomTo",
         Q_ARG(QVariant, targetX),
         Q_ARG(QVariant, targetY),
         Q_ARG(QVariant, targetZ));
+
+    if (obj->getType() == "StarSystem") {
+        StarSystem* system = dynamic_cast<StarSystem*>(obj);
+        planetModelPtr->updateSystem(system);
+    } else {
+        planetModelPtr->clear();
+    }
 
     showObjectParameters(obj);
     ui->galaxyNameLabel->hide();
@@ -557,6 +596,7 @@ void GalaxyView3D::on_zoomOutButton_clicked() {
     ui->galaxyNameLabel->show();
 
     detailedVertexId = -1;
+    planetModelPtr->clear();
 }
 void GalaxyView3D::on_editObjectButton_clicked() {
     if (!galaxy || detailedVertexId < 0 || detailedVertexId >= galaxy->getObject().size()) return;

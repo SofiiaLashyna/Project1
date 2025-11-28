@@ -52,7 +52,7 @@ double Planet::getOrbit() const{
     return orbitRadius;
 }
 
-QColor Planet::getColor() {
+QColor Planet::getColor() const{
     return color;
 }
 

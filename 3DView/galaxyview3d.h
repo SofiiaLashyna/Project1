@@ -21,6 +21,7 @@
 #include "GalaxyEditDialog.h"
 #include "EditStarSystemDialog.h"
 #include "EditNebulaDialog.h"
+#include "PlanetarySystemModel.h"
 
 class StarSystem;
 class Nebula;
@@ -37,17 +38,24 @@ protected:
 
 public:
     explicit GalaxyView3D(QWidget *parent = nullptr);
+
     ~GalaxyView3D() override;
 
     std::vector<QVector3D> vertexPositions3D;
+
     void generateAndDisplayGalaxy(const nlohmann::json &data, RandomGenerator &rng);
 
 private slots:
     void on_paramsButton_clicked();
+
     void on_editButton_clicked();
+
     void on_vertexDoubleClicked(int vertexId);
+
     void on_zoomOutButton_clicked();
+
     void on_editObjectButton_clicked();
+
     void onPhysicsTimerTick();
 
 private:
@@ -67,24 +75,30 @@ private:
     QQuickWidget *quickWidget = nullptr;
     CelestialObject3DModel *celestialModelPtr = nullptr;
 
-    PhysicsEngine* physicsEngine = nullptr;
-    GalaxyPhysicsController* physicsController = nullptr;
-    BlackHoleGravityField* blackHoleField = nullptr;
-    QTimer* simulationTimer = nullptr;
-    std::vector<CelestialBodyToRigidWrapper*> wrappersMap3D;
+    PhysicsEngine *physicsEngine = nullptr;
+    GalaxyPhysicsController *physicsController = nullptr;
+    BlackHoleGravityField *blackHoleField = nullptr;
+    QTimer *simulationTimer = nullptr;
+    std::vector<CelestialBodyToRigidWrapper *> wrappersMap3D;
     double viewScale = 1.0;
 
     void initPhysicsSimulation();
-    void createPhysicsBody(CelestialObject* obj);
+
+    void createPhysicsBody(CelestialObject *obj);
+
     void updateParametersWindow();
+
     void showObjectParameters(CelestialObject *obj);
 
-    void editStarSystem(StarSystem* system);
-    void editNebula(Nebula* nebula);
+    void editStarSystem(StarSystem *system);
+
+    void editNebula(Nebula *nebula);
 
     void checkForNewObjects();
 
-    void setupPhysicsForBody(CelestialBodyToRigidWrapper* wrapper, double x, double y, double z);
+    void setupPhysicsForBody(CelestialBodyToRigidWrapper *wrapper, double x, double y, double z);
+
+    PlanetarySystemModel *planetModelPtr = nullptr;
 };
 
 #endif //GALAXYVIEW3D_H

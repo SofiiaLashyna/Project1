@@ -100,6 +100,8 @@ add_executable(Project1
         3DView/galaxyview3D.cpp
         3DView/galaxyview3D.h
         3DView/galaxyview3d.h
+        3DView/PlanetarySystemModel.h
+        3DView/PlanetarySystemModel.cpp
 )
 
 target_link_libraries(Project1 PRIVATE ProjectLib Qt6::Core Qt6::Widgets Qt6::Quick Qt6::Quick3D Qt6::QuickWidgets BulletDynamics BulletCollision LinearMath)

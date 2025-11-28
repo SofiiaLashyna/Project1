@@ -22,7 +22,7 @@ public:
 
     void setColor(QColor newColor);
 
-    QColor getColor();
+    QColor getColor() const;
 
     bool isHabitable() const;
 

@@ -11,6 +11,58 @@ Rectangle {
     height: 800
     color: "#0a0a0f"
 
+    property vector3d defaultCameraPos: Qt.vector3d(0, 800, 1200)
+    property vector3d defaultCameraTarget: Qt.vector3d(0, 0, 0)
+    property bool isTracking: false
+
+    function updateTargetPosition(x, y, z) {
+        if (isTracking) {
+            var newPos = Qt.vector3d(x, y, z);
+
+            var dx = newPos.x - cameraTargetNode.position.x;
+            var dy = newPos.y - cameraTargetNode.position.y;
+            var dz = newPos.z - cameraTargetNode.position.z;
+
+            solarSystemContainer.position = newPos;
+            cameraTargetNode.position = newPos;
+
+            mainCamera.position = Qt.vector3d(
+                mainCamera.position.x + dx,
+                mainCamera.position.y + dy,
+                mainCamera.position.z + dz
+            );
+        }
+    }
+
+    function cameraZoomTo(x, y, z) {
+        solarSystemContainer.position = Qt.vector3d(x, y, z);
+        cameraTargetNode.position = Qt.vector3d(x, y, z);
+
+        isTracking = true;
+
+        starsContainer.opacity = 0.0;
+
+        solarSystemContainer.visible = true;
+
+        cameraController.enabled = false;
+
+        zoomAnimationPos.to = Qt.vector3d(x, y + 300, z + 450);
+        zoomAnimationTarget.to = Qt.vector3d(x, y, z);
+        zoomAnimation.start();
+    }
+
+    function cameraReset() {
+        isTracking = false;
+
+        starsContainer.opacity = 1.0;
+
+        solarSystemContainer.visible = false;
+
+        resetAnimation.start();
+
+        cameraController.enabled = true;
+    }
+
     View3D {
         id: view3D
         anchors.fill: parent
@@ -24,16 +76,21 @@ Rectangle {
 
         PerspectiveCamera {
             id: mainCamera
-            position: Qt.vector3d(0, 1500, 1800)
+            position: root.defaultCameraPos
             eulerRotation: Qt.vector3d(-45, 0, 0)
             clipNear: 1
             clipFar: 20000
         }
 
+        Node {
+            id: cameraTargetNode
+            position: Qt.vector3d(0, 0, 0)
+        }
+
         OrbitCameraController {
             id: cameraController
             camera: mainCamera
-            origin: galaxyRoot
+            origin: cameraTargetNode
             panEnabled: true
             xSpeed: 0.5
             ySpeed: 0.5
@@ -42,28 +99,16 @@ Rectangle {
         Node {
             id: galaxyRoot
 
+            scale: Qt.vector3d(0.3, 0.3, 0.3)
+
             Node {
-                id: galaxyScale
-                scale: Qt.vector3d(0.3, 0.3, 0.3)
+                id: starsContainer
+                opacity: 1.0
+                Behavior on opacity { NumberAnimation { id: galaxyOpacityAnim; duration: 1000 } }
 
-                DirectionalLight {
-                    color: "white"
-                    brightness: 1.5
-                    eulerRotation: Qt.vector3d(-30, 45, 0)
-                    castsShadow: false
-                }
-
-                DirectionalLight {
-                    color: "#4060ff"
-                    brightness: 0.3
-                    eulerRotation: Qt.vector3d(30, -45, 0)
-                }
-
-                DirectionalLight {
-                    color: "#ffffff"
-                    brightness: 0.2
-                    eulerRotation: Qt.vector3d(0, 0, 0)
-                }
+                DirectionalLight { color: "white"; brightness: 1.5; eulerRotation: Qt.vector3d(-30, 45, 0); castsShadow: false }
+                DirectionalLight { color: "#4060ff"; brightness: 0.3; eulerRotation: Qt.vector3d(30, -45, 0) }
+                DirectionalLight { color: "#ffffff"; brightness: 0.2; eulerRotation: Qt.vector3d(0, 0, 0) }
 
                 Repeater3D {
                     id: objectsRepeater
@@ -71,12 +116,7 @@ Rectangle {
 
                     delegate: Node {
                         id: objectNode
-                        position: Qt.vector3d(
-                            Number(model.xPos || 0),
-                            Number(model.yPos || 0),
-                            Number(model.zPos || 0)
-                        )
-
+                        position: Qt.vector3d(Number(model.xPos||0), Number(model.yPos||0), Number(model.zPos||0))
                         property int objectIndex: index
                         property bool isHovered: false
 
@@ -84,269 +124,137 @@ Rectangle {
                             id: sphereModel
                             source: "#Sphere"
                             pickable: true
-
                             property real baseScale: model.sizeFactor * 0.5
-                            scale: Qt.vector3d(
-                                baseScale * (objectNode.isHovered ? 1.2 : 1.0),
-                                baseScale * (objectNode.isHovered ? 1.2 : 1.0),
-                                baseScale * (objectNode.isHovered ? 1.2 : 1.0)
-                            )
-
-                            Behavior on scale {
-                                Vector3dAnimation {
-                                    duration: 200
-                                    easing.type: Easing.OutCubic
-                                }
-                            }
-
-                            materials: [
-                                PrincipledMaterial {
-                                    baseColor: model.objectColor || "white"
-                                    metalness: 0.3
-                                    roughness: 0.5
-                                    lighting: PrincipledMaterial.NoLighting
-                                }
-                            ]
+                            scale: Qt.vector3d(baseScale * (objectNode.isHovered ? 1.2 : 1.0), baseScale * (objectNode.isHovered ? 1.2 : 1.0), baseScale * (objectNode.isHovered ? 1.2 : 1.0))
+                            Behavior on scale { Vector3dAnimation { duration: 200; easing.type: Easing.OutCubic } }
+                            materials: [ PrincipledMaterial { baseColor: model.objectColor || "white"; metalness: 0.3; roughness: 0.5; lighting: PrincipledMaterial.NoLighting } ]
                         }
 
                         Model {
                             source: "#Sphere"
                             pickable: false
-
                             property real glowScale: model.sizeFactor * 0.5
                             scale: Qt.vector3d(glowScale, glowScale, glowScale)
                             opacity: 0.2
-
-                            materials: [
-                                PrincipledMaterial {
-                                    baseColor: model.objectColor || "white"
-                                    opacity: 0.2
-                                    alphaMode: PrincipledMaterial.Blend
-                                    lighting: PrincipledMaterial.NoLighting
-                                }
-                            ]
-
+                            materials: [ PrincipledMaterial { baseColor: model.objectColor || "white"; opacity: 0.2; alphaMode: PrincipledMaterial.Blend; lighting: PrincipledMaterial.NoLighting } ]
                             SequentialAnimation on scale {
-                                running: true
-                                loops: Animation.Infinite
-                                Vector3dAnimation {
-                                    to: Qt.vector3d(
-                                        model.sizeFactor * 1.8,
-                                        model.sizeFactor * 1.8,
-                                        model.sizeFactor * 1.8
-                                    )
-                                    duration: 2000
-                                    easing.type: Easing.InOutSine
-                                }
-                                Vector3dAnimation {
-                                    to: Qt.vector3d(
-                                        model.sizeFactor * 1.5,
-                                        model.sizeFactor * 1.5,
-                                        model.sizeFactor * 1.5
-                                    )
-                                    duration: 2000
-                                    easing.type: Easing.InOutSine
-                                }
+                                running: true; loops: Animation.Infinite
+                                Vector3dAnimation { to: Qt.vector3d(model.sizeFactor * 1.8, model.sizeFactor * 1.8, model.sizeFactor * 1.8); duration: 2000; easing.type: Easing.InOutSine }
+                                Vector3dAnimation { to: Qt.vector3d(model.sizeFactor * 1.5, model.sizeFactor * 1.5, model.sizeFactor * 1.5); duration: 2000; easing.type: Easing.InOutSine }
                             }
                         }
                     }
                 }
-
-                Model {
-                    source: "#Rectangle"
-                    scale: Qt.vector3d(500, 500, 1)
-                    position: Qt.vector3d(0, -100, 0)
-                    eulerRotation: Qt.vector3d(-90, 0, 0)
-                    pickable: false
-                    materials: [
-                        PrincipledMaterial {
-                            baseColor: "#1a1a2e"
-                            opacity: 0.1
-                            alphaMode: PrincipledMaterial.Blend
-                        }
-                    ]
-                }
-            }
-            property vector3d defaultCameraPos: Qt.vector3d(0, 1000, 3000)
-            property vector3d defaultCameraTarget: Qt.vector3d(0, 0, 0)
-
-            function cameraZoomTo(x, y, z) {
-                cameraNode.position = Qt.vector3d(x, y + 50, z + 200);
-                cameraNode.lookAt(Qt.vector3d(x, y, z));
-            }
-
-            function cameraReset() {
-                cameraNode.position = defaultCameraPos;
-                cameraNode.lookAt(defaultCameraTarget);
             }
         }
+
+        Node {
+            id: solarSystemContainer
+            visible: planetModel.rowCount > 0
+
+            Model {
+                source: "#Sphere"
+                position: Qt.vector3d(0, 0, 0)
+                scale: Qt.vector3d(0.6, 0.6, 0.6)
+                materials: [ DefaultMaterial { diffuseColor: "#ffaa00"; lighting: DefaultMaterial.NoLighting } ]
+            }
+
+            Model {
+                source: "#Sphere"
+                scale: Qt.vector3d(1.5, 1.5, 1.5)
+                opacity: 0.2
+                materials: [ DefaultMaterial { diffuseColor: "orange"; lighting: DefaultMaterial.NoLighting; blendMode: DefaultMaterial.Add } ]
+            }
+
+            PointLight {
+                color: "#ffaa55"
+                brightness: 1.5
+                castsShadow: true
+            }
+
+            Repeater3D {
+                model: planetModel
+
+                Node {
+                    NumberAnimation on eulerRotation.y {
+                        from: 0; to: 360;
+                        duration: model.rotationSpeed;
+                        loops: Animation.Infinite;
+                        running: true
+                    }
+
+                    Node {
+                        position: Qt.vector3d(model.orbitRadius * 0.2, 0, 0)
+
+                        Model {
+                            source: "#Sphere"
+                            scale: Qt.vector3d(model.planetSize * 0.03, model.planetSize * 0.03, model.planetSize * 0.03)
+                            materials: DefaultMaterial { diffuseColor: model.planetColor }
+                        }
+                    }
+
+                    Model {
+                        source: "#Cylinder"
+                        position: Qt.vector3d(0, 0, 0)
+                        scale: Qt.vector3d(model.orbitRadius * 0.9, 0.005, model.orbitRadius * 0.9)
+                        materials: DefaultMaterial { diffuseColor: "white"; opacity: 0.03; lighting: DefaultMaterial.NoLighting }
+                    }
+                }
+            }
+        }
+    }
+    ParallelAnimation {
+        id: zoomAnimation
+        Vector3dAnimation { id: zoomAnimationPos; target: mainCamera; property: "position"; duration: 1500; easing.type: Easing.InOutCubic }
+        Vector3dAnimation { id: zoomAnimationTarget; target: cameraTargetNode; property: "position"; duration: 1500; easing.type: Easing.InOutCubic }
+    }
+
+    ParallelAnimation {
+        id: resetAnimation
+        Vector3dAnimation { target: mainCamera; property: "position"; to: root.defaultCameraPos; duration: 1500; easing.type: Easing.InOutCubic }
+        Vector3dAnimation { target: cameraTargetNode; property: "position"; to: root.defaultCameraTarget; duration: 1500; easing.type: Easing.InOutCubic }
+        Vector3dAnimation { target: mainCamera; property: "eulerRotation"; to: Qt.vector3d(-45, 0, 0); duration: 1500; easing.type: Easing.InOutCubic }
     }
 
     MouseArea {
         id: mouseArea
         anchors.fill: view3D
-
         property var hoveredObject: null
-
         onPositionChanged: function(mouse){
             var result = view3D.pick(mouse.x, mouse.y)
-
-            if (hoveredObject && hoveredObject !== result.objectHit) {
-                if (hoveredObject.parent) {
-                    hoveredObject.parent.isHovered = false
-                }
-            }
-
+            if (hoveredObject && hoveredObject !== result.objectHit) { if (hoveredObject.parent) hoveredObject.parent.isHovered = false }
             if (result.objectHit && result.objectHit.pickable) {
                 hoveredObject = result.objectHit
-                if (result.objectHit.parent) {
-                    result.objectHit.parent.isHovered = true
-                    mouseArea.cursorShape = Qt.PointingHandCursor
-                }
-            } else {
-                hoveredObject = null
-                mouseArea.cursorShape = Qt.ArrowCursor
-            }
+                if (result.objectHit.parent) { result.objectHit.parent.isHovered = true; mouseArea.cursorShape = Qt.PointingHandCursor }
+            } else { hoveredObject = null; mouseArea.cursorShape = Qt.ArrowCursor }
         }
-
         onClicked: function(mouse){
             var result = view3D.pick(mouse.x, mouse.y)
             if (result.objectHit && result.objectHit.pickable) {
                 var objNode = result.objectHit.parent
                 if (objNode && objNode.objectIndex !== undefined) {
                     root.objectClicked(objNode.objectIndex)
-                    console.log("Clicked object", objNode.objectIndex)
                 }
             }
         }
-
-        onExited: {
-            if (hoveredObject && hoveredObject.parent) {
-                hoveredObject.parent.isHovered = false
-            }
-            hoveredObject = null
-            cursorShape = Qt.ArrowCursor
-        }
+        onExited: { if (hoveredObject && hoveredObject.parent) hoveredObject.parent.isHovered = false; hoveredObject = null; cursorShape = Qt.ArrowCursor }
     }
 
-    Column {
-        anchors.right: parent.right
-        anchors.top: parent.top
-        anchors.margins: 20
-        spacing: 10
-
-        Rectangle {
-            width: 200
-            height: 150
-            color: "#1a1a2e"
-            opacity: 0.9
-            radius: 10
-            border.color: "#4a5568"
-            border.width: 1
-
-            Column {
-                anchors.fill: parent
-                anchors.margins: 15
-                spacing: 8
-
-                Text {
-                    text: "Керування"
-                    color: "#e0e0e0"
-                    font.bold: true
-                    font.pixelSize: 14
-                }
-
-                Text {
-                    text: "ЛКМ + рух: Обертання"
-                    color: "#b0b0b0"
-                    font.pixelSize: 11
-                    wrapMode: Text.WordWrap
-                    width: parent.width
-                }
-
-                Text {
-                    text: "Коліщатко: Zoom"
-                    color: "#b0b0b0"
-                    font.pixelSize: 11
-                }
-
-                Text {
-                    text: "ПКМ + рух: Панорама"
-                    color: "#b0b0b0"
-                    font.pixelSize: 11
-                    wrapMode: Text.WordWrap
-                    width: parent.width
-                }
-
-                Text {
-                    text: "Клік на об'єкті: Вибір"
-                    color: "#b0b0b0"
-                    font.pixelSize: 11
-                    wrapMode: Text.WordWrap
-                    width: parent.width
-                }
+    Column { anchors.right: parent.right; anchors.top: parent.top; anchors.margins: 20; spacing: 10;
+        Rectangle { width: 200; height: 150; color: "#1a1a2e"; opacity: 0.9; radius: 10; border.color: "#4a5568"; border.width: 1;
+            Column { anchors.fill: parent; anchors.margins: 15; spacing: 8;
+                Text { text: "Керування"; color: "#e0e0e0"; font.bold: true; font.pixelSize: 14 }
+                Text { text: "ЛКМ + рух: Обертання"; color: "#b0b0b0"; font.pixelSize: 11; wrapMode: Text.WordWrap; width: parent.width }
+                Text { text: "Коліщатко: Zoom"; color: "#b0b0b0"; font.pixelSize: 11 }
+                Text { text: "ПКМ + рух: Панорама"; color: "#b0b0b0"; font.pixelSize: 11; wrapMode: Text.WordWrap; width: parent.width }
+                Text { text: "Клік на об'єкті: Вибір"; color: "#b0b0b0"; font.pixelSize: 11; wrapMode: Text.WordWrap; width: parent.width }
             }
         }
-
-        Rectangle {
-            width: 200
-            height: 60
-            color: "#1a1a2e"
-            opacity: 0.9
-            radius: 10
-            border.color: "#4a5568"
-            border.width: 1
-
-            Column {
-                anchors.centerIn: parent
-                spacing: 5
-
-                Text {
-                    text: "Об'єктів у галактиці:"
-                    color: "#b0b0b0"
-                    font.pixelSize: 11
-                    anchors.horizontalCenter: parent.horizontalCenter
-                }
-
-                Text {
-                    text: celestialModel ? celestialModel.rowCount() : "0"
-                    color: "#4fd1c5"
-                    font.bold: true
-                    font.pixelSize: 20
-                    anchors.horizontalCenter: parent.horizontalCenter
-                }
+        Rectangle { width: 200; height: 60; color: "#1a1a2e"; opacity: 0.9; radius: 10; border.color: "#4a5568"; border.width: 1;
+            Column { anchors.centerIn: parent; spacing: 5;
+                Text { text: "Об'єктів у галактиці:"; color: "#b0b0b0"; font.pixelSize: 11; anchors.horizontalCenter: parent.horizontalCenter }
+                Text { text: celestialModel ? celestialModel.rowCount() : "0"; color: "#4fd1c5"; font.bold: true; font.pixelSize: 20; anchors.horizontalCenter: parent.horizontalCenter }
             }
         }
     }
-
-    Rectangle {
-        anchors.bottom: parent.bottom
-        anchors.right: parent.right
-        anchors.margins: 20
-        width: 120
-        height: 40
-        color: "#2d3748"
-        opacity: 0.9
-        radius: 8
-        border.color: "#4a5568"
-        border.width: 1
-
-        Text {
-            anchors.centerIn: parent
-            text: "Reset View"
-            color: "#e0e0e0"
-            font.pixelSize: 12
-        }
-
-        MouseArea {
-            anchors.fill: parent
-            cursorShape: Qt.PointingHandCursor
-            onClicked: {
-                mainCamera.position = Qt.vector3d(0, 1000, 2500)
-                mainCamera.eulerRotation = Qt.vector3d(-10, 0, 0)
-            }
-        }
-    }
-
-
 }
