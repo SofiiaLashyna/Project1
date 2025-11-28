@@ -11,7 +11,7 @@
 GalaxyView3D::GalaxyView3D(QWidget *parent)
     : QWidget(parent), ui(new Ui::GalaxyView3D) {
     ui->setupUi(this);
-
+    detailedVertexId = -1;
     galaxy = nullptr;
     std::vector<CelestialObject*> emptyObjects;
 
@@ -112,7 +112,6 @@ void GalaxyView3D::setupPathInfoWidget() {
     QVBoxLayout* layout = new QVBoxLayout(pathInfoWidget);
 
     pathStatusLabel = new QLabel("Select Start Point", pathInfoWidget);
-    // Стиль заголовка
     pathStatusLabel->setStyleSheet(
         "background: transparent; border: none; color: #00aaff; font-family: 'Ravie'; font-size: 14px;"
     );
@@ -546,8 +545,17 @@ void GalaxyView3D::on_paramsButton_clicked() {
     if (paramsWindow->isVisible()) {
         paramsWindow->hide();
     } else {
-        updateParametersWindow();
-        if (zoomOutButton) zoomOutButton->hide();
+        if (detailedVertexId != -1) {
+            CelestialObject* obj = galaxy->getObject()[detailedVertexId];
+            showObjectParameters(obj);
+
+            if (zoomOutButton) zoomOutButton->show();
+        }
+        else {
+            updateParametersWindow();
+
+            if (zoomOutButton) zoomOutButton->hide();
+        }
 
         paramsWindow->show();
         paramsWindow->raise();
