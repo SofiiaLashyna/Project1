@@ -8,6 +8,8 @@
 #include <QQuickWidget>
 #include <QPushButton>
 #include <QTextEdit>
+#include "DijkstraPathList.h"
+#include <QLabel>
 #include "RandomUtilities.h"
 #include "CelestialObject.h"
 #include "Galaxy.h"
@@ -58,6 +60,10 @@ private slots:
 
     void onPhysicsTimerTick();
 
+    void onVertexClicked(int vertexId);
+
+    void onBackgroundClicked();
+
 private:
     Ui::GalaxyView3D *ui;
     Galaxy<GraphList<CelestialObject *> > *galaxy = nullptr;
@@ -81,6 +87,25 @@ private:
     QTimer *simulationTimer = nullptr;
     std::vector<CelestialBodyToRigidWrapper *> wrappersMap3D;
     double viewScale = 1.0;
+
+    int startNodeId = -1;
+    int endNodeId = -1;
+    QWidget *pathInfoWidget = nullptr;
+    QLabel *pathStatusLabel = nullptr;
+    QLabel *pathDetailsLabel = nullptr;
+    QLabel *pathDistanceLabel = nullptr;
+    bool isPathActive = false;
+
+    void setupPathInfoWidget();
+
+    void resetPathSelection();
+
+    void calculateShortestPath();
+
+
+    void sendPathToQML(const std::vector<int> &pathIndices);
+
+    QVector3D getObjectPosition(int index);
 
     void initPhysicsSimulation();
 

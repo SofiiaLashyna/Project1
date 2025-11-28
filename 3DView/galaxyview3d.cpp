@@ -31,10 +31,6 @@ GalaxyView3D::GalaxyView3D(QWidget *parent)
     quickWidget->setSource(QUrl("qrc:/Galaxy3DView.qml"));
 
     QQuickItem *rootObject = quickWidget->rootObject();
-    if (rootObject) {
-        connect(rootObject, SIGNAL(objectClicked(int)),
-                this, SLOT(on_vertexDoubleClicked(int)));
-    }
 
     simulationTimer = new QTimer(this);
     connect(simulationTimer, &QTimer::timeout, this, &GalaxyView3D::onPhysicsTimerTick);
@@ -81,6 +77,19 @@ GalaxyView3D::GalaxyView3D(QWidget *parent)
     connect(editButton, &QPushButton::clicked, this, &GalaxyView3D::on_editButton_clicked);
     connect(simulationTimer, &QTimer::timeout, this, &GalaxyView3D::onPhysicsTimerTick);
 
+    if (rootObject) {
+        connect(rootObject, SIGNAL(objectClicked(int)),
+                this, SLOT(onVertexClicked(int)));
+
+        connect(rootObject, SIGNAL(objectDoubleClicked(int)),
+                this, SLOT(on_vertexDoubleClicked(int)));
+
+        connect(rootObject, SIGNAL(backgroundClicked()),
+                this, SLOT(onBackgroundClicked()));
+    }
+
+    setupPathInfoWidget();
+
 }
 
 GalaxyView3D::~GalaxyView3D() {
@@ -91,6 +100,35 @@ GalaxyView3D::~GalaxyView3D() {
         delete galaxy;
     }
     delete ui;
+}
+
+void GalaxyView3D::setupPathInfoWidget() {
+    pathInfoWidget = new QWidget(this);
+    pathInfoWidget->setStyleSheet(
+        "background-color: rgba(20, 20, 40, 200); "
+        "border: 1px solid #55aaff; "
+        "border-radius: 8px; "
+        "color: white;"
+    );
+    QVBoxLayout* layout = new QVBoxLayout(pathInfoWidget);
+
+    pathStatusLabel = new QLabel("Select Start Point", pathInfoWidget);
+    pathStatusLabel->setStyleSheet("font-weight: bold; font-size: 14px; color: #55aaff; background: none; border: none;");
+    pathStatusLabel->setAlignment(Qt::AlignCenter);
+
+    pathDetailsLabel = new QLabel("", pathInfoWidget);
+    pathDetailsLabel->setStyleSheet("font-size: 12px; background: none; border: none;");
+
+    pathDistanceLabel = new QLabel("", pathInfoWidget);
+    pathDistanceLabel->setStyleSheet("font-weight: bold; font-size: 12px; color: #00ff00; background: none; border: none;");
+
+    layout->addWidget(pathStatusLabel);
+    layout->addWidget(pathDetailsLabel);
+    layout->addWidget(pathDistanceLabel);
+
+    pathInfoWidget->setLayout(layout);
+    pathInfoWidget->resize(220, 120);
+    pathInfoWidget->hide();
 }
 
 void GalaxyView3D::resizeEvent(QResizeEvent *event) {
@@ -104,6 +142,12 @@ void GalaxyView3D::resizeEvent(QResizeEvent *event) {
         int win_x = width() - paramsWindow->width() - margin;
         int win_y = btn_y + paramsButton->height() + 10;
         paramsWindow->move(win_x, win_y);
+    }
+    if (pathInfoWidget) {
+        int margin = 20;
+        int px = width() - pathInfoWidget->width() - margin;
+        int py = height() - pathInfoWidget->height() - margin;
+        pathInfoWidget->move(px, py);
     }
 }
 void GalaxyView3D::generateAndDisplayGalaxy(const nlohmann::json &data, RandomGenerator &rng) {
@@ -265,27 +309,6 @@ for (int i = 0; i < nVerticesTotal; ++i) {
     physicsController->addCelestialBody(wrapper);
 }
 
-
-    // for (const auto &edge : galaxy->getGraph().getEdges()) {
-    //     if (!edge.isActive()) continue;
-    //
-    //     int u = edge.from;
-    //     int v = edge.to;
-    //
-    //     if (u < wrappersMap.size() && v < wrappersMap.size() && wrappersMap[u] && wrappersMap[v]) {
-    //
-    //         double dx = wrappersMap[u]->getX() - wrappersMap[v]->getX();
-    //         double dy = wrappersMap[u]->getY() - wrappersMap[v]->getY();
-    //         double currentDist = std::sqrt(dx*dx + dy*dy);
-    //
-    //         physicsController->addSpring(
-    //             wrappersMap[u],
-    //             wrappersMap[v],
-    //             currentDist
-    //         );
-    //     }
-    // }
-
     simulationTimer->start(16);
 }
 
@@ -352,6 +375,10 @@ void GalaxyView3D::onPhysicsTimerTick() {
             Q_ARG(QVariant, targetY),
             Q_ARG(QVariant, targetZ));
     }
+    if (isPathActive && startNodeId != -1 && endNodeId != -1) {
+        calculateShortestPath();
+    }
+
 }
 
 void GalaxyView3D::on_vertexDoubleClicked(int vertexId) {
@@ -420,7 +447,7 @@ void GalaxyView3D::on_vertexDoubleClicked(int vertexId) {
     QMetaObject::invokeMethod(quickWidget->rootObject(), "setCentralTexture",
     Q_ARG(QVariant, texturePath));
 
-    showObjectParameters(obj);
+    // showObjectParameters(obj);
     ui->galaxyNameLabel->hide();
 
     if (zoomOutButton) {
@@ -656,7 +683,6 @@ void GalaxyView3D::editStarSystem(StarSystem* system) {
         QColor sColor = getStarColorByType(system->getStar().getStarType());
         QString texturePath = "";
 
-        // Відправляємо у QML
         QMetaObject::invokeMethod(quickWidget->rootObject(), "setStarColor",
             Q_ARG(QVariant, sColor.redF()),
             Q_ARG(QVariant, sColor.greenF()),
@@ -733,4 +759,99 @@ QColor GalaxyView3D::getStarColorByType(Star::starType type) {
         case Star::starType::Main_sequence_Star: return QColor(255, 220, 100);
         default: return QColor(255, 255, 255);
     }
+}
+
+void GalaxyView3D::onVertexClicked(int vertexId) {
+    if (!galaxy || vertexId < 0) return;
+
+    std::string objName = galaxy->getObject()[vertexId]->getName();
+
+    if (startNodeId != -1 && endNodeId != -1) {
+        resetPathSelection();
+        startNodeId = vertexId;
+        pathInfoWidget->show();
+        pathStatusLabel->setText("Start Selected");
+        pathDetailsLabel->setText("Start: " + QString::fromStdString(objName) + "\nChoose Destination...");
+        pathDistanceLabel->setText("");
+        return;
+    }
+
+    if (startNodeId == -1) {
+        startNodeId = vertexId;
+        pathInfoWidget->show();
+        pathStatusLabel->setText("Start Selected");
+        pathDetailsLabel->setText("Start: " + QString::fromStdString(objName) + "\nChoose Destination...");
+        pathDistanceLabel->clear();
+        isPathActive = false;
+    } else {
+        if (vertexId == startNodeId) return;
+        endNodeId = vertexId;
+        std::string startName = galaxy->getObject()[startNodeId]->getName();
+
+        pathStatusLabel->setText("Path Calculated");
+        pathDetailsLabel->setText(QString("From: %1\nTo: %2").arg(QString::fromStdString(startName), QString::fromStdString(objName)));
+
+        calculateShortestPath();
+        isPathActive = true;
+    }
+}
+void GalaxyView3D::calculateShortestPath() {
+    DijkstraPathList<CelestialObject*> solver;
+    std::vector<int> pathIndices = solver.findShortestPath(galaxy->getGraph(), startNodeId, endNodeId);
+
+    if (pathIndices.empty()) {
+        pathStatusLabel->setText("No Path Found");
+        return;
+    }
+
+    double realTimeDistance = 0.0;
+    QVariantList qmlSegments;
+
+    for (size_t i = 0; i < pathIndices.size() - 1; ++i) {
+        int u = pathIndices[i];
+        int v = pathIndices[i+1];
+
+        QVector3D p1 = getObjectPosition(u);
+        QVector3D p2 = getObjectPosition(v);
+
+        realTimeDistance += p1.distanceToPoint(p2);
+
+        QVariantMap seg;
+        seg["x1"] = p1.x(); seg["y1"] = p1.y(); seg["z1"] = p1.z();
+        seg["x2"] = p2.x(); seg["y2"] = p2.y(); seg["z2"] = p2.z();
+        qmlSegments.append(seg);
+    }
+
+    pathDistanceLabel->setText("Distance: " + QString::number((int)realTimeDistance));
+
+    QMetaObject::invokeMethod(quickWidget->rootObject(), "drawPath", Q_ARG(QVariant, qmlSegments));
+}
+void GalaxyView3D::resetPathSelection() {
+    startNodeId = -1;
+    endNodeId = -1;
+    isPathActive = false;
+    if (pathInfoWidget) pathInfoWidget->hide();
+
+    QMetaObject::invokeMethod(quickWidget->rootObject(), "clearPath");
+}
+
+void GalaxyView3D::onBackgroundClicked() {
+    resetPathSelection();
+}
+
+QVector3D GalaxyView3D::getObjectPosition(int index) {
+    double x = 0, y = 0, z = 0;
+
+    if (index < wrappersMap3D.size() && wrappersMap3D[index]) {
+        x = wrappersMap3D[index]->getX();
+        y = wrappersMap3D[index]->getY();
+        z = wrappersMap3D[index]->getZ();
+    }
+    else if (index < vertexPositions3D.size()) {
+        x = vertexPositions3D[index].x();
+        y = vertexPositions3D[index].y();
+        z = vertexPositions3D[index].z();
+    }
+
+    return QVector3D(x * viewScale, y * viewScale, z * viewScale);
 }
