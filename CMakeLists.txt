@@ -32,6 +32,7 @@ include_directories(
         StarSystemView
         NebulaView
         3DView
+        examples
 )
 
 include(FetchContent)
@@ -54,6 +55,7 @@ file(GLOB SOURCES_MAIN
         "MainWindow/*.cpp"
         "GalaxyView/*.cpp"
         "3DView/*.cpp"
+        "examples/*.cpp"
 )
 set(CMAKE_AUTOUIC ON)
 set(CMAKE_AUTOMOC ON)

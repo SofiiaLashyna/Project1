@@ -288,14 +288,14 @@ void GraphWidget::paintEvent(QPaintEvent *event) {
                 double maxMass = std::numeric_limits<double>::lowest();
 
                 for (const auto &p: system->getPlanets()) {
-                    minMass = std::min(minMass, p.getMass());
-                    maxMass = std::max(maxMass, p.getMass());
+                    minMass = std::min(minMass, p->getMass());
+                    maxMass = std::max(maxMass, p->getMass());
                 }
                 if (maxMass == minMass) maxMass = minMass + 1.0;
 
                 int maxPlanetRadius = 5;
                 for (const auto &p: system->getPlanets()) {
-                    double massNorm = (p.getMass() - minMass) / (maxMass - minMass);
+                    double massNorm = (p->getMass() - minMass) / (maxMass - minMass);
                     int planetRadius = int(4.0 + 8.0 * massNorm);
                     maxPlanetRadius = std::max(maxPlanetRadius, planetRadius);
                 }
@@ -304,14 +304,16 @@ void GraphWidget::paintEvent(QPaintEvent *event) {
 
                 static RandomGenerator rng;
                 for (size_t i = 0; i < system->getPlanets().size(); ++i) {
-                    Planet &planet = system->getPlanets()[i];
+                    Planet* planetPtr = system->getPlanets()[i];
+                    Planet &planet = *planetPtr;
                     if (planet.getColor() == QColor(0, 0, 0) || planet.getColor() == QColor()) {
                         planet.setColor(rng.getRandomColor());
                     }
                 }
 
                 for (size_t i = 0; i < system->getPlanets().size(); ++i) {
-                    Planet &planet = system->getPlanets()[i];
+                    Planet* planetPtr = system->getPlanets()[i];
+                    Planet &planet = *planetPtr;
 
                     double orbitRadiusBase = orbitStart + 40.0 * (i / double(std::max((int)system->getPlanets().size() - 1, 1)));
 

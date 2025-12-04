@@ -13,6 +13,7 @@
 #include <QLabel>
 #include <QDebug>
 #include <QMessageBox>
+#include <algorithm>
 
 #include "DijkstraPathList.h"
 static constexpr double PHYSICS_MASS_SCALE = 1.0e-7;
@@ -128,7 +129,6 @@ void GalaxyView::updateGraphDisplay() {
         return;
     }
 
-    int currentPositionsSize = static_cast<int>(vertexPositions.size());
     int nVerticesTotal = static_cast<int>(galaxy->getObject().size());
 
 
@@ -672,7 +672,8 @@ void GalaxyView::showObjectParameters(CelestialObject *obj) {
             );
 
             for (size_t i = 0; i < system->getPlanets().size(); ++i) {
-                Planet &planet = system->getPlanets()[i];
+                Planet* planetPtr = system->getPlanets()[i];
+                Planet &planet = *planetPtr;
                 parametersText += QString::fromStdString(
                     "\nPlanet " + std::to_string(i + 1) + ":\n" +
                     "  Name: " + planet.getName() + "\n" +

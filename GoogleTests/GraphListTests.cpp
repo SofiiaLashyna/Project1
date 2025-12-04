@@ -41,7 +41,7 @@ TEST_F(GraphListFixture, VertexSearch) {
     EXPECT_EQ(g.vertexSearch(1), "A");
     EXPECT_EQ(g.vertexSearch(2), "B");
     EXPECT_EQ(g.vertexSearch(3), "C");
-    EXPECT_EQ(g.vertexSearch(4), "none");
+    EXPECT_THROW(g.vertexSearch(4), std::runtime_error);
 }
 
 

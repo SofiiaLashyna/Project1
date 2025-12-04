@@ -10,7 +10,7 @@ Nebula::Nebula(const std::string &name, double mass, nebulaType type) : Celestia
 
 
 void Nebula::displayInfo() const {
-    std::cout << "Nebula name: " << name << " type: ";
+    std::cout << "Nebula name: " << getName() << " type: ";
     switch (nebula_type) {
         case nebulaType::Dark:
             std::cout << "Dark nebula";

@@ -71,7 +71,7 @@ void GalaxyEditDialog::on_addStarSystem_clicked() {
 
             int existingObjectCount = oldSize;
             if (existingObjectCount > 0) {
-                int maxEdges = existingObjectCount;
+                int maxEdges = std::min(5, existingObjectCount);
                 int edgesCount = rngPtr->getInt(1, maxEdges);
                 std::vector<int> targets;
                 for (int i = 0; i < existingObjectCount; ++i) targets.push_back(i);
@@ -112,7 +112,7 @@ void GalaxyEditDialog::on_addNebula_clicked() {
                 std::vector<int> targets;
                 for (int i = 0; i < existingObjectCount; ++i) targets.push_back(i);
 
-                std::random_shuffle(targets.begin(), targets.end()); // Перемішуємо
+                std::shuffle(targets.begin(), targets.end(), rngPtr->getEngine());
 
                 for (int i = 0; i < edgesCount && i < targets.size(); ++i) {
                     int targetIdx = targets[i];

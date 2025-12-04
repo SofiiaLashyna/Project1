@@ -14,4 +14,10 @@ void CelestialObject::setName(const std::string& newName) {
     name = newName;
 }
 
+void CelestialObject::setMass(const double newMass) {
+    if (newMass <= 0) {
+        throw std::invalid_argument("Mass must be greater than zero.");
+    }
+    mass = newMass;
+}
 

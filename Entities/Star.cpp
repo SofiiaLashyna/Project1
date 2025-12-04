@@ -38,7 +38,7 @@ void Star::setStarType(std::string type) {
 
 
 void Star::displayInfo() const {
-    std::cout << "Star name: " << name << " type: ";
+    std::cout << "Star name: " << getName() << " type: ";
     switch (star_type) {
         case starType::Red_Giant:
             std::cout << "Red giant";
