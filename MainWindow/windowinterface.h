@@ -2,9 +2,14 @@
 #define WINDOWINTERFACE_H
 
 #include <QWidget>
+#include <QTimer>
+#include <QPainter>
+#include <QGraphicsDropShadowEffect>
 #include "RandomUtilities.h"
 #include "nlohmann/json.hpp"
 #include <fstream>
+#include <vector>
+
 /**
  * @file WindowInterface.h
  * @brief Defines the main window class for the application.
@@ -20,6 +25,14 @@ namespace Ui {
 QT_END_NAMESPACE
 
 class GalaxyView;
+class GalaxyView3D;
+
+struct MenuStar {
+    QPointF pos;
+    double size;
+    int alpha;
+    double speed;
+};
 
 /**
  * @class WindowInterface
@@ -43,17 +56,27 @@ public:
              */
     ~WindowInterface() override;
 
+protected:
+    void paintEvent(QPaintEvent *event) override;
+
 private:
-    Ui::WindowInterface *ui; ///< Pointer to the Qt-generated UI class.
-    GalaxyView *galaxyView; ///< Pointer to the main galaxy visualization widget.
-    RandomGenerator rng; ///< The main random number generator instance for the application.
-    nlohmann::json data; ///< The JSON object that stores all configuration data loaded from file.
-    bool dataLoaded = false; ///< A flag to ensure galaxy generation only starts if JSON was loaded successfully.
-    /**
-             * @brief Private helper method to load and parse the CelestialObjects.json file.
-             * Populates the 'data' member and sets the 'dataLoaded' flag.
-             */
+    Ui::WindowInterface *ui;
+    GalaxyView *galaxyView;
+    GalaxyView3D *galaxyView3D;
+    RandomGenerator rng;
+    nlohmann::json data;
+    bool dataLoaded = false;
+
     void loadJsonData();
+
+    void setupStyle();
+
+    void generateMenuStars();
+
+    std::vector<MenuStar> stars;
+    QTimer *backgroundTimer;
+    double offset = 0.0;
+    bool isMenuMode = true;
 };
 
 #endif // WINDOWINTERFACE_H

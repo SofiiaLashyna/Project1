@@ -5,11 +5,18 @@
 #include "CelestialObject.h"
 #include "Galaxy.h"
 #include "GraphList.h"
+#include "DijkstraList.h"
 #include "nlohmann/json.hpp"
 #include "GraphWidget.h"
 #include <cmath>
 #include <qboxlayout.h>
+#include <QLabel>
 #include <QPushButton>
+#include "PhysicsEngine.h"
+#include "BlackHoleGravityField.h"
+#include "CelestialBodyToRigidWrapper.h"
+#include "GalaxyPhysicsController.h"
+
 // Forward declarations to avoid circular dependencies
 class GalaxyEditDialog;
 class AddStarSystemDialog;
@@ -89,6 +96,10 @@ private slots:
              */
     void on_vertexDoubleClicked(int vertexId);
 
+    void onVertexClicked(int vertexId);
+
+    void onBackgroundClicked();
+
     /**
              * @brief Qt Slot: Called when the "Zoom Out" button is clicked.
              * Resets the zoom level in the GraphWidget.
@@ -108,12 +119,13 @@ private slots:
              */
     void on_editObjectButton_clicked();
 
+    void onPhysicsTimerTick();
+
 private:
-    Ui::GalaxyView *ui; ///< Pointer to the Qt-generated UI class (holds all elements from the .ui file).
-    Galaxy<GraphList<CelestialObject *> > *galaxy = nullptr; /// The main data object containing the entire galaxy.
-    /**
-            * @brief Internal helper method to update the text in the parameters window.
-            */
+    double viewScale = 0.2;
+    Ui::GalaxyView *ui;
+    Galaxy<GraphList<CelestialObject *> > *galaxy = nullptr;
+
     void updateParametersWindow();
 
     /**
@@ -122,25 +134,48 @@ private:
     void updateGraphDisplay();
 
     GraphWidget *graphWidget = nullptr;
-    ////< Pointer to the custom widget responsible for drawing and animating the galaxy graph.
-    QPushButton *paramsButton = nullptr; ///< Pointer to the "Parameters" button.
-    QWidget *paramsWindow = nullptr; ///< Pointer to the floating parameters window.
-    RandomGenerator *rngPtr = nullptr; ///< Non-owning pointer to the random number generator.
-    nlohmann::json *dataPtr = nullptr; ///< Non-owning pointer to the JSON data.
-    QPushButton *editButton = nullptr; ///< Pointer to the "Edit" button.
-    QPushButton *zoomOutButton = nullptr; ///< Pointer to the "Zoom Out" button.
-    std::vector<QPointF> vertexPositions; ///< Stores the 2D coordinates for each graph vertex.
-    /**
-         * @brief Opens the edit dialog for a StarSystem.
-         * @param system Pointer to the system to be edited.
-         */
-    void editStarSystem(StarSystem *system);
+    QPushButton *paramsButton = nullptr;
+    QWidget *paramsWindow = nullptr;
+    RandomGenerator *rngPtr = nullptr;
+    nlohmann::json *dataPtr = nullptr;
+    QPushButton *editButton = nullptr;
+    QPushButton *zoomOutButton = nullptr;
+    std::vector<QPointF> vertexPositions;
+    void editStarSystem(StarSystem* system);
+    void editNebula(Nebula* nebula);
 
-    /**
-     * @brief Opens the edit dialog for a Nebula.
-     * @param nebula Pointer to the nebula to be edited.
-     */
-    void editNebula(Nebula *nebula);
+    void applySpaceStyle();
+
+    PhysicsEngine* physicsEngine = nullptr;
+    GalaxyPhysicsController* physicsController = nullptr;
+    BlackHoleGravityField* blackHoleField = nullptr;
+    QTimer* simulationTimer = nullptr;
+
+    void initPhysicsSimulation();
+
+    void checkForNewObjects();
+
+    void createPhysicsBody(CelestialObject* obj);
+
+    QPointF physicsToScreen(double x, double y);
+
+    int startNodeId = -1;
+    int endNodeId = -1;
+
+    std::vector<std::pair<int, int>> pathEdges;
+
+    void resetPathSelection();
+
+    void calculateShortestPath();
+
+    QWidget* pathInfoWidget = nullptr;
+    QLabel* pathStatusLabel = nullptr;
+    QLabel* pathDetailsLabel = nullptr;
+    QLabel* pathDistanceLabel = nullptr;
+
+    void setupPathInfoWidget();
+    void updatePathDistanceText();
+
 };
 
 #endif //GALAXYVIEW_H

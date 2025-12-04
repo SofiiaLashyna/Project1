@@ -4,6 +4,8 @@
 #include <QtWidgets/QWidget>
 #include <vector>
 #include <QTimer>
+#include <unordered_set>
+
 /**
  * @file GraphWidget.h
  * @brief Defines a custom Qt widget for rendering a galaxy graph with vertices and edges.
@@ -22,14 +24,20 @@ struct W_Edge {
  * @brief A lightweight struct for passing vertex data to the GraphWidget.
  */
 struct W_Vertex {
-    int id; ///< The public ID of the vertex.
-    int x, y; ///< The 2D coordinates for drawing.
-    QString name; ///< The display name.
+    int id;
+    double x, y;
+    QString name;
 };
 /**
  * @file GraphWidget.h
  * @brief Defines the GraphWidget class, a Qt widget for custom 2D rendering.
  */
+
+struct BackgroundStar {
+    QPointF pos;
+    int alpha;
+    double size;
+};
 
 /**
  * @class GraphWidget
@@ -60,6 +68,7 @@ public:
      * @brief Exits "detail mode" and resets the zoom.
      */
     void resetZoom();
+    void setHighlightedNodes(const std::vector<int>& ids);
     /**
              * @brief Gets the ID of the vertex currently in focus (detail mode).
              * @return The ID of the detailed vertex, or -1 if not in detail mode.
@@ -72,6 +81,8 @@ public:
      * @param vertexId The ID of the vertex that was clicked.
      */
         void vertexDoubleClicked(int vertexId);
+        void vertexClicked(int id);
+        void backgroundClicked();
 protected:
     /**
      * @brief Overridden Qt event handler for all custom painting.
@@ -83,6 +94,9 @@ protected:
         * @param event The mouse event.
         */
     void mouseDoubleClickEvent(QMouseEvent *event) override;
+
+    void mousePressEvent(QMouseEvent *event) override;
+
 private:
     ///< Local copy of the vertices to be drawn.
     std::vector<W_Vertex> vertices;
@@ -96,6 +110,9 @@ private:
     int detailedVertexId = -1;
     ///< Qt Timer used to drive animations in detail mode (e.g., planet orbits).
     QTimer *animationTimer = nullptr;
+    std::unordered_set<int> highlightedIds;
+    std::vector<BackgroundStar> stars;
+    void generateBackgroundStars();
 };
 
 #endif //GRAPHWIDGET_H

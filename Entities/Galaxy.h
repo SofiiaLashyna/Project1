@@ -334,17 +334,17 @@ public:
      * @endcode
      */
     void generateGalaxy(const json &data, RandomGenerator &rng) {
-        int systemCount = rng.getInt(3, 10);
+        int systemCount = rng.getInt(40, 60);
         for (int i = 0; i < systemCount; ++i)
             this->addObject(this->generateStarSystem(i, rng, data));
 
-        int nebulaCount = rng.getInt(1, 15);
+        int nebulaCount = rng.getInt(20, 65);
         for (int i = 0; i < nebulaCount; ++i)
             this->addObject(this->generateNebula(rng, data));
 
         for (int i = 0; i < celestial_objects.size() - 1; ++i) {
             int j = rng.getInt(i + 1, celestial_objects.size() - 1);
-            int dist = rng.getInt(10, 1000);
+            int dist = rng.getInt(100, 450);
             systemGraph.addEdge(i, j, dist);
         }
 

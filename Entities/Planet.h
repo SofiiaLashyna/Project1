@@ -17,11 +17,13 @@
  */
 class Planet : public CelestialObject {
 private:
-    double orbitRadius; ///< The radius of the planet's orbit around its star.
-    double orbitSpeed; ///< The speed at which the planet orbits the star.
-    double inclination; ///< The inclination angle of the planet's orbit.
-    bool habitable; ///< Whether the planet can support life.
-    QColor color = QColor(0,0,0); ///< Display color for UI representation.
+    double orbitRadius;
+    double orbitSpeed;
+    double inclination;
+    bool habitable;
+    QColor color = QColor(0, 0, 0);
+    std::string texturePath;
+
 public:
     /// Enum representing all supported planet types.
     enum class planetType { Gas_Giant, Dwarf, Terrestrial_Planet };
@@ -51,15 +53,13 @@ public:
          * @param newColor The QColor to set.
          */
     void setColor(QColor newColor);
-    /**
-         * @brief Gets the display color of the planet.
-         * @return The planet's QColor.
-         */
-    QColor getColor();
-    /**
-        * @brief Checks if the planet is habitable.
-        * @return True if habitable, false otherwise.
-        */
+
+    QColor getColor() const;
+
+    void setTexturePath(const std::string &path);
+
+    std::string getTexturePath() const;
+
     bool isHabitable() const;
     /**
         * @brief Sets the habitability status of the planet.
@@ -71,13 +71,9 @@ public:
          * @return The string "Planet".
        */
     std::string getType() const override;
-    /**
-         * @brief Gets the specific enum type of this planet.
-         * @return The enum value (planetType) of the planet.
-         */
-    planetType getPlanetType();
-    /// @brief Default virtual destructor.
-    virtual ~Planet() = default;
+
+    planetType getPlanetType() const;
+
 private:
     planetType planet_type; ///< Specific type of the planet (Gas_Giant, Terrestrial, Dwarf).
 };

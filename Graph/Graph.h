@@ -27,21 +27,10 @@ public:
      * @brief Default virtual destructor.
      */
     virtual ~Graph() = default;
-    /**
-         * @brief Gets a constant reference to the vector of vertices.
-         * @return Const reference to the vertex vector.
-         */
-    const std::vector<Vertex<T>>& getVertices() const { return vertices; }
-    /**
-         * @brief Gets a constant reference to the vector of edges.
-         * @return Const reference to the edge vector.
-         */
-    const std::vector<Edge<T>>& getEdges() const { return edges; }
-    /**
-             * @brief Finds the internal vector index for a vertex given its public ID.
-             * @param id The public ID of the vertex.
-             * @return The internal index (0 to N-1), or -1 if not found.
-             */
+
+    std::vector<Vertex<T>>& getVertices() { return vertices; }
+    std::vector<Edge<T>>& getEdges() { return edges; }
+
 
     int findIndexById(int id) const{
         for (int i = 0; i < vertices.size(); ++i)

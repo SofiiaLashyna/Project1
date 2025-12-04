@@ -26,6 +26,9 @@ public:
      * Initializes the random engine with a seed from std::random_device.
      */
     RandomGenerator() : gen(std::random_device{}()) {}
+
+    RandomGenerator(unsigned int seed) : gen(seed) {}
+
     /**
              * @brief Gets a random integer within a specified range (inclusive).
              * @param min The minimum possible value.

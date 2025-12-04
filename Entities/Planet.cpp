@@ -43,7 +43,7 @@ void Planet::setLifeExistence(bool life) {
     habitable = life;
 }
 
-Planet::planetType Planet::getPlanetType() {
+Planet::planetType Planet::getPlanetType() const {
     return planet_type;
 }
 
@@ -52,8 +52,16 @@ double Planet::getOrbit() const{
     return orbitRadius;
 }
 
-QColor Planet::getColor() {
+QColor Planet::getColor() const{
     return color;
+}
+
+void Planet::setTexturePath(const std::string& path) {
+    texturePath = path;
+}
+
+std::string Planet::getTexturePath() const {
+    return texturePath;
 }
 
 void Planet::setColor(QColor newColor) {

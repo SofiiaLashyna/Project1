@@ -15,11 +15,15 @@
 #include <QMessageBox>
 #include <algorithm>
 
+#include "DijkstraPathList.h"
+static constexpr double PHYSICS_MASS_SCALE = 1.0e-7;
+
 GalaxyView::GalaxyView(QWidget *parent) : QWidget(parent), ui(new Ui::GalaxyView) {
     ui->setupUi(this);
 
     graphWidget = new GraphWidget(this);
 
+    simulationTimer = new QTimer(this);
     if (ui->graphArea->layout() == nullptr) {
         QVBoxLayout *layout = new QVBoxLayout(ui->graphArea);
         layout->setContentsMargins(0, 0, 0, 0);
@@ -27,49 +31,46 @@ GalaxyView::GalaxyView(QWidget *parent) : QWidget(parent), ui(new Ui::GalaxyView
 
     ui->graphArea->layout()->addWidget(graphWidget);
 
-    paramsButton = new QPushButton("⚙️ Parameters", this);
-    paramsButton->setStyleSheet("font-size: 14px; padding: 5px 10px;");
+    paramsButton = new QPushButton("Parameters", this);
 
     paramsWindow = new QWidget(this);
-    paramsWindow->setStyleSheet(
-        "background-color: #333; color: white; border: 1px solid #555; border-radius: 5px;"
-    );
 
     QVBoxLayout *paramsLayout = new QVBoxLayout(paramsWindow);
-    paramsLayout->setContentsMargins(10, 10, 10, 10);
+    paramsLayout->setContentsMargins(15, 15, 15, 15);
     paramsLayout->setSpacing(5);
 
-    QLabel *titleLabel = new QLabel("Galaxy Parameters: \n", paramsWindow);
-    titleLabel->setStyleSheet("font-weight: bold; font-size: 16px; margin-bottom: 1px;");
+    QLabel *titleLabel = new QLabel("Galaxy Parameters:", paramsWindow);
+    titleLabel->setObjectName("titleLabel");
+    titleLabel->setAlignment(Qt::AlignCenter);
 
     QTextEdit *infoText = new QTextEdit(paramsWindow);
     infoText->setObjectName("infoTextWidget");
     infoText->setReadOnly(true);
-
     infoText->setText("Galaxy not generated yet.");
-    infoText->setStyleSheet("background-color: #444; color: #eee; border: none;");
 
-    QPushButton *editButton = new QPushButton("✎ Edit..", paramsWindow);
-    this->editButton = editButton;
-    editButton->setStyleSheet("font-size: 14px; padding: 5px 10px;");
+    QPushButton *editButtonLocal = new QPushButton("Edit Object", paramsWindow);
+    this->editButton = editButtonLocal;
 
-    zoomOutButton = new QPushButton("⬅ Zoom Out", this);
-    zoomOutButton->setStyleSheet("font-size: 14px; padding: 5px 10px;");
+    zoomOutButton = new QPushButton("Back to Galaxy", this);
     zoomOutButton->hide();
 
     paramsLayout->addWidget(titleLabel);
     paramsLayout->addWidget(infoText);
-    paramsLayout->addWidget(editButton);
+    paramsLayout->addWidget(this->editButton);
     paramsWindow->setLayout(paramsLayout);
 
-    paramsButton->resize(150, 35);
-    paramsWindow->resize(250, 210);
+    paramsButton->resize(160, 40);
+    paramsWindow->resize(240, 220);
 
     connect(paramsButton, &QPushButton::clicked, this, &GalaxyView::on_paramsButton_clicked);
     connect(zoomOutButton, &QPushButton::clicked, this, &GalaxyView::on_zoomOutButton_clicked);
-    connect(graphWidget, &GraphWidget::vertexDoubleClicked,
-            this, &GalaxyView::on_vertexDoubleClicked);
+    connect(graphWidget, &GraphWidget::vertexDoubleClicked, this, &GalaxyView::on_vertexDoubleClicked);
+    connect(graphWidget, &GraphWidget::vertexClicked, this, &GalaxyView::onVertexClicked);
+    connect(graphWidget, &GraphWidget::backgroundClicked, this, &GalaxyView::onBackgroundClicked);
     connect(editButton, &QPushButton::clicked, this, &GalaxyView::on_editButton_clicked);
+    connect(simulationTimer, &QTimer::timeout, this, &GalaxyView::onPhysicsTimerTick);
+    setupPathInfoWidget();
+    applySpaceStyle();
     paramsWindow->hide();
 }
 
@@ -78,6 +79,9 @@ GalaxyView::~GalaxyView() {
         delete galaxy;
         galaxy = nullptr;
     }
+    delete physicsController;
+    delete physicsEngine;
+    delete blackHoleField;
     delete ui;
 }
 
@@ -110,6 +114,12 @@ void GalaxyView::resizeEvent(QResizeEvent *event) {
             zoomOutButton->move(zoom_x, zoom_y);
         }
     }
+    if (pathInfoWidget) {
+        int margin = 20;
+        int px = width() - pathInfoWidget->width() - margin;
+        int py = height() - pathInfoWidget->height() - margin;
+        pathInfoWidget->move(px, py);
+    }
 }
 
 void GalaxyView::updateGraphDisplay() {
@@ -121,42 +131,6 @@ void GalaxyView::updateGraphDisplay() {
 
     int nVerticesTotal = static_cast<int>(galaxy->getObject().size());
 
-    // Ensure vertexPositions has the same length as vertices
-    vertexPositions.resize(nVerticesTotal, QPointF(0, 0));
-
-    // Count active vertices first
-    int n_active = 0;
-    for (int i = 0; i < nVerticesTotal; ++i) {
-        if (galaxy->getGraph().getVertices()[i].getId() != -1) {
-            n_active++;
-        }
-    }
-    if (n_active == 0) n_active = 1;
-
-    int active_idx_counter = 0;
-
-    // For every vertex index, assign position if not assigned yet (or it's default (0,0))
-    for (int i = 0; i < nVerticesTotal; ++i) {
-        const auto &v = galaxy->getGraph().getVertices()[i];
-        if (v.getId() == -1) continue;
-
-        // if position is default (0,0), generate it; otherwise keep existing position
-        if (vertexPositions[i].isNull() || (vertexPositions[i].x() == 0 && vertexPositions[i].y() == 0)) {
-            int cx = 550;
-            int cy = 350;
-            double radius = rngPtr->getDouble(150, 250);
-            double angle = 2 * M_PI * active_idx_counter / static_cast<double>(n_active);
-
-            QPointF newPos(
-                cx + radius * std::cos(angle),
-                cy + radius * std::sin(angle)
-            );
-
-            vertexPositions[i] = newPos;
-            qDebug() << "Generated/assigned position for object index" << i;
-        }
-        active_idx_counter++;
-    }
 
     std::vector<W_Vertex> vertices;
     vertices.resize(nVerticesTotal);
@@ -167,8 +141,8 @@ void GalaxyView::updateGraphDisplay() {
             QPointF pos = vertexPositions[i];
             vertices[i] = {
                 i,
-                static_cast<int>(pos.x()),
-                static_cast<int>(pos.y()),
+                pos.x(),
+                pos.y(),
                 QString::fromStdString(galaxy->getObject()[i]->getName())
             };
         } else {
@@ -176,17 +150,31 @@ void GalaxyView::updateGraphDisplay() {
         }
     }
 
-    std::vector<W_Edge> edges;
-    for (const auto &e: galaxy->getGraph().getEdges()) {
-        if (!e.isActive()) continue;
-        if (e.from < 0 || e.from >= nVerticesTotal) continue;
-        if (e.to < 0 || e.to >= nVerticesTotal) continue;
-        if (vertices[e.from].id == -1 || vertices[e.to].id == -1) continue;
-        edges.push_back({e.from, e.to, e.weight});
+    std::vector<W_Edge> edgesToDraw;
+
+    if (!pathEdges.empty()) {
+
+        auto& allEdges = galaxy->getGraph().getEdges();
+
+        for (const auto& pair : pathEdges) {
+            int u = pair.first;
+            int v = pair.second;
+
+            for (const auto& realEdge : allEdges) {
+                if (!realEdge.isActive()) continue;
+
+                if ((realEdge.from == u && realEdge.to == v) ||
+                    (realEdge.from == v && realEdge.to == u)) {
+
+                    edgesToDraw.push_back({realEdge.from, realEdge.to, realEdge.weight});
+                    break;
+                    }
+            }
+        }
     }
 
     if (graphWidget) {
-        graphWidget->setGraph(vertices, edges, &galaxy->getObject());
+        graphWidget->setGraph(vertices, edgesToDraw, &galaxy->getObject());
         graphWidget->update();
     }
 }
@@ -215,41 +203,251 @@ void GalaxyView::generateAndDisplayGalaxy(const nlohmann::json &data, RandomGene
     qDebug() << "Galaxy successfully generated:" << QString::fromStdString(randomGalaxyName);
 
     ui->galaxyNameLabel->setText(QString("Created Galaxy: ") + QString::fromStdString(randomGalaxyName));
+    initPhysicsSimulation();
 
-    // Prepare/resize vertexPositions for all vertices
-    vertexPositions.resize(galaxy->getObject().size(), QPointF(0, 0));
-    int nVerticesTotal = static_cast<int>(galaxy->getObject().size());
+    updateGraphDisplay();
+    updateParametersWindow();
+}
 
-    // Count active vertices
-    int n_active = 0;
+void GalaxyView::createPhysicsBody(CelestialObject *obj) {
+    if (!physicsEngine || !physicsController) return;
+
+    auto *wrapper = new CelestialBodyToRigidWrapper(obj, physicsEngine->getWorld());
+
+    double minScreenDimension = std::min(ui->graphArea->width(), ui->graphArea->height());
+    double maxScreenRadius = (minScreenDimension / 2.0) - 50.0;
+    double maxPhysicsRadius = maxScreenRadius / viewScale;
+
+    if (maxPhysicsRadius < 150) maxPhysicsRadius = 200;
+
+    double radius = rngPtr->getDouble(50, maxPhysicsRadius);
+
+    double angle = rngPtr->getDouble(0, 2 * M_PI);
+    double physX = radius * std::cos(angle);
+    double physY = radius * std::sin(angle);
+
+    wrapper->setPosition(physX, physY, 0);
+
+    double realBlackHoleMass = 1.3e12;
+    double simBlackHoleMass = realBlackHoleMass * PHYSICS_MASS_SCALE;
+    double G = 1.0;
+
+    double dist = std::sqrt(physX * physX + physY * physY);
+    double vMag = std::sqrt((1.0 * simBlackHoleMass) / dist);
+    btVector3 vel(-physY, physX, 0);
+    vel.normalize();
+    vel *= vMag;
+
+    wrapper->getRigidBody()->setLinearVelocity(vel);
+
+    physicsController->addCelestialBody(wrapper);
+
+    vertexPositions.push_back(physicsToScreen(physX, physY));
+}
+
+void GalaxyView::initPhysicsSimulation() {
+    if (!simulationTimer) return;
+    simulationTimer->stop();
+
+    if (physicsController) {
+        delete physicsController;
+        physicsController = nullptr;
+    }
+    if (physicsEngine) {
+        delete physicsEngine;
+        physicsEngine = nullptr;
+    }
+    if (blackHoleField) {
+        delete blackHoleField;
+        blackHoleField = nullptr;
+    }
+
+    physicsEngine = new PhysicsEngine();
+    physicsController = new GalaxyPhysicsController(physicsEngine);
+
+
+    double realBlackHoleMass = 1.3e12;
+
+    double simBlackHoleMass = realBlackHoleMass * PHYSICS_MASS_SCALE;
+
+    blackHoleField = new BlackHoleGravityField(simBlackHoleMass, 0, 0, 0);
+
+    vertexPositions.clear();
+    if (!galaxy) return;
+
+    std::vector<CelestialBodyToRigidWrapper *> wrappersMap(galaxy->getObject().size(), nullptr);
+    int nVerticesTotal = galaxy->getObject().size();
+
     for (int i = 0; i < nVerticesTotal; ++i) {
-        if (galaxy->getGraph().getVertices()[i].getId() != -1) {
-            n_active++;
+        CelestialObject *obj = galaxy->getObject()[i];
+        if (galaxy->getGraph().getVertices()[i].getId() == -1) {
+            vertexPositions.push_back(QPointF(0, 0));
+            continue;
+        }
+
+        auto *wrapper = new CelestialBodyToRigidWrapper(obj, physicsEngine->getWorld());
+        wrappersMap[i] = wrapper;
+
+        double minScreenDimension = std::min(ui->graphArea->width(), ui->graphArea->height());
+
+        double maxScreenRadius = (minScreenDimension / 2.0) - 50.0;
+
+        double maxPhysicsRadius = maxScreenRadius / viewScale;
+
+        if (maxPhysicsRadius < 200) maxPhysicsRadius = 300;
+
+        double radius = rngPtr->getDouble(100, maxPhysicsRadius);
+
+        double angle = rngPtr->getDouble(0, 2 * M_PI);
+        wrapper->setPosition(radius * std::cos(angle), radius * std::sin(angle), 0);
+        wrapper->getRigidBody()->setDamping(0.95, 0.95);
+        wrapper->getRigidBody()->setActivationState(DISABLE_DEACTIVATION);
+
+        physicsController->addCelestialBody(wrapper);
+    }
+
+    double radiusMultiplying = 5;
+    for (const auto &edge: galaxy->getGraph().getEdges()) {
+        if (!edge.isActive()) continue;
+        if (wrappersMap[edge.from] && wrappersMap[edge.to]) {
+            physicsController->addSpring(wrappersMap[edge.from], wrappersMap[edge.to], edge.weight * radiusMultiplying);
         }
     }
-    if (n_active == 0) n_active = 1;
 
-    int active_idx_counter = 0;
+    qDebug() << "Pre-calculating positions...";
+    for (int i = 0; i < 500; ++i) {
+        physicsController->simulateStep(0.016);
+    }
+
+    physicsController->clearSprings();
+    physicsController->addGravityField(blackHoleField);
+
+    double G = 1.0;
+
     for (int i = 0; i < nVerticesTotal; ++i) {
-        if (galaxy->getGraph().getVertices()[i].getId() != -1) {
-            int cx = 550;
-            int cy = 350;
-            double radius = rng.getDouble(150, 250);
+        if (!wrappersMap[i]) {
+            if (i >= vertexPositions.size()) vertexPositions.push_back(QPointF(0, 0));
+            continue;
+        }
 
-            double angle = 2 * M_PI * active_idx_counter / static_cast<double>(n_active);
+        auto *wrapper = wrappersMap[i];
+        wrapper->updateFromPhysics();
 
-            QPointF pos(
-                cx + radius * std::cos(angle),
-                cy + radius * std::sin(angle)
-            );
+        wrapper->getRigidBody()->setLinearVelocity(btVector3(0, 0, 0));
+        wrapper->getRigidBody()->setDamping(0.0, 0.0);
 
-            vertexPositions[i] = pos;
-            active_idx_counter++;
+        double x = wrapper->getX();
+        double y = wrapper->getY();
+        double dist = std::sqrt(x * x + y * y);
+        if (dist < 10.0) dist = 10.0;
+
+        double vMag = std::sqrt((G * simBlackHoleMass) / dist);
+
+        btVector3 vel(-y, x, 0);
+        vel.normalize();
+        vel *= vMag;
+
+        wrapper->getRigidBody()->setLinearVelocity(vel);
+
+        if (i < vertexPositions.size()) vertexPositions[i] = physicsToScreen(x, y);
+        else vertexPositions.push_back(physicsToScreen(x, y));
+    }
+
+    simulationTimer->start(16);
+}
+
+void GalaxyView::checkForNewObjects() {
+    if (!galaxy || !physicsController) return;
+
+    int totalObjectsInGalaxy = galaxy->getObject().size();
+
+    int knownObjects = vertexPositions.size();
+
+    if (totalObjectsInGalaxy > knownObjects) {
+        qDebug() << "Found new objects! Adding to physics engine...";
+
+        for (int i = knownObjects; i < totalObjectsInGalaxy; ++i) {
+            CelestialObject *obj = galaxy->getObject()[i];
+
+            if (galaxy->getGraph().getVertices()[i].getId() != -1) {
+                createPhysicsBody(obj);
+            } else {
+                vertexPositions.push_back(QPointF(0, 0));
+            }
+        }
+    }
+}
+
+void GalaxyView::onPhysicsTimerTick() {
+    if (!physicsController) return;
+
+    for(int i=0; i<3; ++i) {
+        physicsController->simulateStep(1.0 / 60.0);
+    }
+    const auto &bodies = physicsController->getBodies();
+
+    int bodyIndex = 0;
+    for (int i = 0; i < vertexPositions.size(); ++i) {
+        if (galaxy->getGraph().getVertices()[i].getId() == -1) continue;
+
+        if (bodyIndex < bodies.size()) {
+            auto *wrapper = bodies[bodyIndex];
+            double px = wrapper->getX();
+            double py = wrapper->getY();
+
+            vertexPositions[i] = physicsToScreen(px, py);
+            bodyIndex++;
+        }
+    }
+
+    auto &edges = galaxy->getGraph().getEdges();
+
+    for (auto &edge: edges) {
+        if (!edge.isActive()) continue;
+
+        int idA = edge.from;
+        int idB = edge.to;
+
+        if (idA >= 0 && idA < vertexPositions.size() &&
+            idB >= 0 && idB < vertexPositions.size()) {
+            QPointF pA = vertexPositions[idA];
+            QPointF pB = vertexPositions[idB];
+
+            double dx = pA.x() - pB.x();
+            double dy = pA.y() - pB.y();
+            double realDistance = std::sqrt(dx * dx + dy * dy);
+
+            edge.changeWeight(static_cast<int>(realDistance));
         }
     }
 
     updateGraphDisplay();
-    updateParametersWindow();
+
+    if (pathInfoWidget && pathInfoWidget->isVisible() && !pathEdges.empty()) {
+        double totalDistance = 0;
+
+        auto& graphEdges = galaxy->getGraph().getEdges();
+        for (const auto& pair : pathEdges) {
+            int u = pair.first;
+            int v = pair.second;
+
+            for (const auto& edge : graphEdges) {
+                if (!edge.isActive()) continue;
+                if ((edge.from == u && edge.to == v) || (edge.from == v && edge.to == u)) {
+                    totalDistance += edge.weight;
+                    break;
+                }
+            }
+        }
+
+        pathDistanceLabel->setText("Total Distance: " + QString::number((int)totalDistance));
+    }
+}
+
+QPointF GalaxyView::physicsToScreen(double x, double y) {
+    double centerX = ui->graphArea->width() / 2.0;
+    double centerY = ui->graphArea->height() / 2.0;
+    return QPointF(centerX + x * viewScale, centerY + y * viewScale);
 }
 
 void GalaxyView::updateParametersWindow() {
@@ -273,6 +471,7 @@ void GalaxyView::on_editButton_clicked() {
     connect(&dlg, &GalaxyEditDialog::galaxyModified, this,
             [this]() {
                 updateParametersWindow();
+                checkForNewObjects();
                 updateGraphDisplay();
                 QApplication::processEvents();
             },
@@ -295,6 +494,7 @@ void GalaxyView::on_vertexDoubleClicked(int vertexId) {
     }
     CelestialObject *obj = galaxy->getObject()[vertexId];
 
+    if (pathInfoWidget) resetPathSelection();
     if (graphWidget) {
         graphWidget->zoomToVertex(vertexId);
     }
@@ -316,6 +516,117 @@ void GalaxyView::on_vertexDoubleClicked(int vertexId) {
     connect(editButton, &QPushButton::clicked, this, &GalaxyView::on_editObjectButton_clicked);
 }
 
+void GalaxyView::onVertexClicked(int vertexId) {
+    if (!galaxy || vertexId < 0) return;
+
+    std::string objName = galaxy->getObject()[vertexId]->getName();
+
+    if (startNodeId != -1 && endNodeId != -1) {
+        resetPathSelection();
+        startNodeId = vertexId;
+        pathInfoWidget->show();
+        pathStatusLabel->setText("Start Selected");
+        pathDetailsLabel->setText("Start: " + QString::fromStdString(objName) + "\nChoose Destination...");
+        pathDistanceLabel->setText("");
+        if (graphWidget) graphWidget->setHighlightedNodes({startNodeId});
+        return;
+    }
+
+    if (startNodeId == -1) {
+        startNodeId = vertexId;
+        pathInfoWidget->show();
+        pathStatusLabel->setText("Start Selected");
+        pathDetailsLabel->setText("Start: " + QString::fromStdString(objName) + "\nChoose Destination...");
+        pathDistanceLabel->clear();
+        if (graphWidget) graphWidget->setHighlightedNodes({startNodeId});
+    } else {
+        if (vertexId == startNodeId) return;
+
+        endNodeId = vertexId;
+        std::string startName = galaxy->getObject()[startNodeId]->getName();
+
+        pathStatusLabel->setText("Path Calculated");
+        pathDetailsLabel->setText(QString("From: %1\nTo: %2").arg(QString::fromStdString(startName), QString::fromStdString(objName)));
+
+        calculateShortestPath();
+    }
+}
+
+void GalaxyView::onBackgroundClicked() {
+    resetPathSelection();
+}
+
+void GalaxyView::resetPathSelection() {
+    startNodeId = -1;
+    endNodeId = -1;
+    pathEdges.clear();
+
+    if (pathInfoWidget) pathInfoWidget->hide();
+
+    ui->galaxyNameLabel->show();
+    if (graphWidget) {
+        graphWidget->setHighlightedNodes({});
+    }
+    updateGraphDisplay();
+}
+
+void GalaxyView::calculateShortestPath() {
+    DijkstraPathList<CelestialObject*> solver;
+
+    std::vector<int> pathIndices = solver.findShortestPath(galaxy->getGraph(), startNodeId, endNodeId);
+
+    pathEdges.clear();
+    if (pathIndices.empty()) {
+    } else {
+        for (size_t i = 0; i < pathIndices.size() - 1; ++i) {
+            pathEdges.push_back({pathIndices[i], pathIndices[i+1]});
+        }
+    }
+    if (graphWidget) {
+        graphWidget->setHighlightedNodes(pathIndices);
+    }
+    updateGraphDisplay();
+}
+void GalaxyView::setupPathInfoWidget() {
+    pathInfoWidget = new QWidget(this);
+
+    QString pathWindowStyle =
+        "QWidget {"
+        "  background-color: rgba(10, 10, 25, 230);"
+        "  border: 2px solid #00aaff;"
+        "  border-radius: 15px;"
+        "}";
+    pathInfoWidget->setStyleSheet(pathWindowStyle);
+
+    QVBoxLayout* layout = new QVBoxLayout(pathInfoWidget);
+
+    pathStatusLabel = new QLabel("Select Start Point", pathInfoWidget);
+    pathStatusLabel->setStyleSheet(
+        "background: transparent; border: none; color: #00aaff; font-family: 'Ravie'; font-size: 14px;"
+    );
+    pathStatusLabel->setAlignment(Qt::AlignCenter);
+
+    pathDetailsLabel = new QLabel("", pathInfoWidget);
+    pathDetailsLabel->setStyleSheet(
+        "background: transparent; border: none; color: white; font-family: 'Segoe UI'; font-size: 12px;"
+    );
+    pathDetailsLabel->setWordWrap(true);
+    pathDetailsLabel->setAlignment(Qt::AlignCenter);
+
+    pathDistanceLabel = new QLabel("", pathInfoWidget);
+    pathDistanceLabel->setStyleSheet(
+        "background: transparent; border: none; color: #00ff00; font-family: 'Ravie'; font-size: 13px;"
+    );
+    pathDistanceLabel->setAlignment(Qt::AlignCenter);
+
+    layout->addWidget(pathStatusLabel);
+    layout->addWidget(pathDetailsLabel);
+    layout->addWidget(pathDistanceLabel);
+
+    pathInfoWidget->setLayout(layout);
+    pathInfoWidget->resize(240, 140);
+    pathInfoWidget->hide();
+}
 void GalaxyView::on_zoomOutButton_clicked() {
     if (graphWidget) {
         graphWidget->resetZoom();
@@ -346,14 +657,13 @@ void GalaxyView::showObjectParameters(CelestialObject *obj) {
     if (obj->getType() == "StarSystem") {
         StarSystem *system = dynamic_cast<StarSystem *>(obj);
         if (system) {
-            for (Planet *planetPtr : system->getPlanets()) {
-                Planet &planet = *planetPtr;
+            for (Planet &planet: system->getPlanets()) {
                 system->lifeExists(planet);
             }
             parametersText = QString::fromStdString(
                 "Name: " + system->getName() + "\n" +
                 "Type: Star System\n" +
-                "Mass: " + QString::number(system->getMass(), 'e', 3).toStdString()+ " solar masses\n\n" +
+                "Mass: " + QString::number(system->getMass(), 'e', 3).toStdString() + " solar masses\n\n" +
                 "Star Information:\n" +
                 "  Type: " + system->getStar().getStarTypeString() + "\n" +
                 "  Mass: " + QString::number(system->getStar().getMass(), 'e', 3).toStdString() + " solar masses\n" +
@@ -444,4 +754,54 @@ void GalaxyView::editNebula(Nebula *nebula) {
         updateGraphDisplay();
         QApplication::processEvents();
     }
+}
+
+void GalaxyView::applySpaceStyle() {
+    QString btnStyle =
+        "QPushButton {"
+        "  background-color: rgba(20, 20, 40, 200);"
+        "  border: 2px solid #00aaff;"
+        "  border-radius: 10px;"
+        "  color: white;"
+        "  font-family: 'Ravie';"
+        "  font-size: 12px;"
+        "  padding: 5px;"
+        "}"
+        "QPushButton:hover {"
+        "  background-color: rgba(0, 170, 255, 50);"
+        "  border: 2px solid #ffffff;"
+        "  color: #00ffff;"
+        "}"
+        "QPushButton:pressed {"
+        "  background-color: rgba(0, 170, 255, 100);"
+        "  border: 2px solid #0088cc;"
+        "}";
+
+    if (paramsButton) paramsButton->setStyleSheet(btnStyle);
+    if (editButton) editButton->setStyleSheet(btnStyle);
+    if (zoomOutButton) zoomOutButton->setStyleSheet(btnStyle);
+
+    QString windowStyle =
+        "QWidget {"
+        "  background-color: rgba(10, 10, 20, 240);"
+        "  border: 1px solid #00aaff;"
+        "  border-radius: 15px;"
+        "}"
+        "QLabel#titleLabel {"
+        "  background: transparent;"
+        "  border: none;"
+        "  color: #00ffff;"
+        "  font-family: 'Ravie';"
+        "  font-size: 14px;"
+        "  margin-bottom: 5px;"
+        "}"
+        "QTextEdit {"
+        "  background-color: rgba(0, 0, 0, 50);"
+        "  border: none;"
+        "  color: #d0e0ff;"
+        "  font-family: 'Segoe UI', sans-serif;"
+        "  font-size: 13px;"
+        "}";
+
+    if (paramsWindow) paramsWindow->setStyleSheet(windowStyle);
 }

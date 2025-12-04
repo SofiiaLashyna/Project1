@@ -14,7 +14,6 @@ build/
 *.lib
 
 *.qrc.depends
-*.qrc
 *.moc
 moc_*.cpp
 ui_*.h
