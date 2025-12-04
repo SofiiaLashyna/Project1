@@ -29,8 +29,8 @@ QVariant CelestialObject3DModel::data(const QModelIndex &index, int role) const
 
     switch (role) {
         case XPosRole:
-            if (index.row() == 0)
-                qDebug() << "Pos(0):" << currentX[0] << currentY[0] << currentZ[0];
+            // if (index.row() == 0)
+            //     qDebug() << "Pos(0):" << currentX[0] << currentY[0] << currentZ[0];
             return currentX[index.row()];
         case YPosRole:
             return currentY[index.row()];
@@ -50,8 +50,8 @@ QVariant CelestialObject3DModel::data(const QModelIndex &index, int role) const
 
             double finalScale = std::min(baseScale, 20.0)*0.1;
 
-            if (index.row() == 0)
-                qDebug() << "Size(0):" << finalScale;
+            // if (index.row() == 0)
+            //     qDebug() << "Size(0):" << finalScale;
 
             return finalScale;
         }

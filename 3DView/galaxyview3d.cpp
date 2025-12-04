@@ -482,8 +482,8 @@ void GalaxyView3D::showObjectParameters(CelestialObject *obj) {
     if (obj->getType() == "StarSystem") {
         StarSystem *system = dynamic_cast<StarSystem *>(obj);
         if (system) {
-            for (Planet &planet: system->getPlanets()) {
-                system->lifeExists(planet);
+            for (Planet* planet : system->getPlanets()) {
+                system->lifeExists(*planet);
             }
             parametersText = QString::fromStdString(
                 "Name: " + system->getName() + "\n" +
@@ -497,13 +497,13 @@ void GalaxyView3D::showObjectParameters(CelestialObject *obj) {
             );
 
             for (size_t i = 0; i < system->getPlanets().size(); ++i) {
-                Planet &planet = system->getPlanets()[i];
+                Planet *planet = system->getPlanets()[i];
                 parametersText += QString::fromStdString(
                     "\nPlanet " + std::to_string(i + 1) + ":\n" +
-                    "  Name: " + planet.getName() + "\n" +
-                    "  Mass: " + std::to_string(planet.getMass()) + " Earth masses\n" +
-                    "  Orbit: " + std::to_string(planet.getOrbit()) + " AU\n" +
-                    "  Habitable: " + (planet.isHabitable() ? "Yes" : "No") + "\n"
+                    "  Name: " + planet->getName() + "\n" +
+                    "  Mass: " + std::to_string(planet->getMass()) + " Earth masses\n" +
+                    "  Orbit: " + std::to_string(planet->getOrbit()) + " AU\n" +
+                    "  Habitable: " + (planet->isHabitable() ? "Yes" : "No") + "\n"
                 );
             }
         }

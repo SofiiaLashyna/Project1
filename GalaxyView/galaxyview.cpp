@@ -553,6 +553,7 @@ void GalaxyView::onVertexClicked(int vertexId) {
 }
 
 void GalaxyView::onBackgroundClicked() {
+    if (zoomOutButton->isVisible()) return;
     resetPathSelection();
 }
 
@@ -657,8 +658,8 @@ void GalaxyView::showObjectParameters(CelestialObject *obj) {
     if (obj->getType() == "StarSystem") {
         StarSystem *system = dynamic_cast<StarSystem *>(obj);
         if (system) {
-            for (Planet &planet: system->getPlanets()) {
-                system->lifeExists(planet);
+            for (Planet* planet : system->getPlanets()) {
+                system->lifeExists(*planet);
             }
             parametersText = QString::fromStdString(
                 "Name: " + system->getName() + "\n" +

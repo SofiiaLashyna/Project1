@@ -50,8 +50,8 @@ void PlanetarySystemModel::updateSystem(StarSystem* system) {
         double maxMass = std::numeric_limits<double>::lowest();
 
         for (const auto &p: planets) {
-            minMass = std::min(minMass, p.getMass());
-            maxMass = std::max(maxMass, p.getMass());
+            minMass = std::min(minMass, p->getMass());
+            maxMass = std::max(maxMass, p->getMass());
         }
 
         if (std::abs(maxMass - minMass) < 0.0001) maxMass = minMass + 1.0;
@@ -62,18 +62,18 @@ void PlanetarySystemModel::updateSystem(StarSystem* system) {
             auto& p = planets[i];
             PlanetData data;
 
-            double massNorm = (p.getMass() - minMass) / (maxMass - minMass);
+            double massNorm = (p->getMass() - minMass) / (maxMass - minMass);
             data.size = 0.1 + (0.1 * massNorm);
             data.orbitRadius = baseOrbitStart + (i * orbitSpacing);
-            data.color = p.getColor().isValid() ? p.getColor() : QColor("white");
+            data.color = p->getColor().isValid() ? p->getColor() : QColor("white");
             data.speed = 5.0 * std::pow(data.orbitRadius, 1.5);
 
 
-            if (p.getTexturePath().empty()) {
+            if (p->getTexturePath().empty()) {
                 std::string newPath;
                 RandomGenerator rng;
                 int randomNum = rng.getInt(1,3);
-                switch (p.getPlanetType()) {
+                switch (p->getPlanetType()) {
                     case Planet::planetType::Gas_Giant:
                         if (randomNum % 3 == 0) {
                             newPath ="qrc:/3DView/textures/gas_g1.jpg";
@@ -87,7 +87,7 @@ void PlanetarySystemModel::updateSystem(StarSystem* system) {
                     break;
 
                     case Planet::planetType::Terrestrial_Planet:
-                        if (p.isHabitable()) {
+                        if (p->isHabitable()) {
                             newPath = "qrc:/3DView/textures/habitable_terrestrial1.jpg";
                         } else {
                             if (randomNum % 2 == 0)
@@ -107,9 +107,9 @@ void PlanetarySystemModel::updateSystem(StarSystem* system) {
                                 newPath = "qrc:/3DView/textures/dwarf2.jpg";
                     break;
                 }
-                p.setTexturePath(newPath);
+                p->setTexturePath(newPath);
             }
-            data.texturePath = QString::fromStdString(p.getTexturePath());
+            data.texturePath = QString::fromStdString(p->getTexturePath());
 
             m_planets.push_back(data);
         }
