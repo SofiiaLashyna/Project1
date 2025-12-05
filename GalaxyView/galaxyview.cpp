@@ -69,6 +69,22 @@ GalaxyView::GalaxyView(QWidget *parent) : QWidget(parent), ui(new Ui::GalaxyView
     connect(graphWidget, &GraphWidget::backgroundClicked, this, &GalaxyView::onBackgroundClicked);
     connect(editButton, &QPushButton::clicked, this, &GalaxyView::on_editButton_clicked);
     connect(simulationTimer, &QTimer::timeout, this, &GalaxyView::onPhysicsTimerTick);
+    connect(graphWidget, &GraphWidget::planetDoubleClicked, this, [this](int index) {
+        int sysId = graphWidget->getDetailedVertexId();
+        if (sysId < 0 || !galaxy) return;
+
+        CelestialObject* obj = galaxy->getObject()[sysId];
+        StarSystem* system = dynamic_cast<StarSystem*>(obj);
+
+        if (system && index >= 0 && index < system->getPlanets().size()) {
+            Planet* planet = system->getPlanets()[index];
+            showPlanetParameters(planet);
+            if (paramsWindow) {
+                paramsWindow->hide();
+            }
+            zoomOutButton->setText("Back to System");
+        }
+    });
     setupPathInfoWidget();
     applySpaceStyle();
     paramsWindow->hide();
@@ -153,22 +169,20 @@ void GalaxyView::updateGraphDisplay() {
     std::vector<W_Edge> edgesToDraw;
 
     if (!pathEdges.empty()) {
+        auto &allEdges = galaxy->getGraph().getEdges();
 
-        auto& allEdges = galaxy->getGraph().getEdges();
-
-        for (const auto& pair : pathEdges) {
+        for (const auto &pair: pathEdges) {
             int u = pair.first;
             int v = pair.second;
 
-            for (const auto& realEdge : allEdges) {
+            for (const auto &realEdge: allEdges) {
                 if (!realEdge.isActive()) continue;
 
                 if ((realEdge.from == u && realEdge.to == v) ||
                     (realEdge.from == v && realEdge.to == u)) {
-
                     edgesToDraw.push_back({realEdge.from, realEdge.to, realEdge.weight});
                     break;
-                    }
+                }
             }
         }
     }
@@ -381,7 +395,7 @@ void GalaxyView::checkForNewObjects() {
 void GalaxyView::onPhysicsTimerTick() {
     if (!physicsController) return;
 
-    for(int i=0; i<3; ++i) {
+    for (int i = 0; i < 3; ++i) {
         physicsController->simulateStep(1.0 / 60.0);
     }
     const auto &bodies = physicsController->getBodies();
@@ -426,12 +440,12 @@ void GalaxyView::onPhysicsTimerTick() {
     if (pathInfoWidget && pathInfoWidget->isVisible() && !pathEdges.empty()) {
         double totalDistance = 0;
 
-        auto& graphEdges = galaxy->getGraph().getEdges();
-        for (const auto& pair : pathEdges) {
+        auto &graphEdges = galaxy->getGraph().getEdges();
+        for (const auto &pair: pathEdges) {
             int u = pair.first;
             int v = pair.second;
 
-            for (const auto& edge : graphEdges) {
+            for (const auto &edge: graphEdges) {
                 if (!edge.isActive()) continue;
                 if ((edge.from == u && edge.to == v) || (edge.from == v && edge.to == u)) {
                     totalDistance += edge.weight;
@@ -440,7 +454,7 @@ void GalaxyView::onPhysicsTimerTick() {
             }
         }
 
-        pathDistanceLabel->setText("Total Distance: " + QString::number((int)totalDistance));
+        pathDistanceLabel->setText("Total Distance: " + QString::number((int) totalDistance));
     }
 }
 
@@ -501,6 +515,7 @@ void GalaxyView::on_vertexDoubleClicked(int vertexId) {
     if (zoomOutButton) {
         zoomOutButton->show();
         zoomOutButton->raise();
+        zoomOutButton->setText("Back to Galaxy");
     }
 
     paramsButton->show();
@@ -546,7 +561,8 @@ void GalaxyView::onVertexClicked(int vertexId) {
         std::string startName = galaxy->getObject()[startNodeId]->getName();
 
         pathStatusLabel->setText("Path Calculated");
-        pathDetailsLabel->setText(QString("From: %1\nTo: %2").arg(QString::fromStdString(startName), QString::fromStdString(objName)));
+        pathDetailsLabel->setText(
+            QString("From: %1\nTo: %2").arg(QString::fromStdString(startName), QString::fromStdString(objName)));
 
         calculateShortestPath();
     }
@@ -572,7 +588,7 @@ void GalaxyView::resetPathSelection() {
 }
 
 void GalaxyView::calculateShortestPath() {
-    DijkstraPathList<CelestialObject*> solver;
+    DijkstraPathList<CelestialObject *> solver;
 
     std::vector<int> pathIndices = solver.findShortestPath(galaxy->getGraph(), startNodeId, endNodeId);
 
@@ -580,7 +596,7 @@ void GalaxyView::calculateShortestPath() {
     if (pathIndices.empty()) {
     } else {
         for (size_t i = 0; i < pathIndices.size() - 1; ++i) {
-            pathEdges.push_back({pathIndices[i], pathIndices[i+1]});
+            pathEdges.push_back({pathIndices[i], pathIndices[i + 1]});
         }
     }
     if (graphWidget) {
@@ -588,18 +604,19 @@ void GalaxyView::calculateShortestPath() {
     }
     updateGraphDisplay();
 }
+
 void GalaxyView::setupPathInfoWidget() {
     pathInfoWidget = new QWidget(this);
 
     QString pathWindowStyle =
-        "QWidget {"
-        "  background-color: rgba(10, 10, 25, 230);"
-        "  border: 2px solid #00aaff;"
-        "  border-radius: 15px;"
-        "}";
+            "QWidget {"
+            "  background-color: rgba(10, 10, 25, 230);"
+            "  border: 2px solid #00aaff;"
+            "  border-radius: 15px;"
+            "}";
     pathInfoWidget->setStyleSheet(pathWindowStyle);
 
-    QVBoxLayout* layout = new QVBoxLayout(pathInfoWidget);
+    QVBoxLayout *layout = new QVBoxLayout(pathInfoWidget);
 
     pathStatusLabel = new QLabel("Select Start Point", pathInfoWidget);
     pathStatusLabel->setStyleSheet(
@@ -628,7 +645,22 @@ void GalaxyView::setupPathInfoWidget() {
     pathInfoWidget->resize(240, 140);
     pathInfoWidget->hide();
 }
+
 void GalaxyView::on_zoomOutButton_clicked() {
+    if (graphWidget->isInPlanetMode()) {
+        graphWidget->resetPlanetZoom();
+
+        int sysId = graphWidget->getDetailedVertexId();
+        if (sysId >= 0) {
+            CelestialObject *obj = galaxy->getObject()[sysId];
+            showObjectParameters(obj);
+        }
+        zoomOutButton->setText("Back to Galaxy");
+        if (paramsWindow) {
+            paramsWindow->hide();
+        }
+        return;
+    }
     if (graphWidget) {
         graphWidget->resetZoom();
     }
@@ -658,7 +690,7 @@ void GalaxyView::showObjectParameters(CelestialObject *obj) {
     if (obj->getType() == "StarSystem") {
         StarSystem *system = dynamic_cast<StarSystem *>(obj);
         if (system) {
-            for (Planet* planet : system->getPlanets()) {
+            for (Planet *planet: system->getPlanets()) {
                 system->lifeExists(*planet);
             }
             parametersText = QString::fromStdString(
@@ -673,7 +705,7 @@ void GalaxyView::showObjectParameters(CelestialObject *obj) {
             );
 
             for (size_t i = 0; i < system->getPlanets().size(); ++i) {
-                Planet* planetPtr = system->getPlanets()[i];
+                Planet *planetPtr = system->getPlanets()[i];
                 Planet &planet = *planetPtr;
                 parametersText += QString::fromStdString(
                     "\nPlanet " + std::to_string(i + 1) + ":\n" +
@@ -706,10 +738,45 @@ void GalaxyView::showObjectParameters(CelestialObject *obj) {
 
     QLabel *titleLabel = paramsWindow->findChild<QLabel *>();
     if (titleLabel) {
-        titleLabel->setText(QString::fromStdString(obj->getType()) + ": " +
-                            QString::fromStdString(obj->getName()));
+        titleLabel->setText(QString::fromStdString(obj->getType()) + " info: ");
     }
 
+    paramsWindow->show();
+    paramsWindow->raise();
+}
+void GalaxyView::showPlanetParameters(Planet* planet) {
+    if (!planet || !paramsWindow) return;
+
+    QTextEdit *infoTextWidget = paramsWindow->findChild<QTextEdit *>("infoTextWidget");
+    if (!infoTextWidget) return;
+
+    QString typeStr;
+    switch(planet->getPlanetType()) {
+        case Planet::planetType::Gas_Giant: typeStr = "Gas Giant"; break;
+        case Planet::planetType::Terrestrial_Planet: typeStr = "Terrestrial"; break;
+        case Planet::planetType::Dwarf: typeStr = "Dwarf Planet"; break;
+    }
+
+    QString parametersText = QString::fromStdString(
+        "Name: " + planet->getName() + "\n" +
+        "Type: " + typeStr.toStdString() + "\n\n" +
+        "Mass: " + std::to_string(planet->getMass()) + " Earths\n" +
+        "Orbit Radius: " + std::to_string(planet->getOrbit()) + " AU\n" +
+        "Orbit Speed: " + std::to_string(planet->getMass()) + " km/s\n" + // Тут можна додати реальну швидкість, якщо є геттер
+        "Habitable: " + (planet->isHabitable() ? "YES" : "NO") + "\n"
+    );
+
+    // Можна додати шлях до текстури, якщо цікаво
+    // parametersText += "\nTexture: " + QString::fromStdString(planet->getTexturePath());
+
+    infoTextWidget->setText(parametersText);
+
+    QLabel *titleLabel = paramsWindow->findChild<QLabel *>("titleLabel");
+    if (titleLabel) {
+        titleLabel->setText("Planet Info:");
+    }
+
+    // Показуємо вікно, якщо воно сховане
     paramsWindow->show();
     paramsWindow->raise();
 }
@@ -759,50 +826,50 @@ void GalaxyView::editNebula(Nebula *nebula) {
 
 void GalaxyView::applySpaceStyle() {
     QString btnStyle =
-        "QPushButton {"
-        "  background-color: rgba(20, 20, 40, 200);"
-        "  border: 2px solid #00aaff;"
-        "  border-radius: 10px;"
-        "  color: white;"
-        "  font-family: 'Ravie';"
-        "  font-size: 12px;"
-        "  padding: 5px;"
-        "}"
-        "QPushButton:hover {"
-        "  background-color: rgba(0, 170, 255, 50);"
-        "  border: 2px solid #ffffff;"
-        "  color: #00ffff;"
-        "}"
-        "QPushButton:pressed {"
-        "  background-color: rgba(0, 170, 255, 100);"
-        "  border: 2px solid #0088cc;"
-        "}";
+            "QPushButton {"
+            "  background-color: rgba(20, 20, 40, 200);"
+            "  border: 2px solid #00aaff;"
+            "  border-radius: 10px;"
+            "  color: white;"
+            "  font-family: 'Ravie';"
+            "  font-size: 12px;"
+            "  padding: 5px;"
+            "}"
+            "QPushButton:hover {"
+            "  background-color: rgba(0, 170, 255, 50);"
+            "  border: 2px solid #ffffff;"
+            "  color: #00ffff;"
+            "}"
+            "QPushButton:pressed {"
+            "  background-color: rgba(0, 170, 255, 100);"
+            "  border: 2px solid #0088cc;"
+            "}";
 
     if (paramsButton) paramsButton->setStyleSheet(btnStyle);
     if (editButton) editButton->setStyleSheet(btnStyle);
     if (zoomOutButton) zoomOutButton->setStyleSheet(btnStyle);
 
     QString windowStyle =
-        "QWidget {"
-        "  background-color: rgba(10, 10, 20, 240);"
-        "  border: 1px solid #00aaff;"
-        "  border-radius: 15px;"
-        "}"
-        "QLabel#titleLabel {"
-        "  background: transparent;"
-        "  border: none;"
-        "  color: #00ffff;"
-        "  font-family: 'Ravie';"
-        "  font-size: 14px;"
-        "  margin-bottom: 5px;"
-        "}"
-        "QTextEdit {"
-        "  background-color: rgba(0, 0, 0, 50);"
-        "  border: none;"
-        "  color: #d0e0ff;"
-        "  font-family: 'Segoe UI', sans-serif;"
-        "  font-size: 13px;"
-        "}";
+            "QWidget {"
+            "  background-color: rgba(10, 10, 20, 240);"
+            "  border: 1px solid #00aaff;"
+            "  border-radius: 15px;"
+            "}"
+            "QLabel#titleLabel {"
+            "  background: transparent;"
+            "  border: none;"
+            "  color: #00ffff;"
+            "  font-family: 'Ravie';"
+            "  font-size: 14px;"
+            "  margin-bottom: 5px;"
+            "}"
+            "QTextEdit {"
+            "  background-color: rgba(0, 0, 0, 50);"
+            "  border: none;"
+            "  color: #d0e0ff;"
+            "  font-family: 'Segoe UI', sans-serif;"
+            "  font-size: 13px;"
+            "}";
 
     if (paramsWindow) paramsWindow->setStyleSheet(windowStyle);
 }

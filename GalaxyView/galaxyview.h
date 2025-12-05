@@ -107,11 +107,16 @@ private slots:
     void on_zoomOutButton_clicked();
 
     /**
- * @brief Displays the parameters window for a specific object.
+ * @brief Displays the parameters window for a specific object of galaxy.
  * Triggered internally after a vertex double-click event.
  */
 
     void showObjectParameters(CelestialObject *obj);
+    /**
+     * @brief Displays the parameters window for a specific planet of star system.
+     * Triggered internally after a vertex double-click event if this event has already been triggered.
+     */
+    void showPlanetParameters(Planet *planet);
 
     /**
              * @brief Qt Slot: Called when "Edit" is clicked (in object-focus mode).
@@ -141,41 +146,43 @@ private:
     QPushButton *editButton = nullptr;
     QPushButton *zoomOutButton = nullptr;
     std::vector<QPointF> vertexPositions;
-    void editStarSystem(StarSystem* system);
-    void editNebula(Nebula* nebula);
+
+    void editStarSystem(StarSystem *system);
+
+    void editNebula(Nebula *nebula);
 
     void applySpaceStyle();
 
-    PhysicsEngine* physicsEngine = nullptr;
-    GalaxyPhysicsController* physicsController = nullptr;
-    BlackHoleGravityField* blackHoleField = nullptr;
-    QTimer* simulationTimer = nullptr;
+    PhysicsEngine *physicsEngine = nullptr;
+    GalaxyPhysicsController *physicsController = nullptr;
+    BlackHoleGravityField *blackHoleField = nullptr;
+    QTimer *simulationTimer = nullptr;
 
     void initPhysicsSimulation();
 
     void checkForNewObjects();
 
-    void createPhysicsBody(CelestialObject* obj);
+    void createPhysicsBody(CelestialObject *obj);
 
     QPointF physicsToScreen(double x, double y);
 
     int startNodeId = -1;
     int endNodeId = -1;
 
-    std::vector<std::pair<int, int>> pathEdges;
+    std::vector<std::pair<int, int> > pathEdges;
 
     void resetPathSelection();
 
     void calculateShortestPath();
 
-    QWidget* pathInfoWidget = nullptr;
-    QLabel* pathStatusLabel = nullptr;
-    QLabel* pathDetailsLabel = nullptr;
-    QLabel* pathDistanceLabel = nullptr;
+    QWidget *pathInfoWidget = nullptr;
+    QLabel *pathStatusLabel = nullptr;
+    QLabel *pathDetailsLabel = nullptr;
+    QLabel *pathDistanceLabel = nullptr;
 
     void setupPathInfoWidget();
-    void updatePathDistanceText();
 
+    void updatePathDistanceText();
 };
 
 #endif //GALAXYVIEW_H
