@@ -8,7 +8,7 @@ Planet::Planet(const std::string &name, double mass, double orbit, double speed,
         throw std::invalid_argument("Mass should be above zero!");
     if(orbit<= 0)
         throw std::invalid_argument("Planet can't exist that close to a star!");
-
+    rings = false;
 }
 
 
@@ -68,4 +68,26 @@ void Planet::setColor(QColor newColor) {
     color = newColor;
 }
 
+void Planet::setRings(bool hasRings, double innerFactor, double outerFactor, QColor rColor) {
+    rings = hasRings;
+    ringInnerRadiusFactor = innerFactor;
+    ringOuterRadiusFactor = outerFactor;
+    ringColor = rColor;
+}
+
+bool Planet::hasRings() const {
+    return rings;
+}
+
+double Planet::getRingInnerFactor() const {
+    return ringInnerRadiusFactor;
+}
+
+double Planet::getRingOuterFactor() const {
+    return ringOuterRadiusFactor;
+}
+
+QColor Planet::getRingColor() const {
+    return ringColor;
+}
 

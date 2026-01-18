@@ -23,7 +23,10 @@ private:
     bool habitable;
     QColor color = QColor(0, 0, 0);
     std::string texturePath;
-
+    bool rings = false;
+    double ringInnerRadiusFactor = 0.0;
+    double ringOuterRadiusFactor = 0.0;
+    QColor ringColor = Qt::transparent;
 public:
     /// Enum representing all supported planet types.
     enum class planetType { Gas_Giant, Dwarf, Terrestrial_Planet };
@@ -73,6 +76,12 @@ public:
     std::string getType() const override;
 
     planetType getPlanetType() const;
+
+    void setRings(bool hasRings, double innerFactor = 0.0, double outerFactor = 0.0, QColor rColor = Qt::transparent);
+    bool hasRings() const;
+    double getRingInnerFactor() const;
+    double getRingOuterFactor() const;
+    QColor getRingColor() const;
 
 private:
     planetType planet_type; ///< Specific type of the planet (Gas_Giant, Terrestrial, Dwarf).

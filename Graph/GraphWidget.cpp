@@ -2,6 +2,7 @@
 #include <QtGui/QPainter>
 #include <QMouseEvent>
 #include <QDateTime>
+#include <QPainterPath>
 #include <RandomUtilities.h>
 
 GraphWidget::GraphWidget(QWidget *parent)
@@ -51,23 +52,20 @@ void GraphWidget::mouseDoubleClickEvent(QMouseEvent *event) {
             if (obj->getType() == "StarSystem") {
                 StarSystem *system = dynamic_cast<StarSystem *>(obj);
                 if (system) {
-                    double starRadius = 24.0 * 3.0; // Врахування масштабу
-                    // Використовуємо новий метод (але передаємо базовий радіус без скейлу, тому ділимо на 3)
+                    double starRadius = 24.0 * 3.0;
                     double orbitStart = calculateOrbitStart(system, 24.0);
 
                     QPointF center(width() / 2.0, height() / 2.0);
-                    double effectiveScale = 3.0; // Масштаб, який використовується в paintEvent
+                    double effectiveScale = 3.0;
 
                     for (size_t i = 0; i < system->getPlanets().size(); ++i) {
                         Planet *planet = system->getPlanets()[i];
 
-                        // Отримуємо зміщення через новий метод
                         QPointF offset = calculatePlanetOffset(planet, i, system->getPlanets().size(), orbitStart);
 
-                        // Координати планети на екрані = Центр + (Зміщення * Масштаб)
                         QPointF planetPos = center + (offset * effectiveScale);
 
-                        double clickRadius = 30.0; // Допуск для кліку
+                        double clickRadius = 30.0;
                         double dx = clickPt.x() - planetPos.x();
                         double dy = clickPt.y() - planetPos.y();
 
@@ -181,21 +179,148 @@ void GraphWidget::paintEvent(QPaintEvent *event) {
         StarSystem *system = dynamic_cast<StarSystem *>(obj);
 
         if (system && detailedPlanetIndex >= 0 && detailedPlanetIndex < system->getPlanets().size()) {
-            Planet *planet = system->getPlanets()[detailedPlanetIndex];
+            Planet* planet = system->getPlanets()[detailedPlanetIndex];
 
-            // Малюємо ОДНУ велику планету по центру
             double centerX = width() / 2.0;
             double centerY = height() / 2.0;
-            double planetRadius = 150.0; // Велика планета
+            double planetRadius = 150.0;
 
-            // Градієнт для атмосфери/об'єму
-            QRadialGradient grad(centerX - 40, centerY - 40, planetRadius);
-            grad.setColorAt(0, planet->getColor().lighter(120));
-            grad.setColorAt(1, planet->getColor().darker(150));
+            unsigned int seed = detailedVertexId * 100 + detailedPlanetIndex;
+            RandomGenerator planetRng(seed);
 
+            bool hasRings = planet->hasRings();
+            double ringInnerRadius = planetRadius * planet->getRingInnerFactor();
+            double ringOuterRadius = planetRadius * planet->getRingOuterFactor();
+            QColor ringColor = planet->getRingColor();
+            double ringTilt = 0.3;
+            double timeSec = QDateTime::currentMSecsSinceEpoch() / 1000.0;
+            int ringCount = planetRng.getInt(6000, 15000);
+
+            if (hasRings) {
+                painter.setBrush(Qt::NoBrush);
+                QColor baseColor = ringColor;
+                baseColor.setAlpha(15);
+                painter.setPen(QPen(baseColor, 2));
+
+                for (double r = ringInnerRadius; r <= ringOuterRadius; r += 1.0) {
+                    painter.drawArc(QRectF(centerX - r, centerY - r * ringTilt, r * 2, r * 2 * ringTilt),
+                                    0 * 16, 180 * 16);
+                }
+
+                painter.setPen(QPen(QColor(ringColor.red(), ringColor.green(), ringColor.blue(), 60), 1));
+                painter.drawArc(QRectF(centerX - ringInnerRadius, centerY - ringInnerRadius * ringTilt,
+                                       ringInnerRadius * 2, ringInnerRadius * 2 * ringTilt), 0 * 16, 180 * 16);
+                painter.drawArc(QRectF(centerX - ringOuterRadius, centerY - ringOuterRadius * ringTilt,
+                                       ringOuterRadius * 2, ringOuterRadius * 2 * ringTilt), 0 * 16, 180 * 16);
+
+                painter.setPen(Qt::NoPen);
+                for (int i = 0; i < ringCount / 2; ++i) {
+                    double angle = planetRng.getDouble(M_PI, 2 * M_PI);
+                    double dist = planetRng.getDouble(ringInnerRadius, ringOuterRadius);
+                    double wobble = std::sin(timeSec * 2.0 + i * 0.1) * 2.0;
+
+                    double animatedDist = dist + wobble;
+
+                    double px = centerX + animatedDist * std::cos(angle);
+                    double py = centerY + animatedDist * std::sin(angle) * ringTilt;
+                    int alpha = planetRng.getInt(20, 100);
+                    painter.setBrush(QColor(ringColor.red(), ringColor.green(), ringColor.blue(), alpha));
+
+                    double baseSize = 0.25;
+                    double variance = std::pow(planetRng.getDouble(0.0, 1.0), 3.0) * 1.25;
+                    double particleSize = baseSize + variance;
+
+                    painter.drawEllipse(QPointF(px, py), particleSize, particleSize);
+                }
+            }
+            if (planet->isHabitable()) {
+                double atmRadius = planetRadius * 1.25;
+                QRadialGradient atmGrad(centerX, centerY, atmRadius);
+                atmGrad.setColorAt(0.5, QColor(100, 200, 255, 130));
+                atmGrad.setColorAt(0.8, QColor(100, 200, 255, 30));
+                atmGrad.setColorAt(1.0, Qt::transparent);
+
+                painter.setBrush(atmGrad);
+                painter.setPen(Qt::NoPen);
+                painter.drawEllipse(QPointF(centerX, centerY), atmRadius, atmRadius);
+            }
+
+            painter.setBrush(planet->getColor());
             painter.setPen(Qt::NoPen);
-            painter.setBrush(grad);
             painter.drawEllipse(QPointF(centerX, centerY), planetRadius, planetRadius);
+
+            painter.save();
+            QPainterPath path;
+            path.addEllipse(QPointF(centerX, centerY), planetRadius, planetRadius);
+            painter.setClipPath(path);
+
+            int spotsCount = planetRng.getInt(5, 12);
+            for(int k=0; k<spotsCount; ++k) {
+                bool darker = planetRng.getBool();
+                QColor spotColor = darker ? planet->getColor().darker(140) : planet->getColor().lighter(140);
+                spotColor.setAlpha(180);
+
+                painter.setBrush(spotColor);
+                painter.setPen(Qt::NoPen);
+
+                double spotX = centerX + planetRng.getDouble(-planetRadius*0.75, planetRadius*0.75);
+                double spotY = centerY + planetRng.getDouble(-planetRadius*0.75, planetRadius*0.75);
+                double spotW = planetRng.getDouble(planetRadius*0.1, planetRadius*0.3);
+                double spotH = spotW * 0.6;
+
+                painter.drawEllipse(QPointF(spotX, spotY), spotW, spotH);
+            }
+            painter.restore();
+
+            QRadialGradient shadowGrad(centerX - 40, centerY - 40, planetRadius);
+
+            shadowGrad.setColorAt(0.0, QColor(255, 255, 255, 30));
+
+            shadowGrad.setColorAt(0.5, Qt::transparent);
+
+            shadowGrad.setColorAt(1.0, QColor(0, 0, 0, 120));
+
+            painter.setBrush(shadowGrad);
+            painter.setPen(Qt::NoPen);
+            painter.drawEllipse(QPointF(centerX, centerY), planetRadius, planetRadius);
+            painter.restore();
+            if (hasRings) {
+                painter.setBrush(Qt::NoBrush);
+                QColor baseColor = ringColor;
+                baseColor.setAlpha(15);
+                painter.setPen(QPen(baseColor, 2));
+
+                for (double r = ringInnerRadius; r <= ringOuterRadius; r += 1.0) {
+                    painter.drawArc(QRectF(centerX - r, centerY - r * ringTilt, r * 2, r * 2 * ringTilt),
+                                    180 * 16, 180 * 16);
+                }
+
+                painter.setPen(QPen(QColor(ringColor.red(), ringColor.green(), ringColor.blue(), 60), 1));
+                painter.drawArc(QRectF(centerX - ringInnerRadius, centerY - ringInnerRadius * ringTilt,
+                                       ringInnerRadius * 2, ringInnerRadius * 2 * ringTilt), 180 * 16, 180 * 16);
+                painter.drawArc(QRectF(centerX - ringOuterRadius, centerY - ringOuterRadius * ringTilt,
+                                       ringOuterRadius * 2, ringOuterRadius * 2 * ringTilt), 180 * 16, 180 * 16);
+
+                painter.setPen(Qt::NoPen);
+                for (int i = 0; i < ringCount / 2; ++i) {
+                    double angle = planetRng.getDouble(0, M_PI);
+                    double dist = planetRng.getDouble(ringInnerRadius, ringOuterRadius);
+                    double wobble = std::sin(timeSec * 2.0 + i * 0.1) * 2.0;
+                    double animatedDist = dist + wobble;
+
+                    double px = centerX + animatedDist * std::cos(angle);
+                    double py = centerY + animatedDist * std::sin(angle) * ringTilt;
+                    int alpha = planetRng.getInt(20, 100);
+                    painter.setBrush(QColor(ringColor.red(), ringColor.green(), ringColor.blue(), alpha));
+
+                    double baseSize = 0.25;
+                    double variance = std::pow(planetRng.getDouble(0.0, 1.0), 3.0) * 1.25;
+                    double particleSize = baseSize + variance;
+
+                    painter.drawEllipse(QPointF(px, py), particleSize, particleSize);
+                }
+            }
+
             return;
         }
     }
@@ -355,22 +480,6 @@ void GraphWidget::paintEvent(QPaintEvent *event) {
                                          focusedV.y + starRadius + 85),
                                  focusedV.name);
 
-                // double minMass = std::numeric_limits<double>::max();
-                // double maxMass = std::numeric_limits<double>::lowest();
-                //
-                // for (const auto &p: system->getPlanets()) {
-                //     minMass = std::min(minMass, p->getMass());
-                //     maxMass = std::max(maxMass, p->getMass());
-                // }
-                // if (maxMass == minMass) maxMass = minMass + 1.0;
-                //
-                // int maxPlanetRadius = 5;
-                // for (const auto &p: system->getPlanets()) {
-                //     double massNorm = (p->getMass() - minMass) / (maxMass - minMass);
-                //     int planetRadius = int(4.0 + 8.0 * massNorm);
-                //     maxPlanetRadius = std::max(maxPlanetRadius, planetRadius);
-                // }
-
                 double orbitStart = calculateOrbitStart(system, starRadius);
 
                 static RandomGenerator rng;
@@ -385,14 +494,10 @@ void GraphWidget::paintEvent(QPaintEvent *event) {
                 for (size_t i = 0; i < system->getPlanets().size(); ++i) {
                     Planet *planet = system->getPlanets()[i];
 
-                    // Використовуємо новий метод!
                     QPointF offset = calculatePlanetOffset(planet, i, system->getPlanets().size(), orbitStart);
 
-                    // Координати планети (в системі координат painter'а, яка вже зміщена до центру зірки)
                     QPointF planetCenter(focusedV.x + offset.x(), focusedV.y + offset.y());
 
-                    // Малюємо орбіту
-                    // Радіус орбіти - це довжина вектора зміщення
                     double currentOrbitRadius = std::sqrt(offset.x() * offset.x() + offset.y() * offset.y());
 
                     painter.setPen(QPen(Qt::darkGray, 1, Qt::DotLine));
@@ -400,12 +505,7 @@ void GraphWidget::paintEvent(QPaintEvent *event) {
                     painter.drawEllipse(center, currentOrbitRadius, currentOrbitRadius);
                     painter.setPen(Qt::NoPen);
 
-                    // Розрахунок розміру планети (залишаємо локально або теж можна винести)
-                    // Для спрощення тут можна продублювати розрахунок маси або просто взяти radius2
-                    // Щоб код був ідеальним, radius2 теж варто рахувати в calculatePlanetOffset або окремому методі,
-                    // але для візуалізації можна залишити тут розрахунок розміру:
                     double minMass = std::numeric_limits<double>::max();
-                    // Повторний пошук мас для радіуса (не критично)
                     double maxMass = std::numeric_limits<double>::lowest();
                     for (auto *p: system->getPlanets()) {
                         minMass = std::min(minMass, p->getMass());
@@ -568,7 +668,6 @@ void GraphWidget::paintEvent(QPaintEvent *event) {
     }
 }
 
-// GraphWidget.cpp
 double GraphWidget::calculateOrbitStart(StarSystem *system, double starRadius) {
     double minMass = std::numeric_limits<double>::max();
     double maxMass = std::numeric_limits<double>::lowest();

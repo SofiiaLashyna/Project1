@@ -237,6 +237,48 @@ public:
         else if (pTypeStr == "Terrestrial_Planet") pType = Planet::planetType::Terrestrial_Planet;
         else if (pTypeStr == "Dwarf") pType = Planet::planetType::Dwarf;
         Planet *planet = new Planet(planetName, planetMass, distance, speed, inclination, pType, false);
+
+        QColor pColor;
+        if (pType == Planet::planetType::Gas_Giant) {
+            int choice = rng.getInt(0, 2);
+            if (choice == 0) pColor = QColor::fromHsv(rng.getInt(20, 40), rng.getInt(50, 150), rng.getInt(200, 255));
+
+            else if (choice == 1) pColor = QColor::fromHsv(rng.getInt(180, 220), rng.getInt(30, 100),
+                                                           rng.getInt(200, 255)); // Icy Blue
+            else pColor = QColor::fromHsv(rng.getInt(0, 30), rng.getInt(100, 200), rng.getInt(150, 230)); // Brownish
+        } else if (pType == Planet::planetType::Terrestrial_Planet) {
+            int choice = rng.getInt(0, 3);
+            if (choice == 0) pColor = QColor::fromHsv(rng.getInt(100, 140), rng.getInt(100, 255), rng.getInt(100, 255));
+
+            else if (choice == 1) pColor = QColor::fromHsv(rng.getInt(200, 240), rng.getInt(100, 200),
+                                                           rng.getInt(150, 255)); // Water Blue
+            else if (choice == 2) pColor = QColor::fromHsv(rng.getInt(0, 20), rng.getInt(150, 255),
+                                                           rng.getInt(100, 200)); // Mars Red
+            else pColor = QColor::fromHsv(rng.getInt(0, 360), 0, rng.getInt(100, 200)); // Rocky Gray
+        } else {
+            int choice = rng.getInt(0, 1);
+            if (choice == 0) pColor = QColor::fromHsv(rng.getInt(180, 260), rng.getInt(10, 50), rng.getInt(200, 255));
+
+            else pColor = QColor::fromHsv(0, 0, rng.getInt(100, 200)); // Rock
+        }
+
+        planet->setColor(pColor);
+
+        bool hasRings = false;
+        if (pType == Planet::planetType::Gas_Giant) {
+            hasRings = rng.getInt(0, 10) > 3;
+        } else {
+            hasRings = rng.getInt(0, 10) > 8;
+        }
+
+        if (hasRings) {
+            double innerFactor = 1.2;
+            double outerFactor = rng.getDouble(1.5, 2.8);
+
+            QColor rColor = planet->getColor().lighter(130);
+
+            planet->setRings(true, innerFactor, outerFactor, rColor);
+        }
         return planet;
     }
 
