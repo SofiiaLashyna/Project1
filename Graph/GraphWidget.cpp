@@ -245,6 +245,53 @@ void GraphWidget::paintEvent(QPaintEvent *event) {
                 painter.drawEllipse(QPointF(centerX, centerY), atmRadius, atmRadius);
             }
 
+            double tiltAngle = planet->getInclination();
+
+            if (std::abs(tiltAngle) > 1.0) {
+                painter.save();
+                painter.translate(centerX, centerY);
+
+                double axisLen = planetRadius * 1.6; // Довжина осі (щоб стирчала)
+                double arcRad = planetRadius * 1.2;  // Радіус дуги (більший за планету, щоб виглядало з-за неї)
+
+                // 1. Вертикальна лінія (Еталон - білий пунктир)
+                // Це "північ" екліптики
+                painter.setPen(QPen(QColor(255, 255, 255, 100), 1, Qt::DashLine));
+                painter.drawLine(QPointF(0, -axisLen), QPointF(0, axisLen));
+
+                // 2. Дуга кута (Сектор між вертикаллю і нахилом)
+                // Малюємо жовтуватим, напівпрозорим
+                painter.setPen(QPen(QColor(255, 255, 100, 150), 2));
+                painter.drawArc(QRectF(-arcRad, -arcRad, arcRad * 2, arcRad * 2),
+                                90 * 16, -tiltAngle * 16);
+
+                painter.setPen(QPen(QColor(255, 255, 255, 220))); // Білий текст
+                QFont font = painter.font();
+                font.setPixelSize(14); // Розмір шрифту (підбери під себе)
+                font.setBold(true);
+                painter.setFont(font);
+
+                // Форматуємо число: 23.456 -> "23.46°"
+                QString angleText = QString::number(tiltAngle, 'f', 2) + "°";
+
+                // Малюємо текст трохи вище кінця вертикальної лінії
+                // QRectF створює невидиму рамку шириною 100 пікселів, центровану по горизонталі
+                QRectF textRect(-50, -axisLen - 25, 100, 20);
+                painter.drawText(textRect, Qt::AlignCenter, angleText);
+
+                painter.rotate(tiltAngle);
+
+                QPen tiltPen(QColor(255, 255, 255, 200), 2, Qt::SolidLine);
+                painter.setPen(tiltPen);
+                painter.drawLine(QPointF(0, -axisLen), QPointF(0, axisLen));
+
+                painter.setBrush(Qt::white);
+                painter.setPen(Qt::NoPen);
+                painter.drawEllipse(QPointF(0, -planetRadius), 3, 3); // North
+                painter.drawEllipse(QPointF(0, planetRadius), 3, 3);  // South
+                painter.restore();
+            }
+
             painter.setBrush(planet->getColor());
             painter.setPen(Qt::NoPen);
             painter.drawEllipse(QPointF(centerX, centerY), planetRadius, planetRadius);
@@ -283,7 +330,7 @@ void GraphWidget::paintEvent(QPaintEvent *event) {
             painter.setBrush(shadowGrad);
             painter.setPen(Qt::NoPen);
             painter.drawEllipse(QPointF(centerX, centerY), planetRadius, planetRadius);
-            painter.restore();
+
             if (hasRings) {
                 painter.setBrush(Qt::NoBrush);
                 QColor baseColor = ringColor;

@@ -82,6 +82,7 @@ public:
     double getRingInnerFactor() const;
     double getRingOuterFactor() const;
     QColor getRingColor() const;
+    double getInclination() const;
 
 private:
     planetType planet_type; ///< Specific type of the planet (Gas_Giant, Terrestrial, Dwarf).

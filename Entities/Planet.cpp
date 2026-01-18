@@ -91,3 +91,6 @@ QColor Planet::getRingColor() const {
     return ringColor;
 }
 
+double Planet::getInclination() const {
+    return inclination;
+}
