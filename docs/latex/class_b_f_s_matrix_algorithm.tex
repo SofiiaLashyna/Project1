@@ -1,0 +1,90 @@
+\doxysection{BFSMatrix\+Algorithm\texorpdfstring{$<$}{<} T \texorpdfstring{$>$}{>} Class Template Reference}
+\hypertarget{class_b_f_s_matrix_algorithm}{}\label{class_b_f_s_matrix_algorithm}\index{BFSMatrixAlgorithm$<$ T $>$@{BFSMatrixAlgorithm$<$ T $>$}}
+
+
+Strategy class executing BFS on a \doxylink{class_graph_matrix}{Graph\+Matrix}.  
+
+
+
+
+{\ttfamily \#include $<$BFSMatrix.\+h$>$}
+
+Inheritance diagram for BFSMatrix\+Algorithm\texorpdfstring{$<$}{<} T \texorpdfstring{$>$}{>}\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_b_f_s_matrix_algorithm}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{class_b_f_s_matrix_algorithm_a85a2b8bb0c1ca6b65c7443fac83d9957}{run}} (\mbox{\hyperlink{class_graph_matrix}{Graph\+Matrix}}$<$ T $>$ \&g, int start\+Id, int end\+Id=-\/1) override
+\begin{DoxyCompactList}\small\item\em Performs BFS on a graph represented by an adjacency matrix. \end{DoxyCompactList}\item 
+\Hypertarget{class_b_f_s_matrix_algorithm_aa58ec9e7862efdd7459e3c0c04789b7c}\label{class_b_f_s_matrix_algorithm_aa58ec9e7862efdd7459e3c0c04789b7c} 
+{\bfseries \texorpdfstring{$\sim$}{\string~}\+BFSMatrix\+Algorithm} ()=default
+\begin{DoxyCompactList}\small\item\em Default destructor. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{class_graph_algorithm}{Graph\+Algorithm$<$ Graph\+Matrix$<$ T $>$, T $>$}}}
+\begin{DoxyCompactItemize}
+\item 
+virtual {\bfseries \texorpdfstring{$\sim$}{\string~}\+Graph\+Algorithm} ()=default
+\begin{DoxyCompactList}\small\item\em Virtual destructor. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\subsubsection*{template$<$typename T$>$\newline
+class BFSMatrix\+Algorithm$<$ T $>$}
+Strategy class executing BFS on a \doxylink{class_graph_matrix}{Graph\+Matrix}. 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em T} & The data type in graph vertices. \\
+\hline
+\end{DoxyTemplParams}
+
+
+\label{doc-func-members}
+\Hypertarget{class_b_f_s_matrix_algorithm_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_b_f_s_matrix_algorithm_a85a2b8bb0c1ca6b65c7443fac83d9957}\index{BFSMatrixAlgorithm$<$ T $>$@{BFSMatrixAlgorithm$<$ T $>$}!run@{run}}
+\index{run@{run}!BFSMatrixAlgorithm$<$ T $>$@{BFSMatrixAlgorithm$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{run()}{run()}}
+{\footnotesize\ttfamily \label{class_b_f_s_matrix_algorithm_a85a2b8bb0c1ca6b65c7443fac83d9957} 
+template$<$typename T$>$ \\
+int \mbox{\hyperlink{class_b_f_s_matrix_algorithm}{BFSMatrix\+Algorithm}}$<$ T $>$\+::run (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_graph_matrix}{Graph\+Matrix}}$<$ T $>$ \&}]{g}{, }\item[{int}]{start\+Id}{, }\item[{int}]{end\+Id}{ = {\ttfamily -\/1}}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Performs BFS on a graph represented by an adjacency matrix. 
+
+The traversal order is printed to std\+::cout. The graph is not modified.
+
+
+\begin{DoxyParams}{Parameters}
+{\em g} & The \doxylink{class_graph_matrix}{Graph\+Matrix} object to traverse. \\
+\hline
+{\em start\+Id} & ID of the starting vertex. \\
+\hline
+{\em end\+Id} & Ignored, kept for interface compatibility.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Always returns 0. 
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{class_graph_algorithm_a002a93f79b9204a814a7c9726dc69a78}{Graph\+Algorithm$<$ Graph\+Matrix$<$ T $>$, T $>$}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00032\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_b_f_s_matrix_algorithm}{Algorithms<GraphMatrix<T>}},\ \mbox{\hyperlink{class_b_f_s_matrix_algorithm}{T}}>\ \mbox{\hyperlink{class_b_f_s_matrix_algorithm}{alg}}(\mbox{\hyperlink{class_b_f_s_matrix_algorithm}{g}});}
+\DoxyCodeLine{00033\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_b_f_s_matrix_algorithm}{alg}}.BFS\_matrix(\mbox{\hyperlink{class_b_f_s_matrix_algorithm}{startId}});}
+\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{00035\ \ \ \ \ \}}
+
+\end{DoxyCode}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Algorithms/\mbox{\hyperlink{_b_f_s_matrix_8h}{BFSMatrix.\+h}}\end{DoxyCompactItemize}

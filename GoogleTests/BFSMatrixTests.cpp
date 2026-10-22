@@ -1,6 +1,6 @@
 #include <RAIIGuard.h>
-
-#include "Algorithm.h"
+#include <BFSMatrix.h>
+#include "GraphAlgorithms.h"
 #include "GraphMatrix.h"
 #include <string>
 #include "gtest/gtest.h"
@@ -9,8 +9,8 @@
 TEST_F(BFSMatrixFixture, BasicBFS) {
     std::stringstream out;
     CoutGuard guard(out);
-    alg->BFS_matrix(1);
 
+    bfsAlg->run(g, 1);
     std::string bfsOutput = out.str();
 
     std::istringstream iss(bfsOutput);
@@ -27,27 +27,24 @@ TEST_F(BFSMatrixFixture, BasicBFS) {
         FAIL() << "Output is too short to contain BFS data";
     }
 }
-TEST(BFSMatrixTests, EmptyGraph) {
+TEST_F(BFSMatrixFixture, EmptyGraph) {
     GraphMatrix<std::string> g;
-    Algorithms<GraphMatrix<std::string>, std::string> alg(g);
 
     std::stringstream out;
     CoutGuard guard(out);
-    alg.BFS_matrix(1);
+    bfsAlg->run(g, 1);
 
     std::string output = out.str();
     EXPECT_TRUE(output.empty()) << "BFS on empty graph should produce no output";
 }
 
-TEST(BFSMatrixTests, SingleVertex) {
+TEST_F(BFSMatrixFixture, SingleVertex) {
     GraphMatrix<std::string> g;
     g.addVertex(1, "A");
 
-    Algorithms<GraphMatrix<std::string>, std::string> alg(g);
-
     std::stringstream out;
     CoutGuard guard(out);
-    alg.BFS_matrix(1);
+    bfsAlg->run(g, 1);
 
     std::string bfsOutput = out.str();
     EXPECT_NE(bfsOutput.find("A"), std::string::npos) << "BFS should visit vertex A";

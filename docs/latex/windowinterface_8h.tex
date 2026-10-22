@@ -1,0 +1,27 @@
+\doxysection{Main\+Window/windowinterface.h File Reference}
+\hypertarget{windowinterface_8h}{}\label{windowinterface_8h}\index{MainWindow/windowinterface.h@{MainWindow/windowinterface.h}}
+
+
+Defines the main window class for the application.  
+
+
+{\ttfamily \#include $<$QWidget$>$}\newline
+{\ttfamily \#include "{}Random\+Utilities.\+h"{}}\newline
+{\ttfamily \#include "{}nlohmann/json.\+hpp"{}}\newline
+{\ttfamily \#include $<$fstream$>$}\newline
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{class_window_interface}{Window\+Interface}}
+\begin{DoxyCompactList}\small\item\em The main QWidget class that serves as the entry point of the UI. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Defines the main window class for the application. 
+
+\begin{DoxyNote}{Note}
+Ensure load\+Json\+Data() is called before attempting to generate the galaxy. 
+\end{DoxyNote}
+\begin{DoxySeeAlso}{See also}
+\doxylink{class_galaxy_view}{Galaxy\+View} 
+\end{DoxySeeAlso}

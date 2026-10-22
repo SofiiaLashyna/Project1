@@ -1,0 +1,369 @@
+\doxysection{Graph\texorpdfstring{$<$}{<} T \texorpdfstring{$>$}{>} Class Template Reference}
+\hypertarget{class_graph}{}\label{class_graph}\index{Graph$<$ T $>$@{Graph$<$ T $>$}}
+
+
+An abstract base class defining the interface for a graph structure.  
+
+
+
+
+{\ttfamily \#include $<$Graph.\+h$>$}
+
+Inheritance diagram for Graph\texorpdfstring{$<$}{<} T \texorpdfstring{$>$}{>}\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_graph_a2ccc82f656fb8cd443feef0add6e32a1}\label{class_graph_a2ccc82f656fb8cd443feef0add6e32a1} 
+virtual {\bfseries \texorpdfstring{$\sim$}{\string~}\+Graph} ()=default
+\begin{DoxyCompactList}\small\item\em Default virtual destructor. \end{DoxyCompactList}\item 
+const std\+::vector$<$ \mbox{\hyperlink{class_vertex}{Vertex}}$<$ T $>$ $>$ \& \mbox{\hyperlink{class_graph_a07f5e993208f94a3317370e567fe1f85}{get\+Vertices}} () const
+\begin{DoxyCompactList}\small\item\em Gets a constant reference to the vector of vertices. \end{DoxyCompactList}\item 
+const std\+::vector$<$ \mbox{\hyperlink{class_edge}{Edge}}$<$ T $>$ $>$ \& \mbox{\hyperlink{class_graph_a440d4ce2ed2c0d957d3ebaf98c969599}{get\+Edges}} () const
+\begin{DoxyCompactList}\small\item\em Gets a constant reference to the vector of edges. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{class_graph_a6371204aa3d58d988b58e38ce6e4539d}{find\+Index\+By\+Id}} (int id) const
+\begin{DoxyCompactList}\small\item\em Finds the internal vector index for a vertex given its public ID. \end{DoxyCompactList}\item 
+virtual void \mbox{\hyperlink{class_graph_a12ad2745e70e6a943324bb9d838b8b1a}{construct\+Adjacency}} ()=0
+\begin{DoxyCompactList}\small\item\em Pure virtual method to construct the adjacency structure (List or Matrix). \end{DoxyCompactList}\item 
+virtual void \mbox{\hyperlink{class_graph_ae16fa8484fa8da1d50a32d56eca2ab65}{add\+Vertex}} (int id, T data)=0
+\begin{DoxyCompactList}\small\item\em Pure virtual method to add a new vertex. \end{DoxyCompactList}\item 
+virtual void \mbox{\hyperlink{class_graph_aa900eb7513aa4de87d89fcac3f2276ac}{add\+Edge}} (int f\+Id, int t\+Id, int weight=1)=0
+\begin{DoxyCompactList}\small\item\em Pure virtual method to add a new edge. \end{DoxyCompactList}\item 
+virtual void \mbox{\hyperlink{class_graph_a9d0f5262b2907aebbc45bec2921dff2f}{remove\+Vertex}} (int id)=0
+\begin{DoxyCompactList}\small\item\em Pure virtual method to remove a vertex. \end{DoxyCompactList}\item 
+virtual void \mbox{\hyperlink{class_graph_a9a49b970e67048dd310355034317f246}{remove\+Edge}} (int f\+Id, int t\+Id)=0
+\begin{DoxyCompactList}\small\item\em Pure virtual method to remove an edge. \end{DoxyCompactList}\item 
+virtual void \mbox{\hyperlink{class_graph_a1fb75b362b6bce22a77f0646cfdf73d0}{print}} () const =0
+\begin{DoxyCompactList}\small\item\em Pure virtual method to print the graph structure (e.\+g., to console). \end{DoxyCompactList}\item 
+T \mbox{\hyperlink{class_graph_aa45e9a5fe844587f2e1f38cd631e2fc4}{vertex\+Search}} (int id)
+\begin{DoxyCompactList}\small\item\em Searches for a vertex by its public ID. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_graph_acd93f77f0bf9eda8d34d78d96ba842d4}{edge\+Exists}} (int f\+Id, int t\+Id) const
+\begin{DoxyCompactList}\small\item\em Checks if an active edge exists between two vertex IDs. \end{DoxyCompactList}\item 
+std\+::vector$<$ T $>$ \mbox{\hyperlink{class_graph_a7100e8fbbca57ae52c6425d7f4f3950b}{get\+Neighbors}} (int id)
+\begin{DoxyCompactList}\small\item\em Returns a list of neighbor data for a given vertex ID. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_graph_a4677e7cca232583023ea6e4dcca62a6f}\label{class_graph_a4677e7cca232583023ea6e4dcca62a6f} 
+std\+::vector$<$ \mbox{\hyperlink{class_vertex}{Vertex}}$<$ T $>$ $>$ {\bfseries vertices}
+\begin{DoxyCompactList}\small\item\em The list of all vertices in the graph. \end{DoxyCompactList}\item 
+\Hypertarget{class_graph_ac32560ab2c280c1617b70f2a57f9c848}\label{class_graph_ac32560ab2c280c1617b70f2a57f9c848} 
+std\+::vector$<$ \mbox{\hyperlink{class_edge}{Edge}}$<$ T $>$ $>$ {\bfseries edges}
+\begin{DoxyCompactList}\small\item\em The list of all edges in the graph. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\subsubsection*{template$<$typename T$>$\newline
+class Graph$<$ T $>$}
+An abstract base class defining the interface for a graph structure. 
+
+This class provides the core storage (vertices, edges) and a common interface that concrete classes (\doxylink{class_graph_list}{Graph\+List}, \doxylink{class_graph_matrix}{Graph\+Matrix}) must implement. 
+\begin{DoxyTemplParams}{Template Parameters}
+{\em T} & The type of data stored in the vertices. \\
+\hline
+\end{DoxyTemplParams}
+
+
+\label{doc-func-members}
+\Hypertarget{class_graph_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_graph_aa900eb7513aa4de87d89fcac3f2276ac}\index{Graph$<$ T $>$@{Graph$<$ T $>$}!addEdge@{addEdge}}
+\index{addEdge@{addEdge}!Graph$<$ T $>$@{Graph$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{addEdge()}{addEdge()}}
+{\footnotesize\ttfamily \label{class_graph_aa900eb7513aa4de87d89fcac3f2276ac} 
+template$<$typename T$>$ \\
+virtual void \mbox{\hyperlink{class_graph}{Graph}}$<$ T $>$\+::add\+Edge (\begin{DoxyParamCaption}\item[{int}]{f\+Id}{, }\item[{int}]{t\+Id}{, }\item[{int}]{weight}{ = {\ttfamily 1}}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Pure virtual method to add a new edge. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em f\+Id} & The public ID of the \textquotesingle{}from\textquotesingle{} vertex. \\
+\hline
+{\em t\+Id} & The public ID of the \textquotesingle{}to\textquotesingle{} vertex. \\
+\hline
+{\em weight} & The weight of the edge (default is 1). \\
+\hline
+\end{DoxyParams}
+
+
+Implemented in \mbox{\hyperlink{class_graph_list_a87726137bc9355b67d575468896ae664}{Graph\+List$<$ T $>$}}, \mbox{\hyperlink{class_graph_list_a87726137bc9355b67d575468896ae664}{Graph\+List$<$ Celestial\+Object \texorpdfstring{$\ast$}{*} $>$}}, and \mbox{\hyperlink{class_graph_matrix_af9091b0d546d246377ce1c51616ba59d}{Graph\+Matrix$<$ T $>$}}.
+
+\Hypertarget{class_graph_ae16fa8484fa8da1d50a32d56eca2ab65}\index{Graph$<$ T $>$@{Graph$<$ T $>$}!addVertex@{addVertex}}
+\index{addVertex@{addVertex}!Graph$<$ T $>$@{Graph$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{addVertex()}{addVertex()}}
+{\footnotesize\ttfamily \label{class_graph_ae16fa8484fa8da1d50a32d56eca2ab65} 
+template$<$typename T$>$ \\
+virtual void \mbox{\hyperlink{class_graph}{Graph}}$<$ T $>$\+::add\+Vertex (\begin{DoxyParamCaption}\item[{int}]{id}{, }\item[{T}]{data}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Pure virtual method to add a new vertex. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em id} & The public ID for the new vertex. \\
+\hline
+{\em data} & The data (of type T) to store in the vertex. \\
+\hline
+\end{DoxyParams}
+
+
+Implemented in \mbox{\hyperlink{class_graph_list_a8b07257fb4a4fc2c701dbbca73c1457d}{Graph\+List$<$ T $>$}}, \mbox{\hyperlink{class_graph_list_a8b07257fb4a4fc2c701dbbca73c1457d}{Graph\+List$<$ Celestial\+Object \texorpdfstring{$\ast$}{*} $>$}}, and \mbox{\hyperlink{class_graph_matrix_a4b0f8c9c4a89ab4e166d1616ee276848}{Graph\+Matrix$<$ T $>$}}.
+
+\Hypertarget{class_graph_a12ad2745e70e6a943324bb9d838b8b1a}\index{Graph$<$ T $>$@{Graph$<$ T $>$}!constructAdjacency@{constructAdjacency}}
+\index{constructAdjacency@{constructAdjacency}!Graph$<$ T $>$@{Graph$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{constructAdjacency()}{constructAdjacency()}}
+{\footnotesize\ttfamily \label{class_graph_a12ad2745e70e6a943324bb9d838b8b1a} 
+template$<$typename T$>$ \\
+virtual void \mbox{\hyperlink{class_graph}{Graph}}$<$ T $>$\+::construct\+Adjacency (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Pure virtual method to construct the adjacency structure (List or Matrix). 
+
+
+
+Implemented in \mbox{\hyperlink{class_graph_list_a6283932db72d378394c297cf8f67787a}{Graph\+List$<$ T $>$}}, \mbox{\hyperlink{class_graph_list_a6283932db72d378394c297cf8f67787a}{Graph\+List$<$ Celestial\+Object \texorpdfstring{$\ast$}{*} $>$}}, and \mbox{\hyperlink{class_graph_matrix_ac2b4a261fc30a5778d0c8016d34f78fb}{Graph\+Matrix$<$ T $>$}}.
+
+\Hypertarget{class_graph_acd93f77f0bf9eda8d34d78d96ba842d4}\index{Graph$<$ T $>$@{Graph$<$ T $>$}!edgeExists@{edgeExists}}
+\index{edgeExists@{edgeExists}!Graph$<$ T $>$@{Graph$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{edgeExists()}{edgeExists()}}
+{\footnotesize\ttfamily \label{class_graph_acd93f77f0bf9eda8d34d78d96ba842d4} 
+template$<$typename T$>$ \\
+bool \mbox{\hyperlink{class_graph}{Graph}}$<$ T $>$\+::edge\+Exists (\begin{DoxyParamCaption}\item[{int}]{f\+Id}{, }\item[{int}]{t\+Id}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Checks if an active edge exists between two vertex IDs. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em f\+Id} & The public ID of the first vertex. \\
+\hline
+{\em t\+Id} & The public ID of the second vertex. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+True if an active edge exists, false otherwise. 
+\end{DoxyReturn}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00107\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00108\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_graph}{f}}\ =\ \mbox{\hyperlink{class_graph_a6371204aa3d58d988b58e38ce6e4539d}{findIndexById}}(\mbox{\hyperlink{class_graph}{fId}});}
+\DoxyCodeLine{00109\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_graph}{t}}\ =\ \mbox{\hyperlink{class_graph_a6371204aa3d58d988b58e38ce6e4539d}{findIndexById}}(\mbox{\hyperlink{class_graph}{tId}});}
+\DoxyCodeLine{00110\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{class_graph}{f}}\ ==\ -\/1\ ||\ \mbox{\hyperlink{class_graph}{t}}\ ==\ -\/1)\ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00111\ }
+\DoxyCodeLine{00112\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\ \&\mbox{\hyperlink{class_graph}{ed}}:\ \mbox{\hyperlink{class_graph_ac32560ab2c280c1617b70f2a57f9c848}{edges}})}
+\DoxyCodeLine{00113\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{class_graph}{ed}}.connects(\mbox{\hyperlink{class_graph}{f}},\ \mbox{\hyperlink{class_graph}{t}})\ \&\&\ \mbox{\hyperlink{class_graph}{ed}}.isActive())\ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00114\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00115\ \ \ \ \ \}}
+
+\end{DoxyCode}
+\Hypertarget{class_graph_a6371204aa3d58d988b58e38ce6e4539d}\index{Graph$<$ T $>$@{Graph$<$ T $>$}!findIndexById@{findIndexById}}
+\index{findIndexById@{findIndexById}!Graph$<$ T $>$@{Graph$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{findIndexById()}{findIndexById()}}
+{\footnotesize\ttfamily \label{class_graph_a6371204aa3d58d988b58e38ce6e4539d} 
+template$<$typename T$>$ \\
+int \mbox{\hyperlink{class_graph}{Graph}}$<$ T $>$\+::find\+Index\+By\+Id (\begin{DoxyParamCaption}\item[{int}]{id}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Finds the internal vector index for a vertex given its public ID. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em id} & The public ID of the vertex. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The internal index (0 to N-\/1), or -\/1 if not found. 
+\end{DoxyReturn}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_graph}{i}}\ =\ 0;\ \mbox{\hyperlink{class_graph}{i}}\ <\ \mbox{\hyperlink{class_graph_a4677e7cca232583023ea6e4dcca62a6f}{vertices}}.size();\ ++\mbox{\hyperlink{class_graph}{i}})}
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{class_graph_a4677e7cca232583023ea6e4dcca62a6f}{vertices}}[\mbox{\hyperlink{class_graph}{i}}].\mbox{\hyperlink{class_graph}{getId}}()\ ==\ \textcolor{keywordtype}{id})\ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{class_graph}{i}};}
+\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ -\/1;}
+\DoxyCodeLine{00050\ \ \ \ \ \}}
+
+\end{DoxyCode}
+\Hypertarget{class_graph_a440d4ce2ed2c0d957d3ebaf98c969599}\index{Graph$<$ T $>$@{Graph$<$ T $>$}!getEdges@{getEdges}}
+\index{getEdges@{getEdges}!Graph$<$ T $>$@{Graph$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{getEdges()}{getEdges()}}
+{\footnotesize\ttfamily \label{class_graph_a440d4ce2ed2c0d957d3ebaf98c969599} 
+template$<$typename T$>$ \\
+const std\+::vector$<$ \mbox{\hyperlink{class_edge}{Edge}}$<$ T $>$ $>$ \& \mbox{\hyperlink{class_graph}{Graph}}$<$ T $>$\+::get\+Edges (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Gets a constant reference to the vector of edges. 
+
+\begin{DoxyReturn}{Returns}
+Const reference to the edge vector. 
+\end{DoxyReturn}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00039\ \{\ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{class_graph_ac32560ab2c280c1617b70f2a57f9c848}{edges}};\ \}}
+
+\end{DoxyCode}
+\Hypertarget{class_graph_a7100e8fbbca57ae52c6425d7f4f3950b}\index{Graph$<$ T $>$@{Graph$<$ T $>$}!getNeighbors@{getNeighbors}}
+\index{getNeighbors@{getNeighbors}!Graph$<$ T $>$@{Graph$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{getNeighbors()}{getNeighbors()}}
+{\footnotesize\ttfamily \label{class_graph_a7100e8fbbca57ae52c6425d7f4f3950b} 
+template$<$typename T$>$ \\
+std\+::vector$<$ T $>$ \mbox{\hyperlink{class_graph}{Graph}}$<$ T $>$\+::get\+Neighbors (\begin{DoxyParamCaption}\item[{int}]{id}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Returns a list of neighbor data for a given vertex ID. 
+
+This method finds all vertices connected to the vertex with the given ID via active edges and returns their data as a vector of type T.
+
+
+\begin{DoxyParams}{Parameters}
+{\em id} & The public ID of the vertex whose neighbors are to be found. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+std\+::vector$<$\+T$>$ A vector containing the data of all neighboring vertices. 
+\end{DoxyReturn}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00125\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00126\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_graph}{std::vector<T>}}\ \mbox{\hyperlink{class_graph}{neighbors}};}
+\DoxyCodeLine{00127\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_graph}{idx}}\ =\ \mbox{\hyperlink{class_graph_a6371204aa3d58d988b58e38ce6e4539d}{findIndexById}}(\textcolor{keywordtype}{id});}
+\DoxyCodeLine{00128\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{class_graph}{idx}}\ ==\ -\/1)\ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{class_graph}{neighbors}};}
+\DoxyCodeLine{00129\ }
+\DoxyCodeLine{00130\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\&\ \mbox{\hyperlink{class_graph}{ed}}\ :\ \mbox{\hyperlink{class_graph_ac32560ab2c280c1617b70f2a57f9c848}{edges}})\ \{}
+\DoxyCodeLine{00131\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!\mbox{\hyperlink{class_graph}{ed}}.isActive())\ \textcolor{keywordflow}{continue};}
+\DoxyCodeLine{00132\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{class_graph}{ed}}.from\ ==\ \mbox{\hyperlink{class_graph}{idx}})\ \mbox{\hyperlink{class_graph}{neighbors}}.push\_back(\mbox{\hyperlink{class_graph_aa45e9a5fe844587f2e1f38cd631e2fc4}{vertexSearch}}(this-\/>\mbox{\hyperlink{class_graph_a4677e7cca232583023ea6e4dcca62a6f}{vertices}}[\mbox{\hyperlink{class_graph}{ed}}.to].getId()));}
+\DoxyCodeLine{00133\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{class_graph}{ed}}.to\ ==\ \mbox{\hyperlink{class_graph}{idx}})\ \mbox{\hyperlink{class_graph}{neighbors}}.push\_back(\mbox{\hyperlink{class_graph_aa45e9a5fe844587f2e1f38cd631e2fc4}{vertexSearch}}(this-\/>\mbox{\hyperlink{class_graph_a4677e7cca232583023ea6e4dcca62a6f}{vertices}}[\mbox{\hyperlink{class_graph}{ed}}.from].getId()));}
+\DoxyCodeLine{00134\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00135\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{class_graph}{neighbors}};}
+\DoxyCodeLine{00136\ \ \ \ \ \}}
+
+\end{DoxyCode}
+\Hypertarget{class_graph_a07f5e993208f94a3317370e567fe1f85}\index{Graph$<$ T $>$@{Graph$<$ T $>$}!getVertices@{getVertices}}
+\index{getVertices@{getVertices}!Graph$<$ T $>$@{Graph$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{getVertices()}{getVertices()}}
+{\footnotesize\ttfamily \label{class_graph_a07f5e993208f94a3317370e567fe1f85} 
+template$<$typename T$>$ \\
+const std\+::vector$<$ \mbox{\hyperlink{class_vertex}{Vertex}}$<$ T $>$ $>$ \& \mbox{\hyperlink{class_graph}{Graph}}$<$ T $>$\+::get\+Vertices (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Gets a constant reference to the vector of vertices. 
+
+\begin{DoxyReturn}{Returns}
+Const reference to the vertex vector. 
+\end{DoxyReturn}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00034\ \{\ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{class_graph_a4677e7cca232583023ea6e4dcca62a6f}{vertices}};\ \}}
+
+\end{DoxyCode}
+\Hypertarget{class_graph_a1fb75b362b6bce22a77f0646cfdf73d0}\index{Graph$<$ T $>$@{Graph$<$ T $>$}!print@{print}}
+\index{print@{print}!Graph$<$ T $>$@{Graph$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{print()}{print()}}
+{\footnotesize\ttfamily \label{class_graph_a1fb75b362b6bce22a77f0646cfdf73d0} 
+template$<$typename T$>$ \\
+virtual void \mbox{\hyperlink{class_graph}{Graph}}$<$ T $>$\+::print (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Pure virtual method to print the graph structure (e.\+g., to console). 
+
+
+
+Implemented in \mbox{\hyperlink{class_graph_list_ad2a738ae8f98be03d92eb41ee85ae6e7}{Graph\+List$<$ T $>$}}, \mbox{\hyperlink{class_graph_list_ad2a738ae8f98be03d92eb41ee85ae6e7}{Graph\+List$<$ Celestial\+Object \texorpdfstring{$\ast$}{*} $>$}}, and \mbox{\hyperlink{class_graph_matrix_a312d45b577f0794ab7479d9f3da7bc1b}{Graph\+Matrix$<$ T $>$}}.
+
+\Hypertarget{class_graph_a9a49b970e67048dd310355034317f246}\index{Graph$<$ T $>$@{Graph$<$ T $>$}!removeEdge@{removeEdge}}
+\index{removeEdge@{removeEdge}!Graph$<$ T $>$@{Graph$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{removeEdge()}{removeEdge()}}
+{\footnotesize\ttfamily \label{class_graph_a9a49b970e67048dd310355034317f246} 
+template$<$typename T$>$ \\
+virtual void \mbox{\hyperlink{class_graph}{Graph}}$<$ T $>$\+::remove\+Edge (\begin{DoxyParamCaption}\item[{int}]{f\+Id}{, }\item[{int}]{t\+Id}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Pure virtual method to remove an edge. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em f\+Id} & The public ID of the \textquotesingle{}from\textquotesingle{} vertex. \\
+\hline
+{\em t\+Id} & The public ID of the \textquotesingle{}to\textquotesingle{} vertex. IDs are external identifiers, not internal array indices. \\
+\hline
+\end{DoxyParams}
+
+
+Implemented in \mbox{\hyperlink{class_graph_list_ab3b29bf6b2d07ab283a7dc31701153f4}{Graph\+List$<$ T $>$}}, \mbox{\hyperlink{class_graph_list_ab3b29bf6b2d07ab283a7dc31701153f4}{Graph\+List$<$ Celestial\+Object \texorpdfstring{$\ast$}{*} $>$}}, and \mbox{\hyperlink{class_graph_matrix_ac58fb8956859adc453489f4b38d30bb9}{Graph\+Matrix$<$ T $>$}}.
+
+\Hypertarget{class_graph_a9d0f5262b2907aebbc45bec2921dff2f}\index{Graph$<$ T $>$@{Graph$<$ T $>$}!removeVertex@{removeVertex}}
+\index{removeVertex@{removeVertex}!Graph$<$ T $>$@{Graph$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{removeVertex()}{removeVertex()}}
+{\footnotesize\ttfamily \label{class_graph_a9d0f5262b2907aebbc45bec2921dff2f} 
+template$<$typename T$>$ \\
+virtual void \mbox{\hyperlink{class_graph}{Graph}}$<$ T $>$\+::remove\+Vertex (\begin{DoxyParamCaption}\item[{int}]{id}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Pure virtual method to remove a vertex. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em id} & The public ID of the vertex to remove. IDs are external identifiers, not internal array indices. \\
+\hline
+\end{DoxyParams}
+
+
+Implemented in \mbox{\hyperlink{class_graph_list_a75adf9611c4f57e87ec7283eaf494b6b}{Graph\+List$<$ T $>$}}, \mbox{\hyperlink{class_graph_list_a75adf9611c4f57e87ec7283eaf494b6b}{Graph\+List$<$ Celestial\+Object \texorpdfstring{$\ast$}{*} $>$}}, and \mbox{\hyperlink{class_graph_matrix_a3051eacf62c784a25b28600dc656969c}{Graph\+Matrix$<$ T $>$}}.
+
+\Hypertarget{class_graph_aa45e9a5fe844587f2e1f38cd631e2fc4}\index{Graph$<$ T $>$@{Graph$<$ T $>$}!vertexSearch@{vertexSearch}}
+\index{vertexSearch@{vertexSearch}!Graph$<$ T $>$@{Graph$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{vertexSearch()}{vertexSearch()}}
+{\footnotesize\ttfamily \label{class_graph_aa45e9a5fe844587f2e1f38cd631e2fc4} 
+template$<$typename T$>$ \\
+T \mbox{\hyperlink{class_graph}{Graph}}$<$ T $>$\+::vertex\+Search (\begin{DoxyParamCaption}\item[{int}]{id}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Searches for a vertex by its public ID. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em id} & The public ID of the vertex to search for. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The data of type T stored in the vertex. 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em std\+::runtime\+\_\+error} & If the vertex with the given ID is not found. \\
+\hline
+\end{DoxyExceptions}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00093\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\ \&\mbox{\hyperlink{class_graph}{vert}}:\ \mbox{\hyperlink{class_graph_a4677e7cca232583023ea6e4dcca62a6f}{vertices}})\ \{}
+\DoxyCodeLine{00094\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{class_graph}{vert}}.getId()\ ==\ \textcolor{keywordtype}{id})\ \{}
+\DoxyCodeLine{00095\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{class_graph}{vert}}.getData();}
+\DoxyCodeLine{00096\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00097\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00098\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ \mbox{\hyperlink{class_graph}{std::runtime\_error}}(\textcolor{stringliteral}{"{}Vertex\ not\ found"{}});}
+\DoxyCodeLine{00099\ \ \ \ \ \}}
+
+\end{DoxyCode}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Graph/\mbox{\hyperlink{_graph_8h}{Graph.\+h}}\end{DoxyCompactItemize}

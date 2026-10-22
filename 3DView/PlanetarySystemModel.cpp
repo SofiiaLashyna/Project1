@@ -65,7 +65,8 @@ void PlanetarySystemModel::updateSystem(StarSystem* system) {
             double massNorm = (p->getMass() - minMass) / (maxMass - minMass);
             data.size = 0.1 + (0.1 * massNorm);
             data.orbitRadius = baseOrbitStart + (i * orbitSpacing);
-            data.color = p->getColor().isValid() ? p->getColor() : QColor("white");
+            RGBColor c = p->getColor();
+            data.color = (c.r == 0 && c.g == 0 && c.b == 0) ? QColor("white") : QColor(c.r, c.g, c.b, c.a);
             data.speed = 5.0 * std::pow(data.orbitRadius, 1.5);
 
 

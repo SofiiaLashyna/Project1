@@ -1,0 +1,44 @@
+\doxysection{Is\+Connected\+Matrix.\+h}
+\hypertarget{_is_connected_matrix_8h_source}{}\label{_is_connected_matrix_8h_source}\index{Algorithms/IsConnectedMatrix.h@{Algorithms/IsConnectedMatrix.h}}
+\mbox{\hyperlink{_is_connected_matrix_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ ISCONNECTED\_MATRIX\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ ISCONNECTED\_MATRIX\_H}}
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_algorithm_8h}{Algorithm.h}}"{}}}
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_graph_matrix_8h}{GraphMatrix.h}}"{}}}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00016\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00017\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_is_connected_matrix}{IsConnectedMatrix}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_graph_algorithm}{GraphAlgorithm}}<GraphMatrix<T>,\ T>\ \{}
+\DoxyCodeLine{00018\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00028\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_is_connected_matrix_ae0f3658599e21335c499c0ae396cb0a8}{run}}(\mbox{\hyperlink{class_graph_matrix}{GraphMatrix<T>}}\ \&g,\ \textcolor{keywordtype}{int}\ startId\ =\ 0,\ \textcolor{keywordtype}{int}\ endId\ =\ -\/1)\textcolor{keyword}{\ override\ }\{}
+\DoxyCodeLine{00029\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ n\ =\ g.adjacencyMatrix.size();}
+\DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (n\ ==\ 0)\ \textcolor{keywordflow}{return}\ 1;}
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00032\ \ \ \ \ \ \ \ \ std::vector<bool>\ visited(n,\ \textcolor{keyword}{false});}
+\DoxyCodeLine{00033\ \ \ \ \ \ \ \ \ std::vector<int>\ stack;}
+\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ stack.push\_back(0);}
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}\ (!stack.empty())\ \{}
+\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ v\ =\ stack.back();}
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ \ \ \ \ stack.pop\_back();}
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (visited[v])\ \textcolor{keywordflow}{continue};}
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ \ \ \ \ visited[v]\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00041\ }
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ u\ =\ 0;\ u\ <\ n;\ ++u)}
+\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (g.adjacencyMatrix[v][u]\ \&\&\ !visited[u])}
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ stack.push\_back(u);}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ n;\ ++i)\ \{}
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!visited[i])}
+\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00051\ }
+\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ 1;}
+\DoxyCodeLine{00053\ \ \ \ \ \}}
+\DoxyCodeLine{00055\ \ \ \ \ \textcolor{keyword}{virtual}\ \mbox{\hyperlink{class_is_connected_matrix_a65ffe1f757fc089ba36252deee260723}{\string~IsConnectedMatrix}}()\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00056\ \};}
+\DoxyCodeLine{00057\ }
+\DoxyCodeLine{00058\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//ISCONNECTED\_MATRIX\_H}}
+
+\end{DoxyCode}

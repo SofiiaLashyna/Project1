@@ -5,6 +5,8 @@
 #include <QPushButton>
 #include "GraphList.h"
 #include "Galaxy.h"
+#include "GalaxyFactory.h"
+
 EditStarSystemDialog::EditStarSystemDialog(StarSystem *system,
                                            RandomGenerator *rng,
                                            const nlohmann::json *data,
@@ -64,7 +66,7 @@ void EditStarSystemDialog::saveChanges() {
         int diff = targetCount - currentCount;
         Galaxy<GraphList<CelestialObject *> > temp_galaxy;
         for (int i = 0; i < diff; ++i) {
-            Planet *planet = temp_galaxy.generatePlanet(*rngPtr, *dataPtr);
+            Planet *planet = GalaxyFactory::createPlanet(*dataPtr, *rngPtr);
             starSystem->addPlanet(planet);
             starSystem->lifeExists(*starSystem->getPlanets().back());
 

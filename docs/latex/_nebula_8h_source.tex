@@ -1,0 +1,24 @@
+\doxysection{Nebula.\+h}
+\hypertarget{_nebula_8h_source}{}\label{_nebula_8h_source}\index{Entities/Nebula.h@{Entities/Nebula.h}}
+\mbox{\hyperlink{_nebula_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ NEBULA\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ NEBULA\_H}}
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_celestial_object_8h}{CelestialObject.h}}"{}}}
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00016\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_nebula_a81ec8500a64b7d108585a9779d6c90f9}{Nebula}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_celestial_object_ae4be2f9eb24debf08d0411c9d497f3e9}{CelestialObject}}\ \{}
+\DoxyCodeLine{00017\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00019\ \ \ \ \ \textcolor{keyword}{enum\ class}\ \mbox{\hyperlink{class_nebula_af723611c49f9e4c0d31c54c039abd11a}{nebulaType}}\ \{\ Planetary,\ Supernova,\ Emission,\ Reflection,\ Dark\ \};}
+\DoxyCodeLine{00027\ \ \ \ \ \mbox{\hyperlink{class_nebula_a81ec8500a64b7d108585a9779d6c90f9}{Nebula}}(\textcolor{keyword}{const}\ std::string\ \&name,\ \textcolor{keywordtype}{double}\ mass,\ \mbox{\hyperlink{class_nebula_af723611c49f9e4c0d31c54c039abd11a}{nebulaType}}\ type);}
+\DoxyCodeLine{00032\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_nebula_a44aff85e26555725e3f065005e246413}{displayInfo}}()\ \textcolor{keyword}{const\ override};}
+\DoxyCodeLine{00038\ \ \ \ \ std::string\ \mbox{\hyperlink{class_nebula_a829247eed0574b9672c64e5c687975ec}{getType}}()\ \textcolor{keyword}{const\ override};}
+\DoxyCodeLine{00043\ \ \ \ \ \mbox{\hyperlink{class_nebula_af723611c49f9e4c0d31c54c039abd11a}{nebulaType}}\ \mbox{\hyperlink{class_nebula_a13d412f3fb719a8eea74c7718a01b1a5}{getNebulaType}}();}
+\DoxyCodeLine{00048\ \ \ \ \ std::string\ \mbox{\hyperlink{class_nebula_a52cee4e2e80d7f57992b2d4a4b3e9a85}{getNebulaTypeString}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00053\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_nebula_ac5567a4cb0c416c142b566e047128d55}{setNebulaType}}(std::string\ newtype);}
+\DoxyCodeLine{00055\ \ \ \ \ \textcolor{keyword}{virtual}\ \mbox{\hyperlink{class_nebula_a19152271b443e61b7b8c8eefeb2baed2}{\string~Nebula}}()\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00056\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00057\ \ \ \ \ \mbox{\hyperlink{class_nebula_af723611c49f9e4c0d31c54c039abd11a}{nebulaType}}\ nebula\_type;\ }
+\DoxyCodeLine{00058\ \};}
+\DoxyCodeLine{00059\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//NEBULA\_H}}
+
+\end{DoxyCode}

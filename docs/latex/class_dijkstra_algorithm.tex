@@ -1,0 +1,84 @@
+\doxysection{Dijkstra\+Algorithm\texorpdfstring{$<$}{<} T \texorpdfstring{$>$}{>} Class Template Reference}
+\hypertarget{class_dijkstra_algorithm}{}\label{class_dijkstra_algorithm}\index{DijkstraAlgorithm$<$ T $>$@{DijkstraAlgorithm$<$ T $>$}}
+
+
+A strategy class that executes a Dijkstra algorithm on a \doxylink{class_graph_list}{Graph\+List}.  
+
+
+
+
+{\ttfamily \#include $<$Dijkstra\+List.\+h$>$}
+
+Inheritance diagram for Dijkstra\+Algorithm\texorpdfstring{$<$}{<} T \texorpdfstring{$>$}{>}\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_dijkstra_algorithm}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{class_dijkstra_algorithm_aa04812c232c6d57e7fb4af09ae50b2f7}{run}} (\mbox{\hyperlink{class_graph_list}{Graph\+List}}$<$ T $>$ \&g, int start\+Id, int end\+Id) override
+\begin{DoxyCompactList}\small\item\em Performs Dijkstra\textquotesingle{}s algorithm for a graph represented by an adjacency list. \end{DoxyCompactList}\item 
+\Hypertarget{class_dijkstra_algorithm_aff47e1a1fa2b065244971a26d110c447}\label{class_dijkstra_algorithm_aff47e1a1fa2b065244971a26d110c447} 
+{\bfseries \texorpdfstring{$\sim$}{\string~}\+Dijkstra\+Algorithm} ()=default
+\begin{DoxyCompactList}\small\item\em Virtual destructor. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{class_graph_algorithm}{Graph\+Algorithm$<$ Graph\+List$<$ T $>$, T $>$}}}
+\begin{DoxyCompactItemize}
+\item 
+virtual {\bfseries \texorpdfstring{$\sim$}{\string~}\+Graph\+Algorithm} ()=default
+\begin{DoxyCompactList}\small\item\em Virtual destructor. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\subsubsection*{template$<$typename T$>$\newline
+class Dijkstra\+Algorithm$<$ T $>$}
+A strategy class that executes a Dijkstra algorithm on a \doxylink{class_graph_list}{Graph\+List}. 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em T} & The data type stored in the graph vertices. \\
+\hline
+\end{DoxyTemplParams}
+
+
+\label{doc-func-members}
+\Hypertarget{class_dijkstra_algorithm_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_dijkstra_algorithm_aa04812c232c6d57e7fb4af09ae50b2f7}\index{DijkstraAlgorithm$<$ T $>$@{DijkstraAlgorithm$<$ T $>$}!run@{run}}
+\index{run@{run}!DijkstraAlgorithm$<$ T $>$@{DijkstraAlgorithm$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{run()}{run()}}
+{\footnotesize\ttfamily \label{class_dijkstra_algorithm_aa04812c232c6d57e7fb4af09ae50b2f7} 
+template$<$typename T$>$ \\
+int \mbox{\hyperlink{class_dijkstra_algorithm}{Dijkstra\+Algorithm}}$<$ T $>$\+::run (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_graph_list}{Graph\+List}}$<$ T $>$ \&}]{g}{, }\item[{int}]{start\+Id}{, }\item[{int}]{end\+Id}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Performs Dijkstra\textquotesingle{}s algorithm for a graph represented by an adjacency list. 
+
+This is the implementation of the virtual \textquotesingle{}run\textquotesingle{} method. The traversal order is printed to std\+::cout.
+
+
+\begin{DoxyParams}{Parameters}
+{\em g} & The \doxylink{class_graph_list}{Graph\+List} object to traverse. \\
+\hline
+{\em start\+Id} & The ID of the starting vertex. \\
+\hline
+{\em end\+Id} & The ID of the destination vertex. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The length of the shortest path, or -\/1 if no path is found. 
+\end{DoxyReturn}
+\begin{DoxyNote}{Note}
+Works only with non-\/negative weights. 
+\end{DoxyNote}
+
+
+Implements \mbox{\hyperlink{class_graph_algorithm_a002a93f79b9204a814a7c9726dc69a78}{Graph\+Algorithm$<$ Graph\+List$<$ T $>$, T $>$}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Algorithms/\mbox{\hyperlink{_dijkstra_list_8h}{Dijkstra\+List.\+h}}\end{DoxyCompactItemize}

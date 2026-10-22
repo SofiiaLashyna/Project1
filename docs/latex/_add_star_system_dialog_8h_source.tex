@@ -1,0 +1,32 @@
+\doxysection{Add\+Star\+System\+Dialog.\+h}
+\hypertarget{_add_star_system_dialog_8h_source}{}\label{_add_star_system_dialog_8h_source}\index{GalaxyView/AddStarSystemDialog.h@{GalaxyView/AddStarSystemDialog.h}}
+\mbox{\hyperlink{_add_star_system_dialog_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ ADDSTARSYSTEMDIALOG\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ ADDSTARSYSTEMDIALOG\_H}}
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ <QDialog>}}
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <qlineedit.h>}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <QSpinBox>}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ <QComboBox>}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_random_utilities_8h}{RandomUtilities.h}}"{}}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ "{}nlohmann/json.hpp"{}}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_star_system_8h}{StarSystem.h}}"{}}}
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00020\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_add_star_system_dialog_a21941fb48d3372c346d15232582e9811}{AddStarSystemDialog}}\ :\ \textcolor{keyword}{public}\ QDialog\ \{}
+\DoxyCodeLine{00021\ \ \ \ \ Q\_OBJECT}
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00023\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00030\ \ \ \ \ \textcolor{keyword}{explicit}\ \mbox{\hyperlink{class_add_star_system_dialog_a21941fb48d3372c346d15232582e9811}{AddStarSystemDialog}}(\mbox{\hyperlink{class_random_generator}{RandomGenerator}}\ \&rng,\ \textcolor{keyword}{const}\ nlohmann::json\ \&data,\ QWidget\ *parent\ =\ \textcolor{keyword}{nullptr});}
+\DoxyCodeLine{00036\ \ \ \ \ \mbox{\hyperlink{class_star_system}{StarSystem}}\ *\mbox{\hyperlink{class_add_star_system_dialog_a54f39f42a0a0c81414084a5ffabcb2d6}{getNewStarSystem}}(\textcolor{keywordtype}{int}\ \textcolor{keywordtype}{id})\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00037\ }
+\DoxyCodeLine{00038\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00039\ \ \ \ \ QLineEdit\ *nameEdit;\ }
+\DoxyCodeLine{00040\ \ \ \ \ QSpinBox\ *planetCountSpinBox;\ }
+\DoxyCodeLine{00041\ \ \ \ \ QComboBox\ *starTypeComboBox;\ }
+\DoxyCodeLine{00042\ \ \ \ \ \mbox{\hyperlink{class_random_generator}{RandomGenerator}}\ \&rng;\ }
+\DoxyCodeLine{00043\ \ \ \ \ \textcolor{keyword}{const}\ nlohmann::json\ \&data;\ }
+\DoxyCodeLine{00044\ \};}
+\DoxyCodeLine{00045\ }
+\DoxyCodeLine{00046\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//ADDSTARSYSTEMDIALOG\_H}}
+
+\end{DoxyCode}

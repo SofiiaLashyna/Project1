@@ -1,0 +1,26 @@
+\doxysection{Graph/\+Graph\+Widget.h File Reference}
+\hypertarget{_graph_widget_8h}{}\label{_graph_widget_8h}\index{Graph/GraphWidget.h@{Graph/GraphWidget.h}}
+
+
+Defines a custom Qt widget for rendering a galaxy graph with vertices and edges.  
+
+
+{\ttfamily \#include $<$Celestial\+Object.\+h$>$}\newline
+{\ttfamily \#include $<$Qt\+Widgets/\+QWidget$>$}\newline
+{\ttfamily \#include $<$vector$>$}\newline
+{\ttfamily \#include $<$QTimer$>$}\newline
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{struct_w___edge}{W\+\_\+\+Edge}}
+\begin{DoxyCompactList}\small\item\em A lightweight struct for passing edge data to the \doxylink{class_graph_widget}{Graph\+Widget}. \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{struct_w___vertex}{W\+\_\+\+Vertex}}
+\begin{DoxyCompactList}\small\item\em A lightweight struct for passing vertex data to the \doxylink{class_graph_widget}{Graph\+Widget}. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{class_graph_widget}{Graph\+Widget}}
+\begin{DoxyCompactList}\small\item\em A custom QWidget that handles all painting (QPainter) for the galaxy graph, star systems, and nebulae, including zoom and animation. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Defines a custom Qt widget for rendering a galaxy graph with vertices and edges. 
+
+Defines the \doxylink{class_graph_widget}{Graph\+Widget} class, a Qt widget for custom 2D rendering.

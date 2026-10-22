@@ -2,7 +2,14 @@
 #ifndef TESTFIXTURES_H
 #define TESTFIXTURES_H
 
-#include "Algorithm.h"
+#include <BFSList.h>
+#include <BFSMatrix.h>
+#include <DFSList.h>
+#include <DFSMatrix.h>
+#include <DijkstraList.h>
+#include <DijkstraMatrix.h>
+
+#include "GraphAlgorithms.h"
 #include "Galaxy.h"
 #include "GraphList.h"
 #include "GraphMatrix.h"
@@ -95,20 +102,57 @@ protected:
     }
 };
 
+
 /**
  * @brief Fixture for testing BFS algorithms on GraphMatrix.
  */
 class BFSMatrixFixture : public GraphMatrixFixture {
 protected:
-    Algorithms<GraphMatrix<std::string>, std::string>* alg;
+    BFSMatrixAlgorithm<std::string> *bfsAlg;
 
     void SetUp() override {
         GraphMatrixFixture::SetUp();
-        alg = new Algorithms<GraphMatrix<std::string>, std::string>(g);
+        bfsAlg = new BFSMatrixAlgorithm<std::string>;
     }
 
     void TearDown() override {
-        delete alg;
+        delete bfsAlg;
+        GraphMatrixFixture::TearDown();
+    }
+};
+
+/**
+ * @brief Fixture for testing DFS algorithms on GraphMatrix.
+ */
+class DFSMatrixFixture : public GraphMatrixFixture {
+protected:
+    DFSMatrixAlgorithm<std::string> *dfsAlg;
+
+    void SetUp() override {
+        GraphMatrixFixture::SetUp();
+        dfsAlg = new DFSMatrixAlgorithm<std::string>();
+    }
+
+    void TearDown() override {
+        delete dfsAlg;
+        GraphMatrixFixture::TearDown();
+    }
+};
+
+/**
+ * @brief Fixture for testing Dijkstra algorithms on GraphMatrix.
+ */
+class DijkstraMatrixFixture : public GraphMatrixFixture {
+protected:
+    DijkstraMatrixAlgorithm<std::string> *djkAlg;
+
+    void SetUp() override {
+        GraphMatrixFixture::SetUp();
+        djkAlg = new DijkstraMatrixAlgorithm<std::string>();
+    }
+
+    void TearDown() override {
+        delete djkAlg;
         GraphMatrixFixture::TearDown();
     }
 };
@@ -135,19 +179,52 @@ protected:
  */
 class BFSListFixture : public GraphListFixture {
 protected:
-    Algorithms<GraphList<std::string>, std::string>* alg;
+    BFSListAlgorithm<std::string>* bfsAlg;
 
     void SetUp() override {
         GraphListFixture::SetUp();
-        alg = new Algorithms<GraphList<std::string>, std::string>(g);
+        bfsAlg = new BFSListAlgorithm<std::string>;
     }
 
     void TearDown() override {
-        delete alg;
+        delete bfsAlg;
         GraphListFixture::TearDown();
     }
 };
+/**
+ * @brief Fixture for testing DFS algorithms on GraphList.
+ */
+class DFSListFixture : public GraphListFixture {
+protected:
+    DFSListAlgorithm<std::string>* dfsAlg;
 
+    void SetUp() override {
+        GraphListFixture::SetUp();
+        dfsAlg = new DFSListAlgorithm<std::string>;
+    }
+
+    void TearDown() override {
+        delete dfsAlg;
+        GraphListFixture::TearDown();
+    }
+};
+/**
+ * @brief Fixture for testing Dijkstra algorithms on GraphList.
+ */
+class DijkstraListFixture : public GraphListFixture {
+protected:
+    DijkstraListAlgorithm<std::string>* djkAlg;
+
+    void SetUp() override {
+        GraphListFixture::SetUp();
+        djkAlg = new DijkstraListAlgorithm<std::string>;
+    }
+
+    void TearDown() override {
+        delete djkAlg;
+        GraphListFixture::TearDown();
+    }
+};
 /**
  * @brief Fixture for testing RandomGenerator.
  */

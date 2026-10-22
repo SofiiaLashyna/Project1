@@ -1,0 +1,97 @@
+\doxysection{Window\+Interface Class Reference}
+\hypertarget{class_window_interface}{}\label{class_window_interface}\index{WindowInterface@{WindowInterface}}
+
+
+The main QWidget class that serves as the entry point of the UI.  
+
+
+
+
+{\ttfamily \#include $<$windowinterface.\+h$>$}
+
+Inheritance diagram for Window\+Interface\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_window_interface}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_window_interface_ad3624528b41456d1bb7e9d3bb3647dd7}{Window\+Interface}} (QWidget \texorpdfstring{$\ast$}{*}parent=nullptr)
+\begin{DoxyCompactList}\small\item\em Constructor for the main window. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_window_interface_aec66b38c26cafa91fe94e743aa1c2ab1}{\texorpdfstring{$\sim$}{\string~}\+Window\+Interface}} () override
+\begin{DoxyCompactList}\small\item\em Destructor. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+The main QWidget class that serves as the entry point of the UI. 
+
+This class holds the main stacked widget, the start screen, and the \doxylink{class_galaxy_view}{Galaxy\+View}. It is responsible for loading the initial JSON data and triggering the galaxy generation. 
+
+\label{doc-constructors}
+\Hypertarget{class_window_interface_doc-constructors}
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_window_interface_ad3624528b41456d1bb7e9d3bb3647dd7}\index{WindowInterface@{WindowInterface}!WindowInterface@{WindowInterface}}
+\index{WindowInterface@{WindowInterface}!WindowInterface@{WindowInterface}}
+\doxysubsubsection{\texorpdfstring{WindowInterface()}{WindowInterface()}}
+{\footnotesize\ttfamily \label{class_window_interface_ad3624528b41456d1bb7e9d3bb3647dd7} 
+Window\+Interface\+::\+Window\+Interface (\begin{DoxyParamCaption}\item[{QWidget \texorpdfstring{$\ast$}{*}}]{parent}{ = {\ttfamily nullptr}}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}}
+
+
+
+Constructor for the main window. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em parent} & The parent Qt widget (usually nullptr). \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00006\ \ \ \ \ :\ QWidget(parent),}
+\DoxyCodeLine{00007\ \ \ \ \ \ \ ui(\textcolor{keyword}{new}\ Ui::WindowInterface) }
+\DoxyCodeLine{00008\ \{}
+\DoxyCodeLine{00009\ \ \ \ \ ui-\/>setupUi(\textcolor{keyword}{this});}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00011\ \ \ \ \ loadJsonData();}
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00013\ \ \ \ \ galaxyView\ =\ \textcolor{keyword}{new}\ GalaxyView(\textcolor{keyword}{this});}
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00015\ \ \ \ \ ui-\/>stackedWidget-\/>addWidget(galaxyView);}
+\DoxyCodeLine{00016\ }
+\DoxyCodeLine{00017\ \ \ \ \ connect(ui-\/>pushButton,\ \&QPushButton::clicked,\ \textcolor{keyword}{this},\ [\textcolor{keyword}{this}]()\ \{}
+\DoxyCodeLine{00018\ \ \ \ \ \ \ \ \ if\ (dataLoaded)\ \{}
+\DoxyCodeLine{00019\ \ \ \ \ \ \ \ \ \ \ \ \ galaxyView-\/>generateAndDisplayGalaxy(data,rng);}
+\DoxyCodeLine{00020\ }
+\DoxyCodeLine{00021\ \ \ \ \ \ \ \ \ \ \ \ \ ui-\/>stackedWidget-\/>setCurrentWidget(galaxyView);}
+\DoxyCodeLine{00022\ \ \ \ \ \ \ \ \ \}\textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00023\ \ \ \ \ \ \ \ \ \ \ \ \ qDebug()\ <<\ \textcolor{stringliteral}{"{}Error:\ JSON\ data\ not\ loaded"{}};}
+\DoxyCodeLine{00024\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00025\ \ \ \ \ \});}
+\DoxyCodeLine{00026\ \}}
+
+\end{DoxyCode}
+\Hypertarget{class_window_interface_aec66b38c26cafa91fe94e743aa1c2ab1}\index{WindowInterface@{WindowInterface}!````~WindowInterface@{\texorpdfstring{$\sim$}{\string~}WindowInterface}}
+\index{````~WindowInterface@{\texorpdfstring{$\sim$}{\string~}WindowInterface}!WindowInterface@{WindowInterface}}
+\doxysubsubsection{\texorpdfstring{\texorpdfstring{$\sim$}{\string~}WindowInterface()}{\string~WindowInterface()}}
+{\footnotesize\ttfamily \label{class_window_interface_aec66b38c26cafa91fe94e743aa1c2ab1} 
+Window\+Interface\+::\texorpdfstring{$\sim$}{\string~}\+Window\+Interface (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}}
+
+
+
+Destructor. 
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00049\ \{}
+\DoxyCodeLine{00050\ \ \ \ \ \textcolor{keyword}{delete}\ ui;}
+\DoxyCodeLine{00051\ \}}
+
+\end{DoxyCode}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Main\+Window/\mbox{\hyperlink{windowinterface_8h}{windowinterface.\+h}}\item 
+Main\+Window/windowinterface.\+cpp\end{DoxyCompactItemize}

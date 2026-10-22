@@ -1,0 +1,228 @@
+\doxysection{C\+:/\+Users/\+Prj/\+Project1/\+Algorithms/\+Algorithm.\+h}
+\hypertarget{_c_1_2_users_2_prj_2_project1_2_algorithms_2_algorithm_8h-example}{}\label{_c_1_2_users_2_prj_2_project1_2_algorithms_2_algorithm_8h-example}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{comment}{//\ Example:\ Using\ the\ Algorithms\ utility\ class\ directly}}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_graph_list_8h}{GraphList.h}}"{}}}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_algorithm_8h}{Algorithm.h}}"{}}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keywordtype}{void}\ demo(\mbox{\hyperlink{class_graph_list}{GraphList<std::string>}}\&\ myGraph)\ \{}
+\DoxyCodeLine{\textcolor{comment}{//\ Create\ the\ algorithms\ utility\ wrapper\ around\ the\ graph}}
+\DoxyCodeLine{\mbox{\hyperlink{class_algorithms}{Algorithms<GraphList<std::string>}},\ std::string>\ algo(myGraph);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{comment}{//\ Run\ BFS\ starting\ from\ node\ with\ ID\ 1}}
+\DoxyCodeLine{std::cout\ <<\ \textcolor{stringliteral}{"{}Breadth-\/First\ Search:"{}}\ <<\ std::endl;}
+\DoxyCodeLine{algo.BFS\_list(1);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{comment}{//\ Run\ DFS\ starting\ from\ node\ with\ ID\ 1}}
+\DoxyCodeLine{std::cout\ <<\ \textcolor{stringliteral}{"{}Depth-\/First\ Search:"{}}\ <<\ std::endl;}
+\DoxyCodeLine{algo.DFS\_list(1);}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+
+
+
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{preprocessor}{\#ifndef\ ALGORITHM\_H}}
+\DoxyCodeLine{\textcolor{preprocessor}{\#define\ ALGORITHM\_H}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_graph_8h}{Graph.h}}"{}}}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_queue_8h}{Queue.h}}"{}}}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include\ <iostream>}}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include\ <climits>}}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include\ <type\_traits>}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keyword}{template}<\textcolor{keyword}{typename}\ GraphType,\ \textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{\textcolor{keyword}{class\ }\mbox{\hyperlink{class_algorithms}{Algorithms}}\ \{}
+\DoxyCodeLine{\ \ \ \ GraphType\ \&graph;}
+\DoxyCodeLine{\ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ U\ =\ T>}
+\DoxyCodeLine{\ \ \ \ \textcolor{keyword}{typename}\ std::enable\_if<std::is\_pointer<U>::value>::type}
+\DoxyCodeLine{\ \ \ \ printVertexData(\textcolor{keyword}{const}\ U\&\ data)\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ std::cout\ <<\ data-\/>getName()\ <<\ \textcolor{stringliteral}{"{}\ "{}};}
+\DoxyCodeLine{\ \ \ \ \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ U\ =\ T>}
+\DoxyCodeLine{\ \ \ \ \textcolor{keyword}{typename}\ std::enable\_if<!std::is\_pointer<U>::value>::type}
+\DoxyCodeLine{\ \ \ \ printVertexData(\textcolor{keyword}{const}\ U\&\ data)\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ std::cout\ <<\ data\ <<\ \textcolor{stringliteral}{"{}\ "{}};}
+\DoxyCodeLine{\ \ \ \ \}}
+\DoxyCodeLine{\textcolor{keyword}{public}:}
+\DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{class_algorithms_a54f0846620f45ce420bf79b3b5c85e63}{Algorithms}}(GraphType\ \&g)\ :\ graph(g)\ \{}
+\DoxyCodeLine{\ \ \ \ \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordtype}{void}\ BFS\_list(\textcolor{keywordtype}{int}\ startId)\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ start\ =\ graph.findIndexById(startId);}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (start\ ==\ -\/1)\ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ std::vector<bool>\ visited(graph.getVertices().size(),\ \textcolor{keyword}{false});}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ Queue<int>\ q;}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ q.\mbox{\hyperlink{class_queue_a68347286280886605abed29226eb8c29}{push}}(start,\ 0);}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ visited[start]\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}BFS\ order:\ "{}};}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}\ (!q.\mbox{\hyperlink{class_queue_a84af2287bc5dad708508b588dc73457d}{empty}}())\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ [u,\ d]\ =\ q.\mbox{\hyperlink{class_queue_a36e5c5bf86531ff340df47ed0231427f}{popMin}}();}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ printVertexData(graph.getVertices()[u].getData());}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\ \&[v,\ w]:\ graph.adjacencyList[u])\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!visited[v])\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ visited[v]\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ q.\mbox{\hyperlink{class_queue_a68347286280886605abed29226eb8c29}{push}}(v,\ 0);}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ std::cout\ <<\ std::endl;}
+\DoxyCodeLine{\ \ \ \ \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_algorithms_a4fccd7b13390a54933cee8d14f819c66}{BFS\_matrix}}(\textcolor{keywordtype}{int}\ startId)\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ start\ =\ graph.findIndexById(startId);}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (start\ ==\ -\/1\ ||\ graph.adjacencyMatrix.empty())\ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ n\ =\ graph.adjacencyMatrix.size();}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ std::vector<bool>\ visited(n,\ \textcolor{keyword}{false});}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ Queue<int>\ q;}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ q.\mbox{\hyperlink{class_queue_a68347286280886605abed29226eb8c29}{push}}(start,\ 0);}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ visited[start]\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}BFS\ order:\ "{}};}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}\ (!q.\mbox{\hyperlink{class_queue_a84af2287bc5dad708508b588dc73457d}{empty}}())\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ [u,\ \_]\ =\ q.\mbox{\hyperlink{class_queue_a36e5c5bf86531ff340df47ed0231427f}{popMin}}();}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ printVertexData(graph.getVertices()[u].getData());}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ v\ =\ 0;\ v\ <\ n;\ ++v)\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (graph.adjacencyMatrix[u][v]\ \&\&\ !visited[v])\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ visited[v]\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ q.\mbox{\hyperlink{class_queue_a68347286280886605abed29226eb8c29}{push}}(v,\ 0);}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ std::cout\ <<\ std::endl;}
+\DoxyCodeLine{\ \ \ \ \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordtype}{void}\ DFS\_list(\textcolor{keywordtype}{int}\ startId)\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ start\ =\ graph.findIndexById(startId);}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (start\ ==\ -\/1)\ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ std::vector<bool>\ visited(graph.getVertices().size(),\ \textcolor{keyword}{false});}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ std::vector<int>\ stack;}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ stack.push\_back(start);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}DFS\ order:\ "{}};}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}\ (!stack.empty())\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ v\ =\ stack.back();}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ stack.pop\_back();}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (visited[v])\ \textcolor{keywordflow}{continue};}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ visited[v]\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ printVertexData(graph.getVertices()[v].getData());}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ (\textcolor{keywordtype}{int})\ graph.adjacencyList[v].size()\ -\/\ 1;\ i\ >=\ 0;\ -\/-\/i)\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ neighbor\ =\ graph.adjacencyList[v][i].first;}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!visited[neighbor])\ stack.push\_back(neighbor);}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ std::cout\ <<\ std::endl;}
+\DoxyCodeLine{\ \ \ \ \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_algorithms_a333fa6513c592d980b769018f096a483}{DFS\_matrix}}(\textcolor{keywordtype}{int}\ startId)\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ start\ =\ graph.findIndexById(startId);}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (start\ ==\ -\/1\ ||\ graph.adjacencyMatrix.empty())}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ n\ =\ graph.adjacencyMatrix.size();}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ std::vector<bool>\ visited(n,\ \textcolor{keyword}{false});}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ std::vector<int>\ stack;}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ stack.push\_back(start);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}DFS\ (matrix)\ order:\ "{}};}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}\ (!stack.empty())\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ v\ =\ stack.back();}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ stack.pop\_back();}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (visited[v])}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{continue};}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ visited[v]\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ printVertexData(graph.getVertices()[v].getData());}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ u\ =\ n\ -\/\ 1;\ u\ >=\ 0;\ -\/-\/u)\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (graph.adjacencyMatrix[v][u]\ \&\&\ !visited[u])\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ stack.push\_back(u);}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ std::cout\ <<\ std::endl;}
+\DoxyCodeLine{\ \ \ \ \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordtype}{int}\ Dijkstra\_list(\textcolor{keywordtype}{int}\ startId,\ \textcolor{keywordtype}{int}\ endId)\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ start\ =\ graph.findIndexById(startId);}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ end\ =\ graph.findIndexById(endId);}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (start\ ==\ -\/1\ ||\ end\ ==\ -\/1)\ \textcolor{keywordflow}{return}\ -\/1;}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ V\ =\ graph.getVertices().size();}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ std::vector<int>\ dist(V,\ INT\_MAX);}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ dist[start]\ =\ 0;}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ Queue<int>\ q;}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ q.\mbox{\hyperlink{class_queue_a68347286280886605abed29226eb8c29}{push}}(start,\ 0);}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}\ (!q.\mbox{\hyperlink{class_queue_a84af2287bc5dad708508b588dc73457d}{empty}}())\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ [u,\ d]\ =\ q.\mbox{\hyperlink{class_queue_a36e5c5bf86531ff340df47ed0231427f}{popMin}}();}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\ \&[v,\ w]:\ graph.adjacencyList[u])\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (dist[v]\ >\ dist[u]\ +\ w)\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dist[v]\ =\ dist[u]\ +\ w;}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ q.\mbox{\hyperlink{class_queue_a68347286280886605abed29226eb8c29}{push}}(v,\ dist[v]);}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ dist[end]\ ==\ INT\_MAX\ ?\ -\/1\ :\ dist[end];}
+\DoxyCodeLine{\ \ \ \ \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_algorithms_af59f32c1da9d6c4199776f4e123f6ed5}{Dijkstra\_matrix}}(\textcolor{keywordtype}{int}\ startId,\ \textcolor{keywordtype}{int}\ endId)\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ start\ =\ graph.findIndexById(startId);}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ end\ =\ graph.findIndexById(endId);}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (start\ ==\ -\/1\ ||\ end\ ==\ -\/1)\ \textcolor{keywordflow}{return}\ -\/1;}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ V\ =\ graph.getVertices().size();}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ std::vector<int>\ dist(V,\ INT\_MAX);}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ dist[start]\ =\ 0;}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ Queue<int>\ q;}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ q.\mbox{\hyperlink{class_queue_a68347286280886605abed29226eb8c29}{push}}(start,\ 0);}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}\ (!q.\mbox{\hyperlink{class_queue_a84af2287bc5dad708508b588dc73457d}{empty}}())\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ [u,\ d]\ =\ q.\mbox{\hyperlink{class_queue_a36e5c5bf86531ff340df47ed0231427f}{popMin}}();}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ n\ =\ graph.adjacencyMatrix.size();}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ v\ =\ 0;\ v\ <\ n;\ ++v)\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ w\ =\ graph.adjacencyMatrix[u][v];}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (w\ >\ 0\ \&\&\ dist[v]\ >\ dist[u]\ +\ w)\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dist[v]\ =\ dist[u]\ +\ w;}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ q.\mbox{\hyperlink{class_queue_a68347286280886605abed29226eb8c29}{push}}(v,\ dist[v]);}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ dist[end]\ ==\ INT\_MAX\ ?\ -\/1\ :\ dist[end];}
+\DoxyCodeLine{\ \ \ \ \}}
+\DoxyCodeLine{\};}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keyword}{template}<\textcolor{keyword}{typename}\ GraphType,\ \textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{\textcolor{keyword}{class\ }\mbox{\hyperlink{class_graph_algorithm}{GraphAlgorithm}}\ \{}
+\DoxyCodeLine{\textcolor{keyword}{public}:}
+\DoxyCodeLine{\ \ \ \ \textcolor{keyword}{virtual}\ \mbox{\hyperlink{class_graph_algorithm_a0644bd89e407dc93f49b6aefee929376}{\string~GraphAlgorithm}}()\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_graph_algorithm_a002a93f79b9204a814a7c9726dc69a78}{run}}(GraphType\ \&g,\ \textcolor{keywordtype}{int}\ startId,\ \textcolor{keywordtype}{int}\ endId\ =\ -\/1)\ =\ 0;}
+\DoxyCodeLine{\};}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//ALGORITHM\_H}}
+
+\end{DoxyCodeInclude}
+ 

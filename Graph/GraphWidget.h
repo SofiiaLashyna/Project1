@@ -90,7 +90,11 @@ public:
 
     void resetPlanetZoom();
 
-    bool isInPlanetMode() const { return isPlanetMode; }
+    bool isInPlanetMode() const;
+
+    void setShowAxialTilt(bool show);
+
+    int getDetailedPlanetIndex() const;
 signals:
     /**
      * @brief Qt Signal: Emitted when a user double-clicks on a vertex.
@@ -141,7 +145,9 @@ private:
     int detailedPlanetIndex = -1;
     double calculateOrbitStart(StarSystem* system, double starRadius);
 
-    QPointF calculatePlanetOffset(const Planet* planet, int index, int totalPlanets, double orbitStart) const;
+    QPointF calculatePlanetOffset(const Planet* planet, double orbitStart, double scaleFactor) const;
+
+    bool showAxialTilt = false;
 };
 
 #endif //GRAPHWIDGET_H

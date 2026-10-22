@@ -1,0 +1,30 @@
+\doxysection{Add\+Nebula\+Dialog.\+h}
+\hypertarget{_add_nebula_dialog_8h_source}{}\label{_add_nebula_dialog_8h_source}\index{GalaxyView/AddNebulaDialog.h@{GalaxyView/AddNebulaDialog.h}}
+\mbox{\hyperlink{_add_nebula_dialog_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ ADDNEBULADIALOG\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ ADDNEBULADIALOG\_H}}
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ <QDialog>}}
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <qlineedit.h>}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <QComboBox>}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_random_utilities_8h}{RandomUtilities.h}}"{}}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ "{}nlohmann/json.hpp"{}}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_nebula_8h}{Nebula.h}}"{}}}
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00019\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_add_nebula_dialog_a55b51a9c7eadbec62369cd8ac780534e}{AddNebulaDialog}}\ :\ \textcolor{keyword}{public}\ QDialog\ \{}
+\DoxyCodeLine{00020\ \ \ \ \ Q\_OBJECT}
+\DoxyCodeLine{00021\ }
+\DoxyCodeLine{00022\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00029\ \ \ \ \ \textcolor{keyword}{explicit}\ \mbox{\hyperlink{class_add_nebula_dialog_a55b51a9c7eadbec62369cd8ac780534e}{AddNebulaDialog}}(\mbox{\hyperlink{class_random_generator}{RandomGenerator}}\ \&rng,\ \textcolor{keyword}{const}\ nlohmann::json\ \&data,\ QWidget\ *parent\ =\ \textcolor{keyword}{nullptr});}
+\DoxyCodeLine{00034\ \ \ \ \ \mbox{\hyperlink{class_nebula}{Nebula}}\ *\mbox{\hyperlink{class_add_nebula_dialog_aeb0d61cd0d146d92b2d97097479a9277}{getNewNebula}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00036\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00037\ \ \ \ \ QLineEdit\ *nameEdit;\ }
+\DoxyCodeLine{00038\ \ \ \ \ QComboBox\ *nebulaTypeComboBox;\ }
+\DoxyCodeLine{00039\ \ \ \ \ \mbox{\hyperlink{class_random_generator}{RandomGenerator}}\ \&rng;\ }
+\DoxyCodeLine{00040\ \ \ \ \ \textcolor{keyword}{const}\ nlohmann::json\ \&data;\ }
+\DoxyCodeLine{00041\ \};}
+\DoxyCodeLine{00042\ }
+\DoxyCodeLine{00043\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//ADDNEBULADIALOG\_H}}
+
+\end{DoxyCode}

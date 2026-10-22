@@ -1,7 +1,11 @@
 #ifndef DJIKSTRA_H
 #define DJIKSTRA_H
-#include "Algorithm.h"
+
+#include "GraphAlgorithms.h"
 #include "GraphList.h"
+#include "Queue.h"
+#include <vector>
+#include <climits>
 /**
  * @file DijkstraList.h
  * @brief Defines the DijkstraAlgorithm class, which implements
@@ -20,15 +24,13 @@
  *
  * The result (shortest distance) is returned and also printed to std::cout.
  */
-
-template< typename T>
+template<typename T>
 class DijkstraListAlgorithm : public GraphAlgorithm<GraphList<T>, T> {
 public:
-  /**
+    /**
            * @brief Performs Dijkstra's algorithm for a graph
            * represented by an adjacency list.
            *
-           * This is the implementation of the virtual 'run' method.
            * The traversal order is printed to std::cout.
            *
            * @param g The GraphList object to traverse.
@@ -38,14 +40,32 @@ public:
            * @note Works only with non-negative weights.
            */
     int run(GraphList<T>& g, int startId, int endId) override {
-        Algorithms<GraphList<T>, T> alg(g);
-        int res = alg.Dijkstra_list(startId, endId);
+        int start = g.findIndexById(startId);
+        int end = g.findIndexById(endId);
+        if (start == -1 || end == -1) return -1;
+
+        int V = g.getVertices().size();
+        std::vector<int> dist(V, INT_MAX);
+        dist[start] = 0;
+
+        Queue<int> q;
+        q.push(start, 0);
+        while (!q.empty()) {
+            auto [u, d] = q.popMin();
+            for (auto &[v, w]: g.adjacencyList[u]) {
+                if (dist[v] > dist[u] + w) {
+                    dist[v] = dist[u] + w;
+                    q.push(v, dist[v]);
+                }
+            }
+        }
+
+        int res = (dist[end] == INT_MAX) ? -1 : dist[end];
         std::cout << "Shortest path weight = " << res << std::endl;
         return res;
     }
     /// @brief Default destructor.
     ~DijkstraListAlgorithm()= default;
 };
-
 
 #endif //DJIKSTRA_H

@@ -1,0 +1,270 @@
+\doxysection{Galaxy\+View Class Reference}
+\hypertarget{class_galaxy_view}{}\label{class_galaxy_view}\index{GalaxyView@{GalaxyView}}
+
+
+The main UI widget, inheriting from QWidget.  
+
+
+
+
+{\ttfamily \#include $<$galaxyview.\+h$>$}
+
+Inheritance diagram for Galaxy\+View\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_galaxy_view}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_galaxy_view_a067dbc9b7d569e4e8645e0af6d3168db}{Galaxy\+View}} (QWidget \texorpdfstring{$\ast$}{*}parent=nullptr)
+\begin{DoxyCompactList}\small\item\em Constructor for \doxylink{class_galaxy_view}{Galaxy\+View}. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_galaxy_view_a35a86b940942ce424f01922819adddce}{\texorpdfstring{$\sim$}{\string~}\+Galaxy\+View}} () override
+\begin{DoxyCompactList}\small\item\em Destructor. Cleans up memory by deleting the main {\ttfamily galaxy} object and the {\ttfamily ui}. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_galaxy_view_a0947343835de8bb13584fc52b67d8408}{generate\+And\+Display\+Galaxy}} (const nlohmann\+::json \&data, \mbox{\hyperlink{class_random_generator}{Random\+Generator}} \&rng)
+\begin{DoxyCompactList}\small\item\em The main method to start the simulation. Creates or replaces the internal {\ttfamily \doxylink{class_galaxy}{Galaxy}} object, triggers procedural generation, updates the graph layout, and refreshes the \doxylink{class_graph_widget}{Graph\+Widget} display. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{class_galaxy_view_a6a999cdb98b31cb83a4187a5f37d6ed1}{resize\+Event}} (QResize\+Event \texorpdfstring{$\ast$}{*}event) override
+\begin{DoxyCompactList}\small\item\em Overridden Qt event handler for window resize events. Used to dynamically reposition floating buttons and windows. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+The main UI widget, inheriting from QWidget. 
+
+This class manages the {\ttfamily \doxylink{class_graph_widget}{Graph\+Widget}} display, floating parameter windows, galaxy generation, and user interaction (clicks, edits, zooming). 
+
+\label{doc-constructors}
+\Hypertarget{class_galaxy_view_doc-constructors}
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_galaxy_view_a067dbc9b7d569e4e8645e0af6d3168db}\index{GalaxyView@{GalaxyView}!GalaxyView@{GalaxyView}}
+\index{GalaxyView@{GalaxyView}!GalaxyView@{GalaxyView}}
+\doxysubsubsection{\texorpdfstring{GalaxyView()}{GalaxyView()}}
+{\footnotesize\ttfamily \label{class_galaxy_view_a067dbc9b7d569e4e8645e0af6d3168db} 
+Galaxy\+View\+::\+Galaxy\+View (\begin{DoxyParamCaption}\item[{QWidget \texorpdfstring{$\ast$}{*}}]{parent}{ = {\ttfamily nullptr}}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}}
+
+
+
+Constructor for \doxylink{class_galaxy_view}{Galaxy\+View}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em parent} & The parent widget (usually nullptr). \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00018\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ :\ QWidget(parent),\ ui(\textcolor{keyword}{new}\ Ui::GalaxyView)\ \{}
+\DoxyCodeLine{00019\ \ \ \ \ ui-\/>setupUi(\textcolor{keyword}{this});}
+\DoxyCodeLine{00020\ }
+\DoxyCodeLine{00021\ \ \ \ \ graphWidget\ =\ \textcolor{keyword}{new}\ GraphWidget(\textcolor{keyword}{this});}
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00023\ \ \ \ \ \textcolor{keywordflow}{if}\ (ui-\/>graphArea-\/>layout()\ ==\ \textcolor{keyword}{nullptr})\ \{}
+\DoxyCodeLine{00024\ \ \ \ \ \ \ \ \ QVBoxLayout\ *layout\ =\ \textcolor{keyword}{new}\ QVBoxLayout(ui-\/>graphArea);}
+\DoxyCodeLine{00025\ \ \ \ \ \ \ \ \ layout-\/>setContentsMargins(0,\ 0,\ 0,\ 0);}
+\DoxyCodeLine{00026\ \ \ \ \ \}}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \ \ \ \ ui-\/>graphArea-\/>layout()-\/>addWidget(graphWidget);}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00030\ \ \ \ \ paramsButton\ =\ \textcolor{keyword}{new}\ QPushButton(\textcolor{stringliteral}{"{}⚙️\ Parameters"{}},\ \textcolor{keyword}{this});}
+\DoxyCodeLine{00031\ \ \ \ \ paramsButton-\/>setStyleSheet(\textcolor{stringliteral}{"{}font-\/size:\ 14px;\ padding:\ 5px\ 10px;"{}});}
+\DoxyCodeLine{00032\ }
+\DoxyCodeLine{00033\ \ \ \ \ paramsWindow\ =\ \textcolor{keyword}{new}\ QWidget(\textcolor{keyword}{this});}
+\DoxyCodeLine{00034\ \ \ \ \ paramsWindow-\/>setStyleSheet(}
+\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}background-\/color:\ \#333;\ color:\ white;\ border:\ 1px\ solid\ \#555;\ border-\/radius:\ 5px;"{}}}
+\DoxyCodeLine{00036\ \ \ \ \ );}
+\DoxyCodeLine{00037\ }
+\DoxyCodeLine{00038\ \ \ \ \ QVBoxLayout\ *paramsLayout\ =\ \textcolor{keyword}{new}\ QVBoxLayout(paramsWindow);}
+\DoxyCodeLine{00039\ \ \ \ \ paramsLayout-\/>setContentsMargins(10,\ 10,\ 10,\ 10);}
+\DoxyCodeLine{00040\ \ \ \ \ paramsLayout-\/>setSpacing(5);}
+\DoxyCodeLine{00041\ }
+\DoxyCodeLine{00042\ \ \ \ \ QLabel\ *titleLabel\ =\ \textcolor{keyword}{new}\ QLabel(\textcolor{stringliteral}{"{}Galaxy\ Parameters:\ \(\backslash\)n"{}},\ paramsWindow);}
+\DoxyCodeLine{00043\ \ \ \ \ titleLabel-\/>setStyleSheet(\textcolor{stringliteral}{"{}font-\/weight:\ bold;\ font-\/size:\ 16px;\ margin-\/bottom:\ 1px;"{}});}
+\DoxyCodeLine{00044\ }
+\DoxyCodeLine{00045\ \ \ \ \ QTextEdit\ *infoText\ =\ \textcolor{keyword}{new}\ QTextEdit(paramsWindow);}
+\DoxyCodeLine{00046\ \ \ \ \ infoText-\/>setObjectName(\textcolor{stringliteral}{"{}infoTextWidget"{}});}
+\DoxyCodeLine{00047\ \ \ \ \ infoText-\/>setReadOnly(\textcolor{keyword}{true});}
+\DoxyCodeLine{00048\ }
+\DoxyCodeLine{00049\ \ \ \ \ infoText-\/>setText(\textcolor{stringliteral}{"{}Galaxy\ not\ generated\ yet."{}});}
+\DoxyCodeLine{00050\ \ \ \ \ infoText-\/>setStyleSheet(\textcolor{stringliteral}{"{}background-\/color:\ \#444;\ color:\ \#eee;\ border:\ none;"{}});}
+\DoxyCodeLine{00051\ }
+\DoxyCodeLine{00052\ \ \ \ \ QPushButton\ *editButton\ =\ \textcolor{keyword}{new}\ QPushButton(\textcolor{stringliteral}{"{}✎\ Edit.."{}},\ paramsWindow);}
+\DoxyCodeLine{00053\ \ \ \ \ this-\/>editButton\ =\ editButton;}
+\DoxyCodeLine{00054\ \ \ \ \ editButton-\/>setStyleSheet(\textcolor{stringliteral}{"{}font-\/size:\ 14px;\ padding:\ 5px\ 10px;"{}});}
+\DoxyCodeLine{00055\ }
+\DoxyCodeLine{00056\ \ \ \ \ zoomOutButton\ =\ \textcolor{keyword}{new}\ QPushButton(\textcolor{stringliteral}{"{}⬅\ Zoom\ Out"{}},\ \textcolor{keyword}{this});}
+\DoxyCodeLine{00057\ \ \ \ \ zoomOutButton-\/>setStyleSheet(\textcolor{stringliteral}{"{}font-\/size:\ 14px;\ padding:\ 5px\ 10px;"{}});}
+\DoxyCodeLine{00058\ \ \ \ \ zoomOutButton-\/>hide();}
+\DoxyCodeLine{00059\ }
+\DoxyCodeLine{00060\ \ \ \ \ paramsLayout-\/>addWidget(titleLabel);}
+\DoxyCodeLine{00061\ \ \ \ \ paramsLayout-\/>addWidget(infoText);}
+\DoxyCodeLine{00062\ \ \ \ \ paramsLayout-\/>addWidget(editButton);}
+\DoxyCodeLine{00063\ \ \ \ \ paramsWindow-\/>setLayout(paramsLayout);}
+\DoxyCodeLine{00064\ }
+\DoxyCodeLine{00065\ \ \ \ \ paramsButton-\/>resize(150,\ 35);}
+\DoxyCodeLine{00066\ \ \ \ \ paramsWindow-\/>resize(250,\ 210);}
+\DoxyCodeLine{00067\ }
+\DoxyCodeLine{00068\ \ \ \ \ connect(paramsButton,\ \&QPushButton::clicked,\ \textcolor{keyword}{this},\ \&GalaxyView::on\_paramsButton\_clicked);}
+\DoxyCodeLine{00069\ \ \ \ \ connect(zoomOutButton,\ \&QPushButton::clicked,\ \textcolor{keyword}{this},\ \&GalaxyView::on\_zoomOutButton\_clicked);}
+\DoxyCodeLine{00070\ \ \ \ \ connect(graphWidget,\ \&\mbox{\hyperlink{class_graph_widget_af0e8c79fa974cb659950b9c9ae4920b7}{GraphWidget::vertexDoubleClicked}},}
+\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{this},\ \&GalaxyView::on\_vertexDoubleClicked);}
+\DoxyCodeLine{00072\ \ \ \ \ connect(editButton,\ \&QPushButton::clicked,\ \textcolor{keyword}{this},\ \&GalaxyView::on\_editButton\_clicked);}
+\DoxyCodeLine{00073\ \ \ \ \ paramsWindow-\/>hide();}
+\DoxyCodeLine{00074\ \}}
+
+\end{DoxyCode}
+\Hypertarget{class_galaxy_view_a35a86b940942ce424f01922819adddce}\index{GalaxyView@{GalaxyView}!````~GalaxyView@{\texorpdfstring{$\sim$}{\string~}GalaxyView}}
+\index{````~GalaxyView@{\texorpdfstring{$\sim$}{\string~}GalaxyView}!GalaxyView@{GalaxyView}}
+\doxysubsubsection{\texorpdfstring{\texorpdfstring{$\sim$}{\string~}GalaxyView()}{\string~GalaxyView()}}
+{\footnotesize\ttfamily \label{class_galaxy_view_a35a86b940942ce424f01922819adddce} 
+Galaxy\+View\+::\texorpdfstring{$\sim$}{\string~}\+Galaxy\+View (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}}
+
+
+
+Destructor. Cleans up memory by deleting the main {\ttfamily galaxy} object and the {\ttfamily ui}. 
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00077\ \ \ \ \ \textcolor{keywordflow}{if}\ (galaxy)\ \{}
+\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ \textcolor{keyword}{delete}\ galaxy;}
+\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ galaxy\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00080\ \ \ \ \ \}}
+\DoxyCodeLine{00081\ \ \ \ \ \textcolor{keyword}{delete}\ ui;}
+\DoxyCodeLine{00082\ \}}
+
+\end{DoxyCode}
+
+
+\label{doc-func-members}
+\Hypertarget{class_galaxy_view_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_galaxy_view_a0947343835de8bb13584fc52b67d8408}\index{GalaxyView@{GalaxyView}!generateAndDisplayGalaxy@{generateAndDisplayGalaxy}}
+\index{generateAndDisplayGalaxy@{generateAndDisplayGalaxy}!GalaxyView@{GalaxyView}}
+\doxysubsubsection{\texorpdfstring{generateAndDisplayGalaxy()}{generateAndDisplayGalaxy()}}
+{\footnotesize\ttfamily \label{class_galaxy_view_a0947343835de8bb13584fc52b67d8408} 
+void Galaxy\+View\+::generate\+And\+Display\+Galaxy (\begin{DoxyParamCaption}\item[{const nlohmann\+::json \&}]{data}{, }\item[{\mbox{\hyperlink{class_random_generator}{Random\+Generator}} \&}]{rng}{}\end{DoxyParamCaption})}
+
+
+
+The main method to start the simulation. Creates or replaces the internal {\ttfamily \doxylink{class_galaxy}{Galaxy}} object, triggers procedural generation, updates the graph layout, and refreshes the \doxylink{class_graph_widget}{Graph\+Widget} display. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em data} & The JSON data with generation configuration. \\
+\hline
+{\em rng} & A reference to the random number generator. \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00194\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00195\ \ \ \ \ qDebug()\ <<\ \textcolor{stringliteral}{"{}Generating\ and\ displaying\ galaxy\ in\ GalaxyView..."{}};}
+\DoxyCodeLine{00196\ }
+\DoxyCodeLine{00197\ \ \ \ \ \textcolor{keywordflow}{if}\ (galaxy)\ \{}
+\DoxyCodeLine{00198\ \ \ \ \ \ \ \ \ \textcolor{keyword}{delete}\ galaxy;}
+\DoxyCodeLine{00199\ \ \ \ \ \ \ \ \ galaxy\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00200\ \ \ \ \ \}}
+\DoxyCodeLine{00201\ }
+\DoxyCodeLine{00202\ \ \ \ \ std::string\ galaxyNameFile\ =\ \textcolor{stringliteral}{"{}Unnamed"{}};}
+\DoxyCodeLine{00203\ \ \ \ \ \textcolor{keywordflow}{if}\ (data.contains(\textcolor{stringliteral}{"{}Galaxy"{}})\ \&\&\ data[\textcolor{stringliteral}{"{}Galaxy"{}}].is\_array()\ \&\&\ !data[\textcolor{stringliteral}{"{}Galaxy"{}}].empty())\ \{}
+\DoxyCodeLine{00204\ \ \ \ \ \ \ \ \ galaxyNameFile\ =\ data[\textcolor{stringliteral}{"{}Galaxy"{}}][0].get<std::string>();}
+\DoxyCodeLine{00205\ \ \ \ \ \}}
+\DoxyCodeLine{00206\ \ \ \ \ std::string\ randomGalaxyName\ =\ rng.\mbox{\hyperlink{class_random_generator_a981527c4377639553cf136d383fb3c75}{getRandomNameFromFile}}(galaxyNameFile);}
+\DoxyCodeLine{00207\ }
+\DoxyCodeLine{00208\ \ \ \ \ galaxy\ =\ \textcolor{keyword}{new}\ Galaxy<GraphList<CelestialObject\ *>\ >(randomGalaxyName);}
+\DoxyCodeLine{00209\ }
+\DoxyCodeLine{00210\ \ \ \ \ galaxy-\/>generateGalaxy(data,\ rng);}
+\DoxyCodeLine{00211\ }
+\DoxyCodeLine{00212\ \ \ \ \ this-\/>dataPtr\ =\ \textcolor{keyword}{const\_cast<}nlohmann::json\ *\textcolor{keyword}{>}(\&data);}
+\DoxyCodeLine{00213\ \ \ \ \ this-\/>rngPtr\ =\ \&rng;}
+\DoxyCodeLine{00214\ }
+\DoxyCodeLine{00215\ \ \ \ \ qDebug()\ <<\ \textcolor{stringliteral}{"{}Galaxy\ successfully\ generated:"{}}\ <<\ QString::fromStdString(randomGalaxyName);}
+\DoxyCodeLine{00216\ }
+\DoxyCodeLine{00217\ \ \ \ \ ui-\/>galaxyNameLabel-\/>setText(QString(\textcolor{stringliteral}{"{}Created\ Galaxy:\ "{}})\ +\ QString::fromStdString(randomGalaxyName));}
+\DoxyCodeLine{00218\ }
+\DoxyCodeLine{00219\ \ \ \ \ \textcolor{comment}{//\ Prepare/resize\ vertexPositions\ for\ all\ vertices}}
+\DoxyCodeLine{00220\ \ \ \ \ vertexPositions.resize(galaxy-\/>getObject().size(),\ QPointF(0,\ 0));}
+\DoxyCodeLine{00221\ \ \ \ \ \textcolor{keywordtype}{int}\ nVerticesTotal\ =\ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{int}\textcolor{keyword}{>}(galaxy-\/>getObject().size());}
+\DoxyCodeLine{00222\ }
+\DoxyCodeLine{00223\ \ \ \ \ \textcolor{comment}{//\ Count\ active\ vertices}}
+\DoxyCodeLine{00224\ \ \ \ \ \textcolor{keywordtype}{int}\ n\_active\ =\ 0;}
+\DoxyCodeLine{00225\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ nVerticesTotal;\ ++i)\ \{}
+\DoxyCodeLine{00226\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (galaxy-\/>getGraph().getVertices()[i].getId()\ !=\ -\/1)\ \{}
+\DoxyCodeLine{00227\ \ \ \ \ \ \ \ \ \ \ \ \ n\_active++;}
+\DoxyCodeLine{00228\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00229\ \ \ \ \ \}}
+\DoxyCodeLine{00230\ \ \ \ \ \textcolor{keywordflow}{if}\ (n\_active\ ==\ 0)\ n\_active\ =\ 1;}
+\DoxyCodeLine{00231\ }
+\DoxyCodeLine{00232\ \ \ \ \ \textcolor{keywordtype}{int}\ active\_idx\_counter\ =\ 0;}
+\DoxyCodeLine{00233\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ nVerticesTotal;\ ++i)\ \{}
+\DoxyCodeLine{00234\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (galaxy-\/>getGraph().getVertices()[i].getId()\ !=\ -\/1)\ \{}
+\DoxyCodeLine{00235\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ cx\ =\ 550;}
+\DoxyCodeLine{00236\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ cy\ =\ 350;}
+\DoxyCodeLine{00237\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ radius\ =\ rng.\mbox{\hyperlink{class_random_generator_acebd9fa5ab6a04f33d0f6c5d3a5dfce1}{getDouble}}(150,\ 250);}
+\DoxyCodeLine{00238\ }
+\DoxyCodeLine{00239\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ angle\ =\ 2\ *\ M\_PI\ *\ active\_idx\_counter\ /\ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{double}\textcolor{keyword}{>}(n\_active);}
+\DoxyCodeLine{00240\ }
+\DoxyCodeLine{00241\ \ \ \ \ \ \ \ \ \ \ \ \ QPointF\ pos(}
+\DoxyCodeLine{00242\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ cx\ +\ radius\ *\ std::cos(angle),}
+\DoxyCodeLine{00243\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ cy\ +\ radius\ *\ std::sin(angle)}
+\DoxyCodeLine{00244\ \ \ \ \ \ \ \ \ \ \ \ \ );}
+\DoxyCodeLine{00245\ }
+\DoxyCodeLine{00246\ \ \ \ \ \ \ \ \ \ \ \ \ vertexPositions[i]\ =\ pos;}
+\DoxyCodeLine{00247\ \ \ \ \ \ \ \ \ \ \ \ \ active\_idx\_counter++;}
+\DoxyCodeLine{00248\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00249\ \ \ \ \ \}}
+\DoxyCodeLine{00250\ }
+\DoxyCodeLine{00251\ \ \ \ \ updateGraphDisplay();}
+\DoxyCodeLine{00252\ \ \ \ \ updateParametersWindow();}
+\DoxyCodeLine{00253\ \}}
+
+\end{DoxyCode}
+\Hypertarget{class_galaxy_view_a6a999cdb98b31cb83a4187a5f37d6ed1}\index{GalaxyView@{GalaxyView}!resizeEvent@{resizeEvent}}
+\index{resizeEvent@{resizeEvent}!GalaxyView@{GalaxyView}}
+\doxysubsubsection{\texorpdfstring{resizeEvent()}{resizeEvent()}}
+{\footnotesize\ttfamily \label{class_galaxy_view_a6a999cdb98b31cb83a4187a5f37d6ed1} 
+void Galaxy\+View\+::resize\+Event (\begin{DoxyParamCaption}\item[{QResize\+Event \texorpdfstring{$\ast$}{*}}]{event}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [protected]}}
+
+
+
+Overridden Qt event handler for window resize events. Used to dynamically reposition floating buttons and windows. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em event} & The resize event. \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00093\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00094\ \ \ \ \ QWidget::resizeEvent(event);}
+\DoxyCodeLine{00095\ }
+\DoxyCodeLine{00096\ \ \ \ \ \textcolor{keywordflow}{if}\ (paramsButton\ \&\&\ paramsWindow)\ \{}
+\DoxyCodeLine{00097\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ margin\ =\ 20;}
+\DoxyCodeLine{00098\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ btn\_x\ =\ width()\ -\/\ paramsButton-\/>width()\ -\/\ margin;}
+\DoxyCodeLine{00099\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ btn\_y\ =\ margin;}
+\DoxyCodeLine{00100\ \ \ \ \ \ \ \ \ paramsButton-\/>move(btn\_x,\ btn\_y);}
+\DoxyCodeLine{00101\ }
+\DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ win\_x\ =\ width()\ -\/\ paramsWindow-\/>width()\ -\/\ margin;}
+\DoxyCodeLine{00103\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ win\_y\ =\ btn\_y\ +\ paramsButton-\/>height()\ +\ 10;}
+\DoxyCodeLine{00104\ \ \ \ \ \ \ \ \ paramsWindow-\/>move(win\_x,\ win\_y);}
+\DoxyCodeLine{00105\ }
+\DoxyCodeLine{00106\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (zoomOutButton)\ \{}
+\DoxyCodeLine{00107\ \ \ \ \ \ \ \ \ \ \ \ \ zoomOutButton-\/>resize(150,\ 35);}
+\DoxyCodeLine{00108\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ zoom\_x\ =\ margin;}
+\DoxyCodeLine{00109\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ zoom\_y\ =\ margin;}
+\DoxyCodeLine{00110\ \ \ \ \ \ \ \ \ \ \ \ \ zoomOutButton-\/>move(zoom\_x,\ zoom\_y);}
+\DoxyCodeLine{00111\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00112\ \ \ \ \ \}}
+\DoxyCodeLine{00113\ \}}
+
+\end{DoxyCode}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Galaxy\+View/\mbox{\hyperlink{galaxyview_8h}{galaxyview.\+h}}\item 
+Galaxy\+View/galaxyview.\+cpp\end{DoxyCompactItemize}

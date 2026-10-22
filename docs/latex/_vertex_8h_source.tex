@@ -1,0 +1,28 @@
+\doxysection{Vertex.\+h}
+\hypertarget{_vertex_8h_source}{}\label{_vertex_8h_source}\index{Graph/Vertex.h@{Graph/Vertex.h}}
+\mbox{\hyperlink{_vertex_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ VERTEX\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ VERTEX\_H}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00007\ }
+\DoxyCodeLine{00013\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00014\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_vertex}{Vertex}}\ \{}
+\DoxyCodeLine{00015\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00016\ \ \ \ \ \textcolor{keywordtype}{int}\ id;\ }
+\DoxyCodeLine{00017\ \ \ \ \ T\ data;\ }
+\DoxyCodeLine{00018\ \ \ \ \ \textcolor{keywordtype}{bool}\ visited\ =\ \textcolor{keyword}{false};\ }
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00020\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00024\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_vertex_a4f53c3422ee8e41ddc4e1203217e682f}{markVisited}}()\ \{\ visited\ =\ \textcolor{keyword}{true};\ \}}
+\DoxyCodeLine{00028\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_vertex_a866edbab21ead9071fbec4641237156f}{resetVisited}}()\ \{\ visited\ =\ \textcolor{keyword}{false};\ \}}
+\DoxyCodeLine{00033\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_vertex_aa2bb17f6ebd98a67f8da1f689b22fadc}{isVisited}}()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ visited;\ \}}
+\DoxyCodeLine{00038\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_vertex_a57f6b5705f2faafc90184254213bbff1}{getId}}()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ id;\ \}}
+\DoxyCodeLine{00043\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_vertex_af9c12cefa7d6a93efe1eecb578b573b1}{setId}}(\textcolor{keywordtype}{int}\ index)\ \{\ \textcolor{keywordtype}{id}\ =\ index;\ \}}
+\DoxyCodeLine{00048\ \ \ \ \ T\ \mbox{\hyperlink{class_vertex_ae169d194b1c70752733bb8fd14d31132}{getData}}()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ data;\ \}}
+\DoxyCodeLine{00053\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_vertex_a477b2109b6ec86b779cdc23343b060e5}{setData}}(T\ d)\ \{\ data\ =\ d;\ \}}
+\DoxyCodeLine{00057\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_vertex_a65e0ecce63c8e79be93300d694265f5e}{printData}}()\textcolor{keyword}{\ const\ }\{\ std::cout\ <<\ \textcolor{keywordtype}{id}\ <<\ \textcolor{stringliteral}{"{}\ "{}}\ <<\ data;\ \}}
+\DoxyCodeLine{00058\ \};}
+\DoxyCodeLine{00059\ }
+\DoxyCodeLine{00060\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//VERTEX\_H}}
+
+\end{DoxyCode}

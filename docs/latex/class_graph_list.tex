@@ -1,0 +1,309 @@
+\doxysection{Graph\+List\texorpdfstring{$<$}{<} T \texorpdfstring{$>$}{>} Class Template Reference}
+\hypertarget{class_graph_list}{}\label{class_graph_list}\index{GraphList$<$ T $>$@{GraphList$<$ T $>$}}
+
+
+A concrete implementation of the \doxylink{class_graph}{Graph} interface using an adjacency list.  
+
+
+
+
+{\ttfamily \#include $<$Graph\+List.\+h$>$}
+
+Inheritance diagram for Graph\+List\texorpdfstring{$<$}{<} T \texorpdfstring{$>$}{>}\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_graph_list}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{class_graph_list_a6283932db72d378394c297cf8f67787a}{construct\+Adjacency}} () override
+\begin{DoxyCompactList}\small\item\em Constructs the adjacency list from the current set of vertices and edges. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_graph_list_a87726137bc9355b67d575468896ae664}{add\+Edge}} (int f\+Id, int t\+Id, int weight=1) override
+\begin{DoxyCompactList}\small\item\em Adds an edge and rebuilds the adjacency list. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_graph_list_a8b07257fb4a4fc2c701dbbca73c1457d}{add\+Vertex}} (int id, T data) override
+\begin{DoxyCompactList}\small\item\em Adds a vertex and resizes the adjacency list. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_graph_list_a75adf9611c4f57e87ec7283eaf494b6b}{remove\+Vertex}} (int id) override
+\begin{DoxyCompactList}\small\item\em Removes a vertex (soft delete) and rebuilds the adjacency list. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_graph_list_ab3b29bf6b2d07ab283a7dc31701153f4}{remove\+Edge}} (int f\+Id, int t\+Id) override
+\begin{DoxyCompactList}\small\item\em Removes an edge (soft delete) and rebuilds the adjacency list. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_graph_list_ad2a738ae8f98be03d92eb41ee85ae6e7}{print}} () const override
+\begin{DoxyCompactList}\small\item\em Prints a user-\/friendly representation of the adjacency list to the console. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{class_graph}{Graph$<$ T $>$}}}
+\begin{DoxyCompactItemize}
+\item 
+virtual {\bfseries \texorpdfstring{$\sim$}{\string~}\+Graph} ()=default
+\begin{DoxyCompactList}\small\item\em Default virtual destructor. \end{DoxyCompactList}\item 
+const std\+::vector$<$ \mbox{\hyperlink{class_vertex}{Vertex}}$<$ T $>$ $>$ \& \mbox{\hyperlink{class_graph_a07f5e993208f94a3317370e567fe1f85}{get\+Vertices}} () const
+\begin{DoxyCompactList}\small\item\em Gets a constant reference to the vector of vertices. \end{DoxyCompactList}\item 
+const std\+::vector$<$ \mbox{\hyperlink{class_edge}{Edge}}$<$ T $>$ $>$ \& \mbox{\hyperlink{class_graph_a440d4ce2ed2c0d957d3ebaf98c969599}{get\+Edges}} () const
+\begin{DoxyCompactList}\small\item\em Gets a constant reference to the vector of edges. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{class_graph_a6371204aa3d58d988b58e38ce6e4539d}{find\+Index\+By\+Id}} (int id) const
+\begin{DoxyCompactList}\small\item\em Finds the internal vector index for a vertex given its public ID. \end{DoxyCompactList}\item 
+T \mbox{\hyperlink{class_graph_aa45e9a5fe844587f2e1f38cd631e2fc4}{vertex\+Search}} (int id)
+\begin{DoxyCompactList}\small\item\em Searches for a vertex by its public ID. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_graph_acd93f77f0bf9eda8d34d78d96ba842d4}{edge\+Exists}} (int f\+Id, int t\+Id) const
+\begin{DoxyCompactList}\small\item\em Checks if an active edge exists between two vertex IDs. \end{DoxyCompactList}\item 
+std\+::vector$<$ T $>$ \mbox{\hyperlink{class_graph_a7100e8fbbca57ae52c6425d7f4f3950b}{get\+Neighbors}} (int id)
+\begin{DoxyCompactList}\small\item\em Returns a list of neighbor data for a given vertex ID. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_graph_list_acf0b2fd0f600cfb07f6283df7a9760a8}\label{class_graph_list_acf0b2fd0f600cfb07f6283df7a9760a8} 
+std\+::vector$<$ std\+::vector$<$ std\+::pair$<$ int, int $>$ $>$ $>$ {\bfseries adjacency\+List}
+\begin{DoxyCompactList}\small\item\em \texorpdfstring{$<$}{<} Each entry adjacency\+List\mbox{[}i\mbox{]} stores pairs (neighbor\+Index, weight). \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Additional Inherited Members}
+\doxysubsection*{Protected Attributes inherited from \mbox{\hyperlink{class_graph}{Graph$<$ T $>$}}}
+\begin{DoxyCompactItemize}
+\item 
+std\+::vector$<$ \mbox{\hyperlink{class_vertex}{Vertex}}$<$ T $>$ $>$ {\bfseries vertices}
+\begin{DoxyCompactList}\small\item\em The list of all vertices in the graph. \end{DoxyCompactList}\item 
+std\+::vector$<$ \mbox{\hyperlink{class_edge}{Edge}}$<$ T $>$ $>$ {\bfseries edges}
+\begin{DoxyCompactList}\small\item\em The list of all edges in the graph. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\subsubsection*{template$<$typename T$>$\newline
+class Graph\+List$<$ T $>$}
+A concrete implementation of the \doxylink{class_graph}{Graph} interface using an adjacency list. 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em T} & The type of data stored in the vertices. \\
+\hline
+\end{DoxyTemplParams}
+\begin{DoxyNote}{Note}
+For undirected graphs, each edge is stored twice\+: once for each direction. That is, if there is an edge between vertex A and B, both A\textquotesingle{}s and B\textquotesingle{}s adjacency lists will contain the other vertex. 
+\end{DoxyNote}
+\begin{DoxySeeAlso}{See also}
+\doxylink{class_graph}{Graph} 
+\end{DoxySeeAlso}
+\begin{Desc}
+\item[Examples]\par
+\mbox{\hyperlink{_c_1_2_users_2_prj_2_project1_2_algorithms_2_algorithm_8h-example}{C\+:/\+Users/\+Prj/\+Project1/\+Algorithms/\+Algorithm.\+h}}.\end{Desc}
+
+
+\label{doc-func-members}
+\Hypertarget{class_graph_list_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_graph_list_a87726137bc9355b67d575468896ae664}\index{GraphList$<$ T $>$@{GraphList$<$ T $>$}!addEdge@{addEdge}}
+\index{addEdge@{addEdge}!GraphList$<$ T $>$@{GraphList$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{addEdge()}{addEdge()}}
+{\footnotesize\ttfamily \label{class_graph_list_a87726137bc9355b67d575468896ae664} 
+template$<$typename T$>$ \\
+void \mbox{\hyperlink{class_graph_list}{Graph\+List}}$<$ T $>$\+::add\+Edge (\begin{DoxyParamCaption}\item[{int}]{f\+Id}{, }\item[{int}]{t\+Id}{, }\item[{int}]{weight}{ = {\ttfamily 1}}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Adds an edge and rebuilds the adjacency list. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em f\+Id} & The public ID of the \textquotesingle{}from\textquotesingle{} vertex. \\
+\hline
+{\em t\+Id} & The public ID of the \textquotesingle{}to\textquotesingle{} vertex. \\
+\hline
+{\em weight} & The weight of the edge (default is 1). \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{class_graph_aa900eb7513aa4de87d89fcac3f2276ac}{Graph$<$ T $>$}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_graph_list}{f}}\ =\ this-\/>\mbox{\hyperlink{class_graph_a6371204aa3d58d988b58e38ce6e4539d}{findIndexById}}(\mbox{\hyperlink{class_graph_list}{fId}});}
+\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_graph_list}{t}}\ =\ this-\/>\mbox{\hyperlink{class_graph_a6371204aa3d58d988b58e38ce6e4539d}{findIndexById}}(\mbox{\hyperlink{class_graph_list}{tId}});}
+\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{class_graph_list}{f}}\ ==\ -\/1\ ||\ \mbox{\hyperlink{class_graph_list}{t}}\ ==\ -\/1)\ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (this-\/>\mbox{\hyperlink{class_graph_acd93f77f0bf9eda8d34d78d96ba842d4}{edgeExists}}(\mbox{\hyperlink{class_graph_list}{fId}},\ \mbox{\hyperlink{class_graph_list}{tId}}))\ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00056\ }
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_graph_list}{Edge<T>}}\ \mbox{\hyperlink{class_graph_list}{edge}};}
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_graph_list}{edge}}.connect(\mbox{\hyperlink{class_graph_list}{f}},\ \mbox{\hyperlink{class_graph_list}{t}});}
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_graph_list}{edge}}.weight\ =\ \mbox{\hyperlink{class_graph_list}{weight}};}
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ this-\/>\mbox{\hyperlink{class_graph_ac32560ab2c280c1617b70f2a57f9c848}{edges}}.push\_back(\mbox{\hyperlink{class_graph_list}{edge}});}
+\DoxyCodeLine{00061\ }
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_graph_list_a6283932db72d378394c297cf8f67787a}{constructAdjacency}}();}
+\DoxyCodeLine{00063\ \ \ \ \ \}}
+
+\end{DoxyCode}
+\Hypertarget{class_graph_list_a8b07257fb4a4fc2c701dbbca73c1457d}\index{GraphList$<$ T $>$@{GraphList$<$ T $>$}!addVertex@{addVertex}}
+\index{addVertex@{addVertex}!GraphList$<$ T $>$@{GraphList$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{addVertex()}{addVertex()}}
+{\footnotesize\ttfamily \label{class_graph_list_a8b07257fb4a4fc2c701dbbca73c1457d} 
+template$<$typename T$>$ \\
+void \mbox{\hyperlink{class_graph_list}{Graph\+List}}$<$ T $>$\+::add\+Vertex (\begin{DoxyParamCaption}\item[{int}]{id}{, }\item[{T}]{data}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Adds a vertex and resizes the adjacency list. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em id} & The public ID for the new vertex. \\
+\hline
+{\em data} & The data (of type T) to store in the vertex. \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{class_graph_ae16fa8484fa8da1d50a32d56eca2ab65}{Graph$<$ T $>$}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00069\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (this-\/>\mbox{\hyperlink{class_graph_a6371204aa3d58d988b58e38ce6e4539d}{findIndexById}}(\textcolor{keywordtype}{id})\ !=\ -\/1)\ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_graph_list}{Vertex<T>}}\ \mbox{\hyperlink{class_graph_list}{vertex}};}
+\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_graph_list}{vertex}}.setId(\textcolor{keywordtype}{id});}
+\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_graph_list}{vertex}}.setData(\mbox{\hyperlink{class_graph_list}{data}});}
+\DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ this-\/>\mbox{\hyperlink{class_graph_a4677e7cca232583023ea6e4dcca62a6f}{vertices}}.push\_back(\mbox{\hyperlink{class_graph_list}{vertex}});}
+\DoxyCodeLine{00075\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_graph_list_acf0b2fd0f600cfb07f6283df7a9760a8}{adjacencyList}}.resize(this-\/>\mbox{\hyperlink{class_graph_a4677e7cca232583023ea6e4dcca62a6f}{vertices}}.size());}
+\DoxyCodeLine{00076\ \ \ \ \ \ \}}
+
+\end{DoxyCode}
+\Hypertarget{class_graph_list_a6283932db72d378394c297cf8f67787a}\index{GraphList$<$ T $>$@{GraphList$<$ T $>$}!constructAdjacency@{constructAdjacency}}
+\index{constructAdjacency@{constructAdjacency}!GraphList$<$ T $>$@{GraphList$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{constructAdjacency()}{constructAdjacency()}}
+{\footnotesize\ttfamily \label{class_graph_list_a6283932db72d378394c297cf8f67787a} 
+template$<$typename T$>$ \\
+void \mbox{\hyperlink{class_graph_list}{Graph\+List}}$<$ T $>$\+::construct\+Adjacency (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Constructs the adjacency list from the current set of vertices and edges. 
+
+This method clears the existing adjacency lists and rebuilds them according to the active edges in the graph. For undirected graphs, edges are added in both directions. \begin{DoxyNote}{Note}
+Clears the previous adjacency list before rebuilding. 
+\end{DoxyNote}
+
+
+Implements \mbox{\hyperlink{class_graph_a12ad2745e70e6a943324bb9d838b8b1a}{Graph$<$ T $>$}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00033\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_graph_list_acf0b2fd0f600cfb07f6283df7a9760a8}{adjacencyList}}.clear();}
+\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_graph_list_acf0b2fd0f600cfb07f6283df7a9760a8}{adjacencyList}}.resize(this-\/>\mbox{\hyperlink{class_graph_a4677e7cca232583023ea6e4dcca62a6f}{vertices}}.size());}
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\ \&\mbox{\hyperlink{class_graph_list}{edge}}:\ this-\/>\mbox{\hyperlink{class_graph_ac32560ab2c280c1617b70f2a57f9c848}{edges}})\ \{}
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{class_graph_list}{edge}}.isActive())\ \{}
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_graph_list_acf0b2fd0f600cfb07f6283df7a9760a8}{adjacencyList}}[\mbox{\hyperlink{class_graph_list}{edge}}.from].push\_back(\{\mbox{\hyperlink{class_graph_list}{edge}}.to,\ \mbox{\hyperlink{class_graph_list}{edge}}.weight\});}
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_graph_list_acf0b2fd0f600cfb07f6283df7a9760a8}{adjacencyList}}[\mbox{\hyperlink{class_graph_list}{edge}}.to].push\_back(\{\mbox{\hyperlink{class_graph_list}{edge}}.from,\ \mbox{\hyperlink{class_graph_list}{edge}}.weight\});}
+\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ \ \ \ \ \}}
+
+\end{DoxyCode}
+\Hypertarget{class_graph_list_ad2a738ae8f98be03d92eb41ee85ae6e7}\index{GraphList$<$ T $>$@{GraphList$<$ T $>$}!print@{print}}
+\index{print@{print}!GraphList$<$ T $>$@{GraphList$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{print()}{print()}}
+{\footnotesize\ttfamily \label{class_graph_list_ad2a738ae8f98be03d92eb41ee85ae6e7} 
+template$<$typename T$>$ \\
+void \mbox{\hyperlink{class_graph_list}{Graph\+List}}$<$ T $>$\+::print (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Prints a user-\/friendly representation of the adjacency list to the console. 
+
+
+
+Implements \mbox{\hyperlink{class_graph_a1fb75b362b6bce22a77f0646cfdf73d0}{Graph$<$ T $>$}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00114\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00115\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_graph_list}{std::cout}}\ <<\ \textcolor{stringliteral}{"{}Graph\ adjacency\ list:\(\backslash\)n"{}};}
+\DoxyCodeLine{00116\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{class_graph_list}{i}}\ =\ 0;\ \mbox{\hyperlink{class_graph_list}{i}}\ <\ \mbox{\hyperlink{class_graph_list_acf0b2fd0f600cfb07f6283df7a9760a8}{adjacencyList}}.size();\ \mbox{\hyperlink{class_graph_list}{i}}++)\ \{}
+\DoxyCodeLine{00117\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(this-\/>\mbox{\hyperlink{class_graph_a4677e7cca232583023ea6e4dcca62a6f}{vertices}}[\mbox{\hyperlink{class_graph_list}{i}}].\mbox{\hyperlink{class_graph_list}{getId}}()\ !=-\/1)\ \{}
+\DoxyCodeLine{00118\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_graph_list}{std::cout}}\ <<\ \textcolor{stringliteral}{"{}Vertex\ "{}}\ <<\ this-\/>\mbox{\hyperlink{class_graph_a4677e7cca232583023ea6e4dcca62a6f}{vertices}}[\mbox{\hyperlink{class_graph_list}{i}}].getId()\ <<\ \textcolor{stringliteral}{"{}\ ("{}}\ <<\ this-\/>\mbox{\hyperlink{class_graph_a4677e7cca232583023ea6e4dcca62a6f}{vertices}}[\mbox{\hyperlink{class_graph_list}{i}}].getData()\ <<\ \textcolor{stringliteral}{"{}):\ "{}};}
+\DoxyCodeLine{00119\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\&\ [\mbox{\hyperlink{class_graph_list}{neighborIdx}},\ \mbox{\hyperlink{class_graph_list}{weight}}]\ :\ \mbox{\hyperlink{class_graph_list_acf0b2fd0f600cfb07f6283df7a9760a8}{adjacencyList}}[\mbox{\hyperlink{class_graph_list}{i}}])\ \{}
+\DoxyCodeLine{00120\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_graph_list}{std::cout}}\ <<\ this-\/>\mbox{\hyperlink{class_graph_a4677e7cca232583023ea6e4dcca62a6f}{vertices}}[\mbox{\hyperlink{class_graph_list}{neighborIdx}}].getData()\ <<\ \textcolor{stringliteral}{"{}\ (w="{}}\ <<\ \mbox{\hyperlink{class_graph_list}{weight}}\ <<\ \textcolor{stringliteral}{"{})\ "{}};}
+\DoxyCodeLine{00121\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00122\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_graph_list}{std::cout}}\ <<\ \mbox{\hyperlink{class_graph_list}{std::endl}};}
+\DoxyCodeLine{00123\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00124\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00125\ \ \ \ \ \ \ \ \ \}}
+
+\end{DoxyCode}
+\Hypertarget{class_graph_list_ab3b29bf6b2d07ab283a7dc31701153f4}\index{GraphList$<$ T $>$@{GraphList$<$ T $>$}!removeEdge@{removeEdge}}
+\index{removeEdge@{removeEdge}!GraphList$<$ T $>$@{GraphList$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{removeEdge()}{removeEdge()}}
+{\footnotesize\ttfamily \label{class_graph_list_ab3b29bf6b2d07ab283a7dc31701153f4} 
+template$<$typename T$>$ \\
+void \mbox{\hyperlink{class_graph_list}{Graph\+List}}$<$ T $>$\+::remove\+Edge (\begin{DoxyParamCaption}\item[{int}]{f\+Id}{, }\item[{int}]{t\+Id}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Removes an edge (soft delete) and rebuilds the adjacency list. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em f\+Id} & The public ID of the \textquotesingle{}from\textquotesingle{} vertex. \\
+\hline
+{\em t\+Id} & The public ID of the \textquotesingle{}to\textquotesingle{} vertex. \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{class_graph_a9a49b970e67048dd310355034317f246}{Graph$<$ T $>$}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00099\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00100\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_graph_list}{f}}\ =\ this-\/>\mbox{\hyperlink{class_graph_a6371204aa3d58d988b58e38ce6e4539d}{findIndexById}}(\mbox{\hyperlink{class_graph_list}{fId}});}
+\DoxyCodeLine{00101\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_graph_list}{t}}\ =\ this-\/>\mbox{\hyperlink{class_graph_a6371204aa3d58d988b58e38ce6e4539d}{findIndexById}}(\mbox{\hyperlink{class_graph_list}{tId}});}
+\DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{class_graph_list}{f}}\ ==\ -\/1\ ||\ \mbox{\hyperlink{class_graph_list}{t}}\ ==\ -\/1)\ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00103\ }
+\DoxyCodeLine{00104\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\ \&\mbox{\hyperlink{class_graph_list}{edge}}\ :\ this-\/>\mbox{\hyperlink{class_graph_ac32560ab2c280c1617b70f2a57f9c848}{edges}})\ \{}
+\DoxyCodeLine{00105\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ ((\mbox{\hyperlink{class_graph_list}{edge}}.getFrom()\ ==\ \mbox{\hyperlink{class_graph_list}{f}}\ \&\&\ \mbox{\hyperlink{class_graph_list}{edge}}.getTo()\ ==\ \mbox{\hyperlink{class_graph_list}{t}})\ ||\ (\mbox{\hyperlink{class_graph_list}{edge}}.getFrom()\ ==\ \mbox{\hyperlink{class_graph_list}{t}}\ \&\&\ \mbox{\hyperlink{class_graph_list}{edge}}.getTo()\ ==\ \mbox{\hyperlink{class_graph_list}{f}}))}
+\DoxyCodeLine{00106\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_graph_list}{edge}}.disconnect();}
+\DoxyCodeLine{00107\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00108\ }
+\DoxyCodeLine{00109\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_graph_list_a6283932db72d378394c297cf8f67787a}{constructAdjacency}}();}
+\DoxyCodeLine{00110\ \ \ \ \ \}}
+
+\end{DoxyCode}
+\Hypertarget{class_graph_list_a75adf9611c4f57e87ec7283eaf494b6b}\index{GraphList$<$ T $>$@{GraphList$<$ T $>$}!removeVertex@{removeVertex}}
+\index{removeVertex@{removeVertex}!GraphList$<$ T $>$@{GraphList$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{removeVertex()}{removeVertex()}}
+{\footnotesize\ttfamily \label{class_graph_list_a75adf9611c4f57e87ec7283eaf494b6b} 
+template$<$typename T$>$ \\
+void \mbox{\hyperlink{class_graph_list}{Graph\+List}}$<$ T $>$\+::remove\+Vertex (\begin{DoxyParamCaption}\item[{int}]{id}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Removes a vertex (soft delete) and rebuilds the adjacency list. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em id} & The public ID of the vertex to remove. \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{class_graph_a9d0f5262b2907aebbc45bec2921dff2f}{Graph$<$ T $>$}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00082\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_graph_list}{idx}}\ =\ this-\/>\mbox{\hyperlink{class_graph_a6371204aa3d58d988b58e38ce6e4539d}{findIndexById}}(\textcolor{keywordtype}{id});}
+\DoxyCodeLine{00083\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{class_graph_list}{idx}}\ ==\ -\/1)\ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00084\ }
+\DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ this-\/>\mbox{\hyperlink{class_graph_a4677e7cca232583023ea6e4dcca62a6f}{vertices}}[\mbox{\hyperlink{class_graph_list}{idx}}].setId(-\/1);}
+\DoxyCodeLine{00086\ \ \ \ \ \ \ \ \ this-\/>\mbox{\hyperlink{class_graph_a4677e7cca232583023ea6e4dcca62a6f}{vertices}}[\mbox{\hyperlink{class_graph_list}{idx}}].setData(\mbox{\hyperlink{class_graph_list}{T}}\{\});}
+\DoxyCodeLine{00087\ }
+\DoxyCodeLine{00088\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\ \&\mbox{\hyperlink{class_graph_list}{edge}}\ :\ this-\/>\mbox{\hyperlink{class_graph_ac32560ab2c280c1617b70f2a57f9c848}{edges}})\ \{}
+\DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{class_graph_list}{edge}}.getFrom()\ ==\ \mbox{\hyperlink{class_graph_list}{idx}}\ ||\ \mbox{\hyperlink{class_graph_list}{edge}}.getTo()\ ==\ \mbox{\hyperlink{class_graph_list}{idx}})\ \mbox{\hyperlink{class_graph_list}{edge}}.disconnect();}
+\DoxyCodeLine{00090\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00091\ }
+\DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_graph_list_a6283932db72d378394c297cf8f67787a}{constructAdjacency}}();}
+\DoxyCodeLine{00093\ \ \ \ \ \}}
+
+\end{DoxyCode}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Graph/\mbox{\hyperlink{_graph_list_8h}{Graph\+List.\+h}}\end{DoxyCompactItemize}

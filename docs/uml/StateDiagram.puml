@@ -1,0 +1,110 @@
+@startuml
+skinparam monochrome true
+hide empty description
+
+[*] --> MainMenu
+
+state MainMenu {
+  MainMenu : Generate Galaxy (2D or 3D)
+}
+
+MainMenu --> GalaxyLevel : Generate 2D / 3D
+
+
+state GalaxyLevel {
+
+  [*] --> GalaxyView
+
+  state GalaxyView {
+    GalaxyView : Random galaxy generated
+  }
+
+  state GalaxyParams {
+    GalaxyParams : View Galaxy Info
+  }
+
+  state GalaxyEdit {
+    GalaxyEdit : Change Galaxy Parameters
+  }
+
+  state DistanceMeasurement {
+    DistanceMeasurement : Bottom right window
+    DistanceMeasurement : Obj1, Obj2, dynamic distance
+  }
+
+  GalaxyView --> GalaxyParams : Click "Parameters"
+  GalaxyParams --> GalaxyView : Close
+  GalaxyParams --> GalaxyEdit : Click "Edit"
+  GalaxyEdit --> GalaxyParams : Save
+
+  GalaxyView --> DistanceMeasurement : Select Obj1 + Obj2
+  DistanceMeasurement --> GalaxyView : Click elsewhere
+}
+
+GalaxyLevel --> NebulaLevel : Double-click Nebula
+GalaxyLevel --> SystemLevel : Double-click Star System
+GalaxyLevel --> MainMenu : Back to Menu
+
+
+state NebulaLevel {
+
+  [*] --> NebulaDetail
+
+  state NebulaDetail {
+    NebulaDetail : Zoomed in on Nebula
+  }
+
+  state NebulaParams
+  state NebulaEdit
+
+  NebulaDetail --> NebulaParams : Click "Parameters"
+  NebulaParams --> NebulaDetail : Close
+  NebulaParams --> NebulaEdit : Click "Edit"
+  NebulaEdit --> NebulaParams : Save
+}
+
+NebulaLevel --> GalaxyLevel : Zoom Out
+
+
+
+state SystemLevel {
+
+  [*] --> SystemDetail
+
+  state SystemDetail {
+    SystemDetail : Zoomed in on Star System
+  }
+
+  state SystemParams
+  state SystemEdit
+
+  SystemDetail --> SystemParams : Click "Parameters"
+  SystemParams --> SystemDetail : Close
+  SystemParams --> SystemEdit : Click "Edit"
+  SystemEdit --> SystemParams : Save
+}
+
+SystemLevel --> GalaxyLevel : Zoom Out
+SystemLevel --> PlanetLevel : Double-click Planet [2D mode]
+
+
+state PlanetLevel {
+
+  [*] --> PlanetDetail
+
+  state PlanetDetail {
+    PlanetDetail : Zoomed in on Planet
+  }
+
+  state PlanetParams
+  state PlanetEdit
+
+  PlanetDetail --> PlanetParams : Click "Parameters"
+  PlanetParams --> PlanetDetail : Close
+  PlanetParams --> PlanetEdit : Click "Edit"
+  PlanetEdit --> PlanetParams : Save
+}
+
+PlanetLevel --> SystemLevel : Zoom Out
+
+@enduml

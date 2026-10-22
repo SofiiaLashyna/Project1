@@ -1,6 +1,6 @@
 #ifndef ISCONNECTED_LIST_H
 #define ISCONNECTED_LIST_H
-#include "Algorithm.h"
+#include "GraphAlgorithms.h"
 #include "GraphList.h"
 /**
  * @file isConnectedList.h

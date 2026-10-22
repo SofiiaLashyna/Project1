@@ -1,0 +1,25 @@
+\doxysection{DFSMatrix.\+h}
+\hypertarget{_d_f_s_matrix_8h_source}{}\label{_d_f_s_matrix_8h_source}\index{Algorithms/DFSMatrix.h@{Algorithms/DFSMatrix.h}}
+\mbox{\hyperlink{_d_f_s_matrix_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ DFS\_MATRIX\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ DFS\_MATRIX\_H}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_algorithm_8h}{Algorithm.h}}"{}}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_graph_matrix_8h}{GraphMatrix.h}}"{}}}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00018\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00019\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_d_f_s_matrix_algorithm}{DFSMatrixAlgorithm}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_graph_algorithm}{GraphAlgorithm}}<GraphMatrix<T>,\ T>\ \{}
+\DoxyCodeLine{00020\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00032\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_d_f_s_matrix_algorithm_a964d358da35a04c608beb53f47c0d8ee}{run}}(\mbox{\hyperlink{class_graph_matrix}{GraphMatrix<T>}}\&\ g,\ \textcolor{keywordtype}{int}\ startId,\ \textcolor{keywordtype}{int}\ endId\ =\ -\/1)\textcolor{keyword}{\ override\ }\{}
+\DoxyCodeLine{00033\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_algorithms}{Algorithms<GraphMatrix<T>}},\ T>\ alg(g);}
+\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ alg.\mbox{\hyperlink{class_algorithms_a333fa6513c592d980b769018f096a483}{DFS\_matrix}}(startId);}
+\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{00036\ \ \ \ \ \}}
+\DoxyCodeLine{00037\ }
+\DoxyCodeLine{00039\ \ \ \ \ \mbox{\hyperlink{class_d_f_s_matrix_algorithm_a2c0498b09861b5da783d288d7dd8986d}{\string~DFSMatrixAlgorithm}}()\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00040\ \};}
+\DoxyCodeLine{00041\ }
+\DoxyCodeLine{00042\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//DFS\_MATRIX\_H}}
+
+\end{DoxyCode}

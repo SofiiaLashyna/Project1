@@ -1,0 +1,91 @@
+\doxysection{Dijkstra\+Matrix\+Algorithm\texorpdfstring{$<$}{<} T \texorpdfstring{$>$}{>} Class Template Reference}
+\hypertarget{class_dijkstra_matrix_algorithm}{}\label{class_dijkstra_matrix_algorithm}\index{DijkstraMatrixAlgorithm$<$ T $>$@{DijkstraMatrixAlgorithm$<$ T $>$}}
+
+
+Strategy class implementing Dijkstra\textquotesingle{}s algorithm for graphs represented by an adjacency matrix.  
+
+
+
+
+{\ttfamily \#include $<$Dijkstra\+Matrix.\+h$>$}
+
+Inheritance diagram for Dijkstra\+Matrix\+Algorithm\texorpdfstring{$<$}{<} T \texorpdfstring{$>$}{>}\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_dijkstra_matrix_algorithm}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{class_dijkstra_matrix_algorithm_a08c5a007ee13eeea58db2ac70478f5a5}{run}} (\mbox{\hyperlink{class_graph_matrix}{Graph\+Matrix}}$<$ T $>$ \&g, int start\+Id, int end\+Id) override
+\begin{DoxyCompactList}\small\item\em Performs Dijkstra\textquotesingle{}s algorithm for a graph represented by an adjacency matrix. \end{DoxyCompactList}\item 
+\Hypertarget{class_dijkstra_matrix_algorithm_aff6650744a8cf5099339ff3f14ec459f}\label{class_dijkstra_matrix_algorithm_aff6650744a8cf5099339ff3f14ec459f} 
+{\bfseries \texorpdfstring{$\sim$}{\string~}\+Dijkstra\+Matrix\+Algorithm} ()=default
+\begin{DoxyCompactList}\small\item\em Default destructor. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{class_graph_algorithm}{Graph\+Algorithm$<$ Graph\+Matrix$<$ T $>$, T $>$}}}
+\begin{DoxyCompactItemize}
+\item 
+virtual {\bfseries \texorpdfstring{$\sim$}{\string~}\+Graph\+Algorithm} ()=default
+\begin{DoxyCompactList}\small\item\em Virtual destructor. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\subsubsection*{template$<$typename T$>$\newline
+class Dijkstra\+Matrix\+Algorithm$<$ T $>$}
+Strategy class implementing Dijkstra\textquotesingle{}s algorithm for graphs represented by an adjacency matrix. 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em T} & The data stored in graph vertices.\\
+\hline
+\end{DoxyTemplParams}
+Computes the minimum path cost from {\ttfamily start\+Id} to {\ttfamily end\+Id}. Returns -\/1 if no path exists. Assumes non-\/negative weights. 
+
+\label{doc-func-members}
+\Hypertarget{class_dijkstra_matrix_algorithm_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_dijkstra_matrix_algorithm_a08c5a007ee13eeea58db2ac70478f5a5}\index{DijkstraMatrixAlgorithm$<$ T $>$@{DijkstraMatrixAlgorithm$<$ T $>$}!run@{run}}
+\index{run@{run}!DijkstraMatrixAlgorithm$<$ T $>$@{DijkstraMatrixAlgorithm$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{run()}{run()}}
+{\footnotesize\ttfamily \label{class_dijkstra_matrix_algorithm_a08c5a007ee13eeea58db2ac70478f5a5} 
+template$<$typename T$>$ \\
+int \mbox{\hyperlink{class_dijkstra_matrix_algorithm}{Dijkstra\+Matrix\+Algorithm}}$<$ T $>$\+::run (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_graph_matrix}{Graph\+Matrix}}$<$ T $>$ \&}]{g}{, }\item[{int}]{start\+Id}{, }\item[{int}]{end\+Id}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Performs Dijkstra\textquotesingle{}s algorithm for a graph represented by an adjacency matrix. 
+
+This is the implementation of the virtual \textquotesingle{}run\textquotesingle{} method. The traversal order is printed to std\+::cout.
+
+
+\begin{DoxyParams}{Parameters}
+{\em g} & The \doxylink{class_graph_matrix}{Graph\+Matrix} object to traverse. \\
+\hline
+{\em start\+Id} & The ID of the starting vertex. \\
+\hline
+{\em end\+Id} & The ID of the destination vertex. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The length of the shortest path, or -\/1 if no path is found. 
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{class_graph_algorithm_a002a93f79b9204a814a7c9726dc69a78}{Graph\+Algorithm$<$ Graph\+Matrix$<$ T $>$, T $>$}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_dijkstra_matrix_algorithm}{Algorithms<GraphMatrix<T>}},\ \mbox{\hyperlink{class_dijkstra_matrix_algorithm}{T}}>\ \mbox{\hyperlink{class_dijkstra_matrix_algorithm}{alg}}(\mbox{\hyperlink{class_dijkstra_matrix_algorithm}{g}});}
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_dijkstra_matrix_algorithm}{res}}\ =\ \mbox{\hyperlink{class_dijkstra_matrix_algorithm}{alg}}.Dijkstra\_matrix(\mbox{\hyperlink{class_dijkstra_matrix_algorithm}{startId}},\ \mbox{\hyperlink{class_dijkstra_matrix_algorithm}{endId}});}
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_dijkstra_matrix_algorithm}{std::cout}}\ <<\ \textcolor{stringliteral}{"{}Shortest\ path\ weight\ =\ "{}}\ <<\ \mbox{\hyperlink{class_dijkstra_matrix_algorithm}{res}}\ <<\ \mbox{\hyperlink{class_dijkstra_matrix_algorithm}{std::endl}};}
+\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{class_dijkstra_matrix_algorithm}{res}};}
+\DoxyCodeLine{00042\ \ \ \ \ \}}
+
+\end{DoxyCode}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Algorithms/\mbox{\hyperlink{_dijkstra_matrix_8h}{Dijkstra\+Matrix.\+h}}\end{DoxyCompactItemize}

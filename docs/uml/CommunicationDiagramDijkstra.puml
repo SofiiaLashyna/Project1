@@ -1,0 +1,19 @@
+@startuml
+skinparam monochrome true
+left to right direction
+allow_mixing
+
+actor "User" as user
+object "view : GalaxyView" as view
+object "solver : DijkstraPathList" as solver
+object "alg : Algorithms" as alg
+
+user --> view : 1: onVertexClicked()
+
+view -- solver : 3: findShortestPath() >\n< 6: return pathIndices
+
+solver -- alg : 4: Dijkstra_findPath() >\n< 5: return path
+
+view --> view : 2: calculateShortestPath()\n7: sendPathToQML()\n8: updateView()
+
+@enduml

@@ -1,0 +1,24 @@
+\doxysection{BFSMatrix.\+h}
+\hypertarget{_b_f_s_matrix_8h_source}{}\label{_b_f_s_matrix_8h_source}\index{Algorithms/BFSMatrix.h@{Algorithms/BFSMatrix.h}}
+\mbox{\hyperlink{_b_f_s_matrix_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ BFS\_MATRIX\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ BFS\_MATRIX\_H}}
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_algorithm_8h}{Algorithm.h}}"{}}}
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_graph_matrix_8h}{GraphMatrix.h}}"{}}}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00017\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00018\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_b_f_s_matrix_algorithm}{BFSMatrixAlgorithm}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_graph_algorithm}{GraphAlgorithm}}<GraphMatrix<T>,\ T>\ \{}
+\DoxyCodeLine{00019\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00031\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_b_f_s_matrix_algorithm_a85a2b8bb0c1ca6b65c7443fac83d9957}{run}}(\mbox{\hyperlink{class_graph_matrix}{GraphMatrix<T>}}\&\ g,\ \textcolor{keywordtype}{int}\ startId,\ \textcolor{keywordtype}{int}\ endId\ =\ -\/1)\textcolor{keyword}{\ override\ }\{}
+\DoxyCodeLine{00032\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_algorithms}{Algorithms<GraphMatrix<T>}},\ T>\ alg(g);}
+\DoxyCodeLine{00033\ \ \ \ \ \ \ \ \ alg.\mbox{\hyperlink{class_algorithms_a4fccd7b13390a54933cee8d14f819c66}{BFS\_matrix}}(startId);}
+\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{00035\ \ \ \ \ \}}
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00038\ \ \ \ \ \mbox{\hyperlink{class_b_f_s_matrix_algorithm_aa58ec9e7862efdd7459e3c0c04789b7c}{\string~BFSMatrixAlgorithm}}()\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00039\ \};}
+\DoxyCodeLine{00040\ }
+\DoxyCodeLine{00041\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//BFS\_MATRIX\_H}}
+
+\end{DoxyCode}

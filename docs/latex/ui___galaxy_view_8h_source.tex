@@ -1,0 +1,79 @@
+\doxysection{ui\+\_\+\+Galaxy\+View.\+h}
+\hypertarget{ui___galaxy_view_8h_source}{}\label{ui___galaxy_view_8h_source}\index{cmake-\/build-\/debug/ProjectLib\_autogen/include/ui\_GalaxyView.h@{cmake-\/build-\/debug/ProjectLib\_autogen/include/ui\_GalaxyView.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/********************************************************************************}}
+\DoxyCodeLine{00002\ \textcolor{comment}{**\ Form\ generated\ from\ reading\ UI\ file\ 'galaxyview.ui'}}
+\DoxyCodeLine{00003\ \textcolor{comment}{**}}
+\DoxyCodeLine{00004\ \textcolor{comment}{**\ Created\ by:\ Qt\ User\ Interface\ Compiler\ version\ 6.9.3}}
+\DoxyCodeLine{00005\ \textcolor{comment}{**}}
+\DoxyCodeLine{00006\ \textcolor{comment}{**\ WARNING!\ All\ changes\ made\ in\ this\ file\ will\ be\ lost\ when\ recompiling\ UI\ file!}}
+\DoxyCodeLine{00007\ \textcolor{comment}{********************************************************************************/}}
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#ifndef\ UI\_GALAXYVIEW\_H}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#define\ UI\_GALAXYVIEW\_H}}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ <QtCore/QVariant>}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ <QtWidgets/QApplication>}}
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#include\ <QtWidgets/QFrame>}}
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#include\ <QtWidgets/QLabel>}}
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#include\ <QtWidgets/QVBoxLayout>}}
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#include\ <QtWidgets/QWidget>}}
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00019\ QT\_BEGIN\_NAMESPACE}
+\DoxyCodeLine{00020\ }
+\DoxyCodeLine{00021\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_ui___galaxy_view}{Ui\_GalaxyView}}}
+\DoxyCodeLine{00022\ \{}
+\DoxyCodeLine{00023\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00024\ \ \ \ \ QVBoxLayout\ *verticalLayout;}
+\DoxyCodeLine{00025\ \ \ \ \ QLabel\ *galaxyNameLabel;}
+\DoxyCodeLine{00026\ \ \ \ \ QFrame\ *graphArea;}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \ \ \ \ \textcolor{keywordtype}{void}\ setupUi(QWidget\ *\mbox{\hyperlink{class_galaxy_view}{GalaxyView}})}
+\DoxyCodeLine{00029\ \ \ \ \ \{}
+\DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{class_galaxy_view}{GalaxyView}}-\/>objectName().isEmpty())}
+\DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_galaxy_view}{GalaxyView}}-\/>setObjectName(\textcolor{stringliteral}{"{}GalaxyView"{}});}
+\DoxyCodeLine{00032\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_galaxy_view}{GalaxyView}}-\/>resize(1507,\ 669);}
+\DoxyCodeLine{00033\ \ \ \ \ \ \ \ \ verticalLayout\ =\ \textcolor{keyword}{new}\ QVBoxLayout(\mbox{\hyperlink{class_galaxy_view}{GalaxyView}});}
+\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ verticalLayout-\/>setObjectName(\textcolor{stringliteral}{"{}verticalLayout"{}});}
+\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ galaxyNameLabel\ =\ \textcolor{keyword}{new}\ QLabel(\mbox{\hyperlink{class_galaxy_view}{GalaxyView}});}
+\DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ galaxyNameLabel-\/>setObjectName(\textcolor{stringliteral}{"{}galaxyNameLabel"{}});}
+\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ galaxyNameLabel-\/>setStyleSheet(QString::fromUtf8(\textcolor{stringliteral}{"{}font:\ 26pt\ \(\backslash\)"{}Ravie\(\backslash\)"{};"{}}));}
+\DoxyCodeLine{00038\ }
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ verticalLayout-\/>addWidget(galaxyNameLabel);}
+\DoxyCodeLine{00040\ }
+\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ graphArea\ =\ \textcolor{keyword}{new}\ QFrame(\mbox{\hyperlink{class_galaxy_view}{GalaxyView}});}
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ graphArea-\/>setObjectName(\textcolor{stringliteral}{"{}graphArea"{}});}
+\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ QSizePolicy\ sizePolicy(QSizePolicy::Policy::Expanding,\ QSizePolicy::Policy::Expanding);}
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ sizePolicy.setHorizontalStretch(0);}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ sizePolicy.setVerticalStretch(0);}
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ sizePolicy.setHeightForWidth(graphArea-\/>sizePolicy().hasHeightForWidth());}
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ graphArea-\/>setSizePolicy(sizePolicy);}
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ graphArea-\/>setFrameShape(QFrame::Shape::StyledPanel);}
+\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ graphArea-\/>setFrameShadow(QFrame::Shadow::Raised);}
+\DoxyCodeLine{00050\ }
+\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ verticalLayout-\/>addWidget(graphArea);}
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00053\ }
+\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ retranslateUi(\mbox{\hyperlink{class_galaxy_view}{GalaxyView}});}
+\DoxyCodeLine{00055\ }
+\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ QMetaObject::connectSlotsByName(\mbox{\hyperlink{class_galaxy_view}{GalaxyView}});}
+\DoxyCodeLine{00057\ \ \ \ \ \}\ \textcolor{comment}{//\ setupUi}}
+\DoxyCodeLine{00058\ }
+\DoxyCodeLine{00059\ \ \ \ \ \textcolor{keywordtype}{void}\ retranslateUi(QWidget\ *\mbox{\hyperlink{class_galaxy_view}{GalaxyView}})}
+\DoxyCodeLine{00060\ \ \ \ \ \{}
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_galaxy_view}{GalaxyView}}-\/>setWindowTitle(QCoreApplication::translate(\textcolor{stringliteral}{"{}GalaxyView"{}},\ \textcolor{stringliteral}{"{}GalaxyView"{}},\ \textcolor{keyword}{nullptr}));}
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ galaxyNameLabel-\/>setText(QCoreApplication::translate(\textcolor{stringliteral}{"{}GalaxyView"{}},\ \textcolor{stringliteral}{"{}TextLabel"{}},\ \textcolor{keyword}{nullptr}));}
+\DoxyCodeLine{00063\ \ \ \ \ \}\ \textcolor{comment}{//\ retranslateUi}}
+\DoxyCodeLine{00064\ }
+\DoxyCodeLine{00065\ \};}
+\DoxyCodeLine{00066\ }
+\DoxyCodeLine{00067\ \textcolor{keyword}{namespace\ }Ui\ \{}
+\DoxyCodeLine{00068\ \ \ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_ui_1_1_galaxy_view}{GalaxyView}}:\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_ui___galaxy_view}{Ui\_GalaxyView}}\ \{\};}
+\DoxyCodeLine{00069\ \}\ \textcolor{comment}{//\ namespace\ Ui}}
+\DoxyCodeLine{00070\ }
+\DoxyCodeLine{00071\ QT\_END\_NAMESPACE}
+\DoxyCodeLine{00072\ }
+\DoxyCodeLine{00073\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ UI\_GALAXYVIEW\_H}}
+
+\end{DoxyCode}

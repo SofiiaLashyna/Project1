@@ -1,0 +1,38 @@
+@startuml
+skinparam monochrome true
+skinparam ActivityBackgroundColor white
+
+start
+
+partition "sd Initialization" {
+  :WindowInterface loads JSON;
+  :GalaxyView calls generateAndDisplayGalaxy();
+}
+
+fork
+  partition "sd Physics Simulation Loop" {
+    repeat
+      :Timer ticks (16ms);
+      :PhysicsEngine steps simulation;
+      :GraphWidget repaints bodies;
+    repeat while (Application is running?)
+  }
+fork again
+  partition "sd User Interaction" {
+    while (Application is running?) is (yes)
+      if (User double-clicks object?) then (yes)
+        :GalaxyView processes click;
+        :Show Parameters/Edit Dialog;
+      else (no)
+      endif
+    endwhile (no)
+  }
+end merge
+
+partition "sd Shutdown" {
+  :Delete Galaxy (clears objects);
+  :Delete PhysicsEngine;
+}
+
+stop
+@enduml

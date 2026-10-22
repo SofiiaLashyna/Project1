@@ -1,0 +1,74 @@
+\doxysection{Random\+Utilities.\+h}
+\hypertarget{_random_utilities_8h_source}{}\label{_random_utilities_8h_source}\index{RandomGalaxy/RandomUtilities.h@{RandomGalaxy/RandomUtilities.h}}
+\mbox{\hyperlink{_random_utilities_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ RANDOMUTILITIES\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ RANDOMUTILITIES\_H}}
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ <fstream>}}
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <iostream>}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <random>}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ <QColor>}}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00020\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_random_generator_ad2b3256e634878160c7d8b6e865341b2}{RandomGenerator}}\ \{}
+\DoxyCodeLine{00021\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00022\ \ \ \ \ std::mt19937\ gen;\ }
+\DoxyCodeLine{00023\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00028\ \ \ \ \ \mbox{\hyperlink{class_random_generator_ad2b3256e634878160c7d8b6e865341b2}{RandomGenerator}}()\ :\ gen(std::random\_device\{\}())\ \{\}}
+\DoxyCodeLine{00035\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_random_generator_a7d876bb4ac714678cf7d9d67759255fa}{getInt}}(\textcolor{keywordtype}{int}\ min,\ \textcolor{keywordtype}{int}\ max)\ \{}
+\DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ std::uniform\_int\_distribution<>\ dist(min,\ max);}
+\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ dist(gen);}
+\DoxyCodeLine{00038\ \ \ \ \ \}}
+\DoxyCodeLine{00045\ \ \ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{class_random_generator_acebd9fa5ab6a04f33d0f6c5d3a5dfce1}{getDouble}}(\textcolor{keywordtype}{double}\ min,\ \textcolor{keywordtype}{double}\ max)\ \{}
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ std::uniform\_real\_distribution<>\ dist(min,\ max);}
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ dist(gen);}
+\DoxyCodeLine{00048\ \ \ \ \ \}}
+\DoxyCodeLine{00053\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_random_generator_a811b6188f210735d53d26f91035b2d68}{getBool}}()\ \{}
+\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ std::bernoulli\_distribution\ dist(0.5);}
+\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ dist(gen);}
+\DoxyCodeLine{00056\ \ \ \ \ \}}
+\DoxyCodeLine{00061\ \ \ \ \ QColor\ \mbox{\hyperlink{class_random_generator_a011dd6491bb3525ab706fc51ef6726e3}{getRandomColor}}()\ \{}
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ hue\ =\ \mbox{\hyperlink{class_random_generator_a7d876bb4ac714678cf7d9d67759255fa}{getInt}}(0,\ 359);\ \ \ \textcolor{comment}{//\ Hue\ (0-\/360)}}
+\DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ sat\ =\ \mbox{\hyperlink{class_random_generator_a7d876bb4ac714678cf7d9d67759255fa}{getInt}}(150,\ 255);\ \textcolor{comment}{//\ Saturation\ (kept\ high)}}
+\DoxyCodeLine{00064\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ val\ =\ \mbox{\hyperlink{class_random_generator_a7d876bb4ac714678cf7d9d67759255fa}{getInt}}(180,\ 255);\ \textcolor{comment}{//\ Value/Brightness\ (kept\ high)}}
+\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ QColor::fromHsv(hue,\ sat,\ val);}
+\DoxyCodeLine{00066\ \ \ \ \ \}}
+\DoxyCodeLine{00074\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00075\ \ \ \ \ T\ \mbox{\hyperlink{class_random_generator_a6cf29591c5f6aa02305780df469c1810}{getChoice}}(\textcolor{keyword}{const}\ std::vector<T>\&\ items)\ \{}
+\DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (items.empty())\ \{}
+\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::runtime\_error(\textcolor{stringliteral}{"{}getChoice()\ called\ with\ empty\ vector!"{}});}
+\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ std::uniform\_int\_distribution<>\ dist(0,\ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{int}\textcolor{keyword}{>}(items.size())\ -\/\ 1);}
+\DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ items[dist(gen)];}
+\DoxyCodeLine{00081\ \ \ \ \ \}}
+\DoxyCodeLine{00087\ \ \ \ \ std::vector<std::string>\ \mbox{\hyperlink{class_random_generator_a0d7c89394d54f53228d86cbdf721e6c7}{loadNamesFromFile}}(\textcolor{keyword}{const}\ std::string\&\ filePath)\ \{}
+\DoxyCodeLine{00088\ \ \ \ \ \ \ \ \ std::ifstream\ file(filePath);}
+\DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ std::vector<std::string>\ names;}
+\DoxyCodeLine{00090\ \ \ \ \ \ \ \ \ std::string\ line;}
+\DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!file.is\_open())\ \{}
+\DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ \ \ \ \ std::cerr\ <<\ \textcolor{stringliteral}{"{}Не\ вдалося\ відкрити\ файл:\ "{}}\ <<\ filePath\ <<\ std::endl;}
+\DoxyCodeLine{00093\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ names;}
+\DoxyCodeLine{00094\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00095\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}\ (std::getline(file,\ line))\ \{}
+\DoxyCodeLine{00096\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!line.empty())\ names.push\_back(line);}
+\DoxyCodeLine{00097\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00098\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ names;}
+\DoxyCodeLine{00099\ \ \ \ \ \}}
+\DoxyCodeLine{00105\ \ \ \ \ std::string\ \mbox{\hyperlink{class_random_generator_a981527c4377639553cf136d383fb3c75}{getRandomNameFromFile}}(\textcolor{keyword}{const}\ std::string\&\ filePath)\ \{}
+\DoxyCodeLine{00106\ \ \ \ \ \ \ \ \ std::ifstream\ file(filePath);}
+\DoxyCodeLine{00107\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!file.is\_open())\ \{}
+\DoxyCodeLine{00108\ \ \ \ \ \ \ \ \ \ \ \ \ std::cerr\ <<\ \textcolor{stringliteral}{"{}Cannot\ open\ name\ file:\ "{}}\ <<\ filePath\ <<\ std::endl;}
+\DoxyCodeLine{00109\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}Unnamed"{}};}
+\DoxyCodeLine{00110\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00111\ \ \ \ \ \ \ \ \ std::vector<std::string>\ names\ =\ \mbox{\hyperlink{class_random_generator_a0d7c89394d54f53228d86cbdf721e6c7}{loadNamesFromFile}}(filePath);}
+\DoxyCodeLine{00112\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (names.empty())\ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}Unnamed"{}};}
+\DoxyCodeLine{00113\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{class_random_generator_a6cf29591c5f6aa02305780df469c1810}{getChoice}}(names);}
+\DoxyCodeLine{00114\ \ \ \ \ \}}
+\DoxyCodeLine{00120\ \ \ \ \ std::mt19937\&\ \mbox{\hyperlink{class_random_generator_a412740747fe91cba4ab6b9229b9bda41}{getEngine}}()\ \{\ \textcolor{keywordflow}{return}\ gen;\ \}}
+\DoxyCodeLine{00121\ }
+\DoxyCodeLine{00122\ }
+\DoxyCodeLine{00123\ }
+\DoxyCodeLine{00124\ \};}
+\DoxyCodeLine{00125\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//RANDOMUTILITIES\_H}}
+
+\end{DoxyCode}

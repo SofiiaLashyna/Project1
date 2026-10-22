@@ -1,0 +1,565 @@
+\doxysection{Graph\+Widget Class Reference}
+\hypertarget{class_graph_widget}{}\label{class_graph_widget}\index{GraphWidget@{GraphWidget}}
+
+
+A custom QWidget that handles all painting (QPainter) for the galaxy graph, star systems, and nebulae, including zoom and animation.  
+
+
+
+
+{\ttfamily \#include $<$Graph\+Widget.\+h$>$}
+
+Inheritance diagram for Graph\+Widget\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_graph_widget}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Signals}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{class_graph_widget_af0e8c79fa974cb659950b9c9ae4920b7}{vertex\+Double\+Clicked}} (int vertex\+Id)
+\begin{DoxyCompactList}\small\item\em Qt Signal\+: Emitted when a user double-\/clicks on a vertex. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_graph_widget_a6df7c301e5551dff21bbdc5b6cd7ffc9}{Graph\+Widget}} (QWidget \texorpdfstring{$\ast$}{*}parent=nullptr)
+\begin{DoxyCompactList}\small\item\em Constructor for \doxylink{class_graph_widget}{Graph\+Widget}. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_graph_widget_a4dc62bbcd72dc92ccafe4e4056b4bacf}{set\+Graph}} (const std\+::vector$<$ \mbox{\hyperlink{struct_w___vertex}{W\+\_\+\+Vertex}} $>$ \&v, const std\+::vector$<$ \mbox{\hyperlink{struct_w___edge}{W\+\_\+\+Edge}} $>$ \&e, const std\+::vector$<$ \mbox{\hyperlink{class_celestial_object}{Celestial\+Object}} \texorpdfstring{$\ast$}{*} $>$ \texorpdfstring{$\ast$}{*}objects)
+\begin{DoxyCompactList}\small\item\em Sets the graph data (vertices and edges) to be rendered. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_graph_widget_afd8fe82dd8c48d8f31af30fb4de2b9fe}{zoom\+To\+Vertex}} (int vertex\+Id)
+\begin{DoxyCompactList}\small\item\em Enters "{}detail mode"{} (zoom) for a specific vertex. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_graph_widget_aa4de4e2caa8f0ac809f7df692257b1d6}{reset\+Zoom}} ()
+\begin{DoxyCompactList}\small\item\em Exits "{}detail mode"{} and resets the zoom. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{class_graph_widget_a0c059fd31214809444b595e1f702781d}{get\+Detailed\+Vertex\+Id}} () const
+\begin{DoxyCompactList}\small\item\em Gets the ID of the vertex currently in focus (detail mode). \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{class_graph_widget_a1b08bd862bf1f2dcb9f3f749de383e14}{paint\+Event}} (QPaint\+Event \texorpdfstring{$\ast$}{*}event) override
+\begin{DoxyCompactList}\small\item\em Overridden Qt event handler for all custom painting. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_graph_widget_a355b134258a0ea43396748057960f70c}{mouse\+Double\+Click\+Event}} (QMouse\+Event \texorpdfstring{$\ast$}{*}event) override
+\begin{DoxyCompactList}\small\item\em Overridden Qt event handler for detecting clicks on vertices. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+A custom QWidget that handles all painting (QPainter) for the galaxy graph, star systems, and nebulae, including zoom and animation. 
+
+\label{doc-constructors}
+\Hypertarget{class_graph_widget_doc-constructors}
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_graph_widget_a6df7c301e5551dff21bbdc5b6cd7ffc9}\index{GraphWidget@{GraphWidget}!GraphWidget@{GraphWidget}}
+\index{GraphWidget@{GraphWidget}!GraphWidget@{GraphWidget}}
+\doxysubsubsection{\texorpdfstring{GraphWidget()}{GraphWidget()}}
+{\footnotesize\ttfamily \label{class_graph_widget_a6df7c301e5551dff21bbdc5b6cd7ffc9} 
+Graph\+Widget\+::\+Graph\+Widget (\begin{DoxyParamCaption}\item[{QWidget \texorpdfstring{$\ast$}{*}}]{parent}{ = {\ttfamily nullptr}}\end{DoxyParamCaption})}
+
+
+
+Constructor for \doxylink{class_graph_widget}{Graph\+Widget}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em parent} & The parent Qt widget. \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00010\ \ \ \ \ :\ QWidget(parent)\ \{}
+\DoxyCodeLine{00011\ \ \ \ \ animationTimer\ =\ \textcolor{keyword}{new}\ QTimer(\textcolor{keyword}{this});}
+\DoxyCodeLine{00012\ \ \ \ \ connect(animationTimer,\ \&QTimer::timeout,\ \textcolor{keyword}{this},\ [\textcolor{keyword}{this}]()\ \{}
+\DoxyCodeLine{00013\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (isDetailMode)\ \{}
+\DoxyCodeLine{00014\ \ \ \ \ \ \ \ \ \ \ \ \ this-\/>update();}
+\DoxyCodeLine{00015\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00016\ \ \ \ \ \});}
+\DoxyCodeLine{00017\ \}}
+
+\end{DoxyCode}
+
+
+\label{doc-func-members}
+\Hypertarget{class_graph_widget_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_graph_widget_a0c059fd31214809444b595e1f702781d}\index{GraphWidget@{GraphWidget}!getDetailedVertexId@{getDetailedVertexId}}
+\index{getDetailedVertexId@{getDetailedVertexId}!GraphWidget@{GraphWidget}}
+\doxysubsubsection{\texorpdfstring{getDetailedVertexId()}{getDetailedVertexId()}}
+{\footnotesize\ttfamily \label{class_graph_widget_a0c059fd31214809444b595e1f702781d} 
+int Graph\+Widget\+::get\+Detailed\+Vertex\+Id (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const}
+
+
+
+Gets the ID of the vertex currently in focus (detail mode). 
+
+\begin{DoxyReturn}{Returns}
+The ID of the detailed vertex, or -\/1 if not in detail mode. 
+\end{DoxyReturn}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00045\ \ \ \ \ \textcolor{keywordflow}{return}\ detailedVertexId;}
+\DoxyCodeLine{00046\ \}}
+
+\end{DoxyCode}
+\Hypertarget{class_graph_widget_a355b134258a0ea43396748057960f70c}\index{GraphWidget@{GraphWidget}!mouseDoubleClickEvent@{mouseDoubleClickEvent}}
+\index{mouseDoubleClickEvent@{mouseDoubleClickEvent}!GraphWidget@{GraphWidget}}
+\doxysubsubsection{\texorpdfstring{mouseDoubleClickEvent()}{mouseDoubleClickEvent()}}
+{\footnotesize\ttfamily \label{class_graph_widget_a355b134258a0ea43396748057960f70c} 
+void Graph\+Widget\+::mouse\+Double\+Click\+Event (\begin{DoxyParamCaption}\item[{QMouse\+Event \texorpdfstring{$\ast$}{*}}]{event}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [protected]}}
+
+
+
+Overridden Qt event handler for detecting clicks on vertices. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em event} & The mouse event. \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00027\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00028\ \ \ \ \ \textcolor{keywordflow}{if}\ (event-\/>button()\ ==\ Qt::LeftButton)\ \{}
+\DoxyCodeLine{00029\ \ \ \ \ \ \ \ \ QPoint\ clickPt\ =\ \textcolor{keyword}{event}-\/>position().toPoint();}
+\DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ i\ =\ 0;\ i\ <\ vertices.size();\ ++i)\ \{}
+\DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ \&vertex\ =\ vertices[i];}
+\DoxyCodeLine{00032\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (vertex.id\ <\ 0)\ \textcolor{keywordflow}{continue};}
+\DoxyCodeLine{00033\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ dx\ =\ clickPt.x()\ -\/\ vertex.x;}
+\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ dy\ =\ clickPt.y()\ -\/\ vertex.y;}
+\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (dx\ *\ dx\ +\ dy\ *\ dy\ <=\ 10\ *\ 10)\ \{}
+\DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ emit\ \mbox{\hyperlink{class_graph_widget_af0e8c79fa974cb659950b9c9ae4920b7}{vertexDoubleClicked}}(vertex.id);}
+\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00040\ \ \ \ \ \}}
+\DoxyCodeLine{00041\ \ \ \ \ QWidget::mouseDoubleClickEvent(event);}
+\DoxyCodeLine{00042\ \}}
+
+\end{DoxyCode}
+\Hypertarget{class_graph_widget_a1b08bd862bf1f2dcb9f3f749de383e14}\index{GraphWidget@{GraphWidget}!paintEvent@{paintEvent}}
+\index{paintEvent@{paintEvent}!GraphWidget@{GraphWidget}}
+\doxysubsubsection{\texorpdfstring{paintEvent()}{paintEvent()}}
+{\footnotesize\ttfamily \label{class_graph_widget_a1b08bd862bf1f2dcb9f3f749de383e14} 
+void Graph\+Widget\+::paint\+Event (\begin{DoxyParamCaption}\item[{QPaint\+Event \texorpdfstring{$\ast$}{*}}]{event}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [protected]}}
+
+
+
+Overridden Qt event handler for all custom painting. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em event} & The paint event. \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00063\ \ \ \ \ \textcolor{keywordflow}{if}\ (vertices.empty())\ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00064\ }
+\DoxyCodeLine{00065\ \ \ \ \ Q\_UNUSED(event);}
+\DoxyCodeLine{00066\ }
+\DoxyCodeLine{00067\ \ \ \ \ QPainter\ painter(\textcolor{keyword}{this});}
+\DoxyCodeLine{00068\ \ \ \ \ painter.setRenderHint(QPainter::Antialiasing);}
+\DoxyCodeLine{00069\ }
+\DoxyCodeLine{00070\ \ \ \ \ \textcolor{keywordflow}{if}\ (!celestialObjectsPtr)\ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00071\ }
+\DoxyCodeLine{00072\ \ \ \ \ \textcolor{keywordflow}{if}\ (isDetailMode\ \&\&\ detailedVertexId\ !=\ -\/1\ \&\&\ celestialObjectsPtr)\ \{}
+\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (detailedVertexId\ <\ 0\ ||\ detailedVertexId\ >=\ (\textcolor{keywordtype}{int})\ vertices.size()\ ||}
+\DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ \ \ \ \ detailedVertexId\ <\ 0\ ||\ detailedVertexId\ >=\ (\textcolor{keywordtype}{int})\ celestialObjectsPtr-\/>size())\ \{}
+\DoxyCodeLine{00075\ \ \ \ \ \ \ \ \ \ \ \ \ isDetailMode\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ \ \ \ \ detailedVertexId\ =\ -\/1;}
+\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00079\ }
+\DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ CelestialObject\ *obj\ =\ (*celestialObjectsPtr)[detailedVertexId];}
+\DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!obj)\ \{}
+\DoxyCodeLine{00082\ \ \ \ \ \ \ \ \ \ \ \ \ isDetailMode\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00083\ \ \ \ \ \ \ \ \ \ \ \ \ detailedVertexId\ =\ -\/1;}
+\DoxyCodeLine{00084\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00086\ }
+\DoxyCodeLine{00087\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ W\_Vertex\ \&focusedV\ =\ vertices[detailedVertexId];}
+\DoxyCodeLine{00088\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (focusedV.\mbox{\hyperlink{struct_w___vertex_a2ad662f039673cc4c12a97374db33bc9}{id}}\ ==\ -\/1)\ \{}
+\DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ \ \ \ \ isDetailMode\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00090\ \ \ \ \ \ \ \ \ \ \ \ \ detailedVertexId\ =\ -\/1;}
+\DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00093\ }
+\DoxyCodeLine{00094\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ scaleFactor\ =\ 3.0;}
+\DoxyCodeLine{00095\ \ \ \ \ \ \ \ \ painter.translate(width()\ /\ 2,\ height()\ /\ 2);}
+\DoxyCodeLine{00096\ \ \ \ \ \ \ \ \ painter.scale(scaleFactor,\ scaleFactor);}
+\DoxyCodeLine{00097\ \ \ \ \ \ \ \ \ painter.translate(-\/focusedV.x,\ -\/focusedV.\mbox{\hyperlink{struct_w___vertex_a5d5becf68a37d71ef31d95ee645e13bc}{y}});}
+\DoxyCodeLine{00098\ }
+\DoxyCodeLine{00099\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ starRadius\ =\ 24;}
+\DoxyCodeLine{00100\ }
+\DoxyCodeLine{00101\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (obj-\/>\mbox{\hyperlink{class_celestial_object_a0c35c926828a4a82bbca8befd764d53a}{getType}}()\ ==\ \textcolor{stringliteral}{"{}Nebula"{}})\ \{}
+\DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ \ \ \ \ Nebula\ *nebula\ =\ \textcolor{keyword}{dynamic\_cast<}Nebula\ *\textcolor{keyword}{>}(obj);}
+\DoxyCodeLine{00103\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (nebula)\ \{}
+\DoxyCodeLine{00104\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ nebulaRadius\ =\ 50;}
+\DoxyCodeLine{00105\ }
+\DoxyCodeLine{00106\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ QRadialGradient\ gradient(focusedV.x,\ focusedV.\mbox{\hyperlink{struct_w___vertex_a5d5becf68a37d71ef31d95ee645e13bc}{y}},\ nebulaRadius);}
+\DoxyCodeLine{00107\ }
+\DoxyCodeLine{00108\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_nebula_af723611c49f9e4c0d31c54c039abd11a}{Nebula::nebulaType}}\ type\ =\ nebula-\/>\mbox{\hyperlink{class_nebula_a13d412f3fb719a8eea74c7718a01b1a5}{getNebulaType}}();}
+\DoxyCodeLine{00109\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (type\ ==\ Nebula::nebulaType::Planetary)\ \{}
+\DoxyCodeLine{00110\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ gradient.setColorAt(0,\ QColor(100,\ 255,\ 255,\ 200));}
+\DoxyCodeLine{00111\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ gradient.setColorAt(0.5,\ QColor(50,\ 150,\ 255,\ 150));}
+\DoxyCodeLine{00112\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ gradient.setColorAt(1,\ QColor(20,\ 50,\ 150,\ 50));}
+\DoxyCodeLine{00113\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ painter.setPen(QPen(Qt::cyan,\ 2));}
+\DoxyCodeLine{00114\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (type\ ==\ Nebula::nebulaType::Supernova)\ \{}
+\DoxyCodeLine{00115\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ gradient.setColorAt(0,\ QColor(255,\ 255,\ 150,\ 220));}
+\DoxyCodeLine{00116\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ gradient.setColorAt(0.4,\ QColor(255,\ 100,\ 50,\ 180));}
+\DoxyCodeLine{00117\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ gradient.setColorAt(1,\ QColor(150,\ 0,\ 0,\ 40));}
+\DoxyCodeLine{00118\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ painter.setPen(QPen(Qt::red,\ 2));}
+\DoxyCodeLine{00119\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (type\ ==\ Nebula::nebulaType::Emission)\ \{}
+\DoxyCodeLine{00120\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ gradient.setColorAt(0,\ QColor(255,\ 100,\ 150,\ 200));}
+\DoxyCodeLine{00121\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ gradient.setColorAt(0.5,\ QColor(200,\ 50,\ 100,\ 150));}
+\DoxyCodeLine{00122\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ gradient.setColorAt(1,\ QColor(100,\ 20,\ 50,\ 50));}
+\DoxyCodeLine{00123\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ painter.setPen(QPen(Qt::magenta,\ 2));}
+\DoxyCodeLine{00124\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (type\ ==\ Nebula::nebulaType::Reflection)\ \{}
+\DoxyCodeLine{00125\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ gradient.setColorAt(0,\ QColor(150,\ 200,\ 255,\ 200));}
+\DoxyCodeLine{00126\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ gradient.setColorAt(0.5,\ QColor(80,\ 120,\ 200,\ 150));}
+\DoxyCodeLine{00127\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ gradient.setColorAt(1,\ QColor(30,\ 50,\ 120,\ 50));}
+\DoxyCodeLine{00128\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ painter.setPen(QPen(Qt::blue,\ 2));}
+\DoxyCodeLine{00129\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (type\ ==\ Nebula::nebulaType::Dark)\ \{}
+\DoxyCodeLine{00130\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ gradient.setColorAt(0,\ QColor(80,\ 60,\ 100,\ 180));}
+\DoxyCodeLine{00131\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ gradient.setColorAt(0.5,\ QColor(50,\ 30,\ 70,\ 120));}
+\DoxyCodeLine{00132\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ gradient.setColorAt(1,\ QColor(20,\ 10,\ 30,\ 60));}
+\DoxyCodeLine{00133\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ painter.setPen(QPen(QColor(100,\ 80,\ 120),\ 2));}
+\DoxyCodeLine{00134\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00135\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ gradient.setColorAt(0,\ QColor(200,\ 200,\ 255,\ 200));}
+\DoxyCodeLine{00136\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ gradient.setColorAt(0.5,\ QColor(100,\ 100,\ 200,\ 150));}
+\DoxyCodeLine{00137\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ gradient.setColorAt(1,\ QColor(50,\ 50,\ 100,\ 50));}
+\DoxyCodeLine{00138\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ painter.setPen(QPen(Qt::white,\ 2));}
+\DoxyCodeLine{00139\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00140\ }
+\DoxyCodeLine{00141\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ painter.setBrush(gradient);}
+\DoxyCodeLine{00142\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ painter.drawEllipse(focusedV.x\ -\/\ nebulaRadius,\ focusedV.\mbox{\hyperlink{struct_w___vertex_a5d5becf68a37d71ef31d95ee645e13bc}{y}}\ -\/\ nebulaRadius,}
+\DoxyCodeLine{00143\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ nebulaRadius\ *\ 2,\ nebulaRadius\ *\ 2);}
+\DoxyCodeLine{00144\ }
+\DoxyCodeLine{00145\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ painter.setBrush(Qt::NoBrush);}
+\DoxyCodeLine{00146\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ painter.drawEllipse(focusedV.x\ -\/\ nebulaRadius\ -\/\ 5,\ focusedV.\mbox{\hyperlink{struct_w___vertex_a5d5becf68a37d71ef31d95ee645e13bc}{y}}\ -\/\ nebulaRadius\ -\/\ 5,}
+\DoxyCodeLine{00147\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (nebulaRadius\ +\ 5)\ *\ 2,\ (nebulaRadius\ +\ 5)\ *\ 2);}
+\DoxyCodeLine{00148\ }
+\DoxyCodeLine{00149\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ QFont\ font\ =\ painter.font();}
+\DoxyCodeLine{00150\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ font.setPointSize(12);}
+\DoxyCodeLine{00151\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ font.setBold(\textcolor{keyword}{false});}
+\DoxyCodeLine{00152\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ font.setFamily(\textcolor{stringliteral}{"{}Ravie"{}});}
+\DoxyCodeLine{00153\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ painter.setFont(font);}
+\DoxyCodeLine{00154\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ painter.setPen(QPen(QColor(200,\ 200,\ 200),\ 2));}
+\DoxyCodeLine{00155\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ painter.drawText(focusedV.x\ -\/\ nebulaRadius\ -\/\ 150,}
+\DoxyCodeLine{00156\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ focusedV.\mbox{\hyperlink{struct_w___vertex_a5d5becf68a37d71ef31d95ee645e13bc}{y}}\ -\/\ nebulaRadius\ +\ 155,}
+\DoxyCodeLine{00157\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ focusedV.\mbox{\hyperlink{struct_w___vertex_ae3bf0d90f7d5f66bff3d5d6d7712178a}{name}});}
+\DoxyCodeLine{00158\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00159\ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (obj-\/>\mbox{\hyperlink{class_celestial_object_a0c35c926828a4a82bbca8befd764d53a}{getType}}()\ ==\ \textcolor{stringliteral}{"{}StarSystem"{}})\ \{}
+\DoxyCodeLine{00160\ \ \ \ \ \ \ \ \ \ \ \ \ StarSystem\ *system\ =\ \textcolor{keyword}{dynamic\_cast<}StarSystem\ *\textcolor{keyword}{>}(obj);}
+\DoxyCodeLine{00161\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (system)\ \{}
+\DoxyCodeLine{00162\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_star_a832a684c34ea9be925563714ad6c75e8}{Star::starType}}\ type\ =\ system-\/>\mbox{\hyperlink{class_star_system_ab7524a0bf726864cf308d760a262907e}{getStar}}().\mbox{\hyperlink{class_star_a4eaf3c4b1d368e5a14f7ff43c77bd71a}{getStarType}}();}
+\DoxyCodeLine{00163\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (type\ ==\ Star::starType::White\_Dwarf)\ \{}
+\DoxyCodeLine{00164\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ painter.setBrush(Qt::lightGray);}
+\DoxyCodeLine{00165\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ painter.setPen(Qt::darkMagenta);}
+\DoxyCodeLine{00166\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (type\ ==\ Star::starType::Brown\_Dwarf)\ \{}
+\DoxyCodeLine{00167\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ painter.setBrush(Qt::color1);}
+\DoxyCodeLine{00168\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ painter.setPen(Qt::white);}
+\DoxyCodeLine{00169\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (type\ ==\ Star::starType::Main\_sequence\_Star)\ \{}
+\DoxyCodeLine{00170\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ painter.setBrush(Qt::yellow);}
+\DoxyCodeLine{00171\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ painter.setPen(Qt::color0);}
+\DoxyCodeLine{00172\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (type\ ==\ Star::starType::Neutron\_Star)\ \{}
+\DoxyCodeLine{00173\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ painter.setBrush(Qt::darkBlue);}
+\DoxyCodeLine{00174\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ painter.setPen(Qt::white);}
+\DoxyCodeLine{00175\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (type\ ==\ Star::starType::Red\_Giant)\ \{}
+\DoxyCodeLine{00176\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ painter.setBrush(Qt::red);}
+\DoxyCodeLine{00177\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ painter.setPen(Qt::darkRed);}
+\DoxyCodeLine{00178\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (type\ ==\ Star::starType::Red\_Dwarf)\ \{}
+\DoxyCodeLine{00179\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ painter.setBrush(Qt::green);}
+\DoxyCodeLine{00180\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ painter.setPen(Qt::red);}
+\DoxyCodeLine{00181\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00182\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ painter.setBrush(Qt::white);}
+\DoxyCodeLine{00183\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ painter.setPen(Qt::gray);}
+\DoxyCodeLine{00184\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00185\ }
+\DoxyCodeLine{00186\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ painter.drawEllipse(focusedV.x\ -\/\ starRadius,\ focusedV.\mbox{\hyperlink{struct_w___vertex_a5d5becf68a37d71ef31d95ee645e13bc}{y}}\ -\/\ starRadius,}
+\DoxyCodeLine{00187\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ starRadius\ *\ 2,\ starRadius\ *\ 2);}
+\DoxyCodeLine{00188\ }
+\DoxyCodeLine{00189\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ painter.setPen(QPen(QColor(200,\ 200,\ 200),\ 2));}
+\DoxyCodeLine{00190\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ QFont\ font\ =\ painter.font();}
+\DoxyCodeLine{00191\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ font.setPointSize(8);}
+\DoxyCodeLine{00192\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ font.setBold(\textcolor{keyword}{false});}
+\DoxyCodeLine{00193\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ font.setFamily(\textcolor{stringliteral}{"{}Ravie"{}});}
+\DoxyCodeLine{00194\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ painter.setFont(font);}
+\DoxyCodeLine{00195\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ painter.drawText(focusedV.x\ -\/\ starRadius\ -\/\ 170,}
+\DoxyCodeLine{00196\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ focusedV.\mbox{\hyperlink{struct_w___vertex_a5d5becf68a37d71ef31d95ee645e13bc}{y}}\ +\ starRadius\ +\ 85,}
+\DoxyCodeLine{00197\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ focusedV.\mbox{\hyperlink{struct_w___vertex_ae3bf0d90f7d5f66bff3d5d6d7712178a}{name}});}
+\DoxyCodeLine{00198\ }
+\DoxyCodeLine{00199\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ minMass\ =\ std::numeric\_limits<double>::max();}
+\DoxyCodeLine{00200\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ maxMass\ =\ std::numeric\_limits<double>::lowest();}
+\DoxyCodeLine{00201\ }
+\DoxyCodeLine{00202\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ \&p:\ system-\/>\mbox{\hyperlink{class_star_system_a4a74205c3a6f18415a550de9268b500f}{getPlanets}}())\ \{}
+\DoxyCodeLine{00203\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ minMass\ =\ std::min(minMass,\ p-\/>getMass());}
+\DoxyCodeLine{00204\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ maxMass\ =\ std::max(maxMass,\ p-\/>getMass());}
+\DoxyCodeLine{00205\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00206\ }
+\DoxyCodeLine{00207\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (maxMass\ ==\ minMass)\ \{}
+\DoxyCodeLine{00208\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ maxMass\ =\ minMass\ +\ 1.0;}
+\DoxyCodeLine{00209\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00210\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ maxPlanetRadius\ =\ 5;}
+\DoxyCodeLine{00211\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ \&p:\ system-\/>\mbox{\hyperlink{class_star_system_a4a74205c3a6f18415a550de9268b500f}{getPlanets}}())\ \{}
+\DoxyCodeLine{00212\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ massNorm\ =\ (p-\/>getMass()\ -\/\ minMass)\ /\ (maxMass\ -\/\ minMass);}
+\DoxyCodeLine{00213\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ planetRadius\ =\ int(4.0\ +\ 8.0\ *\ massNorm);}
+\DoxyCodeLine{00214\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ maxPlanetRadius\ =\ std::max(maxPlanetRadius,\ planetRadius);}
+\DoxyCodeLine{00215\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00216\ }
+\DoxyCodeLine{00217\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ orbitStart\ =\ starRadius\ +\ maxPlanetRadius\ +\ 12;}
+\DoxyCodeLine{00218\ }
+\DoxyCodeLine{00219\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ RandomGenerator\ rng;}
+\DoxyCodeLine{00220\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ i\ =\ 0;\ i\ <\ system-\/>\mbox{\hyperlink{class_star_system_a4a74205c3a6f18415a550de9268b500f}{getPlanets}}().size();\ ++i)\ \{}
+\DoxyCodeLine{00221\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Planet*\ planetPtr\ =\ system-\/>\mbox{\hyperlink{class_star_system_a4a74205c3a6f18415a550de9268b500f}{getPlanets}}()[i];}
+\DoxyCodeLine{00222\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Planet\ \&planet\ =\ *planetPtr;}
+\DoxyCodeLine{00223\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (planet.\mbox{\hyperlink{class_planet_acadbe6502a83a5ca3e9dcad7c3813de5}{getColor}}()\ ==\ QColor(0,\ 0,\ 0)\ ||\ planet.\mbox{\hyperlink{class_planet_acadbe6502a83a5ca3e9dcad7c3813de5}{getColor}}()\ ==\ QColor())\ \{}
+\DoxyCodeLine{00224\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ planet.\mbox{\hyperlink{class_planet_a2205e6583e37f08a12faee37be673404}{setColor}}(rng.\mbox{\hyperlink{class_random_generator_a011dd6491bb3525ab706fc51ef6726e3}{getRandomColor}}());}
+\DoxyCodeLine{00225\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00226\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00227\ }
+\DoxyCodeLine{00228\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ i\ =\ 0;\ i\ <\ system-\/>\mbox{\hyperlink{class_star_system_a4a74205c3a6f18415a550de9268b500f}{getPlanets}}().size();\ ++i)\ \{}
+\DoxyCodeLine{00229\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Planet*\ planetPtr\ =\ system-\/>\mbox{\hyperlink{class_star_system_a4a74205c3a6f18415a550de9268b500f}{getPlanets}}()[i];}
+\DoxyCodeLine{00230\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Planet\ \&planet\ =\ *planetPtr;}
+\DoxyCodeLine{00231\ }
+\DoxyCodeLine{00232\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ orbitRadiusBase\ =\ orbitStart\ +\ 40.0\ *\ (i\ /\ double(std::max(}
+\DoxyCodeLine{00233\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (\textcolor{keywordtype}{int})\ system-\/>\mbox{\hyperlink{class_star_system_a4a74205c3a6f18415a550de9268b500f}{getPlanets}}().size()\ -\/\ 1,\ 1)));}
+\DoxyCodeLine{00234\ }
+\DoxyCodeLine{00235\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ time\ =\ QDateTime::currentMSecsSinceEpoch()\ /\ 1000.0;}
+\DoxyCodeLine{00236\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ angularSpeed\ =\ 1.0\ /\ std::sqrt(planet.\mbox{\hyperlink{class_planet_a7568d86c7d38e06b5eee452c65f4bb79}{getOrbit}}()\ +\ 1.0);}
+\DoxyCodeLine{00237\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ angle\ =\ time\ *\ angularSpeed\ *\ 0.5;}
+\DoxyCodeLine{00238\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ planetX\ =\ focusedV.x\ +\ orbitRadiusBase\ *\ std::cos(angle);}
+\DoxyCodeLine{00239\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ planetY\ =\ focusedV.\mbox{\hyperlink{struct_w___vertex_a5d5becf68a37d71ef31d95ee645e13bc}{y}}\ +\ orbitRadiusBase\ *\ std::sin(angle);}
+\DoxyCodeLine{00240\ }
+\DoxyCodeLine{00241\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ painter.setPen(QPen(Qt::darkGray,\ 1,\ Qt::DotLine));}
+\DoxyCodeLine{00242\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ painter.setBrush(Qt::NoBrush);}
+\DoxyCodeLine{00243\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ painter.drawEllipse(focusedV.x\ -\/\ (\textcolor{keywordtype}{int})\ orbitRadiusBase,}
+\DoxyCodeLine{00244\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ focusedV.\mbox{\hyperlink{struct_w___vertex_a5d5becf68a37d71ef31d95ee645e13bc}{y}}\ -\/\ (\textcolor{keywordtype}{int})\ orbitRadiusBase,}
+\DoxyCodeLine{00245\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ orbitRadiusBase\ *\ 2,\ orbitRadiusBase\ *\ 2);}
+\DoxyCodeLine{00246\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ painter.setPen(Qt::NoPen);}
+\DoxyCodeLine{00247\ }
+\DoxyCodeLine{00248\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ massNorm\ =\ (planet.\mbox{\hyperlink{class_celestial_object_a8b839bf5b36c357e3fc0fdccf2f4bfdb}{getMass}}()\ -\/\ minMass)\ /\ (maxMass\ -\/\ minMass);}
+\DoxyCodeLine{00249\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ radius2\ =\ 4.0\ +\ 8.0\ *\ massNorm;}
+\DoxyCodeLine{00250\ }
+\DoxyCodeLine{00251\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ painter.setBrush(planet.\mbox{\hyperlink{class_planet_acadbe6502a83a5ca3e9dcad7c3813de5}{getColor}}());}
+\DoxyCodeLine{00252\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ painter.drawEllipse(planetX\ -\/\ radius2,\ planetY\ -\/\ radius2,}
+\DoxyCodeLine{00253\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ radius2\ *\ 2,\ radius2\ *\ 2);}
+\DoxyCodeLine{00254\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00255\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00256\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00257\ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00258\ \ \ \ \ \ \ \ \ painter.setPen(Qt::white);}
+\DoxyCodeLine{00259\ }
+\DoxyCodeLine{00260\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ \&edge:\ edges)\ \{}
+\DoxyCodeLine{00261\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (edge.from\ <\ 0\ ||\ edge.from\ >=\ (\textcolor{keywordtype}{int})\ vertices.size())\ \textcolor{keywordflow}{continue};}
+\DoxyCodeLine{00262\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (edge.to\ <\ 0\ ||\ edge.to\ >=\ (\textcolor{keywordtype}{int})\ vertices.size())\ \textcolor{keywordflow}{continue};}
+\DoxyCodeLine{00263\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ W\_Vertex\ \&fromV\ =\ vertices[edge.from];}
+\DoxyCodeLine{00264\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ W\_Vertex\ \&toV\ =\ vertices[edge.to];}
+\DoxyCodeLine{00265\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (fromV.\mbox{\hyperlink{struct_w___vertex_a2ad662f039673cc4c12a97374db33bc9}{id}}\ ==\ -\/1\ ||\ toV.\mbox{\hyperlink{struct_w___vertex_a2ad662f039673cc4c12a97374db33bc9}{id}}\ ==\ -\/1)\ \textcolor{keywordflow}{continue};}
+\DoxyCodeLine{00266\ }
+\DoxyCodeLine{00267\ \ \ \ \ \ \ \ \ \ \ \ \ painter.drawLine(fromV.x,\ fromV.\mbox{\hyperlink{struct_w___vertex_a5d5becf68a37d71ef31d95ee645e13bc}{y}},\ toV.x,\ toV.\mbox{\hyperlink{struct_w___vertex_a5d5becf68a37d71ef31d95ee645e13bc}{y}});}
+\DoxyCodeLine{00268\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ mx\ =\ (fromV.x\ +\ toV.x)\ /\ 2;}
+\DoxyCodeLine{00269\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ my\ =\ (fromV.\mbox{\hyperlink{struct_w___vertex_a5d5becf68a37d71ef31d95ee645e13bc}{y}}\ +\ toV.\mbox{\hyperlink{struct_w___vertex_a5d5becf68a37d71ef31d95ee645e13bc}{y}})\ /\ 2;}
+\DoxyCodeLine{00270\ \ \ \ \ \ \ \ \ \ \ \ \ painter.drawText(mx,\ my,\ QString::number(edge.weight));}
+\DoxyCodeLine{00271\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00272\ }
+\DoxyCodeLine{00273\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ i\ =\ 0;\ i\ <\ vertices.size();\ ++i)\ \{}
+\DoxyCodeLine{00274\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ \&vertex\ =\ vertices[i];}
+\DoxyCodeLine{00275\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (vertex.id\ ==\ -\/1)\ \textcolor{keywordflow}{continue};}
+\DoxyCodeLine{00276\ }
+\DoxyCodeLine{00277\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ vertexRadius\ =\ 12;}
+\DoxyCodeLine{00278\ }
+\DoxyCodeLine{00279\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (i\ <\ celestialObjectsPtr-\/>size()\ \&\&\ (*celestialObjectsPtr)[i])\ \{}
+\DoxyCodeLine{00280\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ CelestialObject\ *obj\ =\ (*celestialObjectsPtr)[i];}
+\DoxyCodeLine{00281\ }
+\DoxyCodeLine{00282\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (obj-\/>\mbox{\hyperlink{class_celestial_object_a0c35c926828a4a82bbca8befd764d53a}{getType}}()\ ==\ \textcolor{stringliteral}{"{}StarSystem"{}})\ \{}
+\DoxyCodeLine{00283\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ StarSystem\ *system\ =\ \textcolor{keyword}{dynamic\_cast<}StarSystem\ *\textcolor{keyword}{>}(obj);}
+\DoxyCodeLine{00284\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (system)\ \{}
+\DoxyCodeLine{00285\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_star_a832a684c34ea9be925563714ad6c75e8}{Star::starType}}\ type\ =\ system-\/>\mbox{\hyperlink{class_star_system_ab7524a0bf726864cf308d760a262907e}{getStar}}().\mbox{\hyperlink{class_star_a4eaf3c4b1d368e5a14f7ff43c77bd71a}{getStarType}}();}
+\DoxyCodeLine{00286\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (type\ ==\ Star::starType::White\_Dwarf)\ \{}
+\DoxyCodeLine{00287\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ painter.setBrush(Qt::lightGray);}
+\DoxyCodeLine{00288\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ painter.setPen(QPen(Qt::darkMagenta,\ 2));}
+\DoxyCodeLine{00289\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (type\ ==\ Star::starType::Brown\_Dwarf)\ \{}
+\DoxyCodeLine{00290\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ painter.setBrush(Qt::color1);}
+\DoxyCodeLine{00291\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ painter.setPen(QPen(Qt::white,\ 2));}
+\DoxyCodeLine{00292\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (type\ ==\ Star::starType::Main\_sequence\_Star)\ \{}
+\DoxyCodeLine{00293\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ painter.setBrush(Qt::yellow);}
+\DoxyCodeLine{00294\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ painter.setPen(QPen(Qt::color0,\ 2));}
+\DoxyCodeLine{00295\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (type\ ==\ Star::starType::Neutron\_Star)\ \{}
+\DoxyCodeLine{00296\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ painter.setBrush(Qt::darkBlue);}
+\DoxyCodeLine{00297\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ painter.setPen(QPen(Qt::white,\ 2));}
+\DoxyCodeLine{00298\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (type\ ==\ Star::starType::Red\_Giant)\ \{}
+\DoxyCodeLine{00299\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ painter.setBrush(Qt::red);}
+\DoxyCodeLine{00300\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ painter.setPen(QPen(Qt::darkRed,\ 2));}
+\DoxyCodeLine{00301\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (type\ ==\ Star::starType::Red\_Dwarf)\ \{}
+\DoxyCodeLine{00302\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ painter.setBrush(Qt::green);}
+\DoxyCodeLine{00303\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ painter.setPen(QPen(Qt::red,\ 2));}
+\DoxyCodeLine{00304\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00305\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ painter.setBrush(Qt::white);}
+\DoxyCodeLine{00306\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ painter.setPen(QPen(Qt::gray,\ 2));}
+\DoxyCodeLine{00307\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00308\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00309\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (obj-\/>\mbox{\hyperlink{class_celestial_object_a0c35c926828a4a82bbca8befd764d53a}{getType}}()\ ==\ \textcolor{stringliteral}{"{}Nebula"{}})\ \{}
+\DoxyCodeLine{00310\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Nebula\ *nebula\ =\ \textcolor{keyword}{dynamic\_cast<}Nebula\ *\textcolor{keyword}{>}(obj);}
+\DoxyCodeLine{00311\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (nebula)\ \{}
+\DoxyCodeLine{00312\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ QRadialGradient\ gradient(vertex.x,\ vertex.y,\ vertexRadius);}
+\DoxyCodeLine{00313\ }
+\DoxyCodeLine{00314\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_nebula_af723611c49f9e4c0d31c54c039abd11a}{Nebula::nebulaType}}\ type\ =\ nebula-\/>\mbox{\hyperlink{class_nebula_a13d412f3fb719a8eea74c7718a01b1a5}{getNebulaType}}();}
+\DoxyCodeLine{00315\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (type\ ==\ Nebula::nebulaType::Planetary)\ \{}
+\DoxyCodeLine{00316\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ gradient.setColorAt(0,\ QColor(100,\ 255,\ 255,\ 200));}
+\DoxyCodeLine{00317\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ gradient.setColorAt(0.5,\ QColor(50,\ 150,\ 255,\ 150));}
+\DoxyCodeLine{00318\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ gradient.setColorAt(1,\ QColor(20,\ 50,\ 150,\ 100));}
+\DoxyCodeLine{00319\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ painter.setPen(QPen(Qt::cyan,\ 2));}
+\DoxyCodeLine{00320\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (type\ ==\ Nebula::nebulaType::Supernova)\ \{}
+\DoxyCodeLine{00321\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ gradient.setColorAt(0,\ QColor(255,\ 255,\ 150,\ 220));}
+\DoxyCodeLine{00322\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ gradient.setColorAt(0.4,\ QColor(255,\ 100,\ 50,\ 180));}
+\DoxyCodeLine{00323\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ gradient.setColorAt(1,\ QColor(150,\ 0,\ 0,\ 100));}
+\DoxyCodeLine{00324\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ painter.setPen(QPen(Qt::red,\ 2));}
+\DoxyCodeLine{00325\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (type\ ==\ Nebula::nebulaType::Emission)\ \{}
+\DoxyCodeLine{00326\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ gradient.setColorAt(0,\ QColor(255,\ 100,\ 150,\ 200));}
+\DoxyCodeLine{00327\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ gradient.setColorAt(0.5,\ QColor(200,\ 50,\ 100,\ 150));}
+\DoxyCodeLine{00328\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ gradient.setColorAt(1,\ QColor(100,\ 20,\ 50,\ 100));}
+\DoxyCodeLine{00329\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ painter.setPen(QPen(Qt::magenta,\ 2));}
+\DoxyCodeLine{00330\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (type\ ==\ Nebula::nebulaType::Reflection)\ \{}
+\DoxyCodeLine{00331\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ gradient.setColorAt(0,\ QColor(150,\ 200,\ 255,\ 200));}
+\DoxyCodeLine{00332\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ gradient.setColorAt(0.5,\ QColor(80,\ 120,\ 200,\ 150));}
+\DoxyCodeLine{00333\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ gradient.setColorAt(1,\ QColor(30,\ 50,\ 120,\ 100));}
+\DoxyCodeLine{00334\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ painter.setPen(QPen(Qt::blue,\ 2));}
+\DoxyCodeLine{00335\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (type\ ==\ Nebula::nebulaType::Dark)\ \{}
+\DoxyCodeLine{00336\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ gradient.setColorAt(0,\ QColor(80,\ 60,\ 100,\ 180));}
+\DoxyCodeLine{00337\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ gradient.setColorAt(0.5,\ QColor(50,\ 30,\ 70,\ 120));}
+\DoxyCodeLine{00338\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ gradient.setColorAt(1,\ QColor(20,\ 10,\ 30,\ 80));}
+\DoxyCodeLine{00339\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ painter.setPen(QPen(QColor(100,\ 80,\ 120),\ 2));}
+\DoxyCodeLine{00340\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00341\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ gradient.setColorAt(0,\ QColor(200,\ 200,\ 255,\ 200));}
+\DoxyCodeLine{00342\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ gradient.setColorAt(0.5,\ QColor(100,\ 100,\ 200,\ 150));}
+\DoxyCodeLine{00343\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ gradient.setColorAt(1,\ QColor(50,\ 50,\ 100,\ 100));}
+\DoxyCodeLine{00344\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ painter.setPen(QPen(Qt::white,\ 2));}
+\DoxyCodeLine{00345\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00346\ }
+\DoxyCodeLine{00347\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ painter.setBrush(gradient);}
+\DoxyCodeLine{00348\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00349\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00350\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ painter.setBrush(Qt::cyan);}
+\DoxyCodeLine{00351\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ painter.setPen(QPen(Qt::black,\ 2));}
+\DoxyCodeLine{00352\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00353\ \ \ \ \ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00354\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ painter.setBrush(Qt::cyan);}
+\DoxyCodeLine{00355\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ painter.setPen(QPen(Qt::black,\ 2));}
+\DoxyCodeLine{00356\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00357\ }
+\DoxyCodeLine{00358\ \ \ \ \ \ \ \ \ \ \ \ \ painter.drawEllipse(vertex.x\ -\/\ vertexRadius,\ vertex.y\ -\/\ vertexRadius,}
+\DoxyCodeLine{00359\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ vertexRadius\ *\ 2,\ vertexRadius\ *\ 2);}
+\DoxyCodeLine{00360\ }
+\DoxyCodeLine{00361\ \ \ \ \ \ \ \ \ \ \ \ \ painter.setPen(Qt::black);}
+\DoxyCodeLine{00362\ \ \ \ \ \ \ \ \ \ \ \ \ QFont\ idFont\ =\ painter.font();}
+\DoxyCodeLine{00363\ \ \ \ \ \ \ \ \ \ \ \ \ idFont.setPointSize(8);}
+\DoxyCodeLine{00364\ \ \ \ \ \ \ \ \ \ \ \ \ idFont.setBold(\textcolor{keyword}{true});}
+\DoxyCodeLine{00365\ \ \ \ \ \ \ \ \ \ \ \ \ painter.setFont(idFont);}
+\DoxyCodeLine{00366\ \ \ \ \ \ \ \ \ \ \ \ \ painter.drawText(vertex.x\ -\/\ 6,\ vertex.y\ +\ 4,\ QString::number(vertex.id));}
+\DoxyCodeLine{00367\ }
+\DoxyCodeLine{00368\ \ \ \ \ \ \ \ \ \ \ \ \ painter.setPen(Qt::white);}
+\DoxyCodeLine{00369\ \ \ \ \ \ \ \ \ \ \ \ \ QFont\ nameFont\ =\ painter.font();}
+\DoxyCodeLine{00370\ \ \ \ \ \ \ \ \ \ \ \ \ nameFont.setPointSize(9);}
+\DoxyCodeLine{00371\ \ \ \ \ \ \ \ \ \ \ \ \ painter.setFont(nameFont);}
+\DoxyCodeLine{00372\ \ \ \ \ \ \ \ \ \ \ \ \ painter.drawText(vertex.x\ +\ vertexRadius\ +\ 5,\ vertex.y\ +\ 4,\ vertex.name);}
+\DoxyCodeLine{00373\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00374\ \ \ \ \ \}}
+\DoxyCodeLine{00375\ \}}
+
+\end{DoxyCode}
+\Hypertarget{class_graph_widget_aa4de4e2caa8f0ac809f7df692257b1d6}\index{GraphWidget@{GraphWidget}!resetZoom@{resetZoom}}
+\index{resetZoom@{resetZoom}!GraphWidget@{GraphWidget}}
+\doxysubsubsection{\texorpdfstring{resetZoom()}{resetZoom()}}
+{\footnotesize\ttfamily \label{class_graph_widget_aa4de4e2caa8f0ac809f7df692257b1d6} 
+void Graph\+Widget\+::reset\+Zoom (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Exits "{}detail mode"{} and resets the zoom. 
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00056\ \ \ \ \ this-\/>detailedVertexId\ =\ -\/1;}
+\DoxyCodeLine{00057\ \ \ \ \ this-\/>isDetailMode\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00058\ \ \ \ \ this-\/>update();}
+\DoxyCodeLine{00059\ \ \ \ \ animationTimer-\/>stop();}
+\DoxyCodeLine{00060\ \}}
+
+\end{DoxyCode}
+\Hypertarget{class_graph_widget_a4dc62bbcd72dc92ccafe4e4056b4bacf}\index{GraphWidget@{GraphWidget}!setGraph@{setGraph}}
+\index{setGraph@{setGraph}!GraphWidget@{GraphWidget}}
+\doxysubsubsection{\texorpdfstring{setGraph()}{setGraph()}}
+{\footnotesize\ttfamily \label{class_graph_widget_a4dc62bbcd72dc92ccafe4e4056b4bacf} 
+void Graph\+Widget\+::set\+Graph (\begin{DoxyParamCaption}\item[{const std\+::vector$<$ \mbox{\hyperlink{struct_w___vertex}{W\+\_\+\+Vertex}} $>$ \&}]{v}{, }\item[{const std\+::vector$<$ \mbox{\hyperlink{struct_w___edge}{W\+\_\+\+Edge}} $>$ \&}]{e}{, }\item[{const std\+::vector$<$ \mbox{\hyperlink{class_celestial_object}{Celestial\+Object}} \texorpdfstring{$\ast$}{*} $>$ \texorpdfstring{$\ast$}{*}}]{objects}{}\end{DoxyParamCaption})}
+
+
+
+Sets the graph data (vertices and edges) to be rendered. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em v} & The vector of vertices. \\
+\hline
+{\em e} & The vector of edges. \\
+\hline
+{\em objects} & A non-\/owning pointer to the main celestial objects vector. \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00020\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00021\ \ \ \ \ vertices\ =\ v;}
+\DoxyCodeLine{00022\ \ \ \ \ edges\ =\ e;}
+\DoxyCodeLine{00023\ \ \ \ \ this-\/>celestialObjectsPtr\ =\ objects;}
+\DoxyCodeLine{00024\ \ \ \ \ update();}
+\DoxyCodeLine{00025\ \}}
+
+\end{DoxyCode}
+\Hypertarget{class_graph_widget_af0e8c79fa974cb659950b9c9ae4920b7}\index{GraphWidget@{GraphWidget}!vertexDoubleClicked@{vertexDoubleClicked}}
+\index{vertexDoubleClicked@{vertexDoubleClicked}!GraphWidget@{GraphWidget}}
+\doxysubsubsection{\texorpdfstring{vertexDoubleClicked}{vertexDoubleClicked}}
+{\footnotesize\ttfamily \label{class_graph_widget_af0e8c79fa974cb659950b9c9ae4920b7} 
+void Graph\+Widget\+::vertex\+Double\+Clicked (\begin{DoxyParamCaption}\item[{int}]{vertex\+Id}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [signal]}}
+
+
+
+Qt Signal\+: Emitted when a user double-\/clicks on a vertex. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em vertex\+Id} & The ID of the vertex that was clicked. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_graph_widget_afd8fe82dd8c48d8f31af30fb4de2b9fe}\index{GraphWidget@{GraphWidget}!zoomToVertex@{zoomToVertex}}
+\index{zoomToVertex@{zoomToVertex}!GraphWidget@{GraphWidget}}
+\doxysubsubsection{\texorpdfstring{zoomToVertex()}{zoomToVertex()}}
+{\footnotesize\ttfamily \label{class_graph_widget_afd8fe82dd8c48d8f31af30fb4de2b9fe} 
+void Graph\+Widget\+::zoom\+To\+Vertex (\begin{DoxyParamCaption}\item[{int}]{vertex\+Id}{}\end{DoxyParamCaption})}
+
+
+
+Enters "{}detail mode"{} (zoom) for a specific vertex. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em vertex\+Id} & The index of the vertex to focus on. \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00049\ \ \ \ \ this-\/>detailedVertexId\ =\ vertexId;}
+\DoxyCodeLine{00050\ \ \ \ \ this-\/>isDetailMode\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00051\ \ \ \ \ this-\/>update();}
+\DoxyCodeLine{00052\ \ \ \ \ animationTimer-\/>start(50);}
+\DoxyCodeLine{00053\ \}}
+
+\end{DoxyCode}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Graph/\mbox{\hyperlink{_graph_widget_8h}{Graph\+Widget.\+h}}\item 
+Graph/Graph\+Widget.\+cpp\end{DoxyCompactItemize}

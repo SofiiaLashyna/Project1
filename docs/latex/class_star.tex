@@ -1,0 +1,323 @@
+\doxysection{Star Class Reference}
+\hypertarget{class_star}{}\label{class_star}\index{Star@{Star}}
+
+
+A concrete class representing a \doxylink{class_star}{Star}.  
+
+
+
+
+{\ttfamily \#include $<$Star.\+h$>$}
+
+Inheritance diagram for Star\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_star}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+enum class \mbox{\hyperlink{class_star_a832a684c34ea9be925563714ad6c75e8}{star\+Type}} \{ \newline
+{\bfseries Red\+\_\+\+Giant}
+, {\bfseries White\+\_\+\+Dwarf}
+, {\bfseries Neutron\+\_\+\+Star}
+, {\bfseries Red\+\_\+\+Dwarf}
+, \newline
+{\bfseries Brown\+\_\+\+Dwarf}
+, {\bfseries Main\+\_\+sequence\+\_\+\+Star}
+ \}
+\begin{DoxyCompactList}\small\item\em Enum representing all supported star types. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_star_a425c4f33443b88bc630566b4620d0bea}{Star}} (const std\+::string \&name, double mass, double temperature, \mbox{\hyperlink{class_star_a832a684c34ea9be925563714ad6c75e8}{star\+Type}} type)
+\begin{DoxyCompactList}\small\item\em Constructor for the \doxylink{class_star}{Star} class. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_star_a3d6619feac7e7a4133af5c9c14b61105}{display\+Info}} () const override
+\begin{DoxyCompactList}\small\item\em Displays all information about the star. \end{DoxyCompactList}\item 
+std\+::string \mbox{\hyperlink{class_star_a983b72807f223625d021002595a4a38f}{get\+Type}} () const override
+\begin{DoxyCompactList}\small\item\em Returns the specific type of the object. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_star_a27809895a466195a4dcd7a3564a7bc38}{set\+Star\+Type}} (std\+::string type)
+\begin{DoxyCompactList}\small\item\em Sets the star\textquotesingle{}s enum type based on string input. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_star_a832a684c34ea9be925563714ad6c75e8}{star\+Type}} \mbox{\hyperlink{class_star_a4eaf3c4b1d368e5a14f7ff43c77bd71a}{get\+Star\+Type}} ()
+\begin{DoxyCompactList}\small\item\em Gets the specific enum type of this star. \end{DoxyCompactList}\item 
+std\+::string \mbox{\hyperlink{class_star_a14b67e8684b4a76d1e81b86ce492a234}{get\+Star\+Type\+String}} () const
+\begin{DoxyCompactList}\small\item\em Converts the enum star type to a readable string. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{class_star_a48135630ca36bc9ef1d412935d4ecac6}{get\+Temperature}} ()
+\begin{DoxyCompactList}\small\item\em Returns the temperature parameter of the star. \end{DoxyCompactList}\item 
+\Hypertarget{class_star_abafd2e987f4df5ec32644f14b1ef71c3}\label{class_star_abafd2e987f4df5ec32644f14b1ef71c3} 
+virtual {\bfseries \texorpdfstring{$\sim$}{\string~}\+Star} ()=default
+\begin{DoxyCompactList}\small\item\em Default virtual destructor. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{class_celestial_object}{Celestial\+Object}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_celestial_object_ae4be2f9eb24debf08d0411c9d497f3e9}{Celestial\+Object}} (const std\+::string \&name, double mass)
+\begin{DoxyCompactList}\small\item\em Constructor call for the \doxylink{class_celestial_object}{Celestial\+Object} class. \end{DoxyCompactList}\item 
+virtual {\bfseries \texorpdfstring{$\sim$}{\string~}\+Celestial\+Object} ()=default
+\begin{DoxyCompactList}\small\item\em Default destructor call. \end{DoxyCompactList}\item 
+std\+::string \mbox{\hyperlink{class_celestial_object_a09ee45217b868c5858619f33f3cbbded}{get\+Name}} () const
+\begin{DoxyCompactList}\small\item\em Returns the name of an object. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_celestial_object_ae9a24ff06397904ce8e865651fba13e6}{set\+Name}} (const std\+::string \&new\+Name)
+\begin{DoxyCompactList}\small\item\em Set the name of an object. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{class_celestial_object_a8b839bf5b36c357e3fc0fdccf2f4bfdb}{get\+Mass}} () const
+\begin{DoxyCompactList}\small\item\em Returns the mass of an object. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_celestial_object_ab959c48aabf6a5266a51e3d878ad64ff}{set\+Mass}} (const double new\+Mass)
+\begin{DoxyCompactList}\small\item\em Set the mass of an object. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+A concrete class representing a \doxylink{class_star}{Star}. 
+
+Implements the \doxylink{class_celestial_object}{Celestial\+Object} interface and adds star-\/specific properties like temperature, type. \begin{Desc}
+\item[Examples]\par
+\mbox{\hyperlink{_basic_usage_example_8cpp-example}{Basic\+Usage\+Example.\+cpp}}, and \mbox{\hyperlink{_c_1_2_users_2_prj_2_project1_2_entities_2_galaxy_8h-example}{C\+:/\+Users/\+Prj/\+Project1/\+Entities/\+Galaxy.\+h}}.\end{Desc}
+
+
+\label{doc-enum-members}
+\Hypertarget{class_star_doc-enum-members}
+\doxysubsection{Member Enumeration Documentation}
+\Hypertarget{class_star_a832a684c34ea9be925563714ad6c75e8}\index{Star@{Star}!starType@{starType}}
+\index{starType@{starType}!Star@{Star}}
+\doxysubsubsection{\texorpdfstring{starType}{starType}}
+{\footnotesize\ttfamily \label{class_star_a832a684c34ea9be925563714ad6c75e8} 
+enum class \mbox{\hyperlink{class_star_a832a684c34ea9be925563714ad6c75e8}{Star\+::star\+Type}}\hspace{0.3cm}{\ttfamily [strong]}}
+
+
+
+Enum representing all supported star types. 
+
+\begin{Desc}
+\item[Examples]\par
+\mbox{\hyperlink{_c_1_2_users_2_prj_2_project1_2_entities_2_galaxy_8h-example}{C\+:/\+Users/\+Prj/\+Project1/\+Entities/\+Galaxy.\+h}}.\end{Desc}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00020\ \{\ Red\_Giant,\ White\_Dwarf,\ Neutron\_Star,\ Red\_Dwarf,\ Brown\_Dwarf,\ Main\_sequence\_Star\ \};}
+
+\end{DoxyCode}
+
+
+\label{doc-constructors}
+\Hypertarget{class_star_doc-constructors}
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_star_a425c4f33443b88bc630566b4620d0bea}\index{Star@{Star}!Star@{Star}}
+\index{Star@{Star}!Star@{Star}}
+\doxysubsubsection{\texorpdfstring{Star()}{Star()}}
+{\footnotesize\ttfamily \label{class_star_a425c4f33443b88bc630566b4620d0bea} 
+Star\+::\+Star (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{name}{, }\item[{double}]{mass}{, }\item[{double}]{temperature}{, }\item[{\mbox{\hyperlink{class_star_a832a684c34ea9be925563714ad6c75e8}{star\+Type}}}]{type}{}\end{DoxyParamCaption})}
+
+
+
+Constructor for the \doxylink{class_star}{Star} class. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em name} & The name of the star. \\
+\hline
+{\em mass} & The mass of the star. \\
+\hline
+{\em temperature} & The temperature of the star (Kelvin). \\
+\hline
+{\em type} & The type of the star (e.\+g., Red\+\_\+\+Giant). \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em std\+::invalid\+\_\+argument} & If mass or temperature is zero or negative. \\
+\hline
+\end{DoxyExceptions}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00005\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ :\ \mbox{\hyperlink{class_celestial_object_ae4be2f9eb24debf08d0411c9d497f3e9}{CelestialObject}}(name,\ mass),}
+\DoxyCodeLine{00006\ \ \ \ \ temperature(temperature),\ star\_type(type)\ \{}
+\DoxyCodeLine{00007\ \ \ \ \ \textcolor{keywordflow}{if}\ (mass<=0)}
+\DoxyCodeLine{00008\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::invalid\_argument(\textcolor{stringliteral}{"{}Mass\ should\ be\ above\ zero!"{}});}
+\DoxyCodeLine{00009\ \ \ \ \ \textcolor{keywordflow}{if}(temperature<=\ 0)}
+\DoxyCodeLine{00010\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::invalid\_argument(\textcolor{stringliteral}{"{}Planet\ can't\ exist\ that\ close\ to\ a\ star!"{}});}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00012\ \}}
+
+\end{DoxyCode}
+
+
+\label{doc-func-members}
+\Hypertarget{class_star_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_star_a3d6619feac7e7a4133af5c9c14b61105}\index{Star@{Star}!displayInfo@{displayInfo}}
+\index{displayInfo@{displayInfo}!Star@{Star}}
+\doxysubsubsection{\texorpdfstring{displayInfo()}{displayInfo()}}
+{\footnotesize\ttfamily \label{class_star_a3d6619feac7e7a4133af5c9c14b61105} 
+void Star\+::display\+Info (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Displays all information about the star. 
+
+
+
+Implements \mbox{\hyperlink{class_celestial_object_a2e70ecbf61b7ece4d0934fe7a573beb3}{Celestial\+Object}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00041\ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Star\ name:\ "{}}\ <<\ \mbox{\hyperlink{class_celestial_object_a09ee45217b868c5858619f33f3cbbded}{getName}}()\ <<\ \textcolor{stringliteral}{"{}\ type:\ "{}};}
+\DoxyCodeLine{00042\ \ \ \ \ \textcolor{keywordflow}{switch}\ (star\_type)\ \{}
+\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ starType::Red\_Giant:}
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Red\ giant"{}};}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ starType::White\_Dwarf:}
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}White\ dwarf"{}};}
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ starType::Brown\_Dwarf:}
+\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Brown\ dwarf"{}};}
+\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ starType::Red\_Dwarf:}
+\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Red\ dwarf"{}};}
+\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ starType::Main\_sequence\_Star:}
+\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Main\ sequence\ star"{}};}
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ starType::Neutron\_Star:}
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Neutron\ star"{}};}
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00061\ \ \ \ \ \}}
+\DoxyCodeLine{00062\ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}\ temperature:\ "{}}\ <<\ temperature\ <<std::endl;}
+\DoxyCodeLine{00063\ \}}
+
+\end{DoxyCode}
+\Hypertarget{class_star_a4eaf3c4b1d368e5a14f7ff43c77bd71a}\index{Star@{Star}!getStarType@{getStarType}}
+\index{getStarType@{getStarType}!Star@{Star}}
+\doxysubsubsection{\texorpdfstring{getStarType()}{getStarType()}}
+{\footnotesize\ttfamily \label{class_star_a4eaf3c4b1d368e5a14f7ff43c77bd71a} 
+\mbox{\hyperlink{class_star_a832a684c34ea9be925563714ad6c75e8}{Star\+::star\+Type}} Star\+::get\+Star\+Type (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Gets the specific enum type of this star. 
+
+\begin{DoxyReturn}{Returns}
+The enum value (\doxylink{class_star_a832a684c34ea9be925563714ad6c75e8}{star\+Type}) of the star. 
+\end{DoxyReturn}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00015\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00016\ \ \ \ \ \textcolor{keywordflow}{return}\ star\_type;}
+\DoxyCodeLine{00017\ \}}
+
+\end{DoxyCode}
+\Hypertarget{class_star_a14b67e8684b4a76d1e81b86ce492a234}\index{Star@{Star}!getStarTypeString@{getStarTypeString}}
+\index{getStarTypeString@{getStarTypeString}!Star@{Star}}
+\doxysubsubsection{\texorpdfstring{getStarTypeString()}{getStarTypeString()}}
+{\footnotesize\ttfamily \label{class_star_a14b67e8684b4a76d1e81b86ce492a234} 
+std\+::string Star\+::get\+Star\+Type\+String (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const}
+
+
+
+Converts the enum star type to a readable string. 
+
+\begin{DoxyReturn}{Returns}
+Text representation of the star type. 
+\end{DoxyReturn}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00069\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00070\ \ \ \ \ \textcolor{keywordflow}{switch}\ (star\_type)\ \{}
+\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ starType::Red\_Giant:}
+\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}Red\_Giant"{}};}
+\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ starType::White\_Dwarf:}
+\DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}White\_Dwarf"{}};}
+\DoxyCodeLine{00075\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ starType::Brown\_Dwarf:}
+\DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}Brown\_Dwarf"{}};}
+\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ starType::Red\_Dwarf:}
+\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}Red\_Dwarf"{}};}
+\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ starType::Main\_sequence\_Star:}
+\DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}Main\_sequence\_Star"{}};}
+\DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ starType::Neutron\_Star:}
+\DoxyCodeLine{00082\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}Neutron\_Star"{}};}
+\DoxyCodeLine{00083\ \ \ \ \ \}}
+\DoxyCodeLine{00084\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}Unknown\_Star\_Type"{}};}
+\DoxyCodeLine{00085\ \}}
+
+\end{DoxyCode}
+\Hypertarget{class_star_a48135630ca36bc9ef1d412935d4ecac6}\index{Star@{Star}!getTemperature@{getTemperature}}
+\index{getTemperature@{getTemperature}!Star@{Star}}
+\doxysubsubsection{\texorpdfstring{getTemperature()}{getTemperature()}}
+{\footnotesize\ttfamily \label{class_star_a48135630ca36bc9ef1d412935d4ecac6} 
+double Star\+::get\+Temperature (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Returns the temperature parameter of the star. 
+
+\begin{DoxyReturn}{Returns}
+Temperature value in Kelvin. 
+\end{DoxyReturn}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00066\ \ \ \ \ \textcolor{keywordflow}{return}\ \ temperature;}
+\DoxyCodeLine{00067\ \}}
+
+\end{DoxyCode}
+\Hypertarget{class_star_a983b72807f223625d021002595a4a38f}\index{Star@{Star}!getType@{getType}}
+\index{getType@{getType}!Star@{Star}}
+\doxysubsubsection{\texorpdfstring{getType()}{getType()}}
+{\footnotesize\ttfamily \label{class_star_a983b72807f223625d021002595a4a38f} 
+std\+::string Star\+::get\+Type (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Returns the specific type of the object. 
+
+\begin{DoxyReturn}{Returns}
+The string "{}\+Star"{}. 
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{class_celestial_object_a0c35c926828a4a82bbca8befd764d53a}{Celestial\+Object}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00020\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00021\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}Star"{}};}
+\DoxyCodeLine{00022\ \}}
+
+\end{DoxyCode}
+\Hypertarget{class_star_a27809895a466195a4dcd7a3564a7bc38}\index{Star@{Star}!setStarType@{setStarType}}
+\index{setStarType@{setStarType}!Star@{Star}}
+\doxysubsubsection{\texorpdfstring{setStarType()}{setStarType()}}
+{\footnotesize\ttfamily \label{class_star_a27809895a466195a4dcd7a3564a7bc38} 
+void Star\+::set\+Star\+Type (\begin{DoxyParamCaption}\item[{std\+::string}]{type}{}\end{DoxyParamCaption})}
+
+
+
+Sets the star\textquotesingle{}s enum type based on string input. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em type} & String representation of the desired type. \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00024\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00025\ \ \ \ \ \textcolor{keywordflow}{if}\ (type\ ==\ \textcolor{stringliteral}{"{}Red\_Giant"{}}\ ||\ type\ ==\ \textcolor{stringliteral}{"{}Red\ Giant"{}}\ ||\ type\ ==\ \textcolor{stringliteral}{"{}red\ giant"{}})}
+\DoxyCodeLine{00026\ \ \ \ \ \ \ \ \ star\_type\ =\ starType::Red\_Giant;}
+\DoxyCodeLine{00027\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (type\ ==\ \textcolor{stringliteral}{"{}White\_Dwarf"{}}\ ||\ type\ ==\ \textcolor{stringliteral}{"{}White\ Dwarf"{}}\ ||\ type\ ==\ \textcolor{stringliteral}{"{}white\ dwarf"{}})}
+\DoxyCodeLine{00028\ \ \ \ \ \ \ \ \ star\_type\ =\ starType::White\_Dwarf;}
+\DoxyCodeLine{00029\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (type\ ==\ \textcolor{stringliteral}{"{}Brown\_Dwarf"{}}\ ||\ type\ ==\ \textcolor{stringliteral}{"{}Brown\ Dwarf"{}}\ ||\ type\ ==\ \textcolor{stringliteral}{"{}brown\ dwarf"{}})}
+\DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ star\_type\ =\ starType::Brown\_Dwarf;}
+\DoxyCodeLine{00031\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (type\ ==\ \textcolor{stringliteral}{"{}Red\_Dwarf"{}}\ ||\ type\ ==\ \textcolor{stringliteral}{"{}Red\ Dwarf"{}}\ ||\ type\ ==\ \textcolor{stringliteral}{"{}red\ dwarf"{}})}
+\DoxyCodeLine{00032\ \ \ \ \ \ \ \ \ star\_type\ =\ starType::Red\_Dwarf;}
+\DoxyCodeLine{00033\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (type\ ==\ \textcolor{stringliteral}{"{}Main\_sequence\_Star"{}}\ ||\ type\ ==\ \textcolor{stringliteral}{"{}Main\ sequence\ star"{}}\ ||\ type\ ==\ \textcolor{stringliteral}{"{}main\ sequence\ star"{}})\ \textcolor{comment}{//\ <<\ ЗМІНЕНО/ДОДАНО}}
+\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ star\_type\ =\ starType::Main\_sequence\_Star;}
+\DoxyCodeLine{00035\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (type\ ==\ \textcolor{stringliteral}{"{}Neutron\_Star"{}}\ ||\ type\ ==\ \textcolor{stringliteral}{"{}Neutron\ Star"{}}\ ||\ type\ ==\ \textcolor{stringliteral}{"{}neutron\ star"{}})}
+\DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ star\_type\ =\ starType::Neutron\_Star;}
+\DoxyCodeLine{00037\ \}}
+
+\end{DoxyCode}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Entities/\mbox{\hyperlink{_star_8h}{Star.\+h}}\item 
+Entities/Star.\+cpp\end{DoxyCompactItemize}

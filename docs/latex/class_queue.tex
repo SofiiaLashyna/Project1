@@ -1,0 +1,169 @@
+\doxysection{Queue\texorpdfstring{$<$}{<} T \texorpdfstring{$>$}{>} Class Template Reference}
+\hypertarget{class_queue}{}\label{class_queue}\index{Queue$<$ T $>$@{Queue$<$ T $>$}}
+
+
+A simple priority queue used for Dijkstra\textquotesingle{}s algorithm.  
+
+
+
+
+{\ttfamily \#include $<$Queue.\+h$>$}
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_queue_ae6722c0f5afecd83719909a24f4902eb}\label{class_queue_ae6722c0f5afecd83719909a24f4902eb} 
+{\bfseries Queue} ()=default
+\begin{DoxyCompactList}\small\item\em Default constructor. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_queue_aa7eef1b427e24555780505de20e9acbc}{\texorpdfstring{$\sim$}{\string~}\+Queue}} ()
+\begin{DoxyCompactList}\small\item\em Destructor. Cleans up all nodes in the linked list. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_queue_a68347286280886605abed29226eb8c29}{push}} (T vertex, int dist)
+\begin{DoxyCompactList}\small\item\em Pushes an item onto the priority queue in sorted order. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_queue_a84af2287bc5dad708508b588dc73457d}{empty}} () const
+\begin{DoxyCompactList}\small\item\em Checks if the queue is empty. \end{DoxyCompactList}\item 
+std\+::pair$<$ int, int $>$ \mbox{\hyperlink{class_queue_a36e5c5bf86531ff340df47ed0231427f}{pop\+Min}} ()
+\begin{DoxyCompactList}\small\item\em Pops the element with the minimum distance from the queue. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\subsubsection*{template$<$typename T$>$\newline
+class Queue$<$ T $>$}
+A simple priority queue used for Dijkstra\textquotesingle{}s algorithm. 
+
+It maintains a sorted linked list where the head is always the node with the minimum distance. 
+\begin{DoxyTemplParams}{Template Parameters}
+{\em T} & The type of data to store (e.\+g., vertex ID). \\
+\hline
+\end{DoxyTemplParams}
+\begin{Desc}
+\item[Examples]\par
+\mbox{\hyperlink{_c_1_2_users_2_prj_2_project1_2_algorithms_2_algorithm_8h-example}{C\+:/\+Users/\+Prj/\+Project1/\+Algorithms/\+Algorithm.\+h}}.\end{Desc}
+
+
+\label{doc-constructors}
+\Hypertarget{class_queue_doc-constructors}
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_queue_aa7eef1b427e24555780505de20e9acbc}\index{Queue$<$ T $>$@{Queue$<$ T $>$}!````~Queue@{\texorpdfstring{$\sim$}{\string~}Queue}}
+\index{````~Queue@{\texorpdfstring{$\sim$}{\string~}Queue}!Queue$<$ T $>$@{Queue$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{\texorpdfstring{$\sim$}{\string~}Queue()}{\string~Queue()}}
+{\footnotesize\ttfamily \label{class_queue_aa7eef1b427e24555780505de20e9acbc} 
+template$<$typename T$>$ \\
+\mbox{\hyperlink{class_queue}{Queue}}$<$ T $>$\+::\texorpdfstring{$\sim$}{\string~}\mbox{\hyperlink{class_queue}{Queue}} (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Destructor. Cleans up all nodes in the linked list. 
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}\ (head)\ \{}
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ \ \ \ \ Node*\ \mbox{\hyperlink{class_queue}{temp}}\ =\ head;}
+\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ \ \ \ \ head\ =\ head-\/>next;}
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{delete}\ \mbox{\hyperlink{class_queue}{temp}};}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00046\ \ \ \ \ \}}
+
+\end{DoxyCode}
+
+
+\label{doc-func-members}
+\Hypertarget{class_queue_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_queue_a84af2287bc5dad708508b588dc73457d}\index{Queue$<$ T $>$@{Queue$<$ T $>$}!empty@{empty}}
+\index{empty@{empty}!Queue$<$ T $>$@{Queue$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{empty()}{empty()}}
+{\footnotesize\ttfamily \label{class_queue_a84af2287bc5dad708508b588dc73457d} 
+template$<$typename T$>$ \\
+bool \mbox{\hyperlink{class_queue}{Queue}}$<$ T $>$\+::empty (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Checks if the queue is empty. 
+
+\begin{DoxyReturn}{Returns}
+True if the queue is empty, false otherwise. 
+\end{DoxyReturn}
+\begin{Desc}
+\item[Examples]\par
+\mbox{\hyperlink{_c_1_2_users_2_prj_2_project1_2_algorithms_2_algorithm_8h-example}{C\+:/\+Users/\+Prj/\+Project1/\+Algorithms/\+Algorithm.\+h}}.\end{Desc}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ head\ ==\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00072\ \ \ \ \ \}}
+
+\end{DoxyCode}
+\Hypertarget{class_queue_a36e5c5bf86531ff340df47ed0231427f}\index{Queue$<$ T $>$@{Queue$<$ T $>$}!popMin@{popMin}}
+\index{popMin@{popMin}!Queue$<$ T $>$@{Queue$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{popMin()}{popMin()}}
+{\footnotesize\ttfamily \label{class_queue_a36e5c5bf86531ff340df47ed0231427f} 
+template$<$typename T$>$ \\
+std\+::pair$<$ int, int $>$ \mbox{\hyperlink{class_queue}{Queue}}$<$ T $>$\+::pop\+Min (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Pops the element with the minimum distance from the queue. 
+
+\begin{DoxyReturn}{Returns}
+A std\+::pair of \{vertex, dist\}. Returns \{-\/1, -\/1\} if empty. 
+\end{DoxyReturn}
+\begin{Desc}
+\item[Examples]\par
+\mbox{\hyperlink{_c_1_2_users_2_prj_2_project1_2_algorithms_2_algorithm_8h-example}{C\+:/\+Users/\+Prj/\+Project1/\+Algorithms/\+Algorithm.\+h}}.\end{Desc}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!head)\ \textcolor{keywordflow}{return}\ \{-\/1,\ -\/1\};}
+\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ Node*\ \mbox{\hyperlink{class_queue}{minNode}}\ =\ head;}
+\DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ head\ =\ head-\/>next;}
+\DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ \mbox{\hyperlink{class_queue}{result}}\ =\ \mbox{\hyperlink{class_queue}{std::make\_pair}}(\mbox{\hyperlink{class_queue}{minNode}}-\/>vertex,\ \mbox{\hyperlink{class_queue}{minNode}}-\/>dist);}
+\DoxyCodeLine{00082\ \ \ \ \ \ \ \ \ \textcolor{keyword}{delete}\ \mbox{\hyperlink{class_queue}{minNode}};}
+\DoxyCodeLine{00083\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{class_queue}{result}};}
+\DoxyCodeLine{00084\ \ \ \ \ \}}
+
+\end{DoxyCode}
+\Hypertarget{class_queue_a68347286280886605abed29226eb8c29}\index{Queue$<$ T $>$@{Queue$<$ T $>$}!push@{push}}
+\index{push@{push}!Queue$<$ T $>$@{Queue$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{push()}{push()}}
+{\footnotesize\ttfamily \label{class_queue_a68347286280886605abed29226eb8c29} 
+template$<$typename T$>$ \\
+void \mbox{\hyperlink{class_queue}{Queue}}$<$ T $>$\+::push (\begin{DoxyParamCaption}\item[{T}]{vertex}{, }\item[{int}]{dist}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Pushes an item onto the priority queue in sorted order. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em vertex} & The vertex ID. \\
+\hline
+{\em dist} & The distance (priority). \\
+\hline
+\end{DoxyParams}
+\begin{Desc}
+\item[Examples]\par
+\mbox{\hyperlink{_c_1_2_users_2_prj_2_project1_2_algorithms_2_algorithm_8h-example}{C\+:/\+Users/\+Prj/\+Project1/\+Algorithms/\+Algorithm.\+h}}.\end{Desc}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ Node*\ \mbox{\hyperlink{class_queue}{node}}\ =\ \textcolor{keyword}{new}\ Node(\mbox{\hyperlink{class_queue}{vertex}},\ \mbox{\hyperlink{class_queue}{dist}});}
+\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!head\ ||\ \mbox{\hyperlink{class_queue}{dist\ <\ head-\/>}}\mbox{\hyperlink{class_queue}{dist}})\ \{}
+\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_queue}{node}}-\/>next\ =\ head;}
+\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ \ \ \ \ head\ =\ \mbox{\hyperlink{class_queue}{node}};}
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ Node*\ \mbox{\hyperlink{class_queue}{temp}}\ =\ head;}
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}\ (\mbox{\hyperlink{class_queue}{temp}}-\/>next\ \&\&\ \mbox{\hyperlink{class_queue}{temp}}-\/>next-\/>dist\ <=\ \mbox{\hyperlink{class_queue}{dist}})\ \{}
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_queue}{temp}}\ =\ \mbox{\hyperlink{class_queue}{temp}}-\/>next;}
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_queue}{node}}-\/>next\ =\ \mbox{\hyperlink{class_queue}{temp}}-\/>next;}
+\DoxyCodeLine{00064\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_queue}{temp}}-\/>next\ =\ \mbox{\hyperlink{class_queue}{node}};}
+\DoxyCodeLine{00065\ \ \ \ \ \}}
+
+\end{DoxyCode}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Graph/\mbox{\hyperlink{_queue_8h}{Queue.\+h}}\end{DoxyCompactItemize}

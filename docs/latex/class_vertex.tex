@@ -1,0 +1,199 @@
+\doxysection{Vertex\texorpdfstring{$<$}{<} T \texorpdfstring{$>$}{>} Class Template Reference}
+\hypertarget{class_vertex}{}\label{class_vertex}\index{Vertex$<$ T $>$@{Vertex$<$ T $>$}}
+
+
+A data container for a single vertex in the graph.  
+
+
+
+
+{\ttfamily \#include $<$Vertex.\+h$>$}
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{class_vertex_a4f53c3422ee8e41ddc4e1203217e682f}{mark\+Visited}} ()
+\begin{DoxyCompactList}\small\item\em Marks the vertex as visited. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_vertex_a866edbab21ead9071fbec4641237156f}{reset\+Visited}} ()
+\begin{DoxyCompactList}\small\item\em Resets the visited flag to false. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_vertex_aa2bb17f6ebd98a67f8da1f689b22fadc}{is\+Visited}} () const
+\begin{DoxyCompactList}\small\item\em Checks if the vertex has been visited. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{class_vertex_a57f6b5705f2faafc90184254213bbff1}{get\+Id}} () const
+\begin{DoxyCompactList}\small\item\em Gets the public ID of the vertex. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_vertex_af9c12cefa7d6a93efe1eecb578b573b1}{set\+Id}} (int index)
+\begin{DoxyCompactList}\small\item\em Sets the public ID of the vertex. \end{DoxyCompactList}\item 
+T \mbox{\hyperlink{class_vertex_ae169d194b1c70752733bb8fd14d31132}{get\+Data}} () const
+\begin{DoxyCompactList}\small\item\em Gets the data payload of the vertex. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_vertex_a477b2109b6ec86b779cdc23343b060e5}{set\+Data}} (T d)
+\begin{DoxyCompactList}\small\item\em Sets the data payload of the vertex. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_vertex_a65e0ecce63c8e79be93300d694265f5e}{print\+Data}} () const
+\begin{DoxyCompactList}\small\item\em Prints the vertex data to the console (for debugging). \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\subsubsection*{template$<$typename T$>$\newline
+class Vertex$<$ T $>$}
+A data container for a single vertex in the graph. 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em T} & The type of data to store (e.\+g., std\+::string or Celestial\+Object\texorpdfstring{$\ast$}{*}). \\
+\hline
+\end{DoxyTemplParams}
+
+
+\label{doc-func-members}
+\Hypertarget{class_vertex_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_vertex_ae169d194b1c70752733bb8fd14d31132}\index{Vertex$<$ T $>$@{Vertex$<$ T $>$}!getData@{getData}}
+\index{getData@{getData}!Vertex$<$ T $>$@{Vertex$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{getData()}{getData()}}
+{\footnotesize\ttfamily \label{class_vertex_ae169d194b1c70752733bb8fd14d31132} 
+template$<$typename T$>$ \\
+T \mbox{\hyperlink{class_vertex}{Vertex}}$<$ T $>$\+::get\+Data (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Gets the data payload of the vertex. 
+
+\begin{DoxyReturn}{Returns}
+The data (of type T). 
+\end{DoxyReturn}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00048\ \{\ \textcolor{keywordflow}{return}\ data;\ \}}
+
+\end{DoxyCode}
+\Hypertarget{class_vertex_a57f6b5705f2faafc90184254213bbff1}\index{Vertex$<$ T $>$@{Vertex$<$ T $>$}!getId@{getId}}
+\index{getId@{getId}!Vertex$<$ T $>$@{Vertex$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{getId()}{getId()}}
+{\footnotesize\ttfamily \label{class_vertex_a57f6b5705f2faafc90184254213bbff1} 
+template$<$typename T$>$ \\
+int \mbox{\hyperlink{class_vertex}{Vertex}}$<$ T $>$\+::get\+Id (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Gets the public ID of the vertex. 
+
+\begin{DoxyReturn}{Returns}
+The ID. 
+\end{DoxyReturn}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00038\ \{\ \textcolor{keywordflow}{return}\ id;\ \}}
+
+\end{DoxyCode}
+\Hypertarget{class_vertex_aa2bb17f6ebd98a67f8da1f689b22fadc}\index{Vertex$<$ T $>$@{Vertex$<$ T $>$}!isVisited@{isVisited}}
+\index{isVisited@{isVisited}!Vertex$<$ T $>$@{Vertex$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{isVisited()}{isVisited()}}
+{\footnotesize\ttfamily \label{class_vertex_aa2bb17f6ebd98a67f8da1f689b22fadc} 
+template$<$typename T$>$ \\
+bool \mbox{\hyperlink{class_vertex}{Vertex}}$<$ T $>$\+::is\+Visited (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Checks if the vertex has been visited. 
+
+\begin{DoxyReturn}{Returns}
+True if visited, false otherwise. 
+\end{DoxyReturn}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00033\ \{\ \textcolor{keywordflow}{return}\ visited;\ \}}
+
+\end{DoxyCode}
+\Hypertarget{class_vertex_a4f53c3422ee8e41ddc4e1203217e682f}\index{Vertex$<$ T $>$@{Vertex$<$ T $>$}!markVisited@{markVisited}}
+\index{markVisited@{markVisited}!Vertex$<$ T $>$@{Vertex$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{markVisited()}{markVisited()}}
+{\footnotesize\ttfamily \label{class_vertex_a4f53c3422ee8e41ddc4e1203217e682f} 
+template$<$typename T$>$ \\
+void \mbox{\hyperlink{class_vertex}{Vertex}}$<$ T $>$\+::mark\+Visited (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Marks the vertex as visited. 
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00024\ \{\ visited\ =\ \textcolor{keyword}{true};\ \}}
+
+\end{DoxyCode}
+\Hypertarget{class_vertex_a65e0ecce63c8e79be93300d694265f5e}\index{Vertex$<$ T $>$@{Vertex$<$ T $>$}!printData@{printData}}
+\index{printData@{printData}!Vertex$<$ T $>$@{Vertex$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{printData()}{printData()}}
+{\footnotesize\ttfamily \label{class_vertex_a65e0ecce63c8e79be93300d694265f5e} 
+template$<$typename T$>$ \\
+void \mbox{\hyperlink{class_vertex}{Vertex}}$<$ T $>$\+::print\+Data (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Prints the vertex data to the console (for debugging). 
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00057\ \{\ \mbox{\hyperlink{class_vertex}{std::cout}}\ <<\ \textcolor{keywordtype}{id}\ <<\ \textcolor{stringliteral}{"{}\ "{}}\ <<\ data;\ \}}
+
+\end{DoxyCode}
+\Hypertarget{class_vertex_a866edbab21ead9071fbec4641237156f}\index{Vertex$<$ T $>$@{Vertex$<$ T $>$}!resetVisited@{resetVisited}}
+\index{resetVisited@{resetVisited}!Vertex$<$ T $>$@{Vertex$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{resetVisited()}{resetVisited()}}
+{\footnotesize\ttfamily \label{class_vertex_a866edbab21ead9071fbec4641237156f} 
+template$<$typename T$>$ \\
+void \mbox{\hyperlink{class_vertex}{Vertex}}$<$ T $>$\+::reset\+Visited (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Resets the visited flag to false. 
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00028\ \{\ visited\ =\ \textcolor{keyword}{false};\ \}}
+
+\end{DoxyCode}
+\Hypertarget{class_vertex_a477b2109b6ec86b779cdc23343b060e5}\index{Vertex$<$ T $>$@{Vertex$<$ T $>$}!setData@{setData}}
+\index{setData@{setData}!Vertex$<$ T $>$@{Vertex$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{setData()}{setData()}}
+{\footnotesize\ttfamily \label{class_vertex_a477b2109b6ec86b779cdc23343b060e5} 
+template$<$typename T$>$ \\
+void \mbox{\hyperlink{class_vertex}{Vertex}}$<$ T $>$\+::set\+Data (\begin{DoxyParamCaption}\item[{T}]{d}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Sets the data payload of the vertex. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em d} & The new data. \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00053\ \{\ data\ =\ \mbox{\hyperlink{class_vertex}{d}};\ \}}
+
+\end{DoxyCode}
+\Hypertarget{class_vertex_af9c12cefa7d6a93efe1eecb578b573b1}\index{Vertex$<$ T $>$@{Vertex$<$ T $>$}!setId@{setId}}
+\index{setId@{setId}!Vertex$<$ T $>$@{Vertex$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{setId()}{setId()}}
+{\footnotesize\ttfamily \label{class_vertex_af9c12cefa7d6a93efe1eecb578b573b1} 
+template$<$typename T$>$ \\
+void \mbox{\hyperlink{class_vertex}{Vertex}}$<$ T $>$\+::set\+Id (\begin{DoxyParamCaption}\item[{int}]{index}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Sets the public ID of the vertex. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em index} & The new ID. \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00043\ \{\ \textcolor{keywordtype}{id}\ =\ \mbox{\hyperlink{class_vertex}{index}};\ \}}
+
+\end{DoxyCode}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Graph/\mbox{\hyperlink{_vertex_8h}{Vertex.\+h}}\end{DoxyCompactItemize}

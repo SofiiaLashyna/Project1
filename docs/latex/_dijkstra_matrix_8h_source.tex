@@ -1,0 +1,25 @@
+\doxysection{Dijkstra\+Matrix.\+h}
+\hypertarget{_dijkstra_matrix_8h_source}{}\label{_dijkstra_matrix_8h_source}\index{Algorithms/DijkstraMatrix.h@{Algorithms/DijkstraMatrix.h}}
+\mbox{\hyperlink{_dijkstra_matrix_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ DIJKSTRA\_MATRIX\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ DIJKSTRA\_MATRIX\_H}}
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_algorithm_8h}{Algorithm.h}}"{}}}
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_graph_matrix_8h}{GraphMatrix.h}}"{}}}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00021\ }
+\DoxyCodeLine{00022\ \textcolor{keyword}{template}<\ \textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00023\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_dijkstra_matrix_algorithm}{DijkstraMatrixAlgorithm}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_graph_algorithm}{GraphAlgorithm}}<GraphMatrix<T>,\ T>\ \{}
+\DoxyCodeLine{00024\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00037\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_dijkstra_matrix_algorithm_a08c5a007ee13eeea58db2ac70478f5a5}{run}}(\mbox{\hyperlink{class_graph_matrix}{GraphMatrix<T>}}\&\ g,\ \textcolor{keywordtype}{int}\ startId,\ \textcolor{keywordtype}{int}\ endId)\textcolor{keyword}{\ override\ }\{}
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_algorithms}{Algorithms<GraphMatrix<T>}},\ T>\ alg(g);}
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ res\ =\ alg.\mbox{\hyperlink{class_algorithms_af59f32c1da9d6c4199776f4e123f6ed5}{Dijkstra\_matrix}}(startId,\ endId);}
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Shortest\ path\ weight\ =\ "{}}\ <<\ res\ <<\ std::endl;}
+\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ res;}
+\DoxyCodeLine{00042\ \ \ \ \ \}}
+\DoxyCodeLine{00044\ \ \ \ \ \mbox{\hyperlink{class_dijkstra_matrix_algorithm_aff6650744a8cf5099339ff3f14ec459f}{\string~DijkstraMatrixAlgorithm}}()=\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00045\ \};}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//DIJKSTRA\_MATRIX\_H}}
+
+\end{DoxyCode}

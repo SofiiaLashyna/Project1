@@ -1,0 +1,58 @@
+@startuml
+skinparam monochrome true
+
+actor User
+participant "graphWidget\n: GraphWidget" as GraphWidget
+participant "galaxyView\n: GalaxyView" as GalaxyView
+participant "solver\n: DijkstraPathList" as Solver
+participant "alg\n: Algorithms" as Algorithms
+
+User -> GraphWidget : Clicks on a vertex
+activate GraphWidget
+
+GraphWidget -> GalaxyView : emit vertexClicked(vertexId)
+deactivate GraphWidget
+activate GalaxyView
+
+alt startNodeId == -1 (First Click)
+    GalaxyView -> GalaxyView : startNodeId = vertexId
+    note right of GalaxyView
+      Update UI labels to show
+      Start Node is selected.
+      No calculations yet.
+    end note
+else startNodeId != -1 (Second Click)
+    GalaxyView -> GalaxyView : endNodeId = vertexId
+    
+    GalaxyView -> GalaxyView : calculateShortestPath()
+    activate GalaxyView
+    
+    create Solver
+    GalaxyView -> Solver : <<create>>
+    
+    GalaxyView -> Solver : findShortestPath(systemGraph, \nstartNodeId, endNodeId)
+    activate Solver
+    
+    Solver -> Algorithms : Dijkstra_findPath(startNodeId, \nendNodeId)
+    activate Algorithms
+    
+    Algorithms -> Algorithms : Processing priority \nqueue \n(finding shortest path)
+    
+    Algorithms --> Solver : return path \n(std::vector<int>)
+    deactivate Algorithms
+    
+    Solver --> GalaxyView : return pathIndices
+    deactivate Solver
+    
+    GalaxyView -> GalaxyView : Store pathEdges
+    
+    GalaxyView -> GraphWidget : setHighlightedNodes(pathIndices)
+    
+    GalaxyView -> GalaxyView : updateGraphDisplay()
+    
+    GalaxyView -> GraphWidget : update()
+    deactivate GalaxyView
+end
+
+deactivate GalaxyView
+@enduml

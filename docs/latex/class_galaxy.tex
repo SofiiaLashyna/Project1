@@ -1,0 +1,537 @@
+\doxysection{Galaxy\texorpdfstring{$<$}{<} Graph\+Type \texorpdfstring{$>$}{>} Class Template Reference}
+\hypertarget{class_galaxy}{}\label{class_galaxy}\index{Galaxy$<$ GraphType $>$@{Galaxy$<$ GraphType $>$}}
+
+
+Manages all celestial objects and their relationships (graph) in a galaxy.  
+
+
+
+
+{\ttfamily \#include $<$Galaxy.\+h$>$}
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_galaxy_afc31835ef51a4383361020424e0225b9}{Galaxy}} (std\+::string name="{}Unnamed Galaxy"{})
+\begin{DoxyCompactList}\small\item\em Constructor for the \doxylink{class_galaxy}{Galaxy} class. \end{DoxyCompactList}\item 
+virtual \mbox{\hyperlink{class_galaxy_a9fc76ac7be6b6028895051ea77f451b9}{\texorpdfstring{$\sim$}{\string~}\+Galaxy}} ()
+\begin{DoxyCompactList}\small\item\em Virtual destructor. Cleans up memory by deleting all owned \doxylink{class_celestial_object}{Celestial\+Object} pointers. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{class_galaxy_adfda7c39bcab08a69697f32dea26d210}{object\+Count}} ()
+\begin{DoxyCompactList}\small\item\em Gets the number of objects included to the galaxy. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_galaxy_a174441820cce8153000c384779506e46}{add\+Object}} (\mbox{\hyperlink{class_celestial_object}{Celestial\+Object}} \texorpdfstring{$\ast$}{*}obj)
+\item 
+std\+::vector$<$ \mbox{\hyperlink{class_celestial_object}{Celestial\+Object}} \texorpdfstring{$\ast$}{*} $>$ \& \mbox{\hyperlink{class_galaxy_a79169b03671e1015967978e4dbcf7f7f}{get\+Object}} ()
+\begin{DoxyCompactList}\small\item\em Gets the internal vector of objects included to the galaxy. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_galaxy_ae1984eb25db5173185c06f68fcbbcd05}{connect\+Objects}} (int id1, int id2, int distance)
+\item 
+Graph\+Type \& \mbox{\hyperlink{class_galaxy_a496ac25dd03b2f45fd384b120eb5695b}{get\+Graph}} ()
+\begin{DoxyCompactList}\small\item\em Returns the internal graph object. \end{DoxyCompactList}\item 
+std\+::string \mbox{\hyperlink{class_galaxy_aefeba0dc75d14954ab1e490089fa8a93}{get\+Name}} ()
+\begin{DoxyCompactList}\small\item\em Returns the name of a galaxy. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_galaxy_a56d1d156b74d68ff30788ff313059a65}{set\+Name}} (std\+::string new\+Name)
+\begin{DoxyCompactList}\small\item\em Set the name of a galaxy. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_galaxy_a8b1fd6fae76db5432aa0dc5fc97d8fb2}{show\+Galaxy}} ()
+\begin{DoxyCompactList}\small\item\em Display of all information about the galaxy and its objects to std\+::cout. \end{DoxyCompactList}\item 
+QString \mbox{\hyperlink{class_galaxy_ad26d70560b6d97d05ca7e0c15af3f45f}{get\+Galaxy\+Parameters}} ()
+\item 
+\mbox{\hyperlink{class_planet}{Planet}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_galaxy_ac5f09bba3f9219f06ada6c001968f65e}{generate\+Planet}} (\mbox{\hyperlink{class_random_generator}{Random\+Generator}} \&rng, const json \&data)
+\begin{DoxyCompactList}\small\item\em Factory method to generate a new random \doxylink{class_planet}{Planet}. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_star_system}{Star\+System}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_galaxy_a3613886d9c5d8bfc3eefc011e563e918}{generate\+Star\+System}} (int id, \mbox{\hyperlink{class_random_generator}{Random\+Generator}} \&rng, const json \&data)
+\begin{DoxyCompactList}\small\item\em Factory method to generate a new random \doxylink{class_star_system}{Star\+System}. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_nebula}{Nebula}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_galaxy_ac22a46b1948c37f5ac8c3271215e151b}{generate\+Nebula}} (\mbox{\hyperlink{class_random_generator}{Random\+Generator}} \&rng, const json \&data)
+\begin{DoxyCompactList}\small\item\em Factory method to generate a new random \doxylink{class_nebula}{Nebula}. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_galaxy_ac6639894fbf76783f4793429a4d2b895}{generate\+Galaxy}} (const json \&data, \mbox{\hyperlink{class_random_generator}{Random\+Generator}} \&rng)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\subsubsection*{template$<$typename Graph\+Type$>$\newline
+class Galaxy$<$ Graph\+Type $>$}
+Manages all celestial objects and their relationships (graph) in a galaxy. 
+
+This class acts as the top-\/level container, owning all \doxylink{class_celestial_object}{Celestial\+Object} pointers (\doxylink{class_star_system}{Star\+System}, \doxylink{class_nebula}{Nebula}, etc.) and managing the graph that connects them.
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em Graph\+Type} & The type of graph used to store object relationships (e.\+g., \doxylink{class_graph_list}{Graph\+List$<$\+Celestial\+Object\texorpdfstring{$\ast$}{*}$>$} or \doxylink{class_graph_matrix}{Graph\+Matrix$<$\+Celestial\+Object\texorpdfstring{$\ast$}{*}$>$}). \\
+\hline
+\end{DoxyTemplParams}
+\begin{Desc}
+\item[Examples]\par
+\mbox{\hyperlink{_basic_usage_example_8cpp-example}{Basic\+Usage\+Example.\+cpp}}, and \mbox{\hyperlink{_c_1_2_users_2_prj_2_project1_2_entities_2_galaxy_8h-example}{C\+:/\+Users/\+Prj/\+Project1/\+Entities/\+Galaxy.\+h}}.\end{Desc}
+
+
+\label{doc-constructors}
+\Hypertarget{class_galaxy_doc-constructors}
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_galaxy_afc31835ef51a4383361020424e0225b9}\index{Galaxy$<$ GraphType $>$@{Galaxy$<$ GraphType $>$}!Galaxy@{Galaxy}}
+\index{Galaxy@{Galaxy}!Galaxy$<$ GraphType $>$@{Galaxy$<$ GraphType $>$}}
+\doxysubsubsection{\texorpdfstring{Galaxy()}{Galaxy()}}
+{\footnotesize\ttfamily \label{class_galaxy_afc31835ef51a4383361020424e0225b9} 
+template$<$typename Graph\+Type$>$ \\
+\mbox{\hyperlink{class_galaxy}{Galaxy}}$<$ Graph\+Type $>$\+::\+Galaxy (\begin{DoxyParamCaption}\item[{std\+::string}]{name}{ = {\ttfamily "{}Unnamed~\mbox{\hyperlink{class_galaxy}{Galaxy}}$<$~GraphType~$>$"{}}}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Constructor for the \doxylink{class_galaxy}{Galaxy} class. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em name} & The name of the galaxy. \\
+\hline
+\end{DoxyParams}
+\begin{Desc}
+\item[Examples]\par
+\mbox{\hyperlink{_c_1_2_users_2_prj_2_project1_2_entities_2_galaxy_8h-example}{C\+:/\+Users/\+Prj/\+Project1/\+Entities/\+Galaxy.\+h}}.\end{Desc}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ :\ name(\mbox{\hyperlink{class_galaxy}{std::move}}(name))\ \{}
+\DoxyCodeLine{00073\ \ \ \ \ \}}
+
+\end{DoxyCode}
+\Hypertarget{class_galaxy_a9fc76ac7be6b6028895051ea77f451b9}\index{Galaxy$<$ GraphType $>$@{Galaxy$<$ GraphType $>$}!````~Galaxy@{\texorpdfstring{$\sim$}{\string~}Galaxy}}
+\index{````~Galaxy@{\texorpdfstring{$\sim$}{\string~}Galaxy}!Galaxy$<$ GraphType $>$@{Galaxy$<$ GraphType $>$}}
+\doxysubsubsection{\texorpdfstring{\texorpdfstring{$\sim$}{\string~}Galaxy()}{\string~Galaxy()}}
+{\footnotesize\ttfamily \label{class_galaxy_a9fc76ac7be6b6028895051ea77f451b9} 
+template$<$typename Graph\+Type$>$ \\
+virtual \mbox{\hyperlink{class_galaxy}{Galaxy}}$<$ Graph\+Type $>$\+::\texorpdfstring{$\sim$}{\string~}\mbox{\hyperlink{class_galaxy}{Galaxy}} (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Virtual destructor. Cleans up memory by deleting all owned \doxylink{class_celestial_object}{Celestial\+Object} pointers. 
+
+\begin{Desc}
+\item[Examples]\par
+\mbox{\hyperlink{_c_1_2_users_2_prj_2_project1_2_entities_2_galaxy_8h-example}{C\+:/\+Users/\+Prj/\+Project1/\+Entities/\+Galaxy.\+h}}.\end{Desc}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\mbox{\hyperlink{class_galaxy}{CelestialObject}}\ *\mbox{\hyperlink{class_galaxy}{obj}}:\ celestial\_objects)\ \{}
+\DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{delete}\ \mbox{\hyperlink{class_galaxy}{obj}};}
+\DoxyCodeLine{00082\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00083\ \ \ \ \ \ \ \ \ celestial\_objects.clear();}
+\DoxyCodeLine{00084\ \ \ \ \ \}}
+
+\end{DoxyCode}
+
+
+\label{doc-func-members}
+\Hypertarget{class_galaxy_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_galaxy_a174441820cce8153000c384779506e46}\index{Galaxy$<$ GraphType $>$@{Galaxy$<$ GraphType $>$}!addObject@{addObject}}
+\index{addObject@{addObject}!Galaxy$<$ GraphType $>$@{Galaxy$<$ GraphType $>$}}
+\doxysubsubsection{\texorpdfstring{addObject()}{addObject()}}
+{\footnotesize\ttfamily \label{class_galaxy_a174441820cce8153000c384779506e46} 
+template$<$typename Graph\+Type$>$ \\
+void \mbox{\hyperlink{class_galaxy}{Galaxy}}$<$ Graph\+Type $>$\+::add\+Object (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_celestial_object}{Celestial\+Object}} \texorpdfstring{$\ast$}{*}}]{obj}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\begin{Desc}
+\item[Examples]\par
+\mbox{\hyperlink{_basic_usage_example_8cpp-example}{Basic\+Usage\+Example.\+cpp}}, and \mbox{\hyperlink{_c_1_2_users_2_prj_2_project1_2_entities_2_galaxy_8h-example}{C\+:/\+Users/\+Prj/\+Project1/\+Entities/\+Galaxy.\+h}}.\end{Desc}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00106\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00107\ \ \ \ \ \ \ \ \ celestial\_objects.push\_back(\mbox{\hyperlink{class_galaxy}{obj}});}
+\DoxyCodeLine{00108\ \ \ \ \ \ \ \ \ systemGraph.addVertex(\textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{int}\textcolor{keyword}{>}(celestial\_objects.size())\ -\/\ 1,\ \mbox{\hyperlink{class_galaxy}{obj}});}
+\DoxyCodeLine{00109\ \ \ \ \ \}}
+
+\end{DoxyCode}
+\Hypertarget{class_galaxy_ae1984eb25db5173185c06f68fcbbcd05}\index{Galaxy$<$ GraphType $>$@{Galaxy$<$ GraphType $>$}!connectObjects@{connectObjects}}
+\index{connectObjects@{connectObjects}!Galaxy$<$ GraphType $>$@{Galaxy$<$ GraphType $>$}}
+\doxysubsubsection{\texorpdfstring{connectObjects()}{connectObjects()}}
+{\footnotesize\ttfamily \label{class_galaxy_ae1984eb25db5173185c06f68fcbbcd05} 
+template$<$typename Graph\+Type$>$ \\
+void \mbox{\hyperlink{class_galaxy}{Galaxy}}$<$ Graph\+Type $>$\+::connect\+Objects (\begin{DoxyParamCaption}\item[{int}]{id1}{, }\item[{int}]{id2}{, }\item[{int}]{distance}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\begin{Desc}
+\item[Examples]\par
+\mbox{\hyperlink{_basic_usage_example_8cpp-example}{Basic\+Usage\+Example.\+cpp}}, and \mbox{\hyperlink{_c_1_2_users_2_prj_2_project1_2_entities_2_galaxy_8h-example}{C\+:/\+Users/\+Prj/\+Project1/\+Entities/\+Galaxy.\+h}}.\end{Desc}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00131\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00132\ \ \ \ \ \ \ \ \ systemGraph.addEdge(\mbox{\hyperlink{class_galaxy}{id1}},\ \mbox{\hyperlink{class_galaxy}{id2}},\ \mbox{\hyperlink{class_galaxy}{distance}});}
+\DoxyCodeLine{00133\ \ \ \ \ \}}
+
+\end{DoxyCode}
+\Hypertarget{class_galaxy_ac6639894fbf76783f4793429a4d2b895}\index{Galaxy$<$ GraphType $>$@{Galaxy$<$ GraphType $>$}!generateGalaxy@{generateGalaxy}}
+\index{generateGalaxy@{generateGalaxy}!Galaxy$<$ GraphType $>$@{Galaxy$<$ GraphType $>$}}
+\doxysubsubsection{\texorpdfstring{generateGalaxy()}{generateGalaxy()}}
+{\footnotesize\ttfamily \label{class_galaxy_ac6639894fbf76783f4793429a4d2b895} 
+template$<$typename Graph\+Type$>$ \\
+void \mbox{\hyperlink{class_galaxy}{Galaxy}}$<$ Graph\+Type $>$\+::generate\+Galaxy (\begin{DoxyParamCaption}\item[{const json \&}]{data}{, }\item[{\mbox{\hyperlink{class_random_generator}{Random\+Generator}} \&}]{rng}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00336\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00337\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_galaxy}{systemCount}}\ =\ \mbox{\hyperlink{class_galaxy}{rng}}.getInt(3,\ 10);}
+\DoxyCodeLine{00338\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_galaxy}{i}}\ =\ 0;\ \mbox{\hyperlink{class_galaxy}{i}}\ <\ \mbox{\hyperlink{class_galaxy}{systemCount}};\ ++\mbox{\hyperlink{class_galaxy}{i}})}
+\DoxyCodeLine{00339\ \ \ \ \ \ \ \ \ \ \ \ \ this-\/>addObject(this-\/>\mbox{\hyperlink{class_galaxy_a3613886d9c5d8bfc3eefc011e563e918}{generateStarSystem}}(\mbox{\hyperlink{class_galaxy}{i}},\ \mbox{\hyperlink{class_galaxy}{rng}},\ \mbox{\hyperlink{class_galaxy}{data}}));}
+\DoxyCodeLine{00340\ }
+\DoxyCodeLine{00341\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_galaxy}{nebulaCount}}\ =\ \mbox{\hyperlink{class_galaxy}{rng}}.getInt(1,\ 15);}
+\DoxyCodeLine{00342\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_galaxy}{i}}\ =\ 0;\ \mbox{\hyperlink{class_galaxy}{i}}\ <\ \mbox{\hyperlink{class_galaxy}{nebulaCount}};\ ++\mbox{\hyperlink{class_galaxy}{i}})}
+\DoxyCodeLine{00343\ \ \ \ \ \ \ \ \ \ \ \ \ this-\/>addObject(this-\/>\mbox{\hyperlink{class_galaxy_ac22a46b1948c37f5ac8c3271215e151b}{generateNebula}}(\mbox{\hyperlink{class_galaxy}{rng}},\ \mbox{\hyperlink{class_galaxy}{data}}));}
+\DoxyCodeLine{00344\ }
+\DoxyCodeLine{00345\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_galaxy}{i}}\ =\ 0;\ \mbox{\hyperlink{class_galaxy}{i}}\ <\ celestial\_objects.size()\ -\/\ 1;\ ++\mbox{\hyperlink{class_galaxy}{i}})\ \{}
+\DoxyCodeLine{00346\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_galaxy}{j}}\ =\ \mbox{\hyperlink{class_galaxy}{rng}}.getInt(\mbox{\hyperlink{class_galaxy}{i}}\ +\ 1,\ celestial\_objects.size()\ -\/\ 1);}
+\DoxyCodeLine{00347\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_galaxy}{dist}}\ =\ \mbox{\hyperlink{class_galaxy}{rng}}.getInt(10,\ 1000);}
+\DoxyCodeLine{00348\ \ \ \ \ \ \ \ \ \ \ \ \ systemGraph.addEdge(\mbox{\hyperlink{class_galaxy}{i}},\ \mbox{\hyperlink{class_galaxy}{j}},\ \mbox{\hyperlink{class_galaxy}{dist}});}
+\DoxyCodeLine{00349\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00350\ }
+\DoxyCodeLine{00351\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_galaxy}{std::cout}}\ <<\ \textcolor{stringliteral}{"{}Galaxy\ successfully\ generated!"{}}\ <<\ \mbox{\hyperlink{class_galaxy}{std::endl}};}
+\DoxyCodeLine{00352\ \ \ \ \ \}}
+
+\end{DoxyCode}
+\Hypertarget{class_galaxy_ac22a46b1948c37f5ac8c3271215e151b}\index{Galaxy$<$ GraphType $>$@{Galaxy$<$ GraphType $>$}!generateNebula@{generateNebula}}
+\index{generateNebula@{generateNebula}!Galaxy$<$ GraphType $>$@{Galaxy$<$ GraphType $>$}}
+\doxysubsubsection{\texorpdfstring{generateNebula()}{generateNebula()}}
+{\footnotesize\ttfamily \label{class_galaxy_ac22a46b1948c37f5ac8c3271215e151b} 
+template$<$typename Graph\+Type$>$ \\
+\mbox{\hyperlink{class_nebula}{Nebula}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_galaxy}{Galaxy}}$<$ Graph\+Type $>$\+::generate\+Nebula (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_random_generator}{Random\+Generator}} \&}]{rng}{, }\item[{const json \&}]{data}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Factory method to generate a new random \doxylink{class_nebula}{Nebula}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em rng} & Reference to the random number generator utility. \\
+\hline
+{\em data} & JSON data containing generation parameters. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A pointer to a new \doxylink{class_nebula}{Nebula} object (caller owns it). 
+\end{DoxyReturn}
+\begin{Desc}
+\item[Examples]\par
+\mbox{\hyperlink{_c_1_2_users_2_prj_2_project1_2_entities_2_galaxy_8h-example}{C\+:/\+Users/\+Prj/\+Project1/\+Entities/\+Galaxy.\+h}}.\end{Desc}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00295\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00296\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ \&\mbox{\hyperlink{class_galaxy}{nebulae}}\ =\ \mbox{\hyperlink{class_galaxy}{data}}[\textcolor{stringliteral}{"{}Nebulae"{}}];}
+\DoxyCodeLine{00297\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ \&\mbox{\hyperlink{class_galaxy}{nData}}\ =\ \mbox{\hyperlink{class_galaxy}{nebulae}}[\mbox{\hyperlink{class_galaxy}{rng}}.getInt(0,\ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{int}\textcolor{keyword}{>}(\mbox{\hyperlink{class_galaxy}{nebulae}}.size())\ -\/\ 1)];}
+\DoxyCodeLine{00298\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_galaxy}{std::string}}\ \mbox{\hyperlink{class_galaxy}{nebulaFile}}\ =\ \mbox{\hyperlink{class_galaxy}{nData}}[\textcolor{stringliteral}{"{}name"{}}];}
+\DoxyCodeLine{00299\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_galaxy}{std::string}}\ \mbox{\hyperlink{class_galaxy}{nebulaName}}\ =\ \mbox{\hyperlink{class_galaxy}{rng}}.getRandomNameFromFile(\mbox{\hyperlink{class_galaxy}{nebulaFile}});}
+\DoxyCodeLine{00300\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_galaxy}{std::string}}\ \mbox{\hyperlink{class_galaxy}{typeStr}}\ =\ \mbox{\hyperlink{class_galaxy}{nData}}[\textcolor{stringliteral}{"{}nebulaType"{}}];}
+\DoxyCodeLine{00301\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{class_galaxy}{mass}}\ =\ \mbox{\hyperlink{class_galaxy}{rng}}.getDouble(\mbox{\hyperlink{class_galaxy}{nData}}[\textcolor{stringliteral}{"{}mass"{}}][0],\ \mbox{\hyperlink{class_galaxy}{nData}}[\textcolor{stringliteral}{"{}mass"{}}][1]);}
+\DoxyCodeLine{00302\ }
+\DoxyCodeLine{00303\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_galaxy}{Nebula::nebulaType}}\ \mbox{\hyperlink{class_galaxy}{nType}};}
+\DoxyCodeLine{00304\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{class_galaxy}{typeStr}}\ ==\ \textcolor{stringliteral}{"{}Emission"{}})\ \mbox{\hyperlink{class_galaxy}{nType}}\ =\ \mbox{\hyperlink{class_galaxy}{Nebula::nebulaType::Emission}};}
+\DoxyCodeLine{00305\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{class_galaxy}{typeStr}}\ ==\ \textcolor{stringliteral}{"{}Reflection"{}})\ \mbox{\hyperlink{class_galaxy}{nType}}\ =\ \mbox{\hyperlink{class_galaxy}{Nebula::nebulaType::Reflection}};}
+\DoxyCodeLine{00306\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{class_galaxy}{typeStr}}\ ==\ \textcolor{stringliteral}{"{}Dark"{}})\ \mbox{\hyperlink{class_galaxy}{nType}}\ =\ \mbox{\hyperlink{class_galaxy}{Nebula::nebulaType::Dark}};}
+\DoxyCodeLine{00307\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{class_galaxy}{typeStr}}\ ==\ \textcolor{stringliteral}{"{}Supernova"{}})\ \mbox{\hyperlink{class_galaxy}{nType}}\ =\ \mbox{\hyperlink{class_galaxy}{Nebula::nebulaType::Supernova}};}
+\DoxyCodeLine{00308\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \mbox{\hyperlink{class_galaxy}{nType}}\ =\ \mbox{\hyperlink{class_galaxy}{Nebula::nebulaType::Planetary}};}
+\DoxyCodeLine{00309\ }
+\DoxyCodeLine{00310\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_galaxy}{Nebula}}\ *\mbox{\hyperlink{class_galaxy}{nebula}}\ =\ \textcolor{keyword}{new}\ \mbox{\hyperlink{class_galaxy}{Nebula}}(\mbox{\hyperlink{class_galaxy}{nebulaName}},\ \mbox{\hyperlink{class_galaxy}{mass}},\ \mbox{\hyperlink{class_galaxy}{nType}});}
+\DoxyCodeLine{00311\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{class_galaxy}{nebula}};}
+\DoxyCodeLine{00312\ \ \ \ \ \}}
+
+\end{DoxyCode}
+\Hypertarget{class_galaxy_ac5f09bba3f9219f06ada6c001968f65e}\index{Galaxy$<$ GraphType $>$@{Galaxy$<$ GraphType $>$}!generatePlanet@{generatePlanet}}
+\index{generatePlanet@{generatePlanet}!Galaxy$<$ GraphType $>$@{Galaxy$<$ GraphType $>$}}
+\doxysubsubsection{\texorpdfstring{generatePlanet()}{generatePlanet()}}
+{\footnotesize\ttfamily \label{class_galaxy_ac5f09bba3f9219f06ada6c001968f65e} 
+template$<$typename Graph\+Type$>$ \\
+\mbox{\hyperlink{class_planet}{Planet}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_galaxy}{Galaxy}}$<$ Graph\+Type $>$\+::generate\+Planet (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_random_generator}{Random\+Generator}} \&}]{rng}{, }\item[{const json \&}]{data}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Factory method to generate a new random \doxylink{class_planet}{Planet}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em rng} & Reference to the random number generator utility. \\
+\hline
+{\em data} & JSON data containing generation parameters. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A pointer to a new \doxylink{class_planet}{Planet} object (caller owns it). 
+\end{DoxyReturn}
+\begin{Desc}
+\item[Examples]\par
+\mbox{\hyperlink{_c_1_2_users_2_prj_2_project1_2_entities_2_galaxy_8h-example}{C\+:/\+Users/\+Prj/\+Project1/\+Entities/\+Galaxy.\+h}}.\end{Desc}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00224\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00225\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ \&\mbox{\hyperlink{class_galaxy}{planets}}\ =\ \mbox{\hyperlink{class_galaxy}{data}}[\textcolor{stringliteral}{"{}Planets"{}}];}
+\DoxyCodeLine{00226\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ \&\mbox{\hyperlink{class_galaxy}{pData}}\ =\ \mbox{\hyperlink{class_galaxy}{planets}}[\mbox{\hyperlink{class_galaxy}{rng}}.getInt(0,\ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{int}\textcolor{keyword}{>}(\mbox{\hyperlink{class_galaxy}{planets}}.size())\ -\/\ 1)];}
+\DoxyCodeLine{00227\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_galaxy}{std::string}}\ \mbox{\hyperlink{class_galaxy}{planetFile}}\ =\ \mbox{\hyperlink{class_galaxy}{pData}}[\textcolor{stringliteral}{"{}name"{}}];}
+\DoxyCodeLine{00228\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_galaxy}{std::string}}\ \mbox{\hyperlink{class_galaxy}{planetName}}\ =\ \mbox{\hyperlink{class_galaxy}{rng}}.getRandomNameFromFile(\mbox{\hyperlink{class_galaxy}{planetFile}});}
+\DoxyCodeLine{00229\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_galaxy}{std::string}}\ \mbox{\hyperlink{class_galaxy}{pTypeStr}}\ =\ \mbox{\hyperlink{class_galaxy}{pData}}[\textcolor{stringliteral}{"{}planetType"{}}];}
+\DoxyCodeLine{00230\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{class_galaxy}{planetMass}}\ =\ \mbox{\hyperlink{class_galaxy}{rng}}.getDouble(\mbox{\hyperlink{class_galaxy}{pData}}[\textcolor{stringliteral}{"{}mass"{}}][0],\ \mbox{\hyperlink{class_galaxy}{pData}}[\textcolor{stringliteral}{"{}mass"{}}][1]);}
+\DoxyCodeLine{00231\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{class_galaxy}{distance}}\ =\ \mbox{\hyperlink{class_galaxy}{rng}}.getDouble(\mbox{\hyperlink{class_galaxy}{pData}}[\textcolor{stringliteral}{"{}orbitRadius"{}}][0],\ \mbox{\hyperlink{class_galaxy}{pData}}[\textcolor{stringliteral}{"{}orbitRadius"{}}][1]);}
+\DoxyCodeLine{00232\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{class_galaxy}{speed}}\ =\ \mbox{\hyperlink{class_galaxy}{rng}}.getDouble(\mbox{\hyperlink{class_galaxy}{pData}}[\textcolor{stringliteral}{"{}orbitSpeed"{}}][0],\ \mbox{\hyperlink{class_galaxy}{pData}}[\textcolor{stringliteral}{"{}orbitSpeed"{}}][1]);}
+\DoxyCodeLine{00233\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{class_galaxy}{inclination}}\ =\ \mbox{\hyperlink{class_galaxy}{rng}}.getDouble(\mbox{\hyperlink{class_galaxy}{pData}}[\textcolor{stringliteral}{"{}Inclination"{}}][0],\ \mbox{\hyperlink{class_galaxy}{pData}}[\textcolor{stringliteral}{"{}Inclination"{}}][1]);}
+\DoxyCodeLine{00234\ }
+\DoxyCodeLine{00235\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_galaxy}{Planet::planetType}}\ \mbox{\hyperlink{class_galaxy}{pType}};}
+\DoxyCodeLine{00236\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{class_galaxy}{pTypeStr}}\ ==\ \textcolor{stringliteral}{"{}Gas\_Giant"{}})\ \mbox{\hyperlink{class_galaxy}{pType}}\ =\ \mbox{\hyperlink{class_galaxy}{Planet::planetType::Gas\_Giant}};}
+\DoxyCodeLine{00237\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{class_galaxy}{pTypeStr}}\ ==\ \textcolor{stringliteral}{"{}Terrestrial\_Planet"{}})\ \mbox{\hyperlink{class_galaxy}{pType}}\ =\ \mbox{\hyperlink{class_galaxy}{Planet::planetType::Terrestrial\_Planet}};}
+\DoxyCodeLine{00238\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{class_galaxy}{pTypeStr}}\ ==\ \textcolor{stringliteral}{"{}Dwarf"{}})\ \mbox{\hyperlink{class_galaxy}{pType}}\ =\ \mbox{\hyperlink{class_galaxy}{Planet::planetType::Dwarf}};}
+\DoxyCodeLine{00239\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_galaxy}{Planet}}\ *\mbox{\hyperlink{class_galaxy}{planet}}\ =\ \textcolor{keyword}{new}\ \mbox{\hyperlink{class_galaxy}{Planet}}(\mbox{\hyperlink{class_galaxy}{planetName}},\ \mbox{\hyperlink{class_galaxy}{planetMass}},\ \mbox{\hyperlink{class_galaxy}{distance}},\ \mbox{\hyperlink{class_galaxy}{speed}},\ \mbox{\hyperlink{class_galaxy}{inclination}},\ \mbox{\hyperlink{class_galaxy}{pType}},\ \textcolor{keyword}{false});}
+\DoxyCodeLine{00240\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{class_galaxy}{planet}};}
+\DoxyCodeLine{00241\ \ \ \ \ \}}
+
+\end{DoxyCode}
+\Hypertarget{class_galaxy_a3613886d9c5d8bfc3eefc011e563e918}\index{Galaxy$<$ GraphType $>$@{Galaxy$<$ GraphType $>$}!generateStarSystem@{generateStarSystem}}
+\index{generateStarSystem@{generateStarSystem}!Galaxy$<$ GraphType $>$@{Galaxy$<$ GraphType $>$}}
+\doxysubsubsection{\texorpdfstring{generateStarSystem()}{generateStarSystem()}}
+{\footnotesize\ttfamily \label{class_galaxy_a3613886d9c5d8bfc3eefc011e563e918} 
+template$<$typename Graph\+Type$>$ \\
+\mbox{\hyperlink{class_star_system}{Star\+System}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_galaxy}{Galaxy}}$<$ Graph\+Type $>$\+::generate\+Star\+System (\begin{DoxyParamCaption}\item[{int}]{id}{, }\item[{\mbox{\hyperlink{class_random_generator}{Random\+Generator}} \&}]{rng}{, }\item[{const json \&}]{data}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Factory method to generate a new random \doxylink{class_star_system}{Star\+System}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em id} & The ID to assign to the new system. \\
+\hline
+{\em rng} & Reference to the random number generator utility. \\
+\hline
+{\em data} & JSON data containing generation parameters. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A pointer to a new \doxylink{class_star_system}{Star\+System} object (caller owns it). 
+\end{DoxyReturn}
+\begin{Desc}
+\item[Examples]\par
+\mbox{\hyperlink{_c_1_2_users_2_prj_2_project1_2_entities_2_galaxy_8h-example}{C\+:/\+Users/\+Prj/\+Project1/\+Entities/\+Galaxy.\+h}}.\end{Desc}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00250\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00251\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!\mbox{\hyperlink{class_galaxy}{data}}.contains(\textcolor{stringliteral}{"{}Stars"{}})\ ||\ !\mbox{\hyperlink{class_galaxy}{data}}[\textcolor{stringliteral}{"{}Stars"{}}].is\_array())\ \{}
+\DoxyCodeLine{00252\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_galaxy}{std::cerr}}\ <<\ \textcolor{stringliteral}{"{}Stars\ key\ missing\ or\ not\ an\ array!"{}}\ <<\ \mbox{\hyperlink{class_galaxy}{std::endl}};}
+\DoxyCodeLine{00253\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{00254\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00255\ }
+\DoxyCodeLine{00256\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ \&\mbox{\hyperlink{class_galaxy}{stars}}\ =\ \mbox{\hyperlink{class_galaxy}{data}}[\textcolor{stringliteral}{"{}Stars"{}}];}
+\DoxyCodeLine{00257\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ \&\mbox{\hyperlink{class_galaxy}{sData}}\ =\ \mbox{\hyperlink{class_galaxy}{stars}}[\mbox{\hyperlink{class_galaxy}{rng}}.getInt(0,\ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{int}\textcolor{keyword}{>}(\mbox{\hyperlink{class_galaxy}{stars}}.size())\ -\/\ 1)];}
+\DoxyCodeLine{00258\ }
+\DoxyCodeLine{00259\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_galaxy}{std::string}}\ \mbox{\hyperlink{class_galaxy}{starFile}}\ =\ \mbox{\hyperlink{class_galaxy}{sData}}[\textcolor{stringliteral}{"{}name"{}}];}
+\DoxyCodeLine{00260\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_galaxy}{std::string}}\ \mbox{\hyperlink{class_galaxy}{starName}}\ =\ \mbox{\hyperlink{class_galaxy}{rng}}.getRandomNameFromFile(\mbox{\hyperlink{class_galaxy}{starFile}});}
+\DoxyCodeLine{00261\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_galaxy}{std::string}}\ \mbox{\hyperlink{class_galaxy}{typeStr}}\ =\ \mbox{\hyperlink{class_galaxy}{sData}}[\textcolor{stringliteral}{"{}starType"{}}];}
+\DoxyCodeLine{00262\ }
+\DoxyCodeLine{00263\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{class_galaxy}{starMass}}\ =\ \mbox{\hyperlink{class_galaxy}{rng}}.getDouble(\mbox{\hyperlink{class_galaxy}{sData}}[\textcolor{stringliteral}{"{}mass"{}}][0],\ \mbox{\hyperlink{class_galaxy}{sData}}[\textcolor{stringliteral}{"{}mass"{}}][1]);}
+\DoxyCodeLine{00264\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{class_galaxy}{temperature}}\ =\ \mbox{\hyperlink{class_galaxy}{rng}}.getDouble(\mbox{\hyperlink{class_galaxy}{sData}}[\textcolor{stringliteral}{"{}temperature"{}}][0],\ \mbox{\hyperlink{class_galaxy}{sData}}[\textcolor{stringliteral}{"{}temperature"{}}][1]);}
+\DoxyCodeLine{00265\ }
+\DoxyCodeLine{00266\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_galaxy}{Star::starType}}\ \mbox{\hyperlink{class_galaxy}{sType}};}
+\DoxyCodeLine{00267\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{class_galaxy}{typeStr}}\ ==\ \textcolor{stringliteral}{"{}White\_Dwarf"{}})\ \mbox{\hyperlink{class_galaxy}{sType}}\ =\ \mbox{\hyperlink{class_galaxy}{Star::starType::White\_Dwarf}};}
+\DoxyCodeLine{00268\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{class_galaxy}{typeStr}}\ ==\ \textcolor{stringliteral}{"{}Red\_Giant"{}})\ \mbox{\hyperlink{class_galaxy}{sType}}\ =\ \mbox{\hyperlink{class_galaxy}{Star::starType::Red\_Giant}};}
+\DoxyCodeLine{00269\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{class_galaxy}{typeStr}}\ ==\ \textcolor{stringliteral}{"{}Main\_sequence\_Star"{}})\ \mbox{\hyperlink{class_galaxy}{sType}}\ =\ \mbox{\hyperlink{class_galaxy}{Star::starType::Main\_sequence\_Star}};}
+\DoxyCodeLine{00270\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{class_galaxy}{typeStr}}\ ==\ \textcolor{stringliteral}{"{}Brown\_Dwarf"{}})\ \mbox{\hyperlink{class_galaxy}{sType}}\ =\ \mbox{\hyperlink{class_galaxy}{Star::starType::Brown\_Dwarf}};}
+\DoxyCodeLine{00271\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{class_galaxy}{typeStr}}\ ==\ \textcolor{stringliteral}{"{}Neutron\_Star"{}})\ \mbox{\hyperlink{class_galaxy}{sType}}\ =\ \mbox{\hyperlink{class_galaxy}{Star::starType::Neutron\_Star}};}
+\DoxyCodeLine{00272\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \mbox{\hyperlink{class_galaxy}{sType}}\ =\ \mbox{\hyperlink{class_galaxy}{Star::starType::Red\_Dwarf}};}
+\DoxyCodeLine{00273\ }
+\DoxyCodeLine{00274\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_galaxy}{Star}}\ *\mbox{\hyperlink{class_galaxy}{star}}\ =\ \textcolor{keyword}{new}\ \mbox{\hyperlink{class_galaxy}{Star}}(\mbox{\hyperlink{class_galaxy}{starName}},\ \mbox{\hyperlink{class_galaxy}{starMass}},\ \mbox{\hyperlink{class_galaxy}{temperature}},\ \mbox{\hyperlink{class_galaxy}{sType}});}
+\DoxyCodeLine{00275\ }
+\DoxyCodeLine{00276\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_galaxy}{planetCount}}\ =\ \mbox{\hyperlink{class_galaxy}{rng}}.getInt(0,\ 5);}
+\DoxyCodeLine{00277\ }
+\DoxyCodeLine{00278\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_galaxy}{std::string}}\ name\ =\ \mbox{\hyperlink{class_galaxy}{starName}}\ +\ \textcolor{stringliteral}{"{}'s\ system"{}};}
+\DoxyCodeLine{00279\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ *\mbox{\hyperlink{class_galaxy}{system}}\ =\ \textcolor{keyword}{new}\ \mbox{\hyperlink{class_galaxy}{StarSystem}}(\textcolor{keywordtype}{id},\ name,\ \mbox{\hyperlink{class_galaxy}{star}});}
+\DoxyCodeLine{00280\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_galaxy}{i}}\ =\ 0;\ \mbox{\hyperlink{class_galaxy}{i}}\ <\ \mbox{\hyperlink{class_galaxy}{planetCount}};\ ++\mbox{\hyperlink{class_galaxy}{i}})\ \{}
+\DoxyCodeLine{00281\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_galaxy}{Planet}}\ *\mbox{\hyperlink{class_galaxy}{planet}}\ =\ \mbox{\hyperlink{class_galaxy_ac5f09bba3f9219f06ada6c001968f65e}{generatePlanet}}(\mbox{\hyperlink{class_galaxy}{rng}},\ \mbox{\hyperlink{class_galaxy}{data}});}
+\DoxyCodeLine{00282\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_galaxy}{system}}-\/>addPlanet(\mbox{\hyperlink{class_galaxy}{planet}});}
+\DoxyCodeLine{00283\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_galaxy}{system}}-\/>lifeExists(*\mbox{\hyperlink{class_galaxy}{planet}});}
+\DoxyCodeLine{00284\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00285\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_galaxy}{system}}-\/>setMass(\mbox{\hyperlink{class_galaxy}{system}}-\/>calculateMass());}
+\DoxyCodeLine{00286\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{class_galaxy}{system}};}
+\DoxyCodeLine{00287\ \ \ \ \ \}}
+
+\end{DoxyCode}
+\Hypertarget{class_galaxy_ad26d70560b6d97d05ca7e0c15af3f45f}\index{Galaxy$<$ GraphType $>$@{Galaxy$<$ GraphType $>$}!getGalaxyParameters@{getGalaxyParameters}}
+\index{getGalaxyParameters@{getGalaxyParameters}!Galaxy$<$ GraphType $>$@{Galaxy$<$ GraphType $>$}}
+\doxysubsubsection{\texorpdfstring{getGalaxyParameters()}{getGalaxyParameters()}}
+{\footnotesize\ttfamily \label{class_galaxy_ad26d70560b6d97d05ca7e0c15af3f45f} 
+template$<$typename Graph\+Type$>$ \\
+QString \mbox{\hyperlink{class_galaxy}{Galaxy}}$<$ Graph\+Type $>$\+::get\+Galaxy\+Parameters (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00186\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00187\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_galaxy}{starSystems}}\ =\ 0;}
+\DoxyCodeLine{00188\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_galaxy}{planets}}\ =\ 0;}
+\DoxyCodeLine{00189\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_galaxy}{nebulae}}\ =\ 0;}
+\DoxyCodeLine{00190\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{class_galaxy}{galaxyMass}}\ =\ 0;}
+\DoxyCodeLine{00191\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\ \mbox{\hyperlink{class_galaxy}{i}}:\ celestial\_objects)\ \{}
+\DoxyCodeLine{00192\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{class_galaxy}{i}}-\/>getType()\ ==\ \textcolor{stringliteral}{"{}Nebula"{}})\ \{}
+\DoxyCodeLine{00193\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_galaxy}{nebulae}}++;}
+\DoxyCodeLine{00194\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_galaxy}{galaxyMass}}\ +=\ \mbox{\hyperlink{class_galaxy}{i}}-\/>getMass();}
+\DoxyCodeLine{00195\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00196\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{class_galaxy}{i}}-\/>getType()\ ==\ \textcolor{stringliteral}{"{}StarSystem"{}})\ \{}
+\DoxyCodeLine{00197\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_galaxy}{starSystems}}++;}
+\DoxyCodeLine{00198\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_galaxy}{StarSystem}}\ *\mbox{\hyperlink{class_galaxy}{system}}\ =\ \textcolor{keyword}{dynamic\_cast<}\mbox{\hyperlink{class_galaxy}{StarSystem}}\ *\textcolor{keyword}{>}(\mbox{\hyperlink{class_galaxy}{i}});}
+\DoxyCodeLine{00199\ }
+\DoxyCodeLine{00200\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{class_galaxy}{system}})\ \{}
+\DoxyCodeLine{00201\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_galaxy}{planets}}\ +=\ \mbox{\hyperlink{class_galaxy}{system}}-\/>getPlanets().size();}
+\DoxyCodeLine{00202\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_galaxy}{galaxyMass}}\ +=\ \mbox{\hyperlink{class_galaxy}{system}}-\/>calculateMass();}
+\DoxyCodeLine{00203\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00204\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00205\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00206\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_galaxy}{QString}}\ \mbox{\hyperlink{class_galaxy}{info}};}
+\DoxyCodeLine{00207\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_galaxy}{info}}\ +=\ \mbox{\hyperlink{class_galaxy}{QString}}(\textcolor{stringliteral}{"{}<ul>"{}});}
+\DoxyCodeLine{00208\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_galaxy}{info}}\ +=\ \textcolor{stringliteral}{"{}<li>\ Galaxy\ name:\ "{}}\ +\ \mbox{\hyperlink{class_galaxy}{QString::fromStdString}}(this-\/>name)\ +\ \textcolor{stringliteral}{"{}</li>"{}};}
+\DoxyCodeLine{00209\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_galaxy}{info}}\ +=\ \mbox{\hyperlink{class_galaxy}{QString}}(\textcolor{stringliteral}{"{}<li>Star\ systems:\ \%1</li>"{}}).arg(\mbox{\hyperlink{class_galaxy}{starSystems}});}
+\DoxyCodeLine{00210\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_galaxy}{info}}\ +=\ \mbox{\hyperlink{class_galaxy}{QString}}(\textcolor{stringliteral}{"{}<li>Planets:\ \%1</li>"{}}).arg(\mbox{\hyperlink{class_galaxy}{planets}});}
+\DoxyCodeLine{00211\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_galaxy}{info}}\ +=\ \mbox{\hyperlink{class_galaxy}{QString}}(\textcolor{stringliteral}{"{}<li>Nebulae:\ \%1</li>"{}}).arg(\mbox{\hyperlink{class_galaxy}{nebulae}});}
+\DoxyCodeLine{00212\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_galaxy}{info}}\ +=\ \mbox{\hyperlink{class_galaxy}{QString}}(\textcolor{stringliteral}{"{}<li>Total\ mass:\ \%1</li>"{}}).arg(\mbox{\hyperlink{class_galaxy}{galaxyMass}},\ 0,\ \textcolor{charliteral}{'g'},\ 4);}
+\DoxyCodeLine{00213\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_galaxy}{info}}\ +=\ \mbox{\hyperlink{class_galaxy}{QString}}(\textcolor{stringliteral}{"{}</ul>"{}});}
+\DoxyCodeLine{00214\ }
+\DoxyCodeLine{00215\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{class_galaxy}{info}};}
+\DoxyCodeLine{00216\ \ \ \ \ \}}
+
+\end{DoxyCode}
+\Hypertarget{class_galaxy_a496ac25dd03b2f45fd384b120eb5695b}\index{Galaxy$<$ GraphType $>$@{Galaxy$<$ GraphType $>$}!getGraph@{getGraph}}
+\index{getGraph@{getGraph}!Galaxy$<$ GraphType $>$@{Galaxy$<$ GraphType $>$}}
+\doxysubsubsection{\texorpdfstring{getGraph()}{getGraph()}}
+{\footnotesize\ttfamily \label{class_galaxy_a496ac25dd03b2f45fd384b120eb5695b} 
+template$<$typename Graph\+Type$>$ \\
+Graph\+Type \& \mbox{\hyperlink{class_galaxy}{Galaxy}}$<$ Graph\+Type $>$\+::get\+Graph (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Returns the internal graph object. 
+
+\begin{DoxyReturn}{Returns}
+A reference to the graph. 
+\end{DoxyReturn}
+\begin{Desc}
+\item[Examples]\par
+\mbox{\hyperlink{_basic_usage_example_8cpp-example}{Basic\+Usage\+Example.\+cpp}}, and \mbox{\hyperlink{_c_1_2_users_2_prj_2_project1_2_entities_2_galaxy_8h-example}{C\+:/\+Users/\+Prj/\+Project1/\+Entities/\+Galaxy.\+h}}.\end{Desc}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00139\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00140\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ systemGraph;}
+\DoxyCodeLine{00141\ \ \ \ \ \}}
+
+\end{DoxyCode}
+\Hypertarget{class_galaxy_aefeba0dc75d14954ab1e490089fa8a93}\index{Galaxy$<$ GraphType $>$@{Galaxy$<$ GraphType $>$}!getName@{getName}}
+\index{getName@{getName}!Galaxy$<$ GraphType $>$@{Galaxy$<$ GraphType $>$}}
+\doxysubsubsection{\texorpdfstring{getName()}{getName()}}
+{\footnotesize\ttfamily \label{class_galaxy_aefeba0dc75d14954ab1e490089fa8a93} 
+template$<$typename Graph\+Type$>$ \\
+std\+::string \mbox{\hyperlink{class_galaxy}{Galaxy}}$<$ Graph\+Type $>$\+::get\+Name (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Returns the name of a galaxy. 
+
+\begin{DoxyReturn}{Returns}
+The string name of galaxy. 
+\end{DoxyReturn}
+\begin{Desc}
+\item[Examples]\par
+\mbox{\hyperlink{_c_1_2_users_2_prj_2_project1_2_entities_2_galaxy_8h-example}{C\+:/\+Users/\+Prj/\+Project1/\+Entities/\+Galaxy.\+h}}.\end{Desc}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00147\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00148\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ name;}
+\DoxyCodeLine{00149\ \ \ \ \ \}}
+
+\end{DoxyCode}
+\Hypertarget{class_galaxy_a79169b03671e1015967978e4dbcf7f7f}\index{Galaxy$<$ GraphType $>$@{Galaxy$<$ GraphType $>$}!getObject@{getObject}}
+\index{getObject@{getObject}!Galaxy$<$ GraphType $>$@{Galaxy$<$ GraphType $>$}}
+\doxysubsubsection{\texorpdfstring{getObject()}{getObject()}}
+{\footnotesize\ttfamily \label{class_galaxy_a79169b03671e1015967978e4dbcf7f7f} 
+template$<$typename Graph\+Type$>$ \\
+std\+::vector$<$ \mbox{\hyperlink{class_celestial_object}{Celestial\+Object}} \texorpdfstring{$\ast$}{*} $>$ \& \mbox{\hyperlink{class_galaxy}{Galaxy}}$<$ Graph\+Type $>$\+::get\+Object (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Gets the internal vector of objects included to the galaxy. 
+
+\begin{DoxyReturn}{Returns}
+A reference to the vector of \doxylink{class_celestial_object}{Celestial\+Object} pointers. 
+\end{DoxyReturn}
+\begin{Desc}
+\item[Examples]\par
+\mbox{\hyperlink{_c_1_2_users_2_prj_2_project1_2_entities_2_galaxy_8h-example}{C\+:/\+Users/\+Prj/\+Project1/\+Entities/\+Galaxy.\+h}}.\end{Desc}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00115\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00116\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ celestial\_objects;}
+\DoxyCodeLine{00117\ \ \ \ \ \}}
+
+\end{DoxyCode}
+\Hypertarget{class_galaxy_adfda7c39bcab08a69697f32dea26d210}\index{Galaxy$<$ GraphType $>$@{Galaxy$<$ GraphType $>$}!objectCount@{objectCount}}
+\index{objectCount@{objectCount}!Galaxy$<$ GraphType $>$@{Galaxy$<$ GraphType $>$}}
+\doxysubsubsection{\texorpdfstring{objectCount()}{objectCount()}}
+{\footnotesize\ttfamily \label{class_galaxy_adfda7c39bcab08a69697f32dea26d210} 
+template$<$typename Graph\+Type$>$ \\
+int \mbox{\hyperlink{class_galaxy}{Galaxy}}$<$ Graph\+Type $>$\+::object\+Count (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Gets the number of objects included to the galaxy. 
+
+\begin{DoxyReturn}{Returns}
+The total count of celestial objects. 
+\end{DoxyReturn}
+\begin{Desc}
+\item[Examples]\par
+\mbox{\hyperlink{_c_1_2_users_2_prj_2_project1_2_entities_2_galaxy_8h-example}{C\+:/\+Users/\+Prj/\+Project1/\+Entities/\+Galaxy.\+h}}.\end{Desc}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00090\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ celestial\_objects.size();}
+\DoxyCodeLine{00092\ \ \ \ \ \}}
+
+\end{DoxyCode}
+\Hypertarget{class_galaxy_a56d1d156b74d68ff30788ff313059a65}\index{Galaxy$<$ GraphType $>$@{Galaxy$<$ GraphType $>$}!setName@{setName}}
+\index{setName@{setName}!Galaxy$<$ GraphType $>$@{Galaxy$<$ GraphType $>$}}
+\doxysubsubsection{\texorpdfstring{setName()}{setName()}}
+{\footnotesize\ttfamily \label{class_galaxy_a56d1d156b74d68ff30788ff313059a65} 
+template$<$typename Graph\+Type$>$ \\
+void \mbox{\hyperlink{class_galaxy}{Galaxy}}$<$ Graph\+Type $>$\+::set\+Name (\begin{DoxyParamCaption}\item[{std\+::string}]{new\+Name}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Set the name of a galaxy. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em new\+Name} & The new name of the galaxy. \\
+\hline
+\end{DoxyParams}
+\begin{Desc}
+\item[Examples]\par
+\mbox{\hyperlink{_c_1_2_users_2_prj_2_project1_2_entities_2_galaxy_8h-example}{C\+:/\+Users/\+Prj/\+Project1/\+Entities/\+Galaxy.\+h}}.\end{Desc}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00155\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00156\ \ \ \ \ \ \ \ \ name\ =\ \mbox{\hyperlink{class_galaxy}{newName}};}
+\DoxyCodeLine{00157\ \ \ \ \ \}}
+
+\end{DoxyCode}
+\Hypertarget{class_galaxy_a8b1fd6fae76db5432aa0dc5fc97d8fb2}\index{Galaxy$<$ GraphType $>$@{Galaxy$<$ GraphType $>$}!showGalaxy@{showGalaxy}}
+\index{showGalaxy@{showGalaxy}!Galaxy$<$ GraphType $>$@{Galaxy$<$ GraphType $>$}}
+\doxysubsubsection{\texorpdfstring{showGalaxy()}{showGalaxy()}}
+{\footnotesize\ttfamily \label{class_galaxy_a8b1fd6fae76db5432aa0dc5fc97d8fb2} 
+template$<$typename Graph\+Type$>$ \\
+void \mbox{\hyperlink{class_galaxy}{Galaxy}}$<$ Graph\+Type $>$\+::show\+Galaxy (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Display of all information about the galaxy and its objects to std\+::cout. 
+
+\begin{Desc}
+\item[Examples]\par
+\mbox{\hyperlink{_basic_usage_example_8cpp-example}{Basic\+Usage\+Example.\+cpp}}, and \mbox{\hyperlink{_c_1_2_users_2_prj_2_project1_2_entities_2_galaxy_8h-example}{C\+:/\+Users/\+Prj/\+Project1/\+Entities/\+Galaxy.\+h}}.\end{Desc}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00160\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00161\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_galaxy}{std::cout}}\ <<\ \textcolor{stringliteral}{"{}Galaxy:\ "{}}\ <<\ name\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)n"{}};}
+\DoxyCodeLine{00162\ }
+\DoxyCodeLine{00163\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\ \mbox{\hyperlink{class_galaxy}{i}}:\ celestial\_objects)\ \{}
+\DoxyCodeLine{00164\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_galaxy}{i}}-\/>displayInfo();}
+\DoxyCodeLine{00165\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00166\ \ \ \ \ \}}
+
+\end{DoxyCode}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Entities/\mbox{\hyperlink{_galaxy_8h}{Galaxy.\+h}}\end{DoxyCompactItemize}

@@ -1,0 +1,109 @@
+@startuml
+skinparam classAttributeIconSize 0
+skinparam monochrome true
+top to bottom direction
+
+package "Bullet Physics Library" <<Frame>> {
+    class btDiscreteDynamicsWorld <<External>>
+    class btRigidBody <<External>>
+    class btCollisionShape <<External>>
+    class btSequentialImpulseConstraintSolver <<External>>
+}
+
+package PHYSICS {
+
+    class PhysicsEngine {
+      - dynamicsWorld : btDiscreteDynamicsWorld*
+      - solver : btSequentialImpulseConstraintSolver*
+      - broadphase : btBroadphaseInterface*
+      - dispatcher : btCollisionDispatcher*
+      - collisionConfiguration : btDefaultCollisionConfiguration*
+      - shapes : std::vector<btCollisionShape*>
+      - bodies : std::vector<btRigidBody*>
+      + PhysicsEngine()
+      + ~PhysicsEngine()
+      + stepSimulation(deltaTime: float) : void
+      + addRigidBody(body: btRigidBody*, shape: btCollisionShape*) : void
+      + removeRigidBody(body: btRigidBody*) : void
+      + getWorld() : btDiscreteDynamicsWorld*
+    }
+
+    class CelestialBodyToRigidWrapper {
+      - posX_ : double
+      - posY_ : double
+      - posZ_ : double
+      - celestial_ : CelestialObject*
+      - rigidBody_ : btRigidBody*
+      - shape_ : btCollisionShape*
+      - motionState_ : btDefaultMotionState*
+      - world_ : btDiscreteDynamicsWorld*
+      - buildRigidBody() : btRigidBody*
+      + CelestialBodyToRigidWrapper(object: CelestialObject*, world: btDiscreteDynamicsWorld*)
+      + ~CelestialBodyToRigidWrapper()
+      + getRigidBody() : btRigidBody*
+      + getCelestial() : CelestialObject*
+      + updateFromPhysics() : void
+      + updateToPhysics() : void
+      + getX() : double
+      + getY() : double
+      + getZ() : double
+      + setPosition(x: double, y: double, z: double) : void
+    }
+
+    class BlackHoleGravityField {
+      - mass_ : double
+      - posX_ : double
+      - posY_ : double
+      - posZ_ : double
+      - {static} G : double = 1.0
+      - applyForce(body: CelestialBodyToRigidWrapper*, deltaTime: double) : void
+      + BlackHoleGravityField(mass: double, x: double, y: double, z: double)
+      + applyGravity(bodies: std::vector<CelestialBodyToRigidWrapper*>&, deltaTime: double) : void
+      + setPosition(x: double, y: double, z: double) : void
+      + setMass(mass: double) : void
+    }
+
+    struct PhysicsSpring {
+      + bodyA : CelestialBodyToRigidWrapper*
+      + bodyB : CelestialBodyToRigidWrapper*
+      + targetLength : double
+      + stiffness : double
+    }
+
+    class GalaxyPhysicsController {
+      - engine_ : PhysicsEngine*
+      - bodies_ : std::vector<CelestialBodyToRigidWrapper*>
+      - gravityFields_ : std::vector<BlackHoleGravityField*>
+      - springs_ : std::vector<PhysicsSpring>
+      - applySpringForces(deltaTime: double) : void
+      + GalaxyPhysicsController(engine: PhysicsEngine*)
+      + ~GalaxyPhysicsController()
+      + addCelestialBody(body: CelestialBodyToRigidWrapper*) : void
+      + addGravityField(field: BlackHoleGravityField*) : void
+      + simulateStep(deltaTime: double) : void
+      + getBodies() : vector<CelestialBodyToRigidWrapper*>&
+      + addSpring(a: CelestialBodyToRigidWrapper*, b: CelestialBodyToRigidWrapper*, length: double) : void
+      + clearSprings() : void
+    }
+
+
+    GalaxyPhysicsController --> PhysicsEngine : "uses"
+    GalaxyPhysicsController --> CelestialBodyToRigidWrapper : "manages"
+    GalaxyPhysicsController --> BlackHoleGravityField : "manages"
+    GalaxyPhysicsController --> PhysicsSpring : "contains"
+
+    PhysicsSpring --> CelestialBodyToRigidWrapper : "connects 2 bodies"
+    BlackHoleGravityField ..> CelestialBodyToRigidWrapper : "acts on"
+}
+
+
+PhysicsEngine --> btDiscreteDynamicsWorld : "wraps"
+PhysicsEngine --> btSequentialImpulseConstraintSolver
+CelestialBodyToRigidWrapper --> btRigidBody : "wraps"
+CelestialBodyToRigidWrapper --> btCollisionShape
+
+
+class CelestialObject <<Domain>>
+CelestialBodyToRigidWrapper --> CelestialObject : "syncs with"
+
+@enduml

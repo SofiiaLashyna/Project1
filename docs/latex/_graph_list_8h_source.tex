@@ -1,0 +1,89 @@
+\doxysection{Graph\+List.\+h}
+\hypertarget{_graph_list_8h_source}{}\label{_graph_list_8h_source}\index{Graph/GraphList.h@{Graph/GraphList.h}}
+\mbox{\hyperlink{_graph_list_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ GRAPH\_LIST\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ GRAPH\_LIST\_H}}
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_graph_8h}{Graph.h}}"{}}}
+\DoxyCodeLine{00009\ }
+\DoxyCodeLine{00019\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00020\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_graph_list}{GraphList}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_graph}{Graph}}<T>\ \{}
+\DoxyCodeLine{00021\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00023\ \ \ \ \ std::vector<std::vector<std::pair<int,\ int>\ >\ >\ \mbox{\hyperlink{class_graph_list_acf0b2fd0f600cfb07f6283df7a9760a8}{adjacencyList}};}
+\DoxyCodeLine{00033\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_graph_list_a6283932db72d378394c297cf8f67787a}{constructAdjacency}}()\textcolor{keyword}{\ override\ }\{}
+\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_graph_list_acf0b2fd0f600cfb07f6283df7a9760a8}{adjacencyList}}.clear();}
+\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_graph_list_acf0b2fd0f600cfb07f6283df7a9760a8}{adjacencyList}}.resize(this-\/>\mbox{\hyperlink{class_graph_a4677e7cca232583023ea6e4dcca62a6f}{vertices}}.size());}
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\ \&edge:\ this-\/>\mbox{\hyperlink{class_graph_ac32560ab2c280c1617b70f2a57f9c848}{edges}})\ \{}
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (edge.isActive())\ \{}
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_graph_list_acf0b2fd0f600cfb07f6283df7a9760a8}{adjacencyList}}[edge.from].push\_back(\{edge.to,\ edge.weight\});}
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_graph_list_acf0b2fd0f600cfb07f6283df7a9760a8}{adjacencyList}}[edge.to].push\_back(\{edge.from,\ edge.weight\});}
+\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ \ \ \ \ \}}
+\DoxyCodeLine{00051\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_graph_list_a87726137bc9355b67d575468896ae664}{addEdge}}(\textcolor{keywordtype}{int}\ fId,\ \textcolor{keywordtype}{int}\ tId,\ \textcolor{keywordtype}{int}\ weight\ =\ 1)\textcolor{keyword}{\ override\ }\{}
+\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ f\ =\ this-\/>\mbox{\hyperlink{class_graph_a6371204aa3d58d988b58e38ce6e4539d}{findIndexById}}(fId);}
+\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ t\ =\ this-\/>\mbox{\hyperlink{class_graph_a6371204aa3d58d988b58e38ce6e4539d}{findIndexById}}(tId);}
+\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (f\ ==\ -\/1\ ||\ t\ ==\ -\/1)\ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (this-\/>\mbox{\hyperlink{class_graph_acd93f77f0bf9eda8d34d78d96ba842d4}{edgeExists}}(fId,\ tId))\ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00056\ }
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_edge}{Edge<T>}}\ edge;}
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ edge.\mbox{\hyperlink{class_edge_afdb9d64043c99c189319cf8449a4d2da}{connect}}(f,\ t);}
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ edge.\mbox{\hyperlink{class_edge_a552034b6475eb988035a4a65e0349e91}{weight}}\ =\ weight;}
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ this-\/>\mbox{\hyperlink{class_graph_ac32560ab2c280c1617b70f2a57f9c848}{edges}}.push\_back(edge);}
+\DoxyCodeLine{00061\ }
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_graph_list_a6283932db72d378394c297cf8f67787a}{constructAdjacency}}();}
+\DoxyCodeLine{00063\ \ \ \ \ \}}
+\DoxyCodeLine{00069\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_graph_list_a8b07257fb4a4fc2c701dbbca73c1457d}{addVertex}}(\textcolor{keywordtype}{int}\ \textcolor{keywordtype}{id},\ T\ data)\textcolor{keyword}{\ override\ }\{}
+\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (this-\/>\mbox{\hyperlink{class_graph_a6371204aa3d58d988b58e38ce6e4539d}{findIndexById}}(\textcolor{keywordtype}{id})\ !=\ -\/1)\ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_vertex}{Vertex<T>}}\ vertex;}
+\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ vertex.\mbox{\hyperlink{class_vertex_af9c12cefa7d6a93efe1eecb578b573b1}{setId}}(\textcolor{keywordtype}{id});}
+\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ vertex.\mbox{\hyperlink{class_vertex_a477b2109b6ec86b779cdc23343b060e5}{setData}}(data);}
+\DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ this-\/>\mbox{\hyperlink{class_graph_a4677e7cca232583023ea6e4dcca62a6f}{vertices}}.push\_back(vertex);}
+\DoxyCodeLine{00075\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_graph_list_acf0b2fd0f600cfb07f6283df7a9760a8}{adjacencyList}}.resize(this-\/>\mbox{\hyperlink{class_graph_a4677e7cca232583023ea6e4dcca62a6f}{vertices}}.size());}
+\DoxyCodeLine{00076\ \ \ \ \ \ \}}
+\DoxyCodeLine{00081\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_graph_list_a75adf9611c4f57e87ec7283eaf494b6b}{removeVertex}}(\textcolor{keywordtype}{int}\ \textcolor{keywordtype}{id})\textcolor{keyword}{\ override\ }\{}
+\DoxyCodeLine{00082\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ idx\ =\ this-\/>\mbox{\hyperlink{class_graph_a6371204aa3d58d988b58e38ce6e4539d}{findIndexById}}(\textcolor{keywordtype}{id});}
+\DoxyCodeLine{00083\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (idx\ ==\ -\/1)\ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00084\ }
+\DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ this-\/>\mbox{\hyperlink{class_graph_a4677e7cca232583023ea6e4dcca62a6f}{vertices}}[idx].setId(-\/1);}
+\DoxyCodeLine{00086\ \ \ \ \ \ \ \ \ this-\/>\mbox{\hyperlink{class_graph_a4677e7cca232583023ea6e4dcca62a6f}{vertices}}[idx].setData(T\{\});}
+\DoxyCodeLine{00087\ }
+\DoxyCodeLine{00088\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\ \&edge\ :\ this-\/>\mbox{\hyperlink{class_graph_ac32560ab2c280c1617b70f2a57f9c848}{edges}})\ \{}
+\DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (edge.getFrom()\ ==\ idx\ ||\ edge.getTo()\ ==\ idx)\ edge.disconnect();}
+\DoxyCodeLine{00090\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00091\ }
+\DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_graph_list_a6283932db72d378394c297cf8f67787a}{constructAdjacency}}();}
+\DoxyCodeLine{00093\ \ \ \ \ \}}
+\DoxyCodeLine{00099\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_graph_list_ab3b29bf6b2d07ab283a7dc31701153f4}{removeEdge}}(\textcolor{keywordtype}{int}\ fId,\ \textcolor{keywordtype}{int}\ tId)\textcolor{keyword}{\ override\ }\{}
+\DoxyCodeLine{00100\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ f\ =\ this-\/>\mbox{\hyperlink{class_graph_a6371204aa3d58d988b58e38ce6e4539d}{findIndexById}}(fId);}
+\DoxyCodeLine{00101\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ t\ =\ this-\/>\mbox{\hyperlink{class_graph_a6371204aa3d58d988b58e38ce6e4539d}{findIndexById}}(tId);}
+\DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (f\ ==\ -\/1\ ||\ t\ ==\ -\/1)\ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00103\ }
+\DoxyCodeLine{00104\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\ \&edge\ :\ this-\/>\mbox{\hyperlink{class_graph_ac32560ab2c280c1617b70f2a57f9c848}{edges}})\ \{}
+\DoxyCodeLine{00105\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ ((edge.getFrom()\ ==\ f\ \&\&\ edge.getTo()\ ==\ t)\ ||\ (edge.getFrom()\ ==\ t\ \&\&\ edge.getTo()\ ==\ f))}
+\DoxyCodeLine{00106\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ edge.disconnect();}
+\DoxyCodeLine{00107\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00108\ }
+\DoxyCodeLine{00109\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_graph_list_a6283932db72d378394c297cf8f67787a}{constructAdjacency}}();}
+\DoxyCodeLine{00110\ \ \ \ \ \}}
+\DoxyCodeLine{00114\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_graph_list_ad2a738ae8f98be03d92eb41ee85ae6e7}{print}}()\textcolor{keyword}{\ const\ override}\{}
+\DoxyCodeLine{00115\ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Graph\ adjacency\ list:\(\backslash\)n"{}};}
+\DoxyCodeLine{00116\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ i\ =\ 0;\ i\ <\ \mbox{\hyperlink{class_graph_list_acf0b2fd0f600cfb07f6283df7a9760a8}{adjacencyList}}.size();\ i++)\ \{}
+\DoxyCodeLine{00117\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(this-\/>\mbox{\hyperlink{class_graph_a4677e7cca232583023ea6e4dcca62a6f}{vertices}}[i].getId()\ !=-\/1)\ \{}
+\DoxyCodeLine{00118\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Vertex\ "{}}\ <<\ this-\/>\mbox{\hyperlink{class_graph_a4677e7cca232583023ea6e4dcca62a6f}{vertices}}[i].getId()\ <<\ \textcolor{stringliteral}{"{}\ ("{}}\ <<\ this-\/>\mbox{\hyperlink{class_graph_a4677e7cca232583023ea6e4dcca62a6f}{vertices}}[i].getData()\ <<\ \textcolor{stringliteral}{"{}):\ "{}};}
+\DoxyCodeLine{00119\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\&\ [neighborIdx,\ weight]\ :\ \mbox{\hyperlink{class_graph_list_acf0b2fd0f600cfb07f6283df7a9760a8}{adjacencyList}}[i])\ \{}
+\DoxyCodeLine{00120\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ this-\/>\mbox{\hyperlink{class_graph_a4677e7cca232583023ea6e4dcca62a6f}{vertices}}[neighborIdx].getData()\ <<\ \textcolor{stringliteral}{"{}\ (w="{}}\ <<\ weight\ <<\ \textcolor{stringliteral}{"{})\ "{}};}
+\DoxyCodeLine{00121\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00122\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ std::endl;}
+\DoxyCodeLine{00123\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00124\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00125\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00126\ }
+\DoxyCodeLine{00127\ }
+\DoxyCodeLine{00128\ }
+\DoxyCodeLine{00129\ \};}
+\DoxyCodeLine{00130\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//GRAPH\_LIST\_H}}
+
+\end{DoxyCode}

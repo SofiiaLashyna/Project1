@@ -1,0 +1,162 @@
+\doxysection{Test\+Fixtures.\+h}
+\hypertarget{_test_fixtures_8h_source}{}\label{_test_fixtures_8h_source}\index{GoogleTests/TestFixtures.h@{GoogleTests/TestFixtures.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ TESTFIXTURES\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ TESTFIXTURES\_H}}
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_algorithm_8h}{Algorithm.h}}"{}}}
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_galaxy_8h}{Galaxy.h}}"{}}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_graph_list_8h}{GraphList.h}}"{}}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_graph_matrix_8h}{GraphMatrix.h}}"{}}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ "{}gtest/gtest.h"{}}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ "{}nlohmann//json.hpp"{}}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_random_utilities_8h}{RandomUtilities.h}}"{}}}
+\DoxyCodeLine{00011\ \textcolor{keyword}{using\ }json\ =\ nlohmann::json;}
+\DoxyCodeLine{00012\ \textcolor{keyword}{using\ }GalaxyType\ =\ \mbox{\hyperlink{class_galaxy}{Galaxy<GraphMatrix<CelestialObject\ *>}}\ >;}
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00014\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_galaxy_matrix_fixture}{GalaxyMatrixFixture}}\ :\ \textcolor{keyword}{public}\ ::testing::Test\ \{}
+\DoxyCodeLine{00015\ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00016\ \ \ \ \ GalaxyType\ g;}
+\DoxyCodeLine{00017\ \ \ \ \ \mbox{\hyperlink{class_star}{Star}}\ *star\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00018\ \ \ \ \ \mbox{\hyperlink{class_planet}{Planet}}\ *planet\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00020\ \ \ \ \ \textcolor{keywordtype}{void}\ SetUp()\textcolor{keyword}{\ override\ }\{}
+\DoxyCodeLine{00021\ \ \ \ \ \ \ \ \ star\ =\ \textcolor{keyword}{new}\ \mbox{\hyperlink{class_star}{Star}}(\textcolor{stringliteral}{"{}Sun"{}},\ 1.0,\ 5778,\ Star::starType::Main\_sequence\_Star);}
+\DoxyCodeLine{00022\ \ \ \ \ \ \ \ \ planet\ =\ \textcolor{keyword}{new}\ \mbox{\hyperlink{class_planet}{Planet}}(\textcolor{stringliteral}{"{}Earth"{}},\ 1.0,\ 1.0,\ 30.0,\ 0.0,\ Planet::planetType::Terrestrial\_Planet,\ \textcolor{keyword}{true});}
+\DoxyCodeLine{00023\ \ \ \ \ \}}
+\DoxyCodeLine{00024\ }
+\DoxyCodeLine{00025\ \ \ \ \ \textcolor{keywordtype}{void}\ TearDown()\textcolor{keyword}{\ override\ }\{}
+\DoxyCodeLine{00026\ \ \ \ \ \ \ \ \ \textcolor{keyword}{delete}\ planet;}
+\DoxyCodeLine{00027\ \ \ \ \ \ \ \ \ \textcolor{keyword}{delete}\ star;}
+\DoxyCodeLine{00028\ \ \ \ \ \}}
+\DoxyCodeLine{00029\ \};}
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00031\ \textcolor{keyword}{using\ }GalaxyType2\ =\ \mbox{\hyperlink{class_galaxy}{Galaxy<GraphList<CelestialObject\ *>}}\ >;}
+\DoxyCodeLine{00032\ }
+\DoxyCodeLine{00033\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_galaxy_list_fixture}{GalaxyListFixture}}\ :\ \textcolor{keyword}{public}\ ::testing::Test\ \{}
+\DoxyCodeLine{00034\ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00035\ \ \ \ \ GalaxyType2\ g;}
+\DoxyCodeLine{00036\ \ \ \ \ \mbox{\hyperlink{class_star}{Star}}\ *star\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00037\ \ \ \ \ \mbox{\hyperlink{class_planet}{Planet}}\ *planet\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00038\ }
+\DoxyCodeLine{00039\ \ \ \ \ \textcolor{keywordtype}{void}\ SetUp()\textcolor{keyword}{\ override\ }\{}
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ star\ =\ \textcolor{keyword}{new}\ \mbox{\hyperlink{class_star}{Star}}(\textcolor{stringliteral}{"{}Sun"{}},\ 1.0,\ 5778,\ Star::starType::Main\_sequence\_Star);}
+\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ planet\ =\ \textcolor{keyword}{new}\ \mbox{\hyperlink{class_planet}{Planet}}(\textcolor{stringliteral}{"{}Earth"{}},\ 1.0,\ 1.0,\ 30.0,\ 0.0,\ Planet::planetType::Terrestrial\_Planet,\ \textcolor{keyword}{true});}
+\DoxyCodeLine{00042\ \ \ \ \ \}}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ \ \ \ \ \textcolor{keywordtype}{void}\ TearDown()\textcolor{keyword}{\ override\ }\{}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ \textcolor{keyword}{delete}\ star;}
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ \textcolor{keyword}{delete}\ planet;}
+\DoxyCodeLine{00047\ \ \ \ \ \}}
+\DoxyCodeLine{00048\ \};}
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00050\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_star_system_fixture}{StarSystemFixture}}\ :\ \textcolor{keyword}{public}\ ::testing::Test\ \{}
+\DoxyCodeLine{00051\ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00052\ \ \ \ \ \mbox{\hyperlink{class_star}{Star}}\ *star;}
+\DoxyCodeLine{00053\ \ \ \ \ \mbox{\hyperlink{class_star_system}{StarSystem}}\ *system;}
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00055\ \ \ \ \ \textcolor{keywordtype}{void}\ SetUp()\textcolor{keyword}{\ override\ }\{}
+\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ star\ =\ \textcolor{keyword}{new}\ \mbox{\hyperlink{class_star}{Star}}(\textcolor{stringliteral}{"{}Sun"{}},\ 1.0,\ 5778.0,\ Star::starType::Main\_sequence\_Star);}
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ system\ =\ \textcolor{keyword}{new}\ \mbox{\hyperlink{class_star_system}{StarSystem}}(1,\ \textcolor{stringliteral}{"{}Solar"{}},\ star);}
+\DoxyCodeLine{00058\ \ \ \ \ \}}
+\DoxyCodeLine{00059\ }
+\DoxyCodeLine{00060\ \ \ \ \ \textcolor{keywordtype}{void}\ TearDown()\textcolor{keyword}{\ override\ }\{}
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ \textcolor{keyword}{delete}\ system;}
+\DoxyCodeLine{00062\ \ \ \ \ \}}
+\DoxyCodeLine{00063\ \};}
+\DoxyCodeLine{00064\ }
+\DoxyCodeLine{00065\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_graph_matrix_fixture}{GraphMatrixFixture}}\ :\ \textcolor{keyword}{public}\ ::testing::Test\ \{}
+\DoxyCodeLine{00066\ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00067\ \ \ \ \ \mbox{\hyperlink{class_graph_matrix}{GraphMatrix<std::string>}}\ g;}
+\DoxyCodeLine{00068\ \ \ \ \ \textcolor{keywordtype}{int}\ NOT\_FOUND\ =\ -\/1;}
+\DoxyCodeLine{00069\ }
+\DoxyCodeLine{00070\ \ \ \ \ \textcolor{keywordtype}{void}\ SetUp()\textcolor{keyword}{\ override\ }\{}
+\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ g.\mbox{\hyperlink{class_graph_matrix_a4b0f8c9c4a89ab4e166d1616ee276848}{addVertex}}(1,\ \textcolor{stringliteral}{"{}A"{}});}
+\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ g.addVertex(2,\ \textcolor{stringliteral}{"{}B"{}});}
+\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ g.addVertex(3,\ \textcolor{stringliteral}{"{}C"{}});}
+\DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ g.addEdge(1,\ 2);}
+\DoxyCodeLine{00075\ \ \ \ \ \ \ \ \ g.addEdge(1,\ 3);}
+\DoxyCodeLine{00076\ \ \ \ \ \}}
+\DoxyCodeLine{00077\ }
+\DoxyCodeLine{00078\ \ \ \ \ \textcolor{keywordtype}{void}\ TearDown()\textcolor{keyword}{\ override\ }\{}
+\DoxyCodeLine{00079\ \ \ \ \ \}}
+\DoxyCodeLine{00080\ \};}
+\DoxyCodeLine{00081\ }
+\DoxyCodeLine{00082\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_b_f_s_matrix_fixture}{BFSMatrixFixture}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_graph_matrix_fixture}{GraphMatrixFixture}}\ \{}
+\DoxyCodeLine{00083\ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00084\ \ \ \ \ \mbox{\hyperlink{class_algorithms}{Algorithms<GraphMatrix<std::string>}},\ std::string>\ *alg;}
+\DoxyCodeLine{00085\ }
+\DoxyCodeLine{00086\ \ \ \ \ \textcolor{keywordtype}{void}\ SetUp()\textcolor{keyword}{\ override\ }\{}
+\DoxyCodeLine{00087\ \ \ \ \ \ \ \ \ GraphMatrixFixture::SetUp();}
+\DoxyCodeLine{00088\ }
+\DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ alg\ =\ \textcolor{keyword}{new}\ \mbox{\hyperlink{class_algorithms}{Algorithms<GraphMatrix<std::string>}},\ std::string>(g);}
+\DoxyCodeLine{00090\ \ \ \ \ \}}
+\DoxyCodeLine{00091\ }
+\DoxyCodeLine{00092\ \ \ \ \ \textcolor{keywordtype}{void}\ TearDown()\textcolor{keyword}{\ override\ }\{}
+\DoxyCodeLine{00093\ \ \ \ \ \ \ \ \ \textcolor{keyword}{delete}\ alg;}
+\DoxyCodeLine{00094\ \ \ \ \ \ \ \ \ GraphMatrixFixture::TearDown();}
+\DoxyCodeLine{00095\ \ \ \ \ \}}
+\DoxyCodeLine{00096\ \};}
+\DoxyCodeLine{00097\ }
+\DoxyCodeLine{00098\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_graph_list_fixture}{GraphListFixture}}\ :\ \textcolor{keyword}{public}\ ::testing::Test\ \{}
+\DoxyCodeLine{00099\ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00100\ \ \ \ \ \mbox{\hyperlink{class_graph_list}{GraphList<std::string>}}\ g;}
+\DoxyCodeLine{00101\ \ \ \ \ \textcolor{keywordtype}{int}\ NOT\_FOUND\ =\ -\/1;}
+\DoxyCodeLine{00102\ }
+\DoxyCodeLine{00103\ \ \ \ \ \textcolor{keywordtype}{void}\ SetUp()\textcolor{keyword}{\ override\ }\{}
+\DoxyCodeLine{00104\ \ \ \ \ \ \ \ \ g.\mbox{\hyperlink{class_graph_list_a8b07257fb4a4fc2c701dbbca73c1457d}{addVertex}}(1,\ \textcolor{stringliteral}{"{}A"{}});}
+\DoxyCodeLine{00105\ \ \ \ \ \ \ \ \ g.addVertex(2,\ \textcolor{stringliteral}{"{}B"{}});}
+\DoxyCodeLine{00106\ \ \ \ \ \ \ \ \ g.addVertex(3,\ \textcolor{stringliteral}{"{}C"{}});}
+\DoxyCodeLine{00107\ \ \ \ \ \ \ \ \ g.addEdge(1,\ 2);}
+\DoxyCodeLine{00108\ \ \ \ \ \ \ \ \ g.addEdge(1,\ 3);}
+\DoxyCodeLine{00109\ \ \ \ \ \}}
+\DoxyCodeLine{00110\ }
+\DoxyCodeLine{00111\ \ \ \ \ \textcolor{keywordtype}{void}\ TearDown()\textcolor{keyword}{\ override\ }\{}
+\DoxyCodeLine{00112\ \ \ \ \ \}}
+\DoxyCodeLine{00113\ \};}
+\DoxyCodeLine{00114\ }
+\DoxyCodeLine{00115\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_b_f_s_list_fixture}{BFSListFixture}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_graph_list_fixture}{GraphListFixture}}\ \{}
+\DoxyCodeLine{00116\ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00117\ \ \ \ \ \mbox{\hyperlink{class_algorithms}{Algorithms<GraphList<std::string>}},\ std::string>\ *alg;}
+\DoxyCodeLine{00118\ }
+\DoxyCodeLine{00119\ \ \ \ \ \textcolor{keywordtype}{void}\ SetUp()\textcolor{keyword}{\ override\ }\{}
+\DoxyCodeLine{00120\ \ \ \ \ \ \ \ \ GraphListFixture::SetUp();}
+\DoxyCodeLine{00121\ \ \ \ \ \ \ \ \ alg\ =\ \textcolor{keyword}{new}\ \mbox{\hyperlink{class_algorithms}{Algorithms<GraphList<std::string>}},\ std::string>(g);}
+\DoxyCodeLine{00122\ \ \ \ \ \}}
+\DoxyCodeLine{00123\ }
+\DoxyCodeLine{00124\ \ \ \ \ \textcolor{keywordtype}{void}\ TearDown()\textcolor{keyword}{\ override\ }\{}
+\DoxyCodeLine{00125\ \ \ \ \ \ \ \ \ \textcolor{keyword}{delete}\ alg;}
+\DoxyCodeLine{00126\ \ \ \ \ \ \ \ \ GraphListFixture::TearDown();}
+\DoxyCodeLine{00127\ \ \ \ \ \}}
+\DoxyCodeLine{00128\ \};}
+\DoxyCodeLine{00129\ }
+\DoxyCodeLine{00130\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_random_generator_test}{RandomGeneratorTest}}\ :\ \textcolor{keyword}{public}\ ::testing::Test\ \{}
+\DoxyCodeLine{00131\ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00132\ \ \ \ \ \mbox{\hyperlink{class_random_generator}{RandomGenerator}}\ rng;}
+\DoxyCodeLine{00133\ \};}
+\DoxyCodeLine{00134\ }
+\DoxyCodeLine{00135\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_galaxy_generation_test_fixture}{GalaxyGenerationTestFixture}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_galaxy_list_fixture}{GalaxyListFixture}}\ \{}
+\DoxyCodeLine{00136\ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00137\ \ \ \ \ \mbox{\hyperlink{class_random_generator}{RandomGenerator}}\ rng;}
+\DoxyCodeLine{00138\ }
+\DoxyCodeLine{00139\ \ \ \ \ nlohmann::json\ testData\ =\ nlohmann::json::parse(R\textcolor{stringliteral}{"{}(\{}}
+\DoxyCodeLine{00140\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ "{}Stars"{}:\ [}}
+\DoxyCodeLine{00141\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ \ \ \{"{}starType"{}:\ "{}Main\_sequence\_Star"{},\ "{}temperature"{}:\ [1000,\ 5000],\ "{}mass"{}:\ [1,\ 5],\ "{}name"{}:\ "{}C:/Users/Prj/Project1/RandomGalaxy/names/mainSequenceStar.txt"{}\}}}
+\DoxyCodeLine{00142\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ ],}}
+\DoxyCodeLine{00143\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ "{}Planets"{}:\ [}}
+\DoxyCodeLine{00144\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ \ \ \{"{}planetType"{}:\ "{}Terrestrial\_Planet"{},}}
+\DoxyCodeLine{00145\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ \ \ \ "{}orbitRadius"{}:\ [1.5,\ 1.5],}}
+\DoxyCodeLine{00146\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ \ \ \ "{}orbitSpeed"{}:\ [1,\ 1],}}
+\DoxyCodeLine{00147\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ \ \ \ "{}Inclination"{}:\ [0,\ 0],}}
+\DoxyCodeLine{00148\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ \ \ \ "{}mass"{}:\ [1,\ 1],}}
+\DoxyCodeLine{00149\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ \ \ \ "{}name"{}:\ "{}C:/Users/Prj/Project1/RandomGalaxy/names/terrestrialPlanet.txt"{}\}}}
+\DoxyCodeLine{00150\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ ],}}
+\DoxyCodeLine{00151\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ "{}Nebulae"{}:\ [}}
+\DoxyCodeLine{00152\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ \ \ \ \{"{}nebulaType"{}:\ "{}Emission"{},\ "{}mass"{}:\ [1,\ 100],\ "{}name"{}:\ "{}C:/Users/Prj/Project1/RandomGalaxy/names/emissionNebula.txt"{}\}}}
+\DoxyCodeLine{00153\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ ]}}
+\DoxyCodeLine{00154\ \textcolor{stringliteral}{\ \ \ \ \})"{});}}
+\DoxyCodeLine{00155\ \textcolor{stringliteral}{\};}}
+\DoxyCodeLine{00156\ \textcolor{stringliteral}{}\textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//TESTFIXTURES\_H}}
+
+\end{DoxyCode}

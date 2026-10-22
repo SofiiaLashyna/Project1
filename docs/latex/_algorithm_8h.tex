@@ -1,0 +1,26 @@
+\doxysection{Algorithms/\+Algorithm.h File Reference}
+\hypertarget{_algorithm_8h}{}\label{_algorithm_8h}\index{Algorithms/Algorithm.h@{Algorithms/Algorithm.h}}
+
+
+Contains implementations of classical graph algorithms (BFS, DFS, Dijkstra) implemented as a templated utility class.  
+
+
+{\ttfamily \#include "{}Graph.\+h"{}}\newline
+{\ttfamily \#include "{}Queue.\+h"{}}\newline
+{\ttfamily \#include $<$iostream$>$}\newline
+{\ttfamily \#include $<$vector$>$}\newline
+{\ttfamily \#include $<$climits$>$}\newline
+{\ttfamily \#include $<$type\+\_\+traits$>$}\newline
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{class_algorithms}{Algorithms$<$ Graph\+Type, T $>$}}
+\begin{DoxyCompactList}\small\item\em A collection of classic graph algorithms (BFS, DFS, Dijkstra) implemented for a user-\/supplied graph type. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{class_graph_algorithm}{Graph\+Algorithm$<$ Graph\+Type, T $>$}}
+\begin{DoxyCompactList}\small\item\em Abstract interface for graph algorithms (Strategy Pattern). \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Contains implementations of classical graph algorithms (BFS, DFS, Dijkstra) implemented as a templated utility class. 
+
+This file also defines an abstract interface \doxylink{class_graph_algorithm}{Graph\+Algorithm} for implementing the Strategy pattern when selecting graph algorithms at runtime. 

@@ -30,7 +30,7 @@ void Star::setStarType(std::string type) {
         star_type = starType::Brown_Dwarf;
     else if (type == "Red_Dwarf" || type == "Red Dwarf" || type == "red dwarf")
         star_type = starType::Red_Dwarf;
-    else if (type == "Main_sequence_Star" || type == "Main sequence star" || type == "main sequence star") // << ЗМІНЕНО/ДОДАНО
+    else if (type == "Main_sequence_Star" || type == "Main sequence star" || type == "main sequence star")
         star_type = starType::Main_sequence_Star;
     else if (type == "Neutron_Star" || type == "Neutron Star" || type == "neutron star")
         star_type = starType::Neutron_Star;

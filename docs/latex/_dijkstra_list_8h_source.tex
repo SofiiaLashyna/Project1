@@ -1,0 +1,26 @@
+\doxysection{Dijkstra\+List.\+h}
+\hypertarget{_dijkstra_list_8h_source}{}\label{_dijkstra_list_8h_source}\index{Algorithms/DijkstraList.h@{Algorithms/DijkstraList.h}}
+\mbox{\hyperlink{_dijkstra_list_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ DJIKSTRA\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ DJIKSTRA\_H}}
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_algorithm_8h}{Algorithm.h}}"{}}}
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_graph_list_8h}{GraphList.h}}"{}}}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00024\ \textcolor{keyword}{template}<\ \textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00025\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_dijkstra_list_algorithm}{DijkstraListAlgorithm}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_graph_algorithm}{GraphAlgorithm}}<GraphList<T>,\ T>\ \{}
+\DoxyCodeLine{00026\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00040\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_dijkstra_list_algorithm_a502dd2fe99c69a42ac3fd0e198b7f827}{run}}(\mbox{\hyperlink{class_graph_list}{GraphList<T>}}\&\ g,\ \textcolor{keywordtype}{int}\ startId,\ \textcolor{keywordtype}{int}\ endId)\textcolor{keyword}{\ override\ }\{}
+\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_algorithms}{Algorithms<GraphList<T>}},\ T>\ alg(g);}
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ res\ =\ alg.Dijkstra\_list(startId,\ endId);}
+\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Shortest\ path\ weight\ =\ "{}}\ <<\ res\ <<\ std::endl;}
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ res;}
+\DoxyCodeLine{00045\ \ \ \ \ \}}
+\DoxyCodeLine{00047\ \ \ \ \ \mbox{\hyperlink{class_dijkstra_list_algorithm_afd48f23016191402f7f447093bc6bee1}{\string~DijkstraListAlgorithm}}()=\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00048\ \};}
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00050\ }
+\DoxyCodeLine{00051\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//DJIKSTRA\_H}}
+
+\end{DoxyCode}

@@ -1,0 +1,339 @@
+\doxysection{Planet Class Reference}
+\hypertarget{class_planet}{}\label{class_planet}\index{Planet@{Planet}}
+
+
+A concrete class representing a \doxylink{class_planet}{Planet}.  
+
+
+
+
+{\ttfamily \#include $<$Planet.\+h$>$}
+
+Inheritance diagram for Planet\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_planet}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+enum class \mbox{\hyperlink{class_planet_ad33fc165092ef4edfe5485126d6b13e7}{planet\+Type}} \{ {\bfseries Gas\+\_\+\+Giant}
+, {\bfseries Dwarf}
+, {\bfseries Terrestrial\+\_\+\+Planet}
+ \}
+\begin{DoxyCompactList}\small\item\em Enum representing all supported planet types. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_planet_a15ccba3d6a8f26650118571901380ec7}{Planet}} (const std\+::string \&name, double mass, double orbit, double speed, double angle, \mbox{\hyperlink{class_planet_ad33fc165092ef4edfe5485126d6b13e7}{planet\+Type}} type, bool life)
+\begin{DoxyCompactList}\small\item\em Constructor for the \doxylink{class_planet}{Planet} class. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_planet_a0b06f1ec0452ab6bec47c702de528202}{display\+Info}} () const override
+\begin{DoxyCompactList}\small\item\em Displays all information about the planet (overrides \doxylink{class_celestial_object}{Celestial\+Object}). \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{class_planet_a7568d86c7d38e06b5eee452c65f4bb79}{get\+Orbit}} () const
+\begin{DoxyCompactList}\small\item\em Gets the orbital radius of the planet. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_planet_a2205e6583e37f08a12faee37be673404}{set\+Color}} (QColor new\+Color)
+\begin{DoxyCompactList}\small\item\em Sets the display color for the planet (e.\+g., in UI). \end{DoxyCompactList}\item 
+QColor \mbox{\hyperlink{class_planet_acadbe6502a83a5ca3e9dcad7c3813de5}{get\+Color}} ()
+\begin{DoxyCompactList}\small\item\em Gets the display color of the planet. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_planet_a3e80a10130f33b5e74b869f73f108f68}{is\+Habitable}} () const
+\begin{DoxyCompactList}\small\item\em Checks if the planet is habitable. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_planet_adbbdb84d1f268ed072b383f1704fd78e}{set\+Life\+Existence}} (bool life)
+\begin{DoxyCompactList}\small\item\em Sets the habitability status of the planet. \end{DoxyCompactList}\item 
+std\+::string \mbox{\hyperlink{class_planet_a609246555ffd8fad1dfca7641ab243e4}{get\+Type}} () const override
+\begin{DoxyCompactList}\small\item\em Returns the specific type of the object (overrides \doxylink{class_celestial_object}{Celestial\+Object}). \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_planet_ad33fc165092ef4edfe5485126d6b13e7}{planet\+Type}} \mbox{\hyperlink{class_planet_a3b1ce91fa4f1ace9e65a8db908e05f3a}{get\+Planet\+Type}} ()
+\begin{DoxyCompactList}\small\item\em Gets the specific enum type of this planet. \end{DoxyCompactList}\item 
+\Hypertarget{class_planet_afee088476ddbcab02d26a2ee32f981cd}\label{class_planet_afee088476ddbcab02d26a2ee32f981cd} 
+virtual {\bfseries \texorpdfstring{$\sim$}{\string~}\+Planet} ()=default
+\begin{DoxyCompactList}\small\item\em Default virtual destructor. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{class_celestial_object}{Celestial\+Object}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_celestial_object_ae4be2f9eb24debf08d0411c9d497f3e9}{Celestial\+Object}} (const std\+::string \&name, double mass)
+\begin{DoxyCompactList}\small\item\em Constructor call for the \doxylink{class_celestial_object}{Celestial\+Object} class. \end{DoxyCompactList}\item 
+virtual {\bfseries \texorpdfstring{$\sim$}{\string~}\+Celestial\+Object} ()=default
+\begin{DoxyCompactList}\small\item\em Default destructor call. \end{DoxyCompactList}\item 
+std\+::string \mbox{\hyperlink{class_celestial_object_a09ee45217b868c5858619f33f3cbbded}{get\+Name}} () const
+\begin{DoxyCompactList}\small\item\em Returns the name of an object. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_celestial_object_ae9a24ff06397904ce8e865651fba13e6}{set\+Name}} (const std\+::string \&new\+Name)
+\begin{DoxyCompactList}\small\item\em Set the name of an object. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{class_celestial_object_a8b839bf5b36c357e3fc0fdccf2f4bfdb}{get\+Mass}} () const
+\begin{DoxyCompactList}\small\item\em Returns the mass of an object. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_celestial_object_ab959c48aabf6a5266a51e3d878ad64ff}{set\+Mass}} (const double new\+Mass)
+\begin{DoxyCompactList}\small\item\em Set the mass of an object. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+A concrete class representing a \doxylink{class_planet}{Planet}. 
+
+Implements the \doxylink{class_celestial_object}{Celestial\+Object} interface and adds planet-\/specific properties like orbit, type, and habitability. \begin{Desc}
+\item[Examples]\par
+\mbox{\hyperlink{_basic_usage_example_8cpp-example}{Basic\+Usage\+Example.\+cpp}}, and \mbox{\hyperlink{_c_1_2_users_2_prj_2_project1_2_entities_2_galaxy_8h-example}{C\+:/\+Users/\+Prj/\+Project1/\+Entities/\+Galaxy.\+h}}.\end{Desc}
+
+
+\label{doc-enum-members}
+\Hypertarget{class_planet_doc-enum-members}
+\doxysubsection{Member Enumeration Documentation}
+\Hypertarget{class_planet_ad33fc165092ef4edfe5485126d6b13e7}\index{Planet@{Planet}!planetType@{planetType}}
+\index{planetType@{planetType}!Planet@{Planet}}
+\doxysubsubsection{\texorpdfstring{planetType}{planetType}}
+{\footnotesize\ttfamily \label{class_planet_ad33fc165092ef4edfe5485126d6b13e7} 
+enum class \mbox{\hyperlink{class_planet_ad33fc165092ef4edfe5485126d6b13e7}{Planet\+::planet\+Type}}\hspace{0.3cm}{\ttfamily [strong]}}
+
+
+
+Enum representing all supported planet types. 
+
+\begin{Desc}
+\item[Examples]\par
+\mbox{\hyperlink{_c_1_2_users_2_prj_2_project1_2_entities_2_galaxy_8h-example}{C\+:/\+Users/\+Prj/\+Project1/\+Entities/\+Galaxy.\+h}}.\end{Desc}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00027\ \{\ Gas\_Giant,\ Dwarf,\ Terrestrial\_Planet\ \};}
+
+\end{DoxyCode}
+
+
+\label{doc-constructors}
+\Hypertarget{class_planet_doc-constructors}
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_planet_a15ccba3d6a8f26650118571901380ec7}\index{Planet@{Planet}!Planet@{Planet}}
+\index{Planet@{Planet}!Planet@{Planet}}
+\doxysubsubsection{\texorpdfstring{Planet()}{Planet()}}
+{\footnotesize\ttfamily \label{class_planet_a15ccba3d6a8f26650118571901380ec7} 
+Planet\+::\+Planet (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{name}{, }\item[{double}]{mass}{, }\item[{double}]{orbit}{, }\item[{double}]{speed}{, }\item[{double}]{angle}{, }\item[{\mbox{\hyperlink{class_planet_ad33fc165092ef4edfe5485126d6b13e7}{planet\+Type}}}]{type}{, }\item[{bool}]{life}{}\end{DoxyParamCaption})}
+
+
+
+Constructor for the \doxylink{class_planet}{Planet} class. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em name} & The name of the planet. \\
+\hline
+{\em mass} & The mass of the planet. \\
+\hline
+{\em orbit} & The radius of the orbit. \\
+\hline
+{\em speed} & The orbital speed. \\
+\hline
+{\em angle} & The orbital inclination. \\
+\hline
+{\em type} & The type of the planet (e.\+g., Gas\+\_\+\+Giant). \\
+\hline
+{\em life} & Whether the planet is habitable. \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em std\+::invalid\+\_\+argument} & If mass or orbit is zero or negative. \\
+\hline
+\end{DoxyExceptions}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00005\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ :\ \mbox{\hyperlink{class_celestial_object_ae4be2f9eb24debf08d0411c9d497f3e9}{CelestialObject}}(name,\ mass),\ orbitRadius(orbit),\ orbitSpeed(speed),}
+\DoxyCodeLine{00006\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ inclination(angle),\ planet\_type(type),\ habitable(life)\ \{}
+\DoxyCodeLine{00007\ \ \ \ \ \textcolor{keywordflow}{if}\ (mass<=0)}
+\DoxyCodeLine{00008\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::invalid\_argument(\textcolor{stringliteral}{"{}Mass\ should\ be\ above\ zero!"{}});}
+\DoxyCodeLine{00009\ \ \ \ \ \textcolor{keywordflow}{if}(orbit<=\ 0)}
+\DoxyCodeLine{00010\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::invalid\_argument(\textcolor{stringliteral}{"{}Planet\ can't\ exist\ that\ close\ to\ a\ star!"{}});}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00012\ \}}
+
+\end{DoxyCode}
+
+
+\label{doc-func-members}
+\Hypertarget{class_planet_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_planet_a0b06f1ec0452ab6bec47c702de528202}\index{Planet@{Planet}!displayInfo@{displayInfo}}
+\index{displayInfo@{displayInfo}!Planet@{Planet}}
+\doxysubsubsection{\texorpdfstring{displayInfo()}{displayInfo()}}
+{\footnotesize\ttfamily \label{class_planet_a0b06f1ec0452ab6bec47c702de528202} 
+void Planet\+::display\+Info (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Displays all information about the planet (overrides \doxylink{class_celestial_object}{Celestial\+Object}). 
+
+
+
+Implements \mbox{\hyperlink{class_celestial_object_a2e70ecbf61b7ece4d0934fe7a573beb3}{Celestial\+Object}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00015\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00016\ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Planet\ name:\ "{}}\ <<\ \mbox{\hyperlink{class_celestial_object_a09ee45217b868c5858619f33f3cbbded}{getName}}()\ <<\ \textcolor{stringliteral}{"{}\ type:\ "{}};}
+\DoxyCodeLine{00017\ \ \ \ \ \textcolor{keywordflow}{switch}\ (planet\_type)\ \{}
+\DoxyCodeLine{00018\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ planetType::Terrestrial\_Planet:}
+\DoxyCodeLine{00019\ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Terrestrial\ planet"{}};}
+\DoxyCodeLine{00020\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00021\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ planetType::Dwarf:}
+\DoxyCodeLine{00022\ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Dwarf\ planet"{}};}
+\DoxyCodeLine{00023\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00024\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ planetType::Gas\_Giant:}
+\DoxyCodeLine{00025\ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Giant\ planet"{}};}
+\DoxyCodeLine{00026\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00027\ \ \ \ \ \}}
+\DoxyCodeLine{00028\ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}\ life\ "{}};}
+\DoxyCodeLine{00029\ \ \ \ \ \textcolor{keywordflow}{if}(habitable)}
+\DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}exists"{}};}
+\DoxyCodeLine{00031\ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}doesn't\ exists"{}};}
+\DoxyCodeLine{00032\ \}}
+
+\end{DoxyCode}
+\Hypertarget{class_planet_acadbe6502a83a5ca3e9dcad7c3813de5}\index{Planet@{Planet}!getColor@{getColor}}
+\index{getColor@{getColor}!Planet@{Planet}}
+\doxysubsubsection{\texorpdfstring{getColor()}{getColor()}}
+{\footnotesize\ttfamily \label{class_planet_acadbe6502a83a5ca3e9dcad7c3813de5} 
+QColor Planet\+::get\+Color (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Gets the display color of the planet. 
+
+\begin{DoxyReturn}{Returns}
+The planet\textquotesingle{}s QColor. 
+\end{DoxyReturn}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00056\ \ \ \ \ \textcolor{keywordflow}{return}\ color;}
+\DoxyCodeLine{00057\ \}}
+
+\end{DoxyCode}
+\Hypertarget{class_planet_a7568d86c7d38e06b5eee452c65f4bb79}\index{Planet@{Planet}!getOrbit@{getOrbit}}
+\index{getOrbit@{getOrbit}!Planet@{Planet}}
+\doxysubsubsection{\texorpdfstring{getOrbit()}{getOrbit()}}
+{\footnotesize\ttfamily \label{class_planet_a7568d86c7d38e06b5eee452c65f4bb79} 
+double Planet\+::get\+Orbit (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const}
+
+
+
+Gets the orbital radius of the planet. 
+
+\begin{DoxyReturn}{Returns}
+The orbital radius. 
+\end{DoxyReturn}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00052\ \ \ \ \ \textcolor{keywordflow}{return}\ orbitRadius;}
+\DoxyCodeLine{00053\ \}}
+
+\end{DoxyCode}
+\Hypertarget{class_planet_a3b1ce91fa4f1ace9e65a8db908e05f3a}\index{Planet@{Planet}!getPlanetType@{getPlanetType}}
+\index{getPlanetType@{getPlanetType}!Planet@{Planet}}
+\doxysubsubsection{\texorpdfstring{getPlanetType()}{getPlanetType()}}
+{\footnotesize\ttfamily \label{class_planet_a3b1ce91fa4f1ace9e65a8db908e05f3a} 
+\mbox{\hyperlink{class_planet_ad33fc165092ef4edfe5485126d6b13e7}{Planet\+::planet\+Type}} Planet\+::get\+Planet\+Type (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Gets the specific enum type of this planet. 
+
+\begin{DoxyReturn}{Returns}
+The enum value (\doxylink{class_planet_ad33fc165092ef4edfe5485126d6b13e7}{planet\+Type}) of the planet. 
+\end{DoxyReturn}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00047\ \ \ \ \ \textcolor{keywordflow}{return}\ planet\_type;}
+\DoxyCodeLine{00048\ \}}
+
+\end{DoxyCode}
+\Hypertarget{class_planet_a609246555ffd8fad1dfca7641ab243e4}\index{Planet@{Planet}!getType@{getType}}
+\index{getType@{getType}!Planet@{Planet}}
+\doxysubsubsection{\texorpdfstring{getType()}{getType()}}
+{\footnotesize\ttfamily \label{class_planet_a609246555ffd8fad1dfca7641ab243e4} 
+std\+::string Planet\+::get\+Type (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Returns the specific type of the object (overrides \doxylink{class_celestial_object}{Celestial\+Object}). 
+
+\begin{DoxyReturn}{Returns}
+The string "{}\+Planet"{}. 
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{class_celestial_object_a0c35c926828a4a82bbca8befd764d53a}{Celestial\+Object}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00035\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}Planet"{}};}
+\DoxyCodeLine{00036\ \}}
+
+\end{DoxyCode}
+\Hypertarget{class_planet_a3e80a10130f33b5e74b869f73f108f68}\index{Planet@{Planet}!isHabitable@{isHabitable}}
+\index{isHabitable@{isHabitable}!Planet@{Planet}}
+\doxysubsubsection{\texorpdfstring{isHabitable()}{isHabitable()}}
+{\footnotesize\ttfamily \label{class_planet_a3e80a10130f33b5e74b869f73f108f68} 
+bool Planet\+::is\+Habitable (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const}
+
+
+
+Checks if the planet is habitable. 
+
+\begin{DoxyReturn}{Returns}
+True if habitable, false otherwise. 
+\end{DoxyReturn}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00039\ \ \ \ \ \textcolor{keywordflow}{return}\ \ habitable;}
+\DoxyCodeLine{00040\ \}}
+
+\end{DoxyCode}
+\Hypertarget{class_planet_a2205e6583e37f08a12faee37be673404}\index{Planet@{Planet}!setColor@{setColor}}
+\index{setColor@{setColor}!Planet@{Planet}}
+\doxysubsubsection{\texorpdfstring{setColor()}{setColor()}}
+{\footnotesize\ttfamily \label{class_planet_a2205e6583e37f08a12faee37be673404} 
+void Planet\+::set\+Color (\begin{DoxyParamCaption}\item[{QColor}]{new\+Color}{}\end{DoxyParamCaption})}
+
+
+
+Sets the display color for the planet (e.\+g., in UI). 
+
+
+\begin{DoxyParams}{Parameters}
+{\em new\+Color} & The QColor to set. \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00060\ \ \ \ \ color\ =\ newColor;}
+\DoxyCodeLine{00061\ \}}
+
+\end{DoxyCode}
+\Hypertarget{class_planet_adbbdb84d1f268ed072b383f1704fd78e}\index{Planet@{Planet}!setLifeExistence@{setLifeExistence}}
+\index{setLifeExistence@{setLifeExistence}!Planet@{Planet}}
+\doxysubsubsection{\texorpdfstring{setLifeExistence()}{setLifeExistence()}}
+{\footnotesize\ttfamily \label{class_planet_adbbdb84d1f268ed072b383f1704fd78e} 
+void Planet\+::set\+Life\+Existence (\begin{DoxyParamCaption}\item[{bool}]{life}{}\end{DoxyParamCaption})}
+
+
+
+Sets the habitability status of the planet. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em life} & The new habitability status. \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00043\ \ \ \ \ habitable\ =\ life;}
+\DoxyCodeLine{00044\ \}}
+
+\end{DoxyCode}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Entities/\mbox{\hyperlink{_planet_8h}{Planet.\+h}}\item 
+Entities/Planet.\+cpp\end{DoxyCompactItemize}

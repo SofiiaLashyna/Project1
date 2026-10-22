@@ -1,0 +1,24 @@
+\doxysection{RAIIGuard.\+h}
+\hypertarget{_r_a_i_i_guard_8h_source}{}\label{_r_a_i_i_guard_8h_source}\index{GoogleTests/RAIIGuard.h@{GoogleTests/RAIIGuard.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ RAIIGUARD\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ RAIIGUARD\_H}}
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ <iostream>}}
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <sstream>}}
+\DoxyCodeLine{00005\ }
+\DoxyCodeLine{00006\ \textcolor{keyword}{struct\ }CoutGuard\ \{}
+\DoxyCodeLine{00007\ \ \ \ \ std::streambuf\ *old\_buf;}
+\DoxyCodeLine{00008\ \ \ \ \ std::stringstream\ \&ss;}
+\DoxyCodeLine{00009\ }
+\DoxyCodeLine{00010\ \ \ \ \ CoutGuard(std::stringstream\ \&new\_output)\ :\ ss(new\_output)\ \{}
+\DoxyCodeLine{00011\ \ \ \ \ \ \ \ \ old\_buf\ =\ std::cout.rdbuf(ss.rdbuf());}
+\DoxyCodeLine{00012\ \ \ \ \ \}}
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00014\ \ \ \ \ \string~CoutGuard()\ \{}
+\DoxyCodeLine{00015\ \ \ \ \ \ \ \ \ std::cout.rdbuf(old\_buf);}
+\DoxyCodeLine{00016\ \ \ \ \ \}}
+\DoxyCodeLine{00017\ \};}
+\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//RAIIGUARD\_H}}
+
+\end{DoxyCode}

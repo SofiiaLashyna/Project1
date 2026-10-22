@@ -1,0 +1,40 @@
+\doxysection{windowinterface.\+h}
+\hypertarget{windowinterface_8h_source}{}\label{windowinterface_8h_source}\index{MainWindow/windowinterface.h@{MainWindow/windowinterface.h}}
+\mbox{\hyperlink{windowinterface_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ WINDOWINTERFACE\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ WINDOWINTERFACE\_H}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <QWidget>}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_random_utilities_8h}{RandomUtilities.h}}"{}}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ "{}nlohmann/json.hpp"{}}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ <fstream>}}
+\DoxyCodeLine{00014\ QT\_BEGIN\_NAMESPACE}
+\DoxyCodeLine{00015\ }
+\DoxyCodeLine{00016\ \textcolor{keyword}{namespace\ }Ui\ \{}
+\DoxyCodeLine{00017\ \ \ \ \ \textcolor{keyword}{class\ }WindowInterface;}
+\DoxyCodeLine{00018\ \}}
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00020\ QT\_END\_NAMESPACE}
+\DoxyCodeLine{00021\ }
+\DoxyCodeLine{00022\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_galaxy_view}{GalaxyView}};}
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00032\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_window_interface_ad3624528b41456d1bb7e9d3bb3647dd7}{WindowInterface}}\ :\ \textcolor{keyword}{public}\ QWidget\ \{}
+\DoxyCodeLine{00033\ \ \ \ \ Q\_OBJECT}
+\DoxyCodeLine{00034\ }
+\DoxyCodeLine{00035\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00040\ \ \ \ \ \textcolor{keyword}{explicit}\ \mbox{\hyperlink{class_window_interface_ad3624528b41456d1bb7e9d3bb3647dd7}{WindowInterface}}(QWidget\ *parent\ =\ \textcolor{keyword}{nullptr});}
+\DoxyCodeLine{00044\ \ \ \ \ \mbox{\hyperlink{class_window_interface_aec66b38c26cafa91fe94e743aa1c2ab1}{\string~WindowInterface}}()\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00045\ }
+\DoxyCodeLine{00046\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00047\ \ \ \ \ Ui::WindowInterface\ *ui;\ }
+\DoxyCodeLine{00048\ \ \ \ \ \mbox{\hyperlink{class_galaxy_view}{GalaxyView}}\ *galaxyView;\ }
+\DoxyCodeLine{00049\ \ \ \ \ \mbox{\hyperlink{class_random_generator}{RandomGenerator}}\ rng;\ }
+\DoxyCodeLine{00050\ \ \ \ \ nlohmann::json\ data;\ }
+\DoxyCodeLine{00051\ \ \ \ \ \textcolor{keywordtype}{bool}\ dataLoaded\ =\ \textcolor{keyword}{false};\ }
+\DoxyCodeLine{00056\ \ \ \ \ \textcolor{keywordtype}{void}\ loadJsonData();}
+\DoxyCodeLine{00057\ \};}
+\DoxyCodeLine{00058\ }
+\DoxyCodeLine{00059\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ WINDOWINTERFACE\_H}}
+
+\end{DoxyCode}

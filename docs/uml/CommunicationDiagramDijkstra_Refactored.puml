@@ -1,0 +1,27 @@
+@startuml
+left to right direction
+allow_mixing
+
+legend top right
+  | Color | Architectural Changes Description |
+  |<#FFCDD2>| **Removed** (Delegation to God Object) |
+  |<#C8E6C9>| **New Flow** (Direct cohesive interaction with data) |
+endlegend
+
+actor "User" as user
+object "view : GalaxyView" as view
+object "solver : DijkstraPathList" as solver
+object "alg : Algorithms" as alg #FFCDD2
+object "graph : GraphList<T>" as graph #C8E6C9
+
+user --> view : 1: onVertexClicked()
+
+view -- solver : 3: findShortestPath() >\n< 6: return pathIndices
+
+solver .[#red]. alg : <color:red>~~4: Dijkstra_findPath() >~~</color>\n<color:red>~~< 5: return path~~</color>
+
+solver =[#green]= graph : <color:green>**4: getNeighbors() / getWeight() >**</color>\n<color:green>**< 5: return topology data**</color>
+
+view --> view : 2: calculateShortestPath()\n7: sendPathToQML()\n8: updateView()
+
+@enduml

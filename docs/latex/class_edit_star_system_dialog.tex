@@ -1,0 +1,142 @@
+\doxysection{Edit\+Star\+System\+Dialog Class Reference}
+\hypertarget{class_edit_star_system_dialog}{}\label{class_edit_star_system_dialog}\index{EditStarSystemDialog@{EditStarSystemDialog}}
+
+
+A QDialog window that allows modifying the properties of a specific \doxylink{class_star_system}{Star\+System} (name, star type, planet count).  
+
+
+
+
+{\ttfamily \#include $<$Edit\+Star\+System\+Dialog.\+h$>$}
+
+Inheritance diagram for Edit\+Star\+System\+Dialog\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_edit_star_system_dialog}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_edit_star_system_dialog_aa8ba2f86d17a7e1f6b79a59951d838c0}{Edit\+Star\+System\+Dialog}} (\mbox{\hyperlink{class_star_system}{Star\+System}} \texorpdfstring{$\ast$}{*}system, \mbox{\hyperlink{class_random_generator}{Random\+Generator}} \texorpdfstring{$\ast$}{*}rng, const nlohmann\+::json \texorpdfstring{$\ast$}{*}data, QWidget \texorpdfstring{$\ast$}{*}parent=nullptr)
+\begin{DoxyCompactList}\small\item\em Constructor for the \doxylink{class_edit_star_system_dialog}{Edit\+Star\+System\+Dialog}. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_edit_star_system_dialog_a4f932adca4acbb2ed2ddae1c5cf481c7}{save\+Changes}} ()
+\begin{DoxyCompactList}\small\item\em Applies the changes from the UI fields to the current \doxylink{class_star_system}{Star\+System} object. This is called after the dialog is accepted. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+A QDialog window that allows modifying the properties of a specific \doxylink{class_star_system}{Star\+System} (name, star type, planet count). 
+
+\label{doc-constructors}
+\Hypertarget{class_edit_star_system_dialog_doc-constructors}
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_edit_star_system_dialog_aa8ba2f86d17a7e1f6b79a59951d838c0}\index{EditStarSystemDialog@{EditStarSystemDialog}!EditStarSystemDialog@{EditStarSystemDialog}}
+\index{EditStarSystemDialog@{EditStarSystemDialog}!EditStarSystemDialog@{EditStarSystemDialog}}
+\doxysubsubsection{\texorpdfstring{EditStarSystemDialog()}{EditStarSystemDialog()}}
+{\footnotesize\ttfamily \label{class_edit_star_system_dialog_aa8ba2f86d17a7e1f6b79a59951d838c0} 
+Edit\+Star\+System\+Dialog\+::\+Edit\+Star\+System\+Dialog (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_star_system}{Star\+System}} \texorpdfstring{$\ast$}{*}}]{system}{, }\item[{\mbox{\hyperlink{class_random_generator}{Random\+Generator}} \texorpdfstring{$\ast$}{*}}]{rng}{, }\item[{const nlohmann\+::json \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{QWidget \texorpdfstring{$\ast$}{*}}]{parent}{ = {\ttfamily nullptr}}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}}
+
+
+
+Constructor for the \doxylink{class_edit_star_system_dialog}{Edit\+Star\+System\+Dialog}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em system} & The \doxylink{class_star_system}{Star\+System} object to be modified. \\
+\hline
+{\em rng} & Non-\/owning pointer to the random generator (for new planets). \\
+\hline
+{\em data} & Non-\/owning pointer to the JSON data (for new planets). \\
+\hline
+{\em parent} & The parent Qt widget. \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00012\ \ \ \ \ :\ QDialog(parent),\ starSystem(system),\ rngPtr(rng),\ dataPtr(data)\ \{}
+\DoxyCodeLine{00013\ \ \ \ \ setWindowTitle(\textcolor{stringliteral}{"{}Edit\ Star\ System:\ "{}}\ +\ QString::fromStdString(system-\/>\mbox{\hyperlink{class_celestial_object_a09ee45217b868c5858619f33f3cbbded}{getName}}()));}
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00015\ \ \ \ \ QVBoxLayout\ *layout\ =\ \textcolor{keyword}{new}\ QVBoxLayout(\textcolor{keyword}{this});}
+\DoxyCodeLine{00016\ }
+\DoxyCodeLine{00017\ \ \ \ \ layout-\/>addWidget(\textcolor{keyword}{new}\ QLabel(\textcolor{stringliteral}{"{}System\ Name:"{}},\ \textcolor{keyword}{this}));}
+\DoxyCodeLine{00018\ \ \ \ \ nameEdit\ =\ \textcolor{keyword}{new}\ QLineEdit(QString::fromStdString(starSystem-\/>getName()),\ \textcolor{keyword}{this});}
+\DoxyCodeLine{00019\ \ \ \ \ layout-\/>addWidget(nameEdit);}
+\DoxyCodeLine{00020\ }
+\DoxyCodeLine{00021\ \ \ \ \ layout-\/>addWidget(\textcolor{keyword}{new}\ QLabel(\textcolor{stringliteral}{"{}Star\ Type:"{}},\ \textcolor{keyword}{this}));}
+\DoxyCodeLine{00022\ \ \ \ \ starTypeComboBox\ =\ \textcolor{keyword}{new}\ QComboBox(\textcolor{keyword}{this});}
+\DoxyCodeLine{00023\ \ \ \ \ starTypeComboBox-\/>addItem(\textcolor{stringliteral}{"{}Main\_sequence\_Star"{}});}
+\DoxyCodeLine{00024\ \ \ \ \ starTypeComboBox-\/>addItem(\textcolor{stringliteral}{"{}Red\_Giant"{}});}
+\DoxyCodeLine{00025\ \ \ \ \ starTypeComboBox-\/>addItem(\textcolor{stringliteral}{"{}White\_Dwarf"{}});}
+\DoxyCodeLine{00026\ \ \ \ \ starTypeComboBox-\/>addItem(\textcolor{stringliteral}{"{}Brown\_Dwarf"{}});}
+\DoxyCodeLine{00027\ \ \ \ \ starTypeComboBox-\/>addItem(\textcolor{stringliteral}{"{}Neutron\_Star"{}});}
+\DoxyCodeLine{00028\ \ \ \ \ starTypeComboBox-\/>addItem(\textcolor{stringliteral}{"{}Red\_Dwarf"{}});}
+\DoxyCodeLine{00029\ \ \ \ \ starTypeComboBox-\/>setCurrentText(QString::fromStdString(starSystem-\/>getStar().getStarTypeString()));}
+\DoxyCodeLine{00030\ \ \ \ \ layout-\/>addWidget(starTypeComboBox);}
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00032\ \ \ \ \ layout-\/>addWidget(\textcolor{keyword}{new}\ QLabel(\textcolor{stringliteral}{"{}Number\ of\ Planets:"{}},\ \textcolor{keyword}{this}));}
+\DoxyCodeLine{00033\ \ \ \ \ planetCountSpinBox\ =\ \textcolor{keyword}{new}\ QSpinBox(\textcolor{keyword}{this});}
+\DoxyCodeLine{00034\ \ \ \ \ planetCountSpinBox-\/>setRange(0,\ 10);}
+\DoxyCodeLine{00035\ \ \ \ \ planetCountSpinBox-\/>setValue(\textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{int}\textcolor{keyword}{>}(starSystem-\/>getPlanets().size()));}
+\DoxyCodeLine{00036\ \ \ \ \ layout-\/>addWidget(planetCountSpinBox);}
+\DoxyCodeLine{00037\ }
+\DoxyCodeLine{00038\ \ \ \ \ QPushButton\ *saveButton\ =\ \textcolor{keyword}{new}\ QPushButton(\textcolor{stringliteral}{"{}Save"{}},\ \textcolor{keyword}{this});}
+\DoxyCodeLine{00039\ \ \ \ \ QPushButton\ *cancelButton\ =\ \textcolor{keyword}{new}\ QPushButton(\textcolor{stringliteral}{"{}Cancel"{}},\ \textcolor{keyword}{this});}
+\DoxyCodeLine{00040\ }
+\DoxyCodeLine{00041\ \ \ \ \ QHBoxLayout\ *buttonLayout\ =\ \textcolor{keyword}{new}\ QHBoxLayout;}
+\DoxyCodeLine{00042\ \ \ \ \ buttonLayout-\/>addWidget(saveButton);}
+\DoxyCodeLine{00043\ \ \ \ \ buttonLayout-\/>addWidget(cancelButton);}
+\DoxyCodeLine{00044\ \ \ \ \ layout-\/>addLayout(buttonLayout);}
+\DoxyCodeLine{00045\ }
+\DoxyCodeLine{00046\ \ \ \ \ connect(saveButton,\ \&QPushButton::clicked,\ \textcolor{keyword}{this},\ \&QDialog::accept);}
+\DoxyCodeLine{00047\ \ \ \ \ connect(cancelButton,\ \&QPushButton::clicked,\ \textcolor{keyword}{this},\ \&QDialog::reject);}
+\DoxyCodeLine{00048\ \}}
+
+\end{DoxyCode}
+
+
+\label{doc-func-members}
+\Hypertarget{class_edit_star_system_dialog_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_edit_star_system_dialog_a4f932adca4acbb2ed2ddae1c5cf481c7}\index{EditStarSystemDialog@{EditStarSystemDialog}!saveChanges@{saveChanges}}
+\index{saveChanges@{saveChanges}!EditStarSystemDialog@{EditStarSystemDialog}}
+\doxysubsubsection{\texorpdfstring{saveChanges()}{saveChanges()}}
+{\footnotesize\ttfamily \label{class_edit_star_system_dialog_a4f932adca4acbb2ed2ddae1c5cf481c7} 
+void Edit\+Star\+System\+Dialog\+::save\+Changes (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Applies the changes from the UI fields to the current \doxylink{class_star_system}{Star\+System} object. This is called after the dialog is accepted. 
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00052\ \ \ \ \ starSystem-\/>setName(nameEdit-\/>text().toStdString());}
+\DoxyCodeLine{00053\ \ \ \ \ starSystem-\/>getStar().setStarType(starTypeComboBox-\/>currentText().toStdString());}
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00055\ \ \ \ \ \textcolor{keywordtype}{int}\ targetCount\ =\ planetCountSpinBox-\/>value();}
+\DoxyCodeLine{00056\ \ \ \ \ \textcolor{keywordtype}{int}\ currentCount\ =\ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{int}\textcolor{keyword}{>}(starSystem-\/>getPlanets().size());}
+\DoxyCodeLine{00057\ }
+\DoxyCodeLine{00058\ \ \ \ \ \textcolor{keywordflow}{if}\ (targetCount\ <\ currentCount)\ \{}
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ diff\ =\ currentCount\ -\/\ targetCount;}
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ diff;\ ++i)\ \{}
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ \ \ \ \ starSystem-\/>removePlanet();}
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00063\ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (targetCount\ >\ currentCount)\ \{}
+\DoxyCodeLine{00064\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ diff\ =\ targetCount\ -\/\ currentCount;}
+\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ Galaxy<GraphList<CelestialObject\ *>\ >\ temp\_galaxy;}
+\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ diff;\ ++i)\ \{}
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ \ \ \ \ Planet\ *planet\ =\ temp\_galaxy.\mbox{\hyperlink{class_galaxy_ac5f09bba3f9219f06ada6c001968f65e}{generatePlanet}}(*rngPtr,\ *dataPtr);}
+\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ \ \ \ \ starSystem-\/>addPlanet(planet);}
+\DoxyCodeLine{00069\ \ \ \ \ \ \ \ \ \ \ \ \ starSystem-\/>lifeExists(*starSystem-\/>getPlanets().back());}
+\DoxyCodeLine{00070\ }
+\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00072\ \ \ \ \ \}}
+\DoxyCodeLine{00073\ \}}
+
+\end{DoxyCode}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Galaxy\+View/\mbox{\hyperlink{_edit_star_system_dialog_8h}{Edit\+Star\+System\+Dialog.\+h}}\item 
+Galaxy\+View/Edit\+Star\+System\+Dialog.\+cpp\end{DoxyCompactItemize}

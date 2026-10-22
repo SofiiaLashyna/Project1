@@ -1,0 +1,282 @@
+\doxysection{Nebula Class Reference}
+\hypertarget{class_nebula}{}\label{class_nebula}\index{Nebula@{Nebula}}
+
+
+A concrete derived class for all celestial objects.  
+
+
+
+
+{\ttfamily \#include $<$Nebula.\+h$>$}
+
+Inheritance diagram for Nebula\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_nebula}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+enum class \mbox{\hyperlink{class_nebula_af723611c49f9e4c0d31c54c039abd11a}{nebula\+Type}} \{ \newline
+{\bfseries Planetary}
+, {\bfseries Supernova}
+, {\bfseries Emission}
+, {\bfseries Reflection}
+, \newline
+{\bfseries Dark}
+ \}
+\begin{DoxyCompactList}\small\item\em Enum representing all supported nebula types. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_nebula_a81ec8500a64b7d108585a9779d6c90f9}{Nebula}} (const std\+::string \&name, double mass, \mbox{\hyperlink{class_nebula_af723611c49f9e4c0d31c54c039abd11a}{nebula\+Type}} type)
+\begin{DoxyCompactList}\small\item\em Constructor call for the \doxylink{class_nebula}{Nebula} class. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_nebula_a44aff85e26555725e3f065005e246413}{display\+Info}} () const override
+\begin{DoxyCompactList}\small\item\em Display of all information about the object. (Virtual method override). \end{DoxyCompactList}\item 
+std\+::string \mbox{\hyperlink{class_nebula_a829247eed0574b9672c64e5c687975ec}{get\+Type}} () const override
+\begin{DoxyCompactList}\small\item\em Returns the type of an object. (Virtual method override). \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_nebula_af723611c49f9e4c0d31c54c039abd11a}{nebula\+Type}} \mbox{\hyperlink{class_nebula_a13d412f3fb719a8eea74c7718a01b1a5}{get\+Nebula\+Type}} ()
+\begin{DoxyCompactList}\small\item\em Returns the type of nebula. \end{DoxyCompactList}\item 
+std\+::string \mbox{\hyperlink{class_nebula_a52cee4e2e80d7f57992b2d4a4b3e9a85}{get\+Nebula\+Type\+String}} () const
+\begin{DoxyCompactList}\small\item\em Returns the type of nebula converted to type string. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_nebula_ac5567a4cb0c416c142b566e047128d55}{set\+Nebula\+Type}} (std\+::string newtype)
+\begin{DoxyCompactList}\small\item\em Set the type of nebula. \end{DoxyCompactList}\item 
+\Hypertarget{class_nebula_a19152271b443e61b7b8c8eefeb2baed2}\label{class_nebula_a19152271b443e61b7b8c8eefeb2baed2} 
+virtual {\bfseries \texorpdfstring{$\sim$}{\string~}\+Nebula} ()=default
+\begin{DoxyCompactList}\small\item\em Default destructor call. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{class_celestial_object}{Celestial\+Object}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_celestial_object_ae4be2f9eb24debf08d0411c9d497f3e9}{Celestial\+Object}} (const std\+::string \&name, double mass)
+\begin{DoxyCompactList}\small\item\em Constructor call for the \doxylink{class_celestial_object}{Celestial\+Object} class. \end{DoxyCompactList}\item 
+virtual {\bfseries \texorpdfstring{$\sim$}{\string~}\+Celestial\+Object} ()=default
+\begin{DoxyCompactList}\small\item\em Default destructor call. \end{DoxyCompactList}\item 
+std\+::string \mbox{\hyperlink{class_celestial_object_a09ee45217b868c5858619f33f3cbbded}{get\+Name}} () const
+\begin{DoxyCompactList}\small\item\em Returns the name of an object. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_celestial_object_ae9a24ff06397904ce8e865651fba13e6}{set\+Name}} (const std\+::string \&new\+Name)
+\begin{DoxyCompactList}\small\item\em Set the name of an object. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{class_celestial_object_a8b839bf5b36c357e3fc0fdccf2f4bfdb}{get\+Mass}} () const
+\begin{DoxyCompactList}\small\item\em Returns the mass of an object. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_celestial_object_ab959c48aabf6a5266a51e3d878ad64ff}{set\+Mass}} (const double new\+Mass)
+\begin{DoxyCompactList}\small\item\em Set the mass of an object. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+A concrete derived class for all celestial objects. 
+
+Receives a common interface (name, mass, display\+Info) and implements it\textquotesingle{}s specific methods. \begin{Desc}
+\item[Examples]\par
+\mbox{\hyperlink{_basic_usage_example_8cpp-example}{Basic\+Usage\+Example.\+cpp}}, and \mbox{\hyperlink{_c_1_2_users_2_prj_2_project1_2_entities_2_galaxy_8h-example}{C\+:/\+Users/\+Prj/\+Project1/\+Entities/\+Galaxy.\+h}}.\end{Desc}
+
+
+\label{doc-enum-members}
+\Hypertarget{class_nebula_doc-enum-members}
+\doxysubsection{Member Enumeration Documentation}
+\Hypertarget{class_nebula_af723611c49f9e4c0d31c54c039abd11a}\index{Nebula@{Nebula}!nebulaType@{nebulaType}}
+\index{nebulaType@{nebulaType}!Nebula@{Nebula}}
+\doxysubsubsection{\texorpdfstring{nebulaType}{nebulaType}}
+{\footnotesize\ttfamily \label{class_nebula_af723611c49f9e4c0d31c54c039abd11a} 
+enum class \mbox{\hyperlink{class_nebula_af723611c49f9e4c0d31c54c039abd11a}{Nebula\+::nebula\+Type}}\hspace{0.3cm}{\ttfamily [strong]}}
+
+
+
+Enum representing all supported nebula types. 
+
+\begin{Desc}
+\item[Examples]\par
+\mbox{\hyperlink{_c_1_2_users_2_prj_2_project1_2_entities_2_galaxy_8h-example}{C\+:/\+Users/\+Prj/\+Project1/\+Entities/\+Galaxy.\+h}}.\end{Desc}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00019\ \{\ Planetary,\ Supernova,\ Emission,\ Reflection,\ Dark\ \};}
+
+\end{DoxyCode}
+
+
+\label{doc-constructors}
+\Hypertarget{class_nebula_doc-constructors}
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_nebula_a81ec8500a64b7d108585a9779d6c90f9}\index{Nebula@{Nebula}!Nebula@{Nebula}}
+\index{Nebula@{Nebula}!Nebula@{Nebula}}
+\doxysubsubsection{\texorpdfstring{Nebula()}{Nebula()}}
+{\footnotesize\ttfamily \label{class_nebula_a81ec8500a64b7d108585a9779d6c90f9} 
+Nebula\+::\+Nebula (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{name}{, }\item[{double}]{mass}{, }\item[{\mbox{\hyperlink{class_nebula_af723611c49f9e4c0d31c54c039abd11a}{nebula\+Type}}}]{type}{}\end{DoxyParamCaption})}
+
+
+
+Constructor call for the \doxylink{class_nebula}{Nebula} class. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em name} & A name of the nebula. \\
+\hline
+{\em mass} & Mass of the nebula. \\
+\hline
+{\em type} & A type of the nebula. \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em std\+::invalid\+\_\+argument} & If mass is zero or negative. \\
+\hline
+\end{DoxyExceptions}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00005\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ :\ \mbox{\hyperlink{class_celestial_object_ae4be2f9eb24debf08d0411c9d497f3e9}{CelestialObject}}(name,\ mass),\ nebula\_type(type)\ \{}
+\DoxyCodeLine{00006\ \ \ \ \ \textcolor{keywordflow}{if}\ (mass<=0)}
+\DoxyCodeLine{00007\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::invalid\_argument(\textcolor{stringliteral}{"{}Mass\ should\ be\ above\ zero!"{}});}
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00009\ \}}
+
+\end{DoxyCode}
+
+
+\label{doc-func-members}
+\Hypertarget{class_nebula_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_nebula_a44aff85e26555725e3f065005e246413}\index{Nebula@{Nebula}!displayInfo@{displayInfo}}
+\index{displayInfo@{displayInfo}!Nebula@{Nebula}}
+\doxysubsubsection{\texorpdfstring{displayInfo()}{displayInfo()}}
+{\footnotesize\ttfamily \label{class_nebula_a44aff85e26555725e3f065005e246413} 
+void Nebula\+::display\+Info (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Display of all information about the object. (Virtual method override). 
+
+
+
+Implements \mbox{\hyperlink{class_celestial_object_a2e70ecbf61b7ece4d0934fe7a573beb3}{Celestial\+Object}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00012\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00013\ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Nebula\ name:\ "{}}\ <<\ \mbox{\hyperlink{class_celestial_object_a09ee45217b868c5858619f33f3cbbded}{getName}}()\ <<\ \textcolor{stringliteral}{"{}\ type:\ "{}};}
+\DoxyCodeLine{00014\ \ \ \ \ \textcolor{keywordflow}{switch}\ (nebula\_type)\ \{}
+\DoxyCodeLine{00015\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ nebulaType::Dark:}
+\DoxyCodeLine{00016\ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Dark\ nebula"{}};}
+\DoxyCodeLine{00017\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00018\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ nebulaType::Emission:}
+\DoxyCodeLine{00019\ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Emission\ nebula"{}};}
+\DoxyCodeLine{00020\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00021\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ nebulaType::Planetary:}
+\DoxyCodeLine{00022\ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Planetary\ nebula"{}};}
+\DoxyCodeLine{00023\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00024\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ nebulaType::Supernova:}
+\DoxyCodeLine{00025\ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Supernova\ nebula"{}};}
+\DoxyCodeLine{00026\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00027\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ nebulaType::Reflection:}
+\DoxyCodeLine{00028\ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Reflection\ nebula"{}};}
+\DoxyCodeLine{00029\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00030\ \ \ \ \ \}}
+\DoxyCodeLine{00031\ \}}
+
+\end{DoxyCode}
+\Hypertarget{class_nebula_a13d412f3fb719a8eea74c7718a01b1a5}\index{Nebula@{Nebula}!getNebulaType@{getNebulaType}}
+\index{getNebulaType@{getNebulaType}!Nebula@{Nebula}}
+\doxysubsubsection{\texorpdfstring{getNebulaType()}{getNebulaType()}}
+{\footnotesize\ttfamily \label{class_nebula_a13d412f3fb719a8eea74c7718a01b1a5} 
+\mbox{\hyperlink{class_nebula_af723611c49f9e4c0d31c54c039abd11a}{Nebula\+::nebula\+Type}} Nebula\+::get\+Nebula\+Type (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Returns the type of nebula. 
+
+\begin{DoxyReturn}{Returns}
+The enum value (\doxylink{class_nebula_af723611c49f9e4c0d31c54c039abd11a}{nebula\+Type}) of the nebula. 
+\end{DoxyReturn}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00039\ \ \ \ \ \textcolor{keywordflow}{return}\ nebula\_type;}
+\DoxyCodeLine{00040\ \}}
+
+\end{DoxyCode}
+\Hypertarget{class_nebula_a52cee4e2e80d7f57992b2d4a4b3e9a85}\index{Nebula@{Nebula}!getNebulaTypeString@{getNebulaTypeString}}
+\index{getNebulaTypeString@{getNebulaTypeString}!Nebula@{Nebula}}
+\doxysubsubsection{\texorpdfstring{getNebulaTypeString()}{getNebulaTypeString()}}
+{\footnotesize\ttfamily \label{class_nebula_a52cee4e2e80d7f57992b2d4a4b3e9a85} 
+std\+::string Nebula\+::get\+Nebula\+Type\+String (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const}
+
+
+
+Returns the type of nebula converted to type string. 
+
+\begin{DoxyReturn}{Returns}
+A string representation of the nebulae type 
+\end{DoxyReturn}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00043\ \ \ \ \ \textcolor{keywordflow}{switch}\ (nebula\_type)\ \{}
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ nebulaType::Dark:\ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}Dark"{}};}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ nebulaType::Emission:\ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}Emission"{}};}
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ nebulaType::Planetary:\ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}Planetary"{}};}
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ nebulaType::Supernova:\ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}Supernova"{}};}
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ nebulaType::Reflection:\ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}Reflection"{}};}
+\DoxyCodeLine{00049\ \ \ \ \ \}}
+\DoxyCodeLine{00050\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}Unknown"{}};}
+\DoxyCodeLine{00051\ \}}
+
+\end{DoxyCode}
+\Hypertarget{class_nebula_a829247eed0574b9672c64e5c687975ec}\index{Nebula@{Nebula}!getType@{getType}}
+\index{getType@{getType}!Nebula@{Nebula}}
+\doxysubsubsection{\texorpdfstring{getType()}{getType()}}
+{\footnotesize\ttfamily \label{class_nebula_a829247eed0574b9672c64e5c687975ec} 
+std\+::string Nebula\+::get\+Type (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Returns the type of an object. (Virtual method override). 
+
+\begin{DoxyReturn}{Returns}
+The string "{}\+Nebula"{}. 
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{class_celestial_object_a0c35c926828a4a82bbca8befd764d53a}{Celestial\+Object}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00035\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}Nebula"{}};}
+\DoxyCodeLine{00036\ \}}
+
+\end{DoxyCode}
+\Hypertarget{class_nebula_ac5567a4cb0c416c142b566e047128d55}\index{Nebula@{Nebula}!setNebulaType@{setNebulaType}}
+\index{setNebulaType@{setNebulaType}!Nebula@{Nebula}}
+\doxysubsubsection{\texorpdfstring{setNebulaType()}{setNebulaType()}}
+{\footnotesize\ttfamily \label{class_nebula_ac5567a4cb0c416c142b566e047128d55} 
+void Nebula\+::set\+Nebula\+Type (\begin{DoxyParamCaption}\item[{std\+::string}]{newtype}{}\end{DoxyParamCaption})}
+
+
+
+Set the type of nebula. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em newtype} & A type that is assigned to the nebula. \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00054\ \ \ \ \ \textcolor{keywordflow}{if}(newtype\ ==\ \textcolor{stringliteral}{"{}Reflection"{}}\ ||\ newtype\ ==\ \textcolor{stringliteral}{"{}reflection"{}})}
+\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ nebula\_type\ =\ nebulaType::Reflection;}
+\DoxyCodeLine{00056\ \ \ \ \ \textcolor{keywordflow}{if}(newtype\ ==\ \textcolor{stringliteral}{"{}Emission"{}}\ ||\ newtype\ ==\ \textcolor{stringliteral}{"{}emission"{}})}
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ nebula\_type\ =\ nebulaType::Emission;}
+\DoxyCodeLine{00058\ \ \ \ \ \textcolor{keywordflow}{if}(newtype\ ==\ \textcolor{stringliteral}{"{}Supernova"{}}\ ||\ newtype\ ==\ \textcolor{stringliteral}{"{}supernova"{}})}
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ nebula\_type\ =\ nebulaType::Supernova;}
+\DoxyCodeLine{00060\ \ \ \ \ \textcolor{keywordflow}{if}(newtype\ ==\ \textcolor{stringliteral}{"{}Planetary"{}}\ ||\ newtype\ ==\ \textcolor{stringliteral}{"{}planetary"{}})}
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ nebula\_type\ =\ nebulaType::Planetary;}
+\DoxyCodeLine{00062\ \ \ \ \ \textcolor{keywordflow}{if}(newtype\ ==\ \textcolor{stringliteral}{"{}Dark"{}}\ ||\ newtype\ ==\ \textcolor{stringliteral}{"{}dark"{}})}
+\DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ nebula\_type\ =\ nebulaType::Dark;}
+\DoxyCodeLine{00064\ \}}
+
+\end{DoxyCode}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Entities/\mbox{\hyperlink{_nebula_8h}{Nebula.\+h}}\item 
+Entities/Nebula.\+cpp\end{DoxyCompactItemize}

@@ -1,0 +1,122 @@
+\doxysection{Is\+Connected\+List\texorpdfstring{$<$}{<} T \texorpdfstring{$>$}{>} Class Template Reference}
+\hypertarget{class_is_connected_list}{}\label{class_is_connected_list}\index{IsConnectedList$<$ T $>$@{IsConnectedList$<$ T $>$}}
+
+
+A strategy class that executes a check for connectivity.  
+
+
+
+
+{\ttfamily \#include $<$Is\+Connected\+List.\+h$>$}
+
+Inheritance diagram for Is\+Connected\+List\texorpdfstring{$<$}{<} T \texorpdfstring{$>$}{>}\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_is_connected_list}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{class_is_connected_list_a802a4665258cc971131f8bf129b181aa}{run}} (\mbox{\hyperlink{class_graph_list}{Graph\+List}}$<$ T $>$ \&g, int start\+Id=0, int end\+Id=-\/1) override
+\begin{DoxyCompactList}\small\item\em Performs a connection check algorithm for a graph represented by an adjacency list. \end{DoxyCompactList}\item 
+\Hypertarget{class_is_connected_list_a535715651ae26a2c15ddbc85af83f998}\label{class_is_connected_list_a535715651ae26a2c15ddbc85af83f998} 
+virtual {\bfseries \texorpdfstring{$\sim$}{\string~}\+Is\+Connected\+List} ()=default
+\begin{DoxyCompactList}\small\item\em Default destructor. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{class_graph_algorithm}{Graph\+Algorithm$<$ Graph\+List$<$ T $>$, T $>$}}}
+\begin{DoxyCompactItemize}
+\item 
+virtual {\bfseries \texorpdfstring{$\sim$}{\string~}\+Graph\+Algorithm} ()=default
+\begin{DoxyCompactList}\small\item\em Virtual destructor. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\subsubsection*{template$<$typename T$>$\newline
+class Is\+Connected\+List$<$ T $>$}
+A strategy class that executes a check for connectivity. 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em T} & The data type stored in the graph vertices. \\
+\hline
+\end{DoxyTemplParams}
+\begin{Desc}
+\item[Examples]\par
+\mbox{\hyperlink{_basic_usage_example_8cpp-example}{Basic\+Usage\+Example.\+cpp}}.\end{Desc}
+
+
+\label{doc-func-members}
+\Hypertarget{class_is_connected_list_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_is_connected_list_a802a4665258cc971131f8bf129b181aa}\index{IsConnectedList$<$ T $>$@{IsConnectedList$<$ T $>$}!run@{run}}
+\index{run@{run}!IsConnectedList$<$ T $>$@{IsConnectedList$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{run()}{run()}}
+{\footnotesize\ttfamily \label{class_is_connected_list_a802a4665258cc971131f8bf129b181aa} 
+template$<$typename T$>$ \\
+int \mbox{\hyperlink{class_is_connected_list}{Is\+Connected\+List}}$<$ T $>$\+::run (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_graph_list}{Graph\+List}}$<$ T $>$ \&}]{g}{, }\item[{int}]{start\+Id}{ = {\ttfamily 0}, }\item[{int}]{end\+Id}{ = {\ttfamily -\/1}}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Performs a connection check algorithm for a graph represented by an adjacency list. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em g} & The \doxylink{class_graph_list}{Graph\+List} object to traverse. \\
+\hline
+{\em start\+Id} & The ID of the starting vertex. \\
+\hline
+{\em end\+Id} & (Unused) Included to match the base class signature. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Always returns 1 = connected, 0 = not connected. 
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{class_graph_algorithm_a002a93f79b9204a814a7c9726dc69a78}{Graph\+Algorithm$<$ Graph\+List$<$ T $>$, T $>$}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00028\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00029\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_is_connected_list}{n}}\ =\ \mbox{\hyperlink{class_is_connected_list}{g}}.getVertices().size();}
+\DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{class_is_connected_list}{n}}\ ==\ 0)\ \textcolor{keywordflow}{return}\ 1;}
+\DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{class_is_connected_list}{n}}\ ==\ 1)\ \textcolor{keywordflow}{return}\ 1;}
+\DoxyCodeLine{00032\ }
+\DoxyCodeLine{00033\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_is_connected_list}{start}}\ =\ -\/1;}
+\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_is_connected_list}{i}}\ =\ 0;\ \mbox{\hyperlink{class_is_connected_list}{i}}\ <\ \mbox{\hyperlink{class_is_connected_list}{n}};\ ++\mbox{\hyperlink{class_is_connected_list}{i}})\ \{}
+\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!\mbox{\hyperlink{class_is_connected_list}{g}}.adjacencyList[\mbox{\hyperlink{class_is_connected_list}{i}}].empty())\ \{}
+\DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_is_connected_list}{start}}\ =\ \mbox{\hyperlink{class_is_connected_list}{i}};}
+\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00040\ }
+\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{class_is_connected_list}{start}}\ ==\ -\/1)\ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{00042\ }
+\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_is_connected_list}{std::vector<bool>}}\ \mbox{\hyperlink{class_is_connected_list}{visited}}(\mbox{\hyperlink{class_is_connected_list}{n}},\ \textcolor{keyword}{false});}
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_is_connected_list}{std::vector<int>}}\ \mbox{\hyperlink{class_is_connected_list}{stack}};}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_is_connected_list}{stack}}.push\_back(\mbox{\hyperlink{class_is_connected_list}{start}});}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}\ (!\mbox{\hyperlink{class_is_connected_list}{stack}}.empty())\ \{}
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_is_connected_list}{v}}\ =\ \mbox{\hyperlink{class_is_connected_list}{stack}}.back();}
+\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_is_connected_list}{stack}}.pop\_back();}
+\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{class_is_connected_list}{visited}}[\mbox{\hyperlink{class_is_connected_list}{v}}])\ \textcolor{keywordflow}{continue};}
+\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_is_connected_list}{visited}}[\mbox{\hyperlink{class_is_connected_list}{v}}]\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\ \&[\mbox{\hyperlink{class_is_connected_list}{u}},\ \mbox{\hyperlink{class_is_connected_list}{w}}]\ :\ \mbox{\hyperlink{class_is_connected_list}{g}}.adjacencyList[\mbox{\hyperlink{class_is_connected_list}{v}}])\ \{}
+\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!\mbox{\hyperlink{class_is_connected_list}{visited}}[\mbox{\hyperlink{class_is_connected_list}{u}}])\ \mbox{\hyperlink{class_is_connected_list}{stack}}.push\_back(\mbox{\hyperlink{class_is_connected_list}{u}});}
+\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00057\ }
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_is_connected_list}{i}}\ =\ 0;\ \mbox{\hyperlink{class_is_connected_list}{i}}\ <\ \mbox{\hyperlink{class_is_connected_list}{n}};\ ++\mbox{\hyperlink{class_is_connected_list}{i}})\ \{}
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!\mbox{\hyperlink{class_is_connected_list}{visited}}[\mbox{\hyperlink{class_is_connected_list}{i}}])\ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00061\ }
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ 1;}
+\DoxyCodeLine{00063\ \ \ \ \ \}}
+
+\end{DoxyCode}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Algorithms/\mbox{\hyperlink{_is_connected_list_8h}{Is\+Connected\+List.\+h}}\end{DoxyCompactItemize}

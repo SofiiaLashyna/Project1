@@ -1,0 +1,71 @@
+@startuml
+legend top right
+  | Color | Sequence Changes Description |
+  |<#FFCDD2>| **Removed** (Delegation to legacy God Object) |
+  |<#C8E6C9>| **New Flow** (Strategy processes logic internally) |
+endlegend
+
+actor User
+participant "graphWidget\n: GraphWidget" as GraphWidget
+participant "galaxyView\n: GalaxyView" as GalaxyView
+participant "solver\n: DijkstraPathList" as Solver
+participant "alg\n: Algorithms" as Algorithms #FFCDD2
+participant "systemGraph\n: GraphList<T>" as Graph #C8E6C9
+
+User -> GraphWidget : Clicks on a vertex
+activate GraphWidget
+
+GraphWidget -> GalaxyView : emit vertexClicked(vertexId)
+deactivate GraphWidget
+activate GalaxyView
+
+alt startNodeId == -1 (First Click)
+    GalaxyView -> GalaxyView : startNodeId = vertexId
+    note right of GalaxyView
+      Update UI labels to show
+      Start Node is selected.
+      No calculations yet.
+    end note
+else startNodeId != -1 (Second Click)
+    GalaxyView -> GalaxyView : endNodeId = vertexId
+    
+    GalaxyView -> GalaxyView : calculateShortestPath()
+    activate GalaxyView
+    
+    create Solver
+    GalaxyView -> Solver : <<create>>
+    
+    GalaxyView -> Solver : findShortestPath(systemGraph, \nstartNodeId, endNodeId)
+    activate Solver
+    
+    Solver -[#red]> Algorithms : <color:red>~~Dijkstra_findPath(start, end)~~</color>
+    activate Algorithms #FFCDD2
+    
+    Algorithms -[#red]> Algorithms : <color:red>~~Processing priority queue~~</color>
+    
+    Algorithms --[#red]> Solver : <color:red>~~return path (std::vector<int>)~~</color>
+    deactivate Algorithms
+
+    Solver -[#009900]> Graph : <color:green>**getNeighbors() / getEdgeWeight()**</color>
+    activate Graph #C8E6C9
+    
+    Graph --[#009900]> Solver : <color:green>**return topology data**</color>
+    deactivate Graph
+    
+    Solver -[#009900]> Solver : <color:green>**Processing priority queue internally**\n<color:green>**(finding shortest path)**</color>
+    
+    Solver --> GalaxyView : return pathIndices
+    deactivate Solver
+    
+    GalaxyView -> GalaxyView : Store pathEdges
+    
+    GalaxyView -> GraphWidget : setHighlightedNodes(pathIndices)
+    
+    GalaxyView -> GalaxyView : updateGraphDisplay()
+    
+    GalaxyView -> GraphWidget : update()
+    deactivate GalaxyView
+end
+
+deactivate GalaxyView
+@enduml

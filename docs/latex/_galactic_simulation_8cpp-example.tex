@@ -1,0 +1,27 @@
+\doxysection{Galactic\+Simulation.\+cpp}
+\hypertarget{_galactic_simulation_8cpp-example}{}\label{_galactic_simulation_8cpp-example}Приклад, що демонструє повний цикл роботи з Galactic Simulation.
+
+Приклад, що демонструє повний цикл роботи з Galactic Simulation.\+Usage\+: 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keywordtype}{int}\ main()\ \{}
+\DoxyCodeLine{\textcolor{comment}{//\ ...\ Створення\ об'єктів\ ...}}
+\DoxyCodeLine{\mbox{\hyperlink{class_galaxy}{Galaxy<GraphList<CelestialObject*>}}>\ galaxy(\textcolor{stringliteral}{"{}Milky\ Way"{}});}
+\DoxyCodeLine{\textcolor{comment}{//\ ...\ Додавання\ та\ з'єднання\ об'єктів\ ...}}
+\DoxyCodeLine{galaxy.\mbox{\hyperlink{class_galaxy_a8b1fd6fae76db5432aa0dc5fc97d8fb2}{showGalaxy}}();}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{comment}{//\ Запуск\ Dijkstra}}
+\DoxyCodeLine{\mbox{\hyperlink{class_graph_algorithm}{GraphAlgorithm<GraphList<CelestialObject*>}},\ \mbox{\hyperlink{class_celestial_object}{CelestialObject}}*>*\ dijkstra;}
+\DoxyCodeLine{dijkstra\ =\ \textcolor{keyword}{new}\ \mbox{\hyperlink{class_dijkstra_list_algorithm}{DijkstraListAlgorithm<CelestialObject*>}}();}
+\DoxyCodeLine{dijkstra-\/>\mbox{\hyperlink{class_graph_algorithm_a002a93f79b9204a814a7c9726dc69a78}{run}}(galaxy.\mbox{\hyperlink{class_galaxy_a496ac25dd03b2f45fd384b120eb5695b}{getGraph}}(),\ 1,\ 3);}
+\DoxyCodeLine{\textcolor{keyword}{delete}\ dijkstra;}
+\DoxyCodeLine{\textcolor{comment}{//\ ...}}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+
+
+
+\begin{DoxyCodeInclude}{0}
+
+\end{DoxyCodeInclude}
+ 

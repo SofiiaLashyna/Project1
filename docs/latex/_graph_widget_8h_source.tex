@@ -1,0 +1,47 @@
+\doxysection{Graph\+Widget.\+h}
+\hypertarget{_graph_widget_8h_source}{}\label{_graph_widget_8h_source}\index{Graph/GraphWidget.h@{Graph/GraphWidget.h}}
+\mbox{\hyperlink{_graph_widget_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ GRAPHWIDGET\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ GRAPHWIDGET\_H}}
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{_celestial_object_8h}{CelestialObject.h}}>}}
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <QtWidgets/QWidget>}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ <QTimer>}}
+\DoxyCodeLine{00015\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_w___edge}{W\_Edge}}\ \{}
+\DoxyCodeLine{00016\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{struct_w___edge_a921da4a30349a13b83be0578acebfff0}{from}};\ }
+\DoxyCodeLine{00017\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{struct_w___edge_ae1de0b5d2dccbc073a93c64dfbc38399}{to}};\ }
+\DoxyCodeLine{00018\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{struct_w___edge_a8e4413910e10e70ed4564016176ada95}{weight}};\ }
+\DoxyCodeLine{00019\ \};}
+\DoxyCodeLine{00024\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_w___vertex}{W\_Vertex}}\ \{}
+\DoxyCodeLine{00025\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{struct_w___vertex_a2ad662f039673cc4c12a97374db33bc9}{id}};\ }
+\DoxyCodeLine{00026\ \ \ \ \ \textcolor{keywordtype}{int}\ x,\ \mbox{\hyperlink{struct_w___vertex_a5d5becf68a37d71ef31d95ee645e13bc}{y}};\ }
+\DoxyCodeLine{00027\ \ \ \ \ QString\ \mbox{\hyperlink{struct_w___vertex_ae3bf0d90f7d5f66bff3d5d6d7712178a}{name}};\ }
+\DoxyCodeLine{00028\ \};}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00039\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_graph_widget_a6df7c301e5551dff21bbdc5b6cd7ffc9}{GraphWidget}}\ :\ \textcolor{keyword}{public}\ QWidget\ \{}
+\DoxyCodeLine{00040\ \ \ \ \ Q\_OBJECT}
+\DoxyCodeLine{00041\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00046\ \ \ \ \ \mbox{\hyperlink{class_graph_widget_a6df7c301e5551dff21bbdc5b6cd7ffc9}{GraphWidget}}(QWidget\ *parent\ =\ \textcolor{keyword}{nullptr});}
+\DoxyCodeLine{00053\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_graph_widget_a4dc62bbcd72dc92ccafe4e4056b4bacf}{setGraph}}(\textcolor{keyword}{const}\ std::vector<W\_Vertex>\&\ v,\ \textcolor{keyword}{const}\ std::vector<W\_Edge>\&\ e,\ \textcolor{keyword}{const}\ std::vector<CelestialObject*>*\ objects);}
+\DoxyCodeLine{00058\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_graph_widget_afd8fe82dd8c48d8f31af30fb4de2b9fe}{zoomToVertex}}(\textcolor{keywordtype}{int}\ vertexId);}
+\DoxyCodeLine{00062\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_graph_widget_aa4de4e2caa8f0ac809f7df692257b1d6}{resetZoom}}();}
+\DoxyCodeLine{00067\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_graph_widget_a0c059fd31214809444b595e1f702781d}{getDetailedVertexId}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00068\ \ \ \ \ signals:}
+\DoxyCodeLine{00069\ }
+\DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_graph_widget_af0e8c79fa974cb659950b9c9ae4920b7}{vertexDoubleClicked}}(\textcolor{keywordtype}{int}\ vertexId);}
+\DoxyCodeLine{00075\ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00080\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_graph_widget_a1b08bd862bf1f2dcb9f3f749de383e14}{paintEvent}}(QPaintEvent\ *event)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00085\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_graph_widget_a355b134258a0ea43396748057960f70c}{mouseDoubleClickEvent}}(QMouseEvent\ *event)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00086\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00088\ \ \ \ \ std::vector<W\_Vertex>\ vertices;}
+\DoxyCodeLine{00090\ \ \ \ \ std::vector<W\_Edge>\ edges;}
+\DoxyCodeLine{00092\ \ \ \ \ \textcolor{keyword}{const}\ std::vector<CelestialObject*>*\ celestialObjectsPtr\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00094\ \ \ \ \ \textcolor{keywordtype}{bool}\ isDetailMode\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00096\ \ \ \ \ \textcolor{keywordtype}{int}\ detailedVertexId\ =\ -\/1;}
+\DoxyCodeLine{00098\ \ \ \ \ QTimer\ *animationTimer\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00099\ \};}
+\DoxyCodeLine{00100\ }
+\DoxyCodeLine{00101\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//GRAPHWIDGET\_H}}
+
+\end{DoxyCode}

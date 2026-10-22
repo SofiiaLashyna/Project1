@@ -1,0 +1,53 @@
+\doxysection{Is\+Connected\+List.\+h}
+\hypertarget{_is_connected_list_8h_source}{}\label{_is_connected_list_8h_source}\index{Algorithms/IsConnectedList.h@{Algorithms/IsConnectedList.h}}
+\mbox{\hyperlink{_is_connected_list_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ ISCONNECTED\_LIST\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ ISCONNECTED\_LIST\_H}}
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_algorithm_8h}{Algorithm.h}}"{}}}
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_graph_list_8h}{GraphList.h}}"{}}}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00016\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00017\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_is_connected_list}{IsConnectedList}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_graph_algorithm}{GraphAlgorithm}}<GraphList<T>,\ T>\ \{}
+\DoxyCodeLine{00018\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00028\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_is_connected_list_a802a4665258cc971131f8bf129b181aa}{run}}(\mbox{\hyperlink{class_graph_list}{GraphList<T>}}\ \&g,\ \textcolor{keywordtype}{int}\ startId\ =\ 0,\ \textcolor{keywordtype}{int}\ endId\ =\ -\/1)\textcolor{keyword}{\ override\ }\{}
+\DoxyCodeLine{00029\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ n\ =\ g.\mbox{\hyperlink{class_graph_a07f5e993208f94a3317370e567fe1f85}{getVertices}}().size();}
+\DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (n\ ==\ 0)\ \textcolor{keywordflow}{return}\ 1;}
+\DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (n\ ==\ 1)\ \textcolor{keywordflow}{return}\ 1;}
+\DoxyCodeLine{00032\ }
+\DoxyCodeLine{00033\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ start\ =\ -\/1;}
+\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ n;\ ++i)\ \{}
+\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!g.\mbox{\hyperlink{class_graph_list_acf0b2fd0f600cfb07f6283df7a9760a8}{adjacencyList}}[i].empty())\ \{}
+\DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ start\ =\ i;}
+\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00040\ }
+\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (start\ ==\ -\/1)\ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{00042\ }
+\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ std::vector<bool>\ visited(n,\ \textcolor{keyword}{false});}
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ std::vector<int>\ stack;}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ stack.push\_back(start);}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}\ (!stack.empty())\ \{}
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ v\ =\ stack.back();}
+\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ \ \ \ \ stack.pop\_back();}
+\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (visited[v])\ \textcolor{keywordflow}{continue};}
+\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ \ \ \ \ visited[v]\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\ \&[u,\ w]\ :\ g.\mbox{\hyperlink{class_graph_list_acf0b2fd0f600cfb07f6283df7a9760a8}{adjacencyList}}[v])\ \{}
+\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!visited[u])\ stack.push\_back(u);}
+\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00057\ }
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ n;\ ++i)\ \{}
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!visited[i])\ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00061\ }
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ 1;}
+\DoxyCodeLine{00063\ \ \ \ \ \}}
+\DoxyCodeLine{00065\ \ \ \ \ \textcolor{keyword}{virtual}\ \mbox{\hyperlink{class_is_connected_list_a535715651ae26a2c15ddbc85af83f998}{\string~IsConnectedList}}()\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00066\ \};}
+\DoxyCodeLine{00067\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//ISCONNECTED\_LIST\_H}}
+
+\end{DoxyCode}

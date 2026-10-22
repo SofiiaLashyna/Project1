@@ -1,0 +1,69 @@
+\doxysection{Galaxy\+Generation\+Test\+Fixture Class Reference}
+\hypertarget{class_galaxy_generation_test_fixture}{}\label{class_galaxy_generation_test_fixture}\index{GalaxyGenerationTestFixture@{GalaxyGenerationTestFixture}}
+Inheritance diagram for Galaxy\+Generation\+Test\+Fixture\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=3.000000cm]{class_galaxy_generation_test_fixture}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_galaxy_generation_test_fixture_af1f0caecbaa72996db00f0ef42efa574}\label{class_galaxy_generation_test_fixture_af1f0caecbaa72996db00f0ef42efa574} 
+\mbox{\hyperlink{class_random_generator}{Random\+Generator}} {\bfseries rng}
+\item 
+nlohmann\+::json \mbox{\hyperlink{class_galaxy_generation_test_fixture_a0b0a7cffcd25f616196698a3d2b1a319}{test\+Data}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Attributes inherited from \mbox{\hyperlink{class_galaxy_list_fixture}{Galaxy\+List\+Fixture}}}
+\begin{DoxyCompactItemize}
+\item 
+Galaxy\+Type2 {\bfseries g}
+\item 
+\mbox{\hyperlink{class_star}{Star}} \texorpdfstring{$\ast$}{*} {\bfseries star} = nullptr
+\item 
+\mbox{\hyperlink{class_planet}{Planet}} \texorpdfstring{$\ast$}{*} {\bfseries planet} = nullptr
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Additional Inherited Members}
+\doxysubsection*{Protected Member Functions inherited from \mbox{\hyperlink{class_galaxy_list_fixture}{Galaxy\+List\+Fixture}}}
+\begin{DoxyCompactItemize}
+\item 
+void {\bfseries Set\+Up} () override
+\item 
+void {\bfseries Tear\+Down} () override
+\end{DoxyCompactItemize}
+
+
+\label{doc-variable-members}
+\Hypertarget{class_galaxy_generation_test_fixture_doc-variable-members}
+\doxysubsection{Member Data Documentation}
+\Hypertarget{class_galaxy_generation_test_fixture_a0b0a7cffcd25f616196698a3d2b1a319}\index{GalaxyGenerationTestFixture@{GalaxyGenerationTestFixture}!testData@{testData}}
+\index{testData@{testData}!GalaxyGenerationTestFixture@{GalaxyGenerationTestFixture}}
+\doxysubsubsection{\texorpdfstring{testData}{testData}}
+{\footnotesize\ttfamily \label{class_galaxy_generation_test_fixture_a0b0a7cffcd25f616196698a3d2b1a319} 
+nlohmann\+::json Galaxy\+Generation\+Test\+Fixture\+::test\+Data\hspace{0.3cm}{\ttfamily [protected]}}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{=\ nlohmann::json::parse(R\textcolor{stringliteral}{"{}(\{}}
+\DoxyCodeLine{\textcolor{stringliteral}{\ \ \ \ \ \ \ \ "{}Stars"{}:\ [}}
+\DoxyCodeLine{\textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ \ \ \{"{}starType"{}:\ "{}Main\_sequence\_Star"{},\ "{}temperature"{}:\ [1000,\ 5000],\ "{}mass"{}:\ [1,\ 5],\ "{}name"{}:\ "{}C:/Users/Prj/Project1/RandomGalaxy/names/mainSequenceStar.txt"{}\}}}
+\DoxyCodeLine{\textcolor{stringliteral}{\ \ \ \ \ \ \ \ ],}}
+\DoxyCodeLine{\textcolor{stringliteral}{\ \ \ \ \ \ \ \ "{}Planets"{}:\ [}}
+\DoxyCodeLine{\textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ \ \ \{"{}planetType"{}:\ "{}Terrestrial\_Planet"{},}}
+\DoxyCodeLine{\textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ \ \ \ "{}orbitRadius"{}:\ [1.5,\ 1.5],}}
+\DoxyCodeLine{\textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ \ \ \ "{}orbitSpeed"{}:\ [1,\ 1],}}
+\DoxyCodeLine{\textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ \ \ \ "{}Inclination"{}:\ [0,\ 0],}}
+\DoxyCodeLine{\textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ \ \ \ "{}mass"{}:\ [1,\ 1],}}
+\DoxyCodeLine{\textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ \ \ \ "{}name"{}:\ "{}C:/Users/Prj/Project1/RandomGalaxy/names/terrestrialPlanet.txt"{}\}}}
+\DoxyCodeLine{\textcolor{stringliteral}{\ \ \ \ \ \ \ \ ],}}
+\DoxyCodeLine{\textcolor{stringliteral}{\ \ \ \ \ \ \ \ "{}Nebulae"{}:\ [}}
+\DoxyCodeLine{\textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ \ \ \ \{"{}nebulaType"{}:\ "{}Emission"{},\ "{}mass"{}:\ [1,\ 100],\ "{}name"{}:\ "{}C:/Users/Prj/Project1/RandomGalaxy/names/emissionNebula.txt"{}\}}}
+\DoxyCodeLine{\textcolor{stringliteral}{\ \ \ \ \ \ \ \ ]}}
+\DoxyCodeLine{\textcolor{stringliteral}{\ \ \ \ \})"{})}}
+
+\end{DoxyCode}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Google\+Tests/Test\+Fixtures.\+h\end{DoxyCompactItemize}

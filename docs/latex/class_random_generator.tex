@@ -1,0 +1,307 @@
+\doxysection{Random\+Generator Class Reference}
+\hypertarget{class_random_generator}{}\label{class_random_generator}\index{RandomGenerator@{RandomGenerator}}
+
+
+A helper class that wraps the C++ $<$random$>$ library.  
+
+
+
+
+{\ttfamily \#include $<$Random\+Utilities.\+h$>$}
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_random_generator_ad2b3256e634878160c7d8b6e865341b2}{Random\+Generator}} ()
+\begin{DoxyCompactList}\small\item\em Constructor. Initializes the random engine with a seed from std\+::random\+\_\+device. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{class_random_generator_a7d876bb4ac714678cf7d9d67759255fa}{get\+Int}} (int min, int max)
+\begin{DoxyCompactList}\small\item\em Gets a random integer within a specified range (inclusive). \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{class_random_generator_acebd9fa5ab6a04f33d0f6c5d3a5dfce1}{get\+Double}} (double min, double max)
+\begin{DoxyCompactList}\small\item\em Gets a random double within a specified range. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_random_generator_a811b6188f210735d53d26f91035b2d68}{get\+Bool}} ()
+\begin{DoxyCompactList}\small\item\em Gets a random boolean value. \end{DoxyCompactList}\item 
+QColor \mbox{\hyperlink{class_random_generator_a011dd6491bb3525ab706fc51ef6726e3}{get\+Random\+Color}} ()
+\begin{DoxyCompactList}\small\item\em Generates a random, bright, and saturated QColor. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename T$>$ }\\T \mbox{\hyperlink{class_random_generator_a6cf29591c5f6aa02305780df469c1810}{get\+Choice}} (const std\+::vector$<$ T $>$ \&items)
+\begin{DoxyCompactList}\small\item\em Picks a random element from a given vector. \end{DoxyCompactList}\item 
+std\+::vector$<$ std\+::string $>$ \mbox{\hyperlink{class_random_generator_a0d7c89394d54f53228d86cbdf721e6c7}{load\+Names\+From\+File}} (const std\+::string \&file\+Path)
+\begin{DoxyCompactList}\small\item\em Loads names from a text file (one name per line). \end{DoxyCompactList}\item 
+std\+::string \mbox{\hyperlink{class_random_generator_a981527c4377639553cf136d383fb3c75}{get\+Random\+Name\+From\+File}} (const std\+::string \&file\+Path)
+\begin{DoxyCompactList}\small\item\em Picks a random name from a file. \end{DoxyCompactList}\item 
+std\+::mt19937 \& \mbox{\hyperlink{class_random_generator_a412740747fe91cba4ab6b9229b9bda41}{get\+Engine}} ()
+\begin{DoxyCompactList}\small\item\em Gets a reference to the internal random engine. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+A helper class that wraps the C++ $<$random$>$ library. 
+
+Provides simple methods to get random numbers, colors, and choices from vectors, using a single std\+::mt19937 engine. \begin{Desc}
+\item[Examples]\par
+\mbox{\hyperlink{_c_1_2_users_2_prj_2_project1_2_entities_2_galaxy_8h-example}{C\+:/\+Users/\+Prj/\+Project1/\+Entities/\+Galaxy.\+h}}.\end{Desc}
+
+
+\label{doc-constructors}
+\Hypertarget{class_random_generator_doc-constructors}
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_random_generator_ad2b3256e634878160c7d8b6e865341b2}\index{RandomGenerator@{RandomGenerator}!RandomGenerator@{RandomGenerator}}
+\index{RandomGenerator@{RandomGenerator}!RandomGenerator@{RandomGenerator}}
+\doxysubsubsection{\texorpdfstring{RandomGenerator()}{RandomGenerator()}}
+{\footnotesize\ttfamily \label{class_random_generator_ad2b3256e634878160c7d8b6e865341b2} 
+Random\+Generator\+::\+Random\+Generator (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Constructor. Initializes the random engine with a seed from std\+::random\+\_\+device. 
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00028\ :\ gen(std::random\_device\{\}())\ \{\}}
+
+\end{DoxyCode}
+
+
+\label{doc-func-members}
+\Hypertarget{class_random_generator_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_random_generator_a811b6188f210735d53d26f91035b2d68}\index{RandomGenerator@{RandomGenerator}!getBool@{getBool}}
+\index{getBool@{getBool}!RandomGenerator@{RandomGenerator}}
+\doxysubsubsection{\texorpdfstring{getBool()}{getBool()}}
+{\footnotesize\ttfamily \label{class_random_generator_a811b6188f210735d53d26f91035b2d68} 
+bool Random\+Generator\+::get\+Bool (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Gets a random boolean value. 
+
+\begin{DoxyReturn}{Returns}
+True or false, with a 50\% probability. 
+\end{DoxyReturn}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ std::bernoulli\_distribution\ dist(0.5);}
+\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ dist(gen);}
+\DoxyCodeLine{00056\ \ \ \ \ \}}
+
+\end{DoxyCode}
+\Hypertarget{class_random_generator_a6cf29591c5f6aa02305780df469c1810}\index{RandomGenerator@{RandomGenerator}!getChoice@{getChoice}}
+\index{getChoice@{getChoice}!RandomGenerator@{RandomGenerator}}
+\doxysubsubsection{\texorpdfstring{getChoice()}{getChoice()}}
+{\footnotesize\ttfamily \label{class_random_generator_a6cf29591c5f6aa02305780df469c1810} 
+template$<$typename T$>$ \\
+T Random\+Generator\+::get\+Choice (\begin{DoxyParamCaption}\item[{const std\+::vector$<$ T $>$ \&}]{items}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Picks a random element from a given vector. 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em T} & The type of element in the vector. \\
+\hline
+\end{DoxyTemplParams}
+
+\begin{DoxyParams}{Parameters}
+{\em items} & The vector to pick from. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A copy of a randomly selected element. 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em std\+::runtime\+\_\+error} & if the input vector is empty. \\
+\hline
+\end{DoxyExceptions}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00075\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (items.empty())\ \{}
+\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::runtime\_error(\textcolor{stringliteral}{"{}getChoice()\ called\ with\ empty\ vector!"{}});}
+\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ std::uniform\_int\_distribution<>\ dist(0,\ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{int}\textcolor{keyword}{>}(items.size())\ -\/\ 1);}
+\DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ items[dist(gen)];}
+\DoxyCodeLine{00081\ \ \ \ \ \}}
+
+\end{DoxyCode}
+\Hypertarget{class_random_generator_acebd9fa5ab6a04f33d0f6c5d3a5dfce1}\index{RandomGenerator@{RandomGenerator}!getDouble@{getDouble}}
+\index{getDouble@{getDouble}!RandomGenerator@{RandomGenerator}}
+\doxysubsubsection{\texorpdfstring{getDouble()}{getDouble()}}
+{\footnotesize\ttfamily \label{class_random_generator_acebd9fa5ab6a04f33d0f6c5d3a5dfce1} 
+double Random\+Generator\+::get\+Double (\begin{DoxyParamCaption}\item[{double}]{min}{, }\item[{double}]{max}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Gets a random double within a specified range. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em min} & The minimum possible value. \\
+\hline
+{\em max} & The maximum possible value. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A random double. 
+\end{DoxyReturn}
+\begin{Desc}
+\item[Examples]\par
+\mbox{\hyperlink{_c_1_2_users_2_prj_2_project1_2_entities_2_galaxy_8h-example}{C\+:/\+Users/\+Prj/\+Project1/\+Entities/\+Galaxy.\+h}}.\end{Desc}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ std::uniform\_real\_distribution<>\ dist(min,\ max);}
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ dist(gen);}
+\DoxyCodeLine{00048\ \ \ \ \ \}}
+
+\end{DoxyCode}
+\Hypertarget{class_random_generator_a412740747fe91cba4ab6b9229b9bda41}\index{RandomGenerator@{RandomGenerator}!getEngine@{getEngine}}
+\index{getEngine@{getEngine}!RandomGenerator@{RandomGenerator}}
+\doxysubsubsection{\texorpdfstring{getEngine()}{getEngine()}}
+{\footnotesize\ttfamily \label{class_random_generator_a412740747fe91cba4ab6b9229b9bda41} 
+std\+::mt19937 \& Random\+Generator\+::get\+Engine (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Gets a reference to the internal random engine. 
+
+\begin{DoxyNote}{Note}
+This is needed for algorithms like std\+::shuffle. 
+\end{DoxyNote}
+\begin{DoxyReturn}{Returns}
+A reference to the std\+::mt19937 engine. 
+\end{DoxyReturn}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00120\ \{\ \textcolor{keywordflow}{return}\ gen;\ \}}
+
+\end{DoxyCode}
+\Hypertarget{class_random_generator_a7d876bb4ac714678cf7d9d67759255fa}\index{RandomGenerator@{RandomGenerator}!getInt@{getInt}}
+\index{getInt@{getInt}!RandomGenerator@{RandomGenerator}}
+\doxysubsubsection{\texorpdfstring{getInt()}{getInt()}}
+{\footnotesize\ttfamily \label{class_random_generator_a7d876bb4ac714678cf7d9d67759255fa} 
+int Random\+Generator\+::get\+Int (\begin{DoxyParamCaption}\item[{int}]{min}{, }\item[{int}]{max}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Gets a random integer within a specified range (inclusive). 
+
+
+\begin{DoxyParams}{Parameters}
+{\em min} & The minimum possible value. \\
+\hline
+{\em max} & The maximum possible value. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A random integer. 
+\end{DoxyReturn}
+\begin{Desc}
+\item[Examples]\par
+\mbox{\hyperlink{_c_1_2_users_2_prj_2_project1_2_entities_2_galaxy_8h-example}{C\+:/\+Users/\+Prj/\+Project1/\+Entities/\+Galaxy.\+h}}.\end{Desc}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ std::uniform\_int\_distribution<>\ dist(min,\ max);}
+\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ dist(gen);}
+\DoxyCodeLine{00038\ \ \ \ \ \}}
+
+\end{DoxyCode}
+\Hypertarget{class_random_generator_a011dd6491bb3525ab706fc51ef6726e3}\index{RandomGenerator@{RandomGenerator}!getRandomColor@{getRandomColor}}
+\index{getRandomColor@{getRandomColor}!RandomGenerator@{RandomGenerator}}
+\doxysubsubsection{\texorpdfstring{getRandomColor()}{getRandomColor()}}
+{\footnotesize\ttfamily \label{class_random_generator_a011dd6491bb3525ab706fc51ef6726e3} 
+QColor Random\+Generator\+::get\+Random\+Color (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Generates a random, bright, and saturated QColor. 
+
+\begin{DoxyReturn}{Returns}
+A QColor object (useful for UI). 
+\end{DoxyReturn}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ hue\ =\ \mbox{\hyperlink{class_random_generator_a7d876bb4ac714678cf7d9d67759255fa}{getInt}}(0,\ 359);\ \ \ \textcolor{comment}{//\ Hue\ (0-\/360)}}
+\DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ sat\ =\ \mbox{\hyperlink{class_random_generator_a7d876bb4ac714678cf7d9d67759255fa}{getInt}}(150,\ 255);\ \textcolor{comment}{//\ Saturation\ (kept\ high)}}
+\DoxyCodeLine{00064\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ val\ =\ \mbox{\hyperlink{class_random_generator_a7d876bb4ac714678cf7d9d67759255fa}{getInt}}(180,\ 255);\ \textcolor{comment}{//\ Value/Brightness\ (kept\ high)}}
+\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ QColor::fromHsv(hue,\ sat,\ val);}
+\DoxyCodeLine{00066\ \ \ \ \ \}}
+
+\end{DoxyCode}
+\Hypertarget{class_random_generator_a981527c4377639553cf136d383fb3c75}\index{RandomGenerator@{RandomGenerator}!getRandomNameFromFile@{getRandomNameFromFile}}
+\index{getRandomNameFromFile@{getRandomNameFromFile}!RandomGenerator@{RandomGenerator}}
+\doxysubsubsection{\texorpdfstring{getRandomNameFromFile()}{getRandomNameFromFile()}}
+{\footnotesize\ttfamily \label{class_random_generator_a981527c4377639553cf136d383fb3c75} 
+std\+::string Random\+Generator\+::get\+Random\+Name\+From\+File (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{file\+Path}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Picks a random name from a file. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em file\+Path} & The path to the file containing names. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A single random name. Returns "{}\+Unnamed"{} on failure. 
+\end{DoxyReturn}
+\begin{Desc}
+\item[Examples]\par
+\mbox{\hyperlink{_c_1_2_users_2_prj_2_project1_2_entities_2_galaxy_8h-example}{C\+:/\+Users/\+Prj/\+Project1/\+Entities/\+Galaxy.\+h}}.\end{Desc}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00105\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00106\ \ \ \ \ \ \ \ \ std::ifstream\ file(filePath);}
+\DoxyCodeLine{00107\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!file.is\_open())\ \{}
+\DoxyCodeLine{00108\ \ \ \ \ \ \ \ \ \ \ \ \ std::cerr\ <<\ \textcolor{stringliteral}{"{}Cannot\ open\ name\ file:\ "{}}\ <<\ filePath\ <<\ std::endl;}
+\DoxyCodeLine{00109\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}Unnamed"{}};}
+\DoxyCodeLine{00110\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00111\ \ \ \ \ \ \ \ \ std::vector<std::string>\ names\ =\ \mbox{\hyperlink{class_random_generator_a0d7c89394d54f53228d86cbdf721e6c7}{loadNamesFromFile}}(filePath);}
+\DoxyCodeLine{00112\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (names.empty())\ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}Unnamed"{}};}
+\DoxyCodeLine{00113\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{class_random_generator_a6cf29591c5f6aa02305780df469c1810}{getChoice}}(names);}
+\DoxyCodeLine{00114\ \ \ \ \ \}}
+
+\end{DoxyCode}
+\Hypertarget{class_random_generator_a0d7c89394d54f53228d86cbdf721e6c7}\index{RandomGenerator@{RandomGenerator}!loadNamesFromFile@{loadNamesFromFile}}
+\index{loadNamesFromFile@{loadNamesFromFile}!RandomGenerator@{RandomGenerator}}
+\doxysubsubsection{\texorpdfstring{loadNamesFromFile()}{loadNamesFromFile()}}
+{\footnotesize\ttfamily \label{class_random_generator_a0d7c89394d54f53228d86cbdf721e6c7} 
+std\+::vector$<$ std\+::string $>$ Random\+Generator\+::load\+Names\+From\+File (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{file\+Path}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Loads names from a text file (one name per line). 
+
+
+\begin{DoxyParams}{Parameters}
+{\em file\+Path} & The path to the file. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A vector of strings. Returns empty vector on failure. 
+\end{DoxyReturn}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00087\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00088\ \ \ \ \ \ \ \ \ std::ifstream\ file(filePath);}
+\DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ std::vector<std::string>\ names;}
+\DoxyCodeLine{00090\ \ \ \ \ \ \ \ \ std::string\ line;}
+\DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!file.is\_open())\ \{}
+\DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ \ \ \ \ std::cerr\ <<\ \textcolor{stringliteral}{"{}Не\ вдалося\ відкрити\ файл:\ "{}}\ <<\ filePath\ <<\ std::endl;}
+\DoxyCodeLine{00093\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ names;}
+\DoxyCodeLine{00094\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00095\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}\ (std::getline(file,\ line))\ \{}
+\DoxyCodeLine{00096\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!line.empty())\ names.push\_back(line);}
+\DoxyCodeLine{00097\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00098\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ names;}
+\DoxyCodeLine{00099\ \ \ \ \ \}}
+
+\end{DoxyCode}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Random\+Galaxy/\mbox{\hyperlink{_random_utilities_8h}{Random\+Utilities.\+h}}\end{DoxyCompactItemize}

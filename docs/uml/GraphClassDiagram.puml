@@ -1,0 +1,85 @@
+@startuml
+skinparam classAttributeIconSize 0
+skinparam monochrome true
+top to bottom direction
+
+package GRAPH {
+
+    class "Vertex <T>" as Vertex {
+      - id : int
+      - data : T
+      - visited : bool
+      + markVisited() : void
+      + resetVisited() : void
+      + isVisited() : bool
+      + getId() : int
+      + setId(index: int) : void
+      + getData() : T
+      + setData(d: T) : void
+      + printData() : void
+    }
+
+    class "Edge <T>" as Edge {
+      + from : int
+      + to : int
+      + weight : int
+      + Edge()
+      + changeWeight(w: int) : void
+      + getWeight() : int
+      + connect(u: int, v: int) : void
+      + getFrom() : int
+      + getTo() : int
+      + disconnect() : void
+      + connects(u: int, v: int) : bool
+      + isActive() : bool
+    }
+
+    abstract class "Graph <T>" as Graph {
+      # vertices : std::vector<Vertex<T>>
+      # edges : std::vector<Edge<T>>
+      + virtual ~Graph()
+      + getVertices() : vector<Vertex<T>>&
+      + getEdges() : vector<Edge<T>>&
+      + findIndexById(id: int) : int
+      + {abstract} constructAdjacency() : void
+      + {abstract} addVertex(id: int, data: T) : void
+      + {abstract} addEdge(fId: int, tId: int, weight: int) : void
+      + {abstract} removeVertex(id: int) : void
+      + {abstract} removeEdge(fId: int, tId: int) : void
+      + {abstract} print() : void
+      + vertexSearch(id: int) : T
+      + edgeExists(fId: int, tId: int) : bool
+      + getNeighbors(id: int) : vector<T>
+    }
+
+    class "GraphList <T>" as GraphList {
+      + adjacencyList : std::vector<std::vector<std::pair<int, int>>>
+      + constructAdjacency() : void
+      + addEdge(fId: int, tId: int, weight: int) : void
+      + addVertex(id: int, data: T) : void
+      + removeVertex(id: int) : void
+      + removeEdge(fId: int, tId: int) : void
+      + print() : void
+    }
+
+    class "GraphMatrix <T>" as GraphMatrix {
+      + adjacencyMatrix : std::vector<std::vector<int>>
+      + GraphMatrix()
+      + GraphMatrix(verts: vector<Vertex<T>>, eds: vector<Edge<T>>)
+      + constructAdjacency() : void
+      + addEdge(fId: int, tId: int, weight: int) : void
+      + addVertex(id: int, data: T) : void
+      + removeVertex(id: int) : void
+      + removeEdge(fId: int, tId: int) : void
+      + print() : void
+    }
+
+    Graph <|-- GraphList
+    Graph <|-- GraphMatrix
+
+    Graph *-- Vertex : "contains"
+    Graph *-- Edge : "contains"
+    
+    Edge --> Vertex : "connects"
+}
+@enduml

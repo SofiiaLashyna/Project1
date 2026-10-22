@@ -96,8 +96,17 @@ private slots:
              */
     void on_vertexDoubleClicked(int vertexId);
 
+    /**
+     * @brief Qt Slot: Handles a single click on a vertex.
+     * Often used for pathfinding selection (start/end nodes).
+     * @param vertexId The ID of the clicked vertex.
+     */
     void onVertexClicked(int vertexId);
 
+    /**
+     * @brief Qt Slot: Handles clicks on the empty background of the widget.
+     * Used to deselect objects or hide parameter windows.
+     */
     void onBackgroundClicked();
 
     /**
@@ -124,13 +133,20 @@ private slots:
              */
     void on_editObjectButton_clicked();
 
+    /**
+     * @brief Qt Slot: Called on each physics timer tick.
+     * Updates the positions of objects based on physics calculations.
+     */
     void onPhysicsTimerTick();
 
 private:
-    double viewScale = 0.2;
-    Ui::GalaxyView *ui;
-    Galaxy<GraphList<CelestialObject *> > *galaxy = nullptr;
+    double viewScale = 0.2; ///< Current scale for rendering.
+    Ui::GalaxyView *ui; ///< Pointer to the UI namespace object.
+    Galaxy<GraphList<CelestialObject *> > *galaxy = nullptr; ///< Pointer to the core Galaxy data structure.
 
+    /**
+     * @brief Synchronizes the data in the parameters window with the currently selected object.
+     */
     void updateParametersWindow();
 
     /**
@@ -138,50 +154,89 @@ private:
              */
     void updateGraphDisplay();
 
-    GraphWidget *graphWidget = nullptr;
-    QPushButton *paramsButton = nullptr;
-    QWidget *paramsWindow = nullptr;
-    RandomGenerator *rngPtr = nullptr;
-    nlohmann::json *dataPtr = nullptr;
-    QPushButton *editButton = nullptr;
-    QPushButton *zoomOutButton = nullptr;
-    std::vector<QPointF> vertexPositions;
+    GraphWidget *graphWidget = nullptr; ///< Widget responsible for drawing the graph nodes and edges.
+    QPushButton *paramsButton = nullptr; ///< UI button to open parameters.
+    QWidget *paramsWindow = nullptr; ///< Floating window for displaying object details.
+    RandomGenerator *rngPtr = nullptr; ///< Pointer to the shared random generator.
+    nlohmann::json *dataPtr = nullptr; ///< Pointer to the loaded configuration data.
+    QPushButton *editButton = nullptr; ///< UI button for editing.
+    QPushButton *zoomOutButton = nullptr; ///< UI button for resetting zoom.
+    std::vector<QPointF> vertexPositions; ///< Cached screen positions of vertices.
 
+    /**
+     * @brief Opens a dialog to edit a specific Star System.
+     * @param system Pointer to the StarSystem object.
+     */
     void editStarSystem(StarSystem *system);
 
+    /**
+     * @brief Opens a dialog to edit a specific Nebula.
+     * @param nebula Pointer to the Nebula object.
+     */
     void editNebula(Nebula *nebula);
 
+    /**
+     * @brief Applies a dark "space" theme to the UI components.
+     */
     void applySpaceStyle();
 
-    PhysicsEngine *physicsEngine = nullptr;
-    GalaxyPhysicsController *physicsController = nullptr;
-    BlackHoleGravityField *blackHoleField = nullptr;
-    QTimer *simulationTimer = nullptr;
+    PhysicsEngine *physicsEngine = nullptr; ///< The core physics simulation engine.
+    GalaxyPhysicsController *physicsController = nullptr; ///< High-level controller for galaxy-specific physics.
+    BlackHoleGravityField *blackHoleField = nullptr; ///< Special gravity field representing the galactic center.
+    QTimer *simulationTimer = nullptr; ///< Timer that drives the physics update loop.
 
+    /**
+     * @brief Initializes the Bullet physics simulation and gravity fields.
+     */
     void initPhysicsSimulation();
 
+    /**
+     * @brief Scans the galaxy for new objects that don't have a physics body yet.
+     */
     void checkForNewObjects();
 
+    /**
+     * @brief Wraps a CelestialObject in a rigid body and adds it to the physics world.
+     * @param obj The object to add to physics.
+     */
     void createPhysicsBody(CelestialObject *obj);
 
+    /**
+     * @brief Maps physics world coordinates to screen pixel coordinates.
+     * @param x World X coordinate.
+     * @param y World Y coordinate.
+     * @return QPointF The mapped screen position.
+     */
     QPointF physicsToScreen(double x, double y);
 
-    int startNodeId = -1;
-    int endNodeId = -1;
+    int startNodeId = -1; ///< ID of the starting node for pathfinding.
+    int endNodeId = -1; ///< ID of the destination node for pathfinding.
 
-    std::vector<std::pair<int, int> > pathEdges;
+    std::vector<std::pair<int, int> > pathEdges; ///< List of edge pairs forming the shortest path.
 
+    /**
+     * @brief Resets current pathfinding selection and highlights.
+     */
     void resetPathSelection();
 
+    /**
+     * @brief Calculates the shortest path between startNodeId and endNodeId using Dijkstra.
+     */
     void calculateShortestPath();
 
-    QWidget *pathInfoWidget = nullptr;
-    QLabel *pathStatusLabel = nullptr;
-    QLabel *pathDetailsLabel = nullptr;
-    QLabel *pathDistanceLabel = nullptr;
+    QWidget *pathInfoWidget = nullptr; ///< UI container for pathfinding information.
+    QLabel *pathStatusLabel = nullptr; ///< Label showing current status (e.g., "Select target").
+    QLabel *pathDetailsLabel = nullptr; ///< Label showing path sequence or errors.
+    QLabel *pathDistanceLabel = nullptr; ///< Label showing the total cost of the path.
 
+    /**
+     * @brief Creates and initializes the path information UI elements.
+     */
     void setupPathInfoWidget();
 
+    /**
+     * @brief Updates the distance text label based on current Dijkstra results.
+     */
     void updatePathDistanceText();
 };
 

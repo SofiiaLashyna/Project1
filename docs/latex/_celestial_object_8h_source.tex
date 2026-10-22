@@ -1,0 +1,27 @@
+\doxysection{Celestial\+Object.\+h}
+\hypertarget{_celestial_object_8h_source}{}\label{_celestial_object_8h_source}\index{Entities/CelestialObject.h@{Entities/CelestialObject.h}}
+\mbox{\hyperlink{_celestial_object_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ CELESTIALOBJECT\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ CELESTIALOBJECT\_H}}
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00016\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_celestial_object_ae4be2f9eb24debf08d0411c9d497f3e9}{CelestialObject}}\ \{}
+\DoxyCodeLine{00017\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00018\ \ \ \ \ std::string\ name;\ }
+\DoxyCodeLine{00019\ \ \ \ \ \textcolor{keywordtype}{double}\ mass;\ }
+\DoxyCodeLine{00020\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00026\ \ \ \ \ \mbox{\hyperlink{class_celestial_object_ae4be2f9eb24debf08d0411c9d497f3e9}{CelestialObject}}(\textcolor{keyword}{const}\ std::string\ \&name,\ \textcolor{keywordtype}{double}\ mass);}
+\DoxyCodeLine{00028\ \ \ \ \ \textcolor{keyword}{virtual}\ \mbox{\hyperlink{class_celestial_object_a3c471e48d8d548c293d0666e50d8f887}{\string~CelestialObject}}()\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00033\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_celestial_object_a2e70ecbf61b7ece4d0934fe7a573beb3}{displayInfo}}()\ \textcolor{keyword}{const}\ =\ 0;}
+\DoxyCodeLine{00038\ \ \ \ \ \textcolor{keyword}{virtual}\ std::string\ \mbox{\hyperlink{class_celestial_object_a0c35c926828a4a82bbca8befd764d53a}{getType}}()\ \textcolor{keyword}{const}\ =\ 0;}
+\DoxyCodeLine{00043\ \ \ \ \ std::string\ \mbox{\hyperlink{class_celestial_object_a09ee45217b868c5858619f33f3cbbded}{getName}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00048\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_celestial_object_ae9a24ff06397904ce8e865651fba13e6}{setName}}(\textcolor{keyword}{const}\ std::string\&\ newName);}
+\DoxyCodeLine{00053\ \ \ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{class_celestial_object_a8b839bf5b36c357e3fc0fdccf2f4bfdb}{getMass}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00059\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_celestial_object_ab959c48aabf6a5266a51e3d878ad64ff}{setMass}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ newMass);}
+\DoxyCodeLine{00060\ \};}
+\DoxyCodeLine{00061\ }
+\DoxyCodeLine{00062\ }
+\DoxyCodeLine{00063\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//CELESTIALOBJECT\_H}}
+
+\end{DoxyCode}

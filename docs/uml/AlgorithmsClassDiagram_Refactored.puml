@@ -1,0 +1,96 @@
+@startuml
+skinparam classAttributeIconSize 0
+left to right direction
+
+legend top right
+  | Color | Architectural Changes Description |
+  |<#FFCDD2>| **Removed** (God Object Anti-Pattern & Legacy Dependencies) |
+  |<#C8E6C9>| **Kept/Added** (New Independent Strategy Classes) |
+  |<#BBDEFB>| **Interface** (Core of the Strategy Pattern) |
+endlegend
+
+package ALGORITHMS {
+
+    note "This God Object is completely removed\nto adhere to SRP and OCP principles.\nAll logic is delegated to strategies." as N1
+    class "Algorithms <GraphType, T>" as Algorithms #FFCDD2 {
+      - graph : GraphType&
+      + Algorithms(g: GraphType&)
+      + BFS_list(startId: int) : void
+      + BFS_matrix(startId: int) : void
+      + DFS_list(startId: int) : void
+      + DFS_matrix(startId: int) : void
+      + Dijkstra_list(startId: int, endId: int) : int
+      + Dijkstra_matrix(startId: int, endId: int) : int
+      + Dijkstra_findPath(startId: int, endId: int) : std::vector<int>
+    }
+    Algorithms .up. N1
+
+    abstract class "GraphAlgorithm <GraphType, T>" as GraphAlgorithm <<Interface>> #BBDEFB {
+      + ~GraphAlgorithm()
+      + {abstract} run(g: GraphType&, startId: int, endId: int) : int
+    }
+
+    class "BFSAlgorithm <T>" as BFSAlgorithm #C8E6C9 {
+      + run(g: GraphList<T>&, startId: int, endId: int) : int
+    }
+    
+    class "BFSMatrixAlgorithm <T>" as BFSMatrixAlgorithm #C8E6C9 {
+      + run(g: GraphMatrix<T>&, startId: int, endId: int) : int
+    }
+
+    class "DFSAlgorithm <T>" as DFSAlgorithm #C8E6C9 {
+      + run(g: GraphList<T>&, startId: int, endId: int) : int
+    }
+    
+    class "DFSMatrixAlgorithm <T>" as DFSMatrixAlgorithm #C8E6C9 {
+      + run(g: GraphMatrix<T>&, startId: int, endId: int) : int
+    }
+
+    class "DijkstraListAlgorithm <T>" as DijkstraListAlgorithm #C8E6C9 {
+      + run(g: GraphList<T>&, startId: int, endId: int) : int
+    }
+    
+    class "DijkstraMatrixAlgorithm <T>" as DijkstraMatrixAlgorithm #C8E6C9 {
+      + run(g: GraphMatrix<T>&, startId: int, endId: int) : int
+    }
+
+    class "IsConnectedList <T>" as IsConnectedList #C8E6C9 {
+      + run(g: GraphList<T>&, startId: int, endId: int) : int
+    }
+    
+    class "IsConnectedMatrix <T>" as IsConnectedMatrix #C8E6C9 {
+      + run(g: GraphMatrix<T>&, startId: int, endId: int) : int
+    }
+
+    class "DijkstraPathList <T>" as DijkstraPathList #C8E6C9 {
+      + findShortestPath(g: GraphList<T>&, startId: int, endId: int) : std::vector<int>
+    }
+
+    GraphAlgorithm <|-- BFSAlgorithm
+    GraphAlgorithm <|-- BFSMatrixAlgorithm
+    GraphAlgorithm <|-- DFSAlgorithm
+    GraphAlgorithm <|-- DFSMatrixAlgorithm
+    GraphAlgorithm <|-- DijkstraListAlgorithm
+    GraphAlgorithm <|-- DijkstraMatrixAlgorithm
+    GraphAlgorithm <|-- IsConnectedList
+    GraphAlgorithm <|-- IsConnectedMatrix
+
+    note right of GraphAlgorithm
+      Logic is now encapsulated
+      within each strategy (High Cohesion).
+      Tight coupling to the Algorithms class is broken.
+    end note
+
+    BFSAlgorithm ..[#red]> Algorithms : <<removed>>
+    BFSMatrixAlgorithm ..[#red]> Algorithms : <<removed>>
+    DFSAlgorithm ..[#red]> Algorithms : <<removed>>
+    DFSMatrixAlgorithm ..[#red]> Algorithms : <<removed>>
+    DijkstraListAlgorithm ..[#red]> Algorithms : <<removed>>
+    DijkstraMatrixAlgorithm ..[#red]> Algorithms : <<removed>>
+    IsConnectedList ..[#red]> Algorithms : <<removed>>
+    IsConnectedMatrix ..[#red]> Algorithms : <<removed>>
+    
+    DijkstraPathList ..[#red]> Algorithms : <<removed>>
+}
+
+@enduml

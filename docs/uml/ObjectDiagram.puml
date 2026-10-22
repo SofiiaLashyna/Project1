@@ -1,0 +1,42 @@
+@startuml
+skinparam monochrome true
+
+object "milkyWay : Galaxy" as galaxy {
+    name = "Milky Way"
+}
+
+object "solarSystem : StarSystem" as sys {
+    id = 0
+    name = "Sun's system"
+    planetCount = 1
+}
+
+object "sun : Star" as star {
+    name = "Sun"
+    mass = 1.0
+    temperature = 5778
+    star_type = "Main sequence star"
+}
+
+object "earth : Planet" as planet {
+    name = "Earth"
+    mass = 1.0
+    orbitRadius = 1.0
+    planet_type = "Terrestrial planet"
+    habitable = true
+    rings = false
+}
+
+object "orionNebula : Nebula" as nebula {
+    name = "Pleiades"
+    mass = 800.0
+    nebula_type = Reflection
+}
+
+galaxy *-- sys : celestial_objects[0] (StarSystem*)
+galaxy *-- nebula : celestial_objects[1] (Nebula*)
+
+sys *-- star : centralStar
+sys *-- planet : planets[0]
+
+@enduml

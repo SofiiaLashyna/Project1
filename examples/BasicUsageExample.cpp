@@ -14,7 +14,7 @@
 #include "StarSystem.h"
 #include "Nebula.h"
 #include "Planet.h"
-#include "Algorithm.h"      // Base class for algorithms
+#include "GraphAlgorithms.h"      // Base class for algorithms
 #include "DijkstraList.h"   // Include Dijkstra
 #include "BFSList.h"        // Include BFS
 #include "DFSList.h"        // Include DFS
@@ -81,14 +81,14 @@ int test_examples() {
     // --- BFS Example ---
     std::cout << "\n--- BFS (starting from Solar System) ---" << std::endl;
     GraphAlgorithm<GraphList<CelestialObject*>, CelestialObject*>* bfs;
-    bfs = new BFSAlgorithm<CelestialObject*>();
+    bfs = new BFSListAlgorithm<CelestialObject*>();
     bfs->run(galaxy.getGraph(), 1); ///< Start traversal from Solar (ID 1)
     delete bfs;
 
     // --- DFS Example ---
     std::cout << "\n--- DFS (starting from Solar System) ---" << std::endl;
     GraphAlgorithm<GraphList<CelestialObject*>, CelestialObject*>* dfs;
-    dfs = new DFSAlgorithm<CelestialObject*>();
+    dfs = new DFSListAlgorithm<CelestialObject*>();
     dfs->run(galaxy.getGraph(), 1); ///< Start traversal from Solar (ID 1)
     delete dfs;
 

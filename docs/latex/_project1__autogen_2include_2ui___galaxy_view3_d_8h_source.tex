@@ -1,0 +1,70 @@
+\doxysection{ui\+\_\+\+Galaxy\+View3\+D.\+h}
+\hypertarget{_project1__autogen_2include_2ui___galaxy_view3_d_8h_source}{}\label{_project1__autogen_2include_2ui___galaxy_view3_d_8h_source}\index{cmake-\/build-\/debug/Project1\_autogen/include/ui\_GalaxyView3D.h@{cmake-\/build-\/debug/Project1\_autogen/include/ui\_GalaxyView3D.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/********************************************************************************}}
+\DoxyCodeLine{00002\ \textcolor{comment}{**\ Form\ generated\ from\ reading\ UI\ file\ 'galaxyview3d.ui'}}
+\DoxyCodeLine{00003\ \textcolor{comment}{**}}
+\DoxyCodeLine{00004\ \textcolor{comment}{**\ Created\ by:\ Qt\ User\ Interface\ Compiler\ version\ 6.9.3}}
+\DoxyCodeLine{00005\ \textcolor{comment}{**}}
+\DoxyCodeLine{00006\ \textcolor{comment}{**\ WARNING!\ All\ changes\ made\ in\ this\ file\ will\ be\ lost\ when\ recompiling\ UI\ file!}}
+\DoxyCodeLine{00007\ \textcolor{comment}{********************************************************************************/}}
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#ifndef\ UI\_GALAXYVIEW3D\_H}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#define\ UI\_GALAXYVIEW3D\_H}}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ <QtCore/QVariant>}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ <QtWidgets/QApplication>}}
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#include\ <QtWidgets/QFrame>}}
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#include\ <QtWidgets/QLabel>}}
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#include\ <QtWidgets/QWidget>}}
+\DoxyCodeLine{00017\ }
+\DoxyCodeLine{00018\ QT\_BEGIN\_NAMESPACE}
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00020\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_ui___galaxy_view3_d}{Ui\_GalaxyView3D}}}
+\DoxyCodeLine{00021\ \{}
+\DoxyCodeLine{00022\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00023\ \ \ \ \ QLabel\ *galaxyNameLabel;}
+\DoxyCodeLine{00024\ \ \ \ \ QFrame\ *graphArea;}
+\DoxyCodeLine{00025\ }
+\DoxyCodeLine{00026\ \ \ \ \ \textcolor{keywordtype}{void}\ setupUi(QWidget\ *GalaxyView3D)}
+\DoxyCodeLine{00027\ \ \ \ \ \{}
+\DoxyCodeLine{00028\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (GalaxyView3D-\/>objectName().isEmpty())}
+\DoxyCodeLine{00029\ \ \ \ \ \ \ \ \ \ \ \ \ GalaxyView3D-\/>setObjectName(\textcolor{stringliteral}{"{}GalaxyView3D"{}});}
+\DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ galaxyNameLabel\ =\ \textcolor{keyword}{new}\ QLabel(GalaxyView3D);}
+\DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ galaxyNameLabel-\/>setObjectName(\textcolor{stringliteral}{"{}galaxyNameLabel"{}});}
+\DoxyCodeLine{00032\ \ \ \ \ \ \ \ \ galaxyNameLabel-\/>setGeometry(QRect(20,\ 20,\ 1489,\ 47));}
+\DoxyCodeLine{00033\ \ \ \ \ \ \ \ \ galaxyNameLabel-\/>setStyleSheet(QString::fromUtf8(\textcolor{stringliteral}{"{}font:\ 26pt\ \(\backslash\)"{}Ravie\(\backslash\)"{};"{}}));}
+\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ graphArea\ =\ \textcolor{keyword}{new}\ QFrame(GalaxyView3D);}
+\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ graphArea-\/>setObjectName(\textcolor{stringliteral}{"{}graphArea"{}});}
+\DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ graphArea-\/>setGeometry(QRect(-\/30,\ 100,\ 1489,\ 598));}
+\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ QSizePolicy\ sizePolicy(QSizePolicy::Policy::Expanding,\ QSizePolicy::Policy::Expanding);}
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ sizePolicy.setHorizontalStretch(0);}
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ sizePolicy.setVerticalStretch(0);}
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ sizePolicy.setHeightForWidth(graphArea-\/>sizePolicy().hasHeightForWidth());}
+\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ graphArea-\/>setSizePolicy(sizePolicy);}
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ graphArea-\/>setFrameShape(QFrame::Shape::StyledPanel);}
+\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ graphArea-\/>setFrameShadow(QFrame::Shadow::Raised);}
+\DoxyCodeLine{00044\ }
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ retranslateUi(GalaxyView3D);}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ QMetaObject::connectSlotsByName(GalaxyView3D);}
+\DoxyCodeLine{00048\ \ \ \ \ \}\ \textcolor{comment}{//\ setupUi}}
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00050\ \ \ \ \ \textcolor{keywordtype}{void}\ retranslateUi(QWidget\ *GalaxyView3D)}
+\DoxyCodeLine{00051\ \ \ \ \ \{}
+\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ GalaxyView3D-\/>setWindowTitle(QCoreApplication::translate(\textcolor{stringliteral}{"{}GalaxyView3D"{}},\ \textcolor{stringliteral}{"{}GalaxyView3D"{}},\ \textcolor{keyword}{nullptr}));}
+\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ galaxyNameLabel-\/>setText(QCoreApplication::translate(\textcolor{stringliteral}{"{}GalaxyView3D"{}},\ \textcolor{stringliteral}{"{}TextLabel"{}},\ \textcolor{keyword}{nullptr}));}
+\DoxyCodeLine{00054\ \ \ \ \ \}\ \textcolor{comment}{//\ retranslateUi}}
+\DoxyCodeLine{00055\ }
+\DoxyCodeLine{00056\ \};}
+\DoxyCodeLine{00057\ }
+\DoxyCodeLine{00058\ \textcolor{keyword}{namespace\ }Ui\ \{}
+\DoxyCodeLine{00059\ \ \ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_ui_1_1_galaxy_view3_d}{GalaxyView3D}}:\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_ui___galaxy_view3_d}{Ui\_GalaxyView3D}}\ \{\};}
+\DoxyCodeLine{00060\ \}\ \textcolor{comment}{//\ namespace\ Ui}}
+\DoxyCodeLine{00061\ }
+\DoxyCodeLine{00062\ QT\_END\_NAMESPACE}
+\DoxyCodeLine{00063\ }
+\DoxyCodeLine{00064\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ UI\_GALAXYVIEW3D\_H}}
+
+\end{DoxyCode}

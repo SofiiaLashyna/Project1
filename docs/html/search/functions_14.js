@@ -1,0 +1,22 @@
+var searchData=
+[
+  ['_7ebfsalgorithm_0',['~BFSAlgorithm',['../class_b_f_s_algorithm.html#a4f20b35d5a9d7ddabb5d7bd5b7f1110b',1,'BFSAlgorithm']]],
+  ['_7ebfsmatrixalgorithm_1',['~BFSMatrixAlgorithm',['../class_b_f_s_matrix_algorithm.html#aa58ec9e7862efdd7459e3c0c04789b7c',1,'BFSMatrixAlgorithm']]],
+  ['_7ecelestialobject_2',['~CelestialObject',['../class_celestial_object.html#a3c471e48d8d548c293d0666e50d8f887',1,'CelestialObject']]],
+  ['_7edfsalgorithm_3',['~DFSAlgorithm',['../class_d_f_s_algorithm.html#a608019ac3b1c5b8800d9bcf19c32857c',1,'DFSAlgorithm']]],
+  ['_7edfsmatrixalgorithm_4',['~DFSMatrixAlgorithm',['../class_d_f_s_matrix_algorithm.html#a2c0498b09861b5da783d288d7dd8986d',1,'DFSMatrixAlgorithm']]],
+  ['_7edijkstralistalgorithm_5',['~DijkstraListAlgorithm',['../class_dijkstra_list_algorithm.html#afd48f23016191402f7f447093bc6bee1',1,'DijkstraListAlgorithm']]],
+  ['_7edijkstramatrixalgorithm_6',['~DijkstraMatrixAlgorithm',['../class_dijkstra_matrix_algorithm.html#aff6650744a8cf5099339ff3f14ec459f',1,'DijkstraMatrixAlgorithm']]],
+  ['_7egalaxy_7',['~Galaxy',['../class_galaxy.html#a9fc76ac7be6b6028895051ea77f451b9',1,'Galaxy']]],
+  ['_7egalaxyview_8',['~GalaxyView',['../class_galaxy_view.html#a35a86b940942ce424f01922819adddce',1,'GalaxyView']]],
+  ['_7egraph_9',['~Graph',['../class_graph.html#a2ccc82f656fb8cd443feef0add6e32a1',1,'Graph']]],
+  ['_7egraphalgorithm_10',['~GraphAlgorithm',['../class_graph_algorithm.html#a0644bd89e407dc93f49b6aefee929376',1,'GraphAlgorithm']]],
+  ['_7eisconnectedlist_11',['~IsConnectedList',['../class_is_connected_list.html#a535715651ae26a2c15ddbc85af83f998',1,'IsConnectedList']]],
+  ['_7eisconnectedmatrix_12',['~IsConnectedMatrix',['../class_is_connected_matrix.html#a65ffe1f757fc089ba36252deee260723',1,'IsConnectedMatrix']]],
+  ['_7enebula_13',['~Nebula',['../class_nebula.html#a19152271b443e61b7b8c8eefeb2baed2',1,'Nebula']]],
+  ['_7eplanet_14',['~Planet',['../class_planet.html#afee088476ddbcab02d26a2ee32f981cd',1,'Planet']]],
+  ['_7equeue_15',['~Queue',['../class_queue.html#aa7eef1b427e24555780505de20e9acbc',1,'Queue']]],
+  ['_7estar_16',['~Star',['../class_star.html#abafd2e987f4df5ec32644f14b1ef71c3',1,'Star']]],
+  ['_7estarsystem_17',['~StarSystem',['../class_star_system.html#a7b3e5853166170252e4d4efe1e439ced',1,'StarSystem']]],
+  ['_7ewindowinterface_18',['~WindowInterface',['../class_window_interface.html#aec66b38c26cafa91fe94e743aa1c2ab1',1,'WindowInterface']]]
+];

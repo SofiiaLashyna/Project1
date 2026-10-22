@@ -1,0 +1,128 @@
+\doxysection{Add\+Nebula\+Dialog Class Reference}
+\hypertarget{class_add_nebula_dialog}{}\label{class_add_nebula_dialog}\index{AddNebulaDialog@{AddNebulaDialog}}
+
+
+A QDialog that provides a user interface for defining parameters and creating a new \doxylink{class_nebula}{Nebula} object.  
+
+
+
+
+{\ttfamily \#include $<$Add\+Nebula\+Dialog.\+h$>$}
+
+Inheritance diagram for Add\+Nebula\+Dialog\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_add_nebula_dialog}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_add_nebula_dialog_a55b51a9c7eadbec62369cd8ac780534e}{Add\+Nebula\+Dialog}} (\mbox{\hyperlink{class_random_generator}{Random\+Generator}} \&rng, const nlohmann\+::json \&data, QWidget \texorpdfstring{$\ast$}{*}parent=nullptr)
+\begin{DoxyCompactList}\small\item\em Constructor an \doxylink{class_add_nebula_dialog}{Add\+Nebula\+Dialog}. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_nebula}{Nebula}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_add_nebula_dialog_aeb0d61cd0d146d92b2d97097479a9277}{get\+New\+Nebula}} () const
+\begin{DoxyCompactList}\small\item\em Creates a new \doxylink{class_nebula}{Nebula} instance based on the current dialog input. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+A QDialog that provides a user interface for defining parameters and creating a new \doxylink{class_nebula}{Nebula} object. 
+
+\label{doc-constructors}
+\Hypertarget{class_add_nebula_dialog_doc-constructors}
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_add_nebula_dialog_a55b51a9c7eadbec62369cd8ac780534e}\index{AddNebulaDialog@{AddNebulaDialog}!AddNebulaDialog@{AddNebulaDialog}}
+\index{AddNebulaDialog@{AddNebulaDialog}!AddNebulaDialog@{AddNebulaDialog}}
+\doxysubsubsection{\texorpdfstring{AddNebulaDialog()}{AddNebulaDialog()}}
+{\footnotesize\ttfamily \label{class_add_nebula_dialog_a55b51a9c7eadbec62369cd8ac780534e} 
+Add\+Nebula\+Dialog\+::\+Add\+Nebula\+Dialog (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_random_generator}{Random\+Generator}} \&}]{rng}{, }\item[{const nlohmann\+::json \&}]{data}{, }\item[{QWidget \texorpdfstring{$\ast$}{*}}]{parent}{ = {\ttfamily nullptr}}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}}
+
+
+
+Constructor an \doxylink{class_add_nebula_dialog}{Add\+Nebula\+Dialog}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em rng} & Reference to the random generator (used for default nebula generation). \\
+\hline
+{\em data} & Reference to the JSON config data used for nebula templates. \\
+\hline
+{\em parent} & The parent Qt widget. \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00011\ :\ QDialog(parent),\ rng(rngRef),\ data(dataRef)\ \{}
+\DoxyCodeLine{00012\ \ \ \ \ setWindowTitle(\textcolor{stringliteral}{"{}Add\ Nebula"{}});}
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00014\ \ \ \ \ QVBoxLayout\ *layout\ =\ \textcolor{keyword}{new}\ QVBoxLayout(\textcolor{keyword}{this});}
+\DoxyCodeLine{00015\ }
+\DoxyCodeLine{00016\ \ \ \ \ layout-\/>addWidget(\textcolor{keyword}{new}\ QLabel(\textcolor{stringliteral}{"{}Nebula\ Name:"{}},\ \textcolor{keyword}{this}));}
+\DoxyCodeLine{00017\ \ \ \ \ nameEdit\ =\ \textcolor{keyword}{new}\ QLineEdit(\textcolor{stringliteral}{"{}New\ Nebula"{}},\ \textcolor{keyword}{this});}
+\DoxyCodeLine{00018\ \ \ \ \ layout-\/>addWidget(nameEdit);}
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00020\ \ \ \ \ layout-\/>addWidget(\textcolor{keyword}{new}\ QLabel(\textcolor{stringliteral}{"{}Nebula\ Type:"{}},\ \textcolor{keyword}{this}));}
+\DoxyCodeLine{00021\ \ \ \ \ nebulaTypeComboBox\ =\ \textcolor{keyword}{new}\ QComboBox(\textcolor{keyword}{this});}
+\DoxyCodeLine{00022\ \ \ \ \ nebulaTypeComboBox-\/>addItem(\textcolor{stringliteral}{"{}Emission"{}});}
+\DoxyCodeLine{00023\ \ \ \ \ nebulaTypeComboBox-\/>addItem(\textcolor{stringliteral}{"{}Reflection"{}});}
+\DoxyCodeLine{00024\ \ \ \ \ nebulaTypeComboBox-\/>addItem(\textcolor{stringliteral}{"{}Dark"{}});}
+\DoxyCodeLine{00025\ \ \ \ \ nebulaTypeComboBox-\/>addItem(\textcolor{stringliteral}{"{}Supernova"{}});}
+\DoxyCodeLine{00026\ \ \ \ \ nebulaTypeComboBox-\/>addItem(\textcolor{stringliteral}{"{}Planetary"{}});}
+\DoxyCodeLine{00027\ \ \ \ \ layout-\/>addWidget(nebulaTypeComboBox);}
+\DoxyCodeLine{00028\ }
+\DoxyCodeLine{00029\ \ \ \ \ QPushButton\ *okButton\ =\ \textcolor{keyword}{new}\ QPushButton(\textcolor{stringliteral}{"{}Add"{}},\ \textcolor{keyword}{this});}
+\DoxyCodeLine{00030\ \ \ \ \ QPushButton\ *cancelButton\ =\ \textcolor{keyword}{new}\ QPushButton(\textcolor{stringliteral}{"{}Cancel"{}},\ \textcolor{keyword}{this});}
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00032\ \ \ \ \ QHBoxLayout\ *buttonLayout\ =\ \textcolor{keyword}{new}\ QHBoxLayout;}
+\DoxyCodeLine{00033\ \ \ \ \ buttonLayout-\/>addWidget(okButton);}
+\DoxyCodeLine{00034\ \ \ \ \ buttonLayout-\/>addWidget(cancelButton);}
+\DoxyCodeLine{00035\ \ \ \ \ layout-\/>addLayout(buttonLayout);}
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00037\ \ \ \ \ connect(okButton,\ \&QPushButton::clicked,\ \textcolor{keyword}{this},\ \&QDialog::accept);}
+\DoxyCodeLine{00038\ \ \ \ \ connect(cancelButton,\ \&QPushButton::clicked,\ \textcolor{keyword}{this},\ \&QDialog::reject);}
+\DoxyCodeLine{00039\ \}}
+
+\end{DoxyCode}
+
+
+\label{doc-func-members}
+\Hypertarget{class_add_nebula_dialog_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_add_nebula_dialog_aeb0d61cd0d146d92b2d97097479a9277}\index{AddNebulaDialog@{AddNebulaDialog}!getNewNebula@{getNewNebula}}
+\index{getNewNebula@{getNewNebula}!AddNebulaDialog@{AddNebulaDialog}}
+\doxysubsubsection{\texorpdfstring{getNewNebula()}{getNewNebula()}}
+{\footnotesize\ttfamily \label{class_add_nebula_dialog_aeb0d61cd0d146d92b2d97097479a9277} 
+\mbox{\hyperlink{class_nebula}{Nebula}} \texorpdfstring{$\ast$}{*} Add\+Nebula\+Dialog\+::get\+New\+Nebula (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const}
+
+
+
+Creates a new \doxylink{class_nebula}{Nebula} instance based on the current dialog input. 
+
+\begin{DoxyReturn}{Returns}
+A pointer to the newly created \doxylink{class_nebula}{Nebula}. Ownership is passed to the caller. 
+\end{DoxyReturn}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00041\ \ \ \ \ Galaxy<GraphList<CelestialObject\ *>\ >\ temp\_galaxy;}
+\DoxyCodeLine{00042\ }
+\DoxyCodeLine{00043\ \ \ \ \ Nebula\ *nebula\ =\ temp\_galaxy.\mbox{\hyperlink{class_galaxy_ac22a46b1948c37f5ac8c3271215e151b}{generateNebula}}(rng,\ data);}
+\DoxyCodeLine{00044\ }
+\DoxyCodeLine{00045\ \ \ \ \ \textcolor{keywordflow}{if}\ (!nebula)\ \textcolor{keywordflow}{return}\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ \ \ \ \ std::string\ newName\ =\ nameEdit-\/>text().toStdString();}
+\DoxyCodeLine{00048\ \ \ \ \ nebula-\/>\mbox{\hyperlink{class_celestial_object_ae9a24ff06397904ce8e865651fba13e6}{setName}}(newName);}
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00050\ \ \ \ \ std::string\ typeStr\ =\ nebulaTypeComboBox-\/>currentText().toStdString();}
+\DoxyCodeLine{00051\ \ \ \ \ nebula-\/>\mbox{\hyperlink{class_nebula_ac5567a4cb0c416c142b566e047128d55}{setNebulaType}}(typeStr);}
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00053\ }
+\DoxyCodeLine{00054\ \ \ \ \ \textcolor{keywordflow}{return}\ nebula;}
+\DoxyCodeLine{00055\ \}}
+
+\end{DoxyCode}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Galaxy\+View/\mbox{\hyperlink{_add_nebula_dialog_8h}{Add\+Nebula\+Dialog.\+h}}\item 
+Galaxy\+View/Add\+Nebula\+Dialog.\+cpp\end{DoxyCompactItemize}

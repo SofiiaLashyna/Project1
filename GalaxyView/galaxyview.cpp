@@ -3,6 +3,7 @@
 #include "GalaxyEditDialog.h"
 #include "EditStarSystemDialog.h"
 #include "EditNebulaDialog.h"
+#include "EditPlanetDialog.h"
 #include "AddNebulaDialog.h"
 #include "AddStarSystemDialog.h"
 #include <QApplication>
@@ -16,6 +17,7 @@
 #include <algorithm>
 
 #include "DijkstraPathList.h"
+#include "GalaxyFactory.h"
 static constexpr double PHYSICS_MASS_SCALE = 1.0e-7;
 
 GalaxyView::GalaxyView(QWidget *parent) : QWidget(parent), ui(new Ui::GalaxyView) {
@@ -78,6 +80,7 @@ GalaxyView::GalaxyView(QWidget *parent) : QWidget(parent), ui(new Ui::GalaxyView
 
         if (system && index >= 0 && index < system->getPlanets().size()) {
             Planet* planet = system->getPlanets()[index];
+            graphWidget->setShowAxialTilt(false);
             showPlanetParameters(planet);
             if (paramsWindow) {
                 paramsWindow->hide();
@@ -104,9 +107,13 @@ GalaxyView::~GalaxyView() {
 void GalaxyView::on_paramsButton_clicked() {
     if (paramsWindow->isVisible()) {
         paramsWindow->hide();
+        if (graphWidget) graphWidget->setShowAxialTilt(false);
     } else {
         paramsWindow->show();
         paramsWindow->raise();
+        if (graphWidget && graphWidget->isInPlanetMode()) {
+            graphWidget->setShowAxialTilt(true);
+        }
     }
 }
 
@@ -209,7 +216,7 @@ void GalaxyView::generateAndDisplayGalaxy(const nlohmann::json &data, RandomGene
 
     galaxy = new Galaxy<GraphList<CelestialObject *> >(randomGalaxyName);
 
-    galaxy->generateGalaxy(data, rng);
+    GalaxyFactory::populateGalaxy(*galaxy, data, rng);
 
     this->dataPtr = const_cast<nlohmann::json *>(&data);
     this->rngPtr = &rng;
@@ -649,11 +656,13 @@ void GalaxyView::setupPathInfoWidget() {
 void GalaxyView::on_zoomOutButton_clicked() {
     if (graphWidget->isInPlanetMode()) {
         graphWidget->resetPlanetZoom();
-
+        graphWidget->setShowAxialTilt(false);
         int sysId = graphWidget->getDetailedVertexId();
         if (sysId >= 0) {
             CelestialObject *obj = galaxy->getObject()[sysId];
             showObjectParameters(obj);
+            updateGraphDisplay();
+            QApplication::processEvents();
         }
         zoomOutButton->setText("Back to Galaxy");
         if (paramsWindow) {
@@ -762,12 +771,10 @@ void GalaxyView::showPlanetParameters(Planet* planet) {
         "Type: " + typeStr.toStdString() + "\n\n" +
         "Mass: " + std::to_string(planet->getMass()) + " Earths\n" +
         "Orbit Radius: " + std::to_string(planet->getOrbit()) + " AU\n" +
-        "Orbit Speed: " + std::to_string(planet->getMass()) + " km/s\n" + // Тут можна додати реальну швидкість, якщо є геттер
+        "Orbit Speed: " + std::to_string(planet->getSpeed()) + " km/s\n" +
+        "Axial Tilt: " + QString::number(planet->getInclination(), 'f', 2).toStdString() + "°\n" +
         "Habitable: " + (planet->isHabitable() ? "YES" : "NO") + "\n"
     );
-
-    // Можна додати шлях до текстури, якщо цікаво
-    // parametersText += "\nTexture: " + QString::fromStdString(planet->getTexturePath());
 
     infoTextWidget->setText(parametersText);
 
@@ -776,13 +783,34 @@ void GalaxyView::showPlanetParameters(Planet* planet) {
         titleLabel->setText("Planet Info:");
     }
 
-    // Показуємо вікно, якщо воно сховане
     paramsWindow->show();
     paramsWindow->raise();
 }
-
 void GalaxyView::on_editObjectButton_clicked() {
     if (!graphWidget || !galaxy) return;
+
+    if (graphWidget->isInPlanetMode()) {
+        int sysId = graphWidget->getDetailedVertexId();
+        if (sysId < 0) return;
+
+        CelestialObject *obj = galaxy->getObject()[sysId];
+        StarSystem *system = dynamic_cast<StarSystem *>(obj);
+
+        int pIndex = graphWidget->getDetailedPlanetIndex();
+
+        if (system && pIndex >= 0 && pIndex < system->getPlanets().size()) {
+            Planet* planet = system->getPlanets()[pIndex];
+
+            EditPlanetDialog dlg(planet, this->rngPtr, this);
+
+            if (dlg.exec() == QDialog::Accepted) {
+                dlg.saveChanges();
+                showPlanetParameters(planet);
+                graphWidget->update();
+            }
+            return;
+        }
+    }
 
     int vertexId = graphWidget->getDetailedVertexId();
     if (vertexId < 0 || vertexId >= galaxy->getObject().size()) return;
@@ -797,7 +825,6 @@ void GalaxyView::on_editObjectButton_clicked() {
         QMessageBox::information(this, "Edit", "Editing of this object is not implemented yet");
     }
 }
-
 void GalaxyView::editStarSystem(StarSystem *system) {
     if (!system || !rngPtr || !dataPtr) return;
 

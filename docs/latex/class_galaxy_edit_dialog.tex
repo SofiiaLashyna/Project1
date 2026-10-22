@@ -1,0 +1,136 @@
+\doxysection{Galaxy\+Edit\+Dialog Class Reference}
+\hypertarget{class_galaxy_edit_dialog}{}\label{class_galaxy_edit_dialog}\index{GalaxyEditDialog@{GalaxyEditDialog}}
+
+
+A QDialog window that allows editing the galaxy\textquotesingle{}s name and adding new celestial objects.  
+
+
+
+
+{\ttfamily \#include $<$Galaxy\+Edit\+Dialog.\+h$>$}
+
+Inheritance diagram for Galaxy\+Edit\+Dialog\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_galaxy_edit_dialog}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Signals}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_galaxy_edit_dialog_a3a84b235d1b77985751accca92e6a417}\label{class_galaxy_edit_dialog_a3a84b235d1b77985751accca92e6a417} 
+void {\bfseries galaxy\+Modified} ()
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_galaxy_edit_dialog_aea00c9902fd158fbe3d591d331578042}{Galaxy\+Edit\+Dialog}} (\mbox{\hyperlink{class_galaxy}{Galaxy}}$<$ \mbox{\hyperlink{class_graph_list}{Graph\+List}}$<$ \mbox{\hyperlink{class_celestial_object}{Celestial\+Object}} \texorpdfstring{$\ast$}{*} $>$ $>$ \texorpdfstring{$\ast$}{*}g, \mbox{\hyperlink{class_random_generator}{Random\+Generator}} \texorpdfstring{$\ast$}{*}rng, const nlohmann\+::json \texorpdfstring{$\ast$}{*}data, QWidget \texorpdfstring{$\ast$}{*}parent=nullptr)
+\begin{DoxyCompactList}\small\item\em Constructor for \doxylink{class_galaxy_edit_dialog}{Galaxy\+Edit\+Dialog}. \end{DoxyCompactList}\item 
+QString \mbox{\hyperlink{class_galaxy_edit_dialog_acbbcf749de3e543cce846a23ea397502}{get\+New\+Galaxy\+Name}} () const
+\begin{DoxyCompactList}\small\item\em Gets the new name of the galaxy from the text field. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+A QDialog window that allows editing the galaxy\textquotesingle{}s name and adding new celestial objects. 
+
+\label{doc-constructors}
+\Hypertarget{class_galaxy_edit_dialog_doc-constructors}
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_galaxy_edit_dialog_aea00c9902fd158fbe3d591d331578042}\index{GalaxyEditDialog@{GalaxyEditDialog}!GalaxyEditDialog@{GalaxyEditDialog}}
+\index{GalaxyEditDialog@{GalaxyEditDialog}!GalaxyEditDialog@{GalaxyEditDialog}}
+\doxysubsubsection{\texorpdfstring{GalaxyEditDialog()}{GalaxyEditDialog()}}
+{\footnotesize\ttfamily \label{class_galaxy_edit_dialog_aea00c9902fd158fbe3d591d331578042} 
+Galaxy\+Edit\+Dialog\+::\+Galaxy\+Edit\+Dialog (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_galaxy}{Galaxy}}$<$ \mbox{\hyperlink{class_graph_list}{Graph\+List}}$<$ \mbox{\hyperlink{class_celestial_object}{Celestial\+Object}} \texorpdfstring{$\ast$}{*} $>$ $>$ \texorpdfstring{$\ast$}{*}}]{g}{, }\item[{\mbox{\hyperlink{class_random_generator}{Random\+Generator}} \texorpdfstring{$\ast$}{*}}]{rng}{, }\item[{const nlohmann\+::json \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{QWidget \texorpdfstring{$\ast$}{*}}]{parent}{ = {\ttfamily nullptr}}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}}
+
+
+
+Constructor for \doxylink{class_galaxy_edit_dialog}{Galaxy\+Edit\+Dialog}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em g} & Pointer to the \doxylink{class_galaxy}{Galaxy} object to be modified. \\
+\hline
+{\em rng} & Pointer to the random number generator (for new objects). \\
+\hline
+{\em data} & Pointer to the JSON configuration data (for new objects). \\
+\hline
+{\em parent} & The parent Qt widget. \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00014\ \ \ \ \ :\ QDialog(parent),\ galaxy(g),\ rngPtr(rng),\ dataPtr(data)\ \{}
+\DoxyCodeLine{00015\ \ \ \ \ setWindowTitle(\textcolor{stringliteral}{"{}Edit\ Galaxy:\ "{}}\ +\ QString::fromStdString(g-\/>\mbox{\hyperlink{class_galaxy_aefeba0dc75d14954ab1e490089fa8a93}{getName}}()));}
+\DoxyCodeLine{00016\ }
+\DoxyCodeLine{00017\ \ \ \ \ QVBoxLayout\ *layout\ =\ \textcolor{keyword}{new}\ QVBoxLayout(\textcolor{keyword}{this});}
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00019\ \ \ \ \ QLabel\ *nameLabel\ =\ \textcolor{keyword}{new}\ QLabel(\textcolor{stringliteral}{"{}Galaxy\ Name:"{}},\ \textcolor{keyword}{this});}
+\DoxyCodeLine{00020\ \ \ \ \ nameEdit\ =\ \textcolor{keyword}{new}\ QLineEdit(QString::fromStdString(galaxy-\/>getName()),\ \textcolor{keyword}{this});}
+\DoxyCodeLine{00021\ }
+\DoxyCodeLine{00022\ \ \ \ \ QPushButton\ *saveNameButton\ =\ \textcolor{keyword}{new}\ QPushButton(\textcolor{stringliteral}{"{}Save\ Name"{}},\ \textcolor{keyword}{this});}
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00024\ \ \ \ \ QHBoxLayout\ *nameLayout\ =\ \textcolor{keyword}{new}\ QHBoxLayout;}
+\DoxyCodeLine{00025\ \ \ \ \ nameLayout-\/>addWidget(nameEdit);}
+\DoxyCodeLine{00026\ \ \ \ \ nameLayout-\/>addWidget(saveNameButton);}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \ \ \ \ layout-\/>addWidget(nameLabel);}
+\DoxyCodeLine{00029\ \ \ \ \ layout-\/>addLayout(nameLayout);}
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00031\ \ \ \ \ layout-\/>addWidget(\textcolor{keyword}{new}\ QWidget(\textcolor{keyword}{this}));}
+\DoxyCodeLine{00032\ }
+\DoxyCodeLine{00033\ \ \ \ \ QLabel\ *addLabel\ =\ \textcolor{keyword}{new}\ QLabel(\textcolor{stringliteral}{"{}Add\ New\ Object:"{}},\ \textcolor{keyword}{this});}
+\DoxyCodeLine{00034\ \ \ \ \ QPushButton\ *addStarSystem\ =\ \textcolor{keyword}{new}\ QPushButton(\textcolor{stringliteral}{"{}Add\ Star\ System"{}},\ \textcolor{keyword}{this});}
+\DoxyCodeLine{00035\ \ \ \ \ QPushButton\ *addNebula\ =\ \textcolor{keyword}{new}\ QPushButton(\textcolor{stringliteral}{"{}Add\ Nebula"{}},\ \textcolor{keyword}{this});}
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00037\ \ \ \ \ layout-\/>addWidget(addLabel);}
+\DoxyCodeLine{00038\ \ \ \ \ layout-\/>addWidget(addStarSystem);}
+\DoxyCodeLine{00039\ \ \ \ \ layout-\/>addWidget(addNebula);}
+\DoxyCodeLine{00040\ }
+\DoxyCodeLine{00041\ \ \ \ \ layout-\/>addWidget(\textcolor{keyword}{new}\ QWidget(\textcolor{keyword}{this}));}
+\DoxyCodeLine{00042\ }
+\DoxyCodeLine{00043\ \ \ \ \ QPushButton\ *closeButton\ =\ \textcolor{keyword}{new}\ QPushButton(\textcolor{stringliteral}{"{}Close"{}},\ \textcolor{keyword}{this});}
+\DoxyCodeLine{00044\ \ \ \ \ layout-\/>addWidget(closeButton);}
+\DoxyCodeLine{00045\ }
+\DoxyCodeLine{00046\ \ \ \ \ connect(closeButton,\ \&QPushButton::clicked,\ \textcolor{keyword}{this},\ \&QDialog::accept);}
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00048\ \ \ \ \ connect(addStarSystem,\ \&QPushButton::clicked,\ \textcolor{keyword}{this},\ \&GalaxyEditDialog::on\_addStarSystem\_clicked);}
+\DoxyCodeLine{00049\ \ \ \ \ connect(addNebula,\ \&QPushButton::clicked,\ \textcolor{keyword}{this},\ \&GalaxyEditDialog::on\_addNebula\_clicked);}
+\DoxyCodeLine{00050\ }
+\DoxyCodeLine{00051\ \ \ \ \ connect(saveNameButton,\ \&QPushButton::clicked,\ \textcolor{keyword}{this},\ [\textcolor{keyword}{this}]()\ \{}
+\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ galaxy-\/>setName(nameEdit-\/>text().toStdString());}
+\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ setWindowTitle(\textcolor{stringliteral}{"{}Edit\ Galaxy:\ "{}}\ +\ nameEdit-\/>text());}
+\DoxyCodeLine{00054\ \ \ \ \ \});}
+\DoxyCodeLine{00055\ \}}
+
+\end{DoxyCode}
+
+
+\label{doc-func-members}
+\Hypertarget{class_galaxy_edit_dialog_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_galaxy_edit_dialog_acbbcf749de3e543cce846a23ea397502}\index{GalaxyEditDialog@{GalaxyEditDialog}!getNewGalaxyName@{getNewGalaxyName}}
+\index{getNewGalaxyName@{getNewGalaxyName}!GalaxyEditDialog@{GalaxyEditDialog}}
+\doxysubsubsection{\texorpdfstring{getNewGalaxyName()}{getNewGalaxyName()}}
+{\footnotesize\ttfamily \label{class_galaxy_edit_dialog_acbbcf749de3e543cce846a23ea397502} 
+QString Galaxy\+Edit\+Dialog\+::get\+New\+Galaxy\+Name (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const}
+
+
+
+Gets the new name of the galaxy from the text field. 
+
+\begin{DoxyReturn}{Returns}
+QString containing the (potentially modified) galaxy name. 
+\end{DoxyReturn}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00128\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00129\ \ \ \ \ \textcolor{keywordflow}{return}\ nameEdit-\/>text();}
+\DoxyCodeLine{00130\ \}}
+
+\end{DoxyCode}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Galaxy\+View/\mbox{\hyperlink{_galaxy_edit_dialog_8h}{Galaxy\+Edit\+Dialog.\+h}}\item 
+Galaxy\+View/Galaxy\+Edit\+Dialog.\+cpp\end{DoxyCompactItemize}

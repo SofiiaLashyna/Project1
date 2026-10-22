@@ -1,0 +1,29 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+top to bottom direction
+
+package "Presentation Layer" {
+    package UI
+}
+
+package "Business/Domain Layer" {
+    package PHYSICS
+    package DOMAIN
+}
+
+package "Utility Layer" {
+    package ALGORITHMS
+    package GRAPH
+}
+
+UI ..> PHYSICS : "<<use>>"
+UI ..> DOMAIN : "<<use>>"
+UI ..> GRAPH : "<<use>>"
+UI ..> ALGORITHMS : "<<use>>"
+
+PHYSICS ..> DOMAIN : "<<use>>"
+DOMAIN ..> GRAPH : "<<use>>"
+ALGORITHMS ..> GRAPH : "<<use>>"
+
+@enduml

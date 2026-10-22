@@ -1,0 +1,48 @@
+@startuml
+skinparam monochrome true
+
+scale 10 as 150 pixels
+
+robust "simulationTimer" as Timer
+concise "GalaxyPhysicsController" as Physics
+concise "GraphWidget" as UI
+
+@0
+Timer is Idle
+Physics is Idle
+UI is Idle
+
+@16
+Timer is Tick
+Timer -> Physics : onPhysicsTimerTick()
+Physics is Simulating
+
+@18
+Timer is Idle
+
+@26
+Physics is Idle
+note bottom of Physics : Physics step complete\n(Gravity & Springs applied)
+Physics -> UI : updateGraphDisplay()
+UI is Updating
+
+@30
+UI is Idle
+
+@32
+Timer is Tick
+note top of Timer : Simulation loop repeats\nevery 16ms (approx 60 FPS)
+Timer -> Physics : onPhysicsTimerTick()
+Physics is Simulating
+
+@34
+Timer is Idle
+
+@42
+Physics is Idle
+Physics -> UI : updateGraphDisplay()
+UI is Updating
+
+@46
+UI is Idle
+@enduml

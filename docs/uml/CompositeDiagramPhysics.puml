@@ -1,0 +1,25 @@
+@startuml
+skinparam monochrome true
+left to right direction
+
+rectangle "GalaxyPhysicsController" <<class>> {
+    
+    port "simulateStep()" as pIn
+    port "getBodies()" as pOut
+    
+    rectangle "engine_ : PhysicsEngine [1]" as engine
+    rectangle "bodies_ : CelestialBodyWrapper [0..*]" as bodies
+    rectangle "gravityFields_ : BlackHoleGravityField [0..*]" as gravity
+    rectangle "springs_ : PhysicsSpring [0..*]" as springs
+    
+    pIn --> engine : triggers
+    
+    gravity --> bodies : affects
+    springs --> bodies : constrains
+    
+    engine <--> bodies : sync
+    
+    bodies --> pOut : provides data
+}
+
+@enduml

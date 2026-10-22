@@ -1,0 +1,25 @@
+\doxysection{DFSList.\+h}
+\hypertarget{_d_f_s_list_8h_source}{}\label{_d_f_s_list_8h_source}\index{Algorithms/DFSList.h@{Algorithms/DFSList.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ DFS\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ DFS\_H}}
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_algorithm_8h}{Algorithm.h}}"{}}}
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_graph_list_8h}{GraphList.h}}"{}}}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00017\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00018\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_d_f_s_algorithm}{DFSAlgorithm}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_graph_algorithm}{GraphAlgorithm}}<GraphList<T>,\ T>\ \{}
+\DoxyCodeLine{00019\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00031\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_d_f_s_algorithm_a7e8672691affd5b4a36b47cfc5c36c82}{run}}(\mbox{\hyperlink{class_graph_list}{GraphList<T>}}\&\ g,\ \textcolor{keywordtype}{int}\ startId,\ \textcolor{keywordtype}{int}\ endId\ =\ -\/1)\textcolor{keyword}{\ override\ }\{}
+\DoxyCodeLine{00032\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_algorithms}{Algorithms<GraphList<T>}},\ T>\ alg(g);}
+\DoxyCodeLine{00033\ \ \ \ \ \ \ \ \ alg.DFS\_list(startId);}
+\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{00035\ \ \ \ \ \}}
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00038\ \ \ \ \ \mbox{\hyperlink{class_d_f_s_algorithm_a608019ac3b1c5b8800d9bcf19c32857c}{\string~DFSAlgorithm}}()\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00039\ \};}
+\DoxyCodeLine{00040\ }
+\DoxyCodeLine{00041\ }
+\DoxyCodeLine{00042\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//DFS\_H}}
+
+\end{DoxyCode}

@@ -1,0 +1,145 @@
+@startuml
+skinparam classAttributeIconSize 0
+skinparam monochrome true
+
+package DOMAIN {
+
+    abstract class CelestialObject {
+      - name : std::string
+      - mass : double
+      + CelestialObject(name: string, mass: double)
+      + ~CelestialObject()
+      + {abstract} displayInfo() : void
+      + {abstract} getType() : string
+      + getName() : string
+      + setName(newName: string) : void
+      + getMass() : double
+      + setMass(newMass: double) : void
+    }
+
+    enum starType {
+      Red_Giant
+      White_Dwarf
+      Neutron_Star
+      Red_Dwarf
+      Brown_Dwarf
+      Main_sequence_Star
+    }
+
+    class Star {
+      - temperature : double
+      - star_type : starType
+      + Star(name, mass, temp, type)
+      + ~Star()
+      + displayInfo() : void
+      + getType() : string
+      + setStarType(type: string) : void
+      + getStarType() : starType
+      + getStarTypeString() : string
+      + getTemperature() : double
+    }
+
+    enum planetType {
+      Gas_Giant
+      Dwarf
+      Terrestrial_Planet
+    }
+
+    class Planet {
+      - orbitRadius : double
+      - orbitSpeed : double
+      - inclination : double
+      - habitable : bool
+      - color : QColor
+      - texturePath : std::string
+      - rings : bool
+      - ringInnerRadiusFactor : double
+      - ringOuterRadiusFactor : double
+      - ringColor : QColor
+      - planet_type : planetType
+      + Planet(...)
+      + displayInfo() : void
+      + getOrbit() : double
+      + setOrbit(newOrbit: double) : void
+      + isHabitable() : bool
+      + getType() : string
+      + getPlanetType() : planetType
+      + hasRings() : bool
+    }
+
+    enum nebulaType {
+      Planetary
+      Supernova
+      Emission
+      Reflection
+      Dark
+    }
+
+    class Nebula {
+      - nebula_type : nebulaType
+      + Nebula(name, mass, type)
+      + ~Nebula()
+      + displayInfo() : void
+      + getType() : string
+      + getNebulaType() : nebulaType
+      + getNebulaTypeString() : string
+      + setNebulaType(newtype: string) : void
+    }
+
+    class StarSystem {
+      - id : int
+      - centralStar : Star*
+      - planets : std::vector<Planet*>
+      - sortPlanetsByOrbit() : void
+      + StarSystem(id, name, star)
+      + ~StarSystem()
+      + addPlanet(planet: Planet*) : void
+      + removePlanet() : void
+      + removePlanet(name: string) : void
+      + getStar() : Star&
+      + getPlanets() : vector<Planet*>&
+      + displayInfo() : void
+      + getType() : string
+      + calculateMass() : double
+      + getId() : int
+      + lifeExists(planet: Planet&) : void
+    }
+
+    class "Galaxy <GraphType>" as Galaxy {
+      - name : std::string
+      - systemGraph : GraphType
+      - celestial_objects : std::vector<CelestialObject*>
+      + Galaxy(name: string)
+      + ~Galaxy()
+      + objectCount() : int
+      + addObject(obj: CelestialObject*) : void
+      + getObject() : vector<CelestialObject*>&
+      + connectObjects(id1, id2, distance) : void
+      + getGraph() : GraphType&
+      + showGalaxy() : void
+      + getGalaxyParameters() : QString
+      + generatePlanet(...) : Planet*
+      + generateStarSystem(...) : StarSystem*
+      + generateNebula(...) : Nebula*
+      + generateGalaxy(...) : void
+    }
+
+
+    CelestialObject <|-- Star
+    CelestialObject <|-- Planet
+    CelestialObject <|-- Nebula
+    CelestialObject <|-- StarSystem
+
+    StarSystem *-- Star : contains 1
+    StarSystem *-- Planet : contains 0..*
+    Galaxy *-- CelestialObject : manages 0..*
+
+    Star --> starType
+    Planet --> planetType
+    Nebula --> nebulaType
+    
+    Galaxy ..> StarSystem 
+    Galaxy ..> Nebula 
+    Galaxy ..> Planet
+}
+@enduml

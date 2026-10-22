@@ -1,0 +1,158 @@
+\doxysection{examples/\+Basic\+Usage\+Example.cpp File Reference}
+\hypertarget{_basic_usage_example_8cpp}{}\label{_basic_usage_example_8cpp}\index{examples/BasicUsageExample.cpp@{examples/BasicUsageExample.cpp}}
+
+
+Demonstrates creating a \doxylink{class_galaxy}{Galaxy} with various celestial objects.  
+
+
+{\ttfamily \#include "{}Graph\+List.\+h"{}}\newline
+{\ttfamily \#include "{}Galaxy.\+h"{}}\newline
+{\ttfamily \#include "{}Star\+System.\+h"{}}\newline
+{\ttfamily \#include "{}Nebula.\+h"{}}\newline
+{\ttfamily \#include "{}Planet.\+h"{}}\newline
+{\ttfamily \#include "{}Algorithm.\+h"{}}\newline
+{\ttfamily \#include "{}Dijkstra\+List.\+h"{}}\newline
+{\ttfamily \#include "{}BFSList.\+h"{}}\newline
+{\ttfamily \#include "{}DFSList.\+h"{}}\newline
+{\ttfamily \#include "{}Is\+Connected\+List.\+h"{}}\newline
+{\ttfamily \#include $<$iostream$>$}\newline
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{_basic_usage_example_8cpp_aeed27049d843c9c85eb21259dfda12c6}{test\+\_\+examples}} ()
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Demonstrates creating a \doxylink{class_galaxy}{Galaxy} with various celestial objects. 
+
+
+
+\label{doc-func-members}
+\Hypertarget{_basic_usage_example_8cpp_doc-func-members}
+\doxysubsection{Function Documentation}
+\Hypertarget{_basic_usage_example_8cpp_aeed27049d843c9c85eb21259dfda12c6}\index{BasicUsageExample.cpp@{BasicUsageExample.cpp}!test\_examples@{test\_examples}}
+\index{test\_examples@{test\_examples}!BasicUsageExample.cpp@{BasicUsageExample.cpp}}
+\doxysubsubsection{\texorpdfstring{test\_examples()}{test\_examples()}}
+{\footnotesize\ttfamily \label{_basic_usage_example_8cpp_aeed27049d843c9c85eb21259dfda12c6} 
+int test\+\_\+examples (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+\texorpdfstring{$<$}{<} Index 0 (ID 1)
+
+\texorpdfstring{$<$}{<} Index 1 (ID 2)
+
+\texorpdfstring{$<$}{<} Index 2 (ID 3)
+
+\texorpdfstring{$<$}{<} Index 3 (ID 4 -\/ from \doxylink{class_nebula}{Nebula} constructor)
+
+\texorpdfstring{$<$}{<} Solar (0) \texorpdfstring{$<$}{<}-\/\texorpdfstring{$>$}{>} Sirius (1)
+
+\texorpdfstring{$<$}{<} Sirius (1) \texorpdfstring{$<$}{<}-\/\texorpdfstring{$>$}{>} Betelgeuse (2)
+
+\texorpdfstring{$<$}{<} Solar (0) \texorpdfstring{$<$}{<}-\/\texorpdfstring{$>$}{>} Betelgeuse (2)
+
+\texorpdfstring{$<$}{<} Sirius (1) \texorpdfstring{$<$}{<}-\/\texorpdfstring{$>$}{>} Cat\textquotesingle{}s Eye (3)
+
+\texorpdfstring{$<$}{<} Find path from Solar (1) to Betelgeuse (3)
+
+\texorpdfstring{$<$}{<} Start traversal from Solar (ID 1)
+
+\texorpdfstring{$<$}{<} Start traversal from Solar (ID 1)\begin{Desc}
+\item[Examples]\par
+\mbox{\hyperlink{_basic_usage_example_8cpp-example}{Basic\+Usage\+Example.\+cpp}}.\end{Desc}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00024\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00025\ \ \ \ \ \textcolor{comment}{//\ 1.\ Create\ objects\ (all\ on\ the\ heap\ 'new'\ because\ they\ will\ be\ owned\ by\ others)}}
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00027\ \ \ \ \ \textcolor{comment}{//\ Stars}}
+\DoxyCodeLine{00028\ \ \ \ \ \mbox{\hyperlink{class_star}{Star}}*\ sun\ =\ \textcolor{keyword}{new}\ \mbox{\hyperlink{class_star}{Star}}(\textcolor{stringliteral}{"{}The\ Sun"{}},\ 1.0,\ 5778,\ Star::starType::Main\_sequence\_Star);}
+\DoxyCodeLine{00029\ \ \ \ \ \mbox{\hyperlink{class_star}{Star}}*\ sirius\_b\ =\ \textcolor{keyword}{new}\ \mbox{\hyperlink{class_star}{Star}}(\textcolor{stringliteral}{"{}Sirius\ B"{}},\ 1.018,\ 25000,\ Star::starType::White\_Dwarf);}
+\DoxyCodeLine{00030\ \ \ \ \ \mbox{\hyperlink{class_star}{Star}}*\ betelgeuse\ =\ \textcolor{keyword}{new}\ \mbox{\hyperlink{class_star}{Star}}(\textcolor{stringliteral}{"{}Betelgeuse"{}},\ 20.0,\ 3500,\ Star::starType::Red\_Giant);}
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00032\ \ \ \ \ \textcolor{comment}{//\ Planets}}
+\DoxyCodeLine{00033\ \ \ \ \ \mbox{\hyperlink{class_planet}{Planet}}*\ earth\ =\ \textcolor{keyword}{new}\ \mbox{\hyperlink{class_planet}{Planet}}(\textcolor{stringliteral}{"{}Earth"{}},\ 1.0,\ 1.0,\ 30.0,\ 0.0,\ Planet::planetType::Terrestrial\_Planet,\ \textcolor{keyword}{true});}
+\DoxyCodeLine{00034\ \ \ \ \ \mbox{\hyperlink{class_planet}{Planet}}*\ jupiter\ =\ \textcolor{keyword}{new}\ \mbox{\hyperlink{class_planet}{Planet}}(\textcolor{stringliteral}{"{}Jupiter"{}},\ 317.8,\ 5.2,\ 13.0,\ 1.3,\ Planet::planetType::Gas\_Giant,\ \textcolor{keyword}{false});}
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00036\ \ \ \ \ \textcolor{comment}{//\ 2.\ Create\ StarSystems\ (they\ take\ ownership\ of\ the\ Star*)}}
+\DoxyCodeLine{00037\ \ \ \ \ \mbox{\hyperlink{class_star_system}{StarSystem}}*\ solar\ =\ \textcolor{keyword}{new}\ \mbox{\hyperlink{class_star_system}{StarSystem}}(1,\ \textcolor{stringliteral}{"{}Solar\ System"{}},\ sun);}
+\DoxyCodeLine{00038\ \ \ \ \ \mbox{\hyperlink{class_star_system}{StarSystem}}*\ sirius\ =\ \textcolor{keyword}{new}\ \mbox{\hyperlink{class_star_system}{StarSystem}}(2,\ \textcolor{stringliteral}{"{}Sirius\ Binary\ System"{}},\ sirius\_b);}
+\DoxyCodeLine{00039\ \ \ \ \ \mbox{\hyperlink{class_star_system}{StarSystem}}*\ betel\ =\ \textcolor{keyword}{new}\ \mbox{\hyperlink{class_star_system}{StarSystem}}(3,\ \textcolor{stringliteral}{"{}Betelgeuse\ System"{}},\ betelgeuse);}
+\DoxyCodeLine{00040\ }
+\DoxyCodeLine{00041\ \ \ \ \ \textcolor{comment}{//\ Add\ planets\ to\ systems\ (StarSystem\ takes\ ownership\ of\ Planet*)}}
+\DoxyCodeLine{00042\ \ \ \ \ solar-\/>\mbox{\hyperlink{class_star_system_a0668e461727f666cdb15a6798bf7f0ae}{addPlanet}}(earth);}
+\DoxyCodeLine{00043\ \ \ \ \ solar-\/>\mbox{\hyperlink{class_star_system_a0668e461727f666cdb15a6798bf7f0ae}{addPlanet}}(jupiter);}
+\DoxyCodeLine{00044\ }
+\DoxyCodeLine{00045\ \ \ \ \ \textcolor{comment}{//\ Create\ a\ Nebula}}
+\DoxyCodeLine{00046\ \ \ \ \ \mbox{\hyperlink{class_nebula}{Nebula}}*\ cat\_eye\ =\ \textcolor{keyword}{new}\ \mbox{\hyperlink{class_nebula}{Nebula}}(\textcolor{stringliteral}{"{}Cat's\ Eye\ Nebula"{}},\ 0.1,\ Nebula::nebulaType::Planetary);}
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00048\ \ \ \ \ \textcolor{comment}{//\ 3.\ Create\ the\ Galaxy}}
+\DoxyCodeLine{00049\ \ \ \ \ \textcolor{comment}{//\ It\ will\ hold\ all\ object\ types\ (StarSystem,\ Nebula,\ etc.)}}
+\DoxyCodeLine{00050\ \ \ \ \ \mbox{\hyperlink{class_galaxy}{Galaxy<GraphList<CelestialObject*>}}>\ galaxy(\textcolor{stringliteral}{"{}Milky\ Way"{}});}
+\DoxyCodeLine{00051\ }
+\DoxyCodeLine{00052\ \ \ \ \ \textcolor{comment}{//\ Add\ objects\ (Galaxy\ takes\ ownership\ of\ StarSystem*\ and\ Nebula*)}}
+\DoxyCodeLine{00053\ \ \ \ \ galaxy.addObject(solar);\ \ \ \ \ }
+\DoxyCodeLine{00054\ \ \ \ \ galaxy.addObject(sirius);\ \ \ \ }
+\DoxyCodeLine{00055\ \ \ \ \ galaxy.addObject(betel);\ \ \ \ \ }
+\DoxyCodeLine{00056\ \ \ \ \ galaxy.addObject(cat\_eye);\ \ \ }
+\DoxyCodeLine{00057\ }
+\DoxyCodeLine{00058\ \ \ \ \ \textcolor{comment}{//\ 4.\ Connect\ objects\ (using\ their\ public\ IDs)}}
+\DoxyCodeLine{00059\ \ \ \ \ galaxy.connectObjects(0,\ 1,\ 4);\ \ }
+\DoxyCodeLine{00060\ \ \ \ \ galaxy.connectObjects(1,\ 2,\ 6);\ \ }
+\DoxyCodeLine{00061\ \ \ \ \ galaxy.connectObjects(0,\ 2,\ 16);\ }
+\DoxyCodeLine{00062\ \ \ \ \ galaxy.connectObjects(1,\ 3,\ 30);\ }
+\DoxyCodeLine{00063\ \ \ \ \ \textcolor{comment}{//\ 5.\ Show\ what\ we\ built}}
+\DoxyCodeLine{00064\ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}\string~\string~\string~\ GALAXY\ INFO\ \string~\string~\string~"{}}\ <<\ std::endl;}
+\DoxyCodeLine{00065\ \ \ \ \ galaxy.showGalaxy();}
+\DoxyCodeLine{00066\ }
+\DoxyCodeLine{00067\ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)n\(\backslash\)n\string~\string~\string~\ STAR\ SYSTEM\ DETAILS\ \string~\string~\string~"{}}\ <<\ std::endl;}
+\DoxyCodeLine{00068\ \ \ \ \ solar-\/>\mbox{\hyperlink{class_star_system_aec8b58b0b2e9aee35dd1040f84f8cc95}{displayInfo}}();}
+\DoxyCodeLine{00069\ \ \ \ \ std::cout\ <<\ std::endl;}
+\DoxyCodeLine{00070\ }
+\DoxyCodeLine{00071\ \ \ \ \ \textcolor{comment}{//\ 6.\ Run\ algorithms}}
+\DoxyCodeLine{00072\ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)n\(\backslash\)n\string~\string~\string~\ ALGORITHMS\ \string~\string~\string~"{}}\ <<\ std::endl;}
+\DoxyCodeLine{00073\ }
+\DoxyCodeLine{00074\ \ \ \ \ \textcolor{comment}{//\ -\/-\/-\/\ Dijkstra\ Example\ -\/-\/-\/}}
+\DoxyCodeLine{00075\ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)n-\/-\/-\/\ Dijkstra\ (Solar\ to\ Betelgeuse)\ -\/-\/-\/"{}}\ <<\ std::endl;}
+\DoxyCodeLine{00076\ \ \ \ \ \mbox{\hyperlink{class_graph_algorithm}{GraphAlgorithm<GraphList<CelestialObject*>}},\ \mbox{\hyperlink{class_celestial_object}{CelestialObject}}*>*\ dijkstra;}
+\DoxyCodeLine{00077\ \ \ \ \ dijkstra\ =\ \textcolor{keyword}{new}\ \mbox{\hyperlink{class_dijkstra_list_algorithm}{DijkstraListAlgorithm<CelestialObject*>}}();}
+\DoxyCodeLine{00078\ \ \ \ \ dijkstra-\/>\mbox{\hyperlink{class_graph_algorithm_a002a93f79b9204a814a7c9726dc69a78}{run}}(galaxy.getGraph(),\ 1,\ 3);\ }
+\DoxyCodeLine{00079\ \ \ \ \ \textcolor{keyword}{delete}\ dijkstra;}
+\DoxyCodeLine{00080\ }
+\DoxyCodeLine{00081\ \ \ \ \ \textcolor{comment}{//\ -\/-\/-\/\ BFS\ Example\ -\/-\/-\/}}
+\DoxyCodeLine{00082\ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)n-\/-\/-\/\ BFS\ (starting\ from\ Solar\ System)\ -\/-\/-\/"{}}\ <<\ std::endl;}
+\DoxyCodeLine{00083\ \ \ \ \ \mbox{\hyperlink{class_graph_algorithm}{GraphAlgorithm<GraphList<CelestialObject*>}},\ \mbox{\hyperlink{class_celestial_object}{CelestialObject}}*>*\ bfs;}
+\DoxyCodeLine{00084\ \ \ \ \ bfs\ =\ \textcolor{keyword}{new}\ \mbox{\hyperlink{class_b_f_s_algorithm}{BFSAlgorithm<CelestialObject*>}}();}
+\DoxyCodeLine{00085\ \ \ \ \ bfs-\/>\mbox{\hyperlink{class_graph_algorithm_a002a93f79b9204a814a7c9726dc69a78}{run}}(galaxy.getGraph(),\ 1);\ }
+\DoxyCodeLine{00086\ \ \ \ \ \textcolor{keyword}{delete}\ bfs;}
+\DoxyCodeLine{00087\ }
+\DoxyCodeLine{00088\ \ \ \ \ \textcolor{comment}{//\ -\/-\/-\/\ DFS\ Example\ -\/-\/-\/}}
+\DoxyCodeLine{00089\ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)n-\/-\/-\/\ DFS\ (starting\ from\ Solar\ System)\ -\/-\/-\/"{}}\ <<\ std::endl;}
+\DoxyCodeLine{00090\ \ \ \ \ \mbox{\hyperlink{class_graph_algorithm}{GraphAlgorithm<GraphList<CelestialObject*>}},\ \mbox{\hyperlink{class_celestial_object}{CelestialObject}}*>*\ dfs;}
+\DoxyCodeLine{00091\ \ \ \ \ dfs\ =\ \textcolor{keyword}{new}\ \mbox{\hyperlink{class_d_f_s_algorithm}{DFSAlgorithm<CelestialObject*>}}();}
+\DoxyCodeLine{00092\ \ \ \ \ dfs-\/>\mbox{\hyperlink{class_graph_algorithm_a002a93f79b9204a814a7c9726dc69a78}{run}}(galaxy.getGraph(),\ 1);\ }
+\DoxyCodeLine{00093\ \ \ \ \ \textcolor{keyword}{delete}\ dfs;}
+\DoxyCodeLine{00094\ }
+\DoxyCodeLine{00095\ \ \ \ \ \textcolor{comment}{//\ -\/-\/-\/\ IsConnected\ Example\ -\/-\/-\/}}
+\DoxyCodeLine{00096\ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)n-\/-\/-\/\ Connectivity\ Check\ -\/-\/-\/"{}}\ <<\ std::endl;}
+\DoxyCodeLine{00097\ \ \ \ \ \mbox{\hyperlink{class_graph_algorithm}{GraphAlgorithm<GraphList<CelestialObject*>}},\ \mbox{\hyperlink{class_celestial_object}{CelestialObject}}*>*\ connected;}
+\DoxyCodeLine{00098\ \ \ \ \ connected\ =\ \textcolor{keyword}{new}\ \mbox{\hyperlink{class_is_connected_list}{IsConnectedList<CelestialObject*>}}();}
+\DoxyCodeLine{00099\ \ \ \ \ \textcolor{keywordtype}{int}\ isConnected\ =\ connected-\/>\mbox{\hyperlink{class_graph_algorithm_a002a93f79b9204a814a7c9726dc69a78}{run}}(galaxy.getGraph(),\ 1);}
+\DoxyCodeLine{00100\ \ \ \ \ \textcolor{keywordflow}{if}\ (isConnected\ ==\ 1)\ \{}
+\DoxyCodeLine{00101\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}The\ galaxy\ graph\ is\ connected."{}}\ <<\ std::endl;}
+\DoxyCodeLine{00102\ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00103\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}The\ galaxy\ graph\ is\ NOT\ connected."{}}\ <<\ std::endl;}
+\DoxyCodeLine{00104\ \ \ \ \ \}}
+\DoxyCodeLine{00105\ \ \ \ \ \textcolor{keyword}{delete}\ connected;}
+\DoxyCodeLine{00106\ }
+\DoxyCodeLine{00107\ \ \ \ \ \textcolor{comment}{/*\ 7.\ Clean\ up }}
+\DoxyCodeLine{00108\ \textcolor{comment}{\ \ \ \ *\ The\ 'galaxy'\ object\ (on\ the\ stack)\ is\ about\ to\ be\ destroyed. }}
+\DoxyCodeLine{00109\ \textcolor{comment}{\ \ \ \ *\ Its\ destructor\ will\ automatically\ 'delete'\ solar,\ sirius,\ betel,\ and\ cat\_eye. }}
+\DoxyCodeLine{00110\ \textcolor{comment}{\ \ \ \ *\ The\ StarSystem\ destructors\ will\ automatically\ 'delete'\ their\ stars\ and\ planets. }}
+\DoxyCodeLine{00111\ \textcolor{comment}{\ \ \ \ *\ All\ memory\ is\ cleaned\ up! }}
+\DoxyCodeLine{00112\ \textcolor{comment}{\ \ \ \ */}}
+\DoxyCodeLine{00113\ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)nExample\ complete.\ Cleaning\ up."{}}\ <<\ std::endl;}
+\DoxyCodeLine{00114\ \ \ \ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{00115\ \}}
+
+\end{DoxyCode}

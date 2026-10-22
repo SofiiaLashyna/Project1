@@ -8,6 +8,8 @@
 #include <QTimer>
 #include <QVector3D>
 
+#include "GalaxyFactory.h"
+
 GalaxyView3D::GalaxyView3D(QWidget *parent)
     : QWidget(parent), ui(new Ui::GalaxyView3D) {
     ui->setupUi(this);
@@ -183,7 +185,7 @@ void GalaxyView3D::generateAndDisplayGalaxy(const nlohmann::json &data, RandomGe
     std::string randomGalaxyName = rng.getRandomNameFromFile(galaxyNameFile);
 
     galaxy = new Galaxy<GraphList<CelestialObject *> >(randomGalaxyName);
-    galaxy->generateGalaxy(data, rng);
+    GalaxyFactory::populateGalaxy(*galaxy, data, rng);
 
     this->dataPtr = const_cast<nlohmann::json *>(&data);
     this->rngPtr = &rng;

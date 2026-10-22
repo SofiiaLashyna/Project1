@@ -1,5 +1,6 @@
+#include <BFSList.h>
+
 #include "gtest/gtest.h"
-#include "Algorithm.h"
 #include "GraphList.h"
 #include <sstream>
 #include <string>
@@ -9,7 +10,8 @@
 TEST_F(BFSListFixture, BasicBFS) {
     std::stringstream out;
     CoutGuard guard(out);
-    alg->BFS_list(1);
+
+    bfsAlg->run(g, 1);
 
     std::vector<std::string> expectedOrder = { "A", "B", "C"};
     std::stringstream ss(out.str());
@@ -21,21 +23,19 @@ TEST_F(BFSListFixture, BasicBFS) {
 }
 
 
-TEST(BFSTest, EmptyGraph) {
+TEST_F(BFSListFixture, EmptyGraph) {
     GraphList<std::string> g;
-    Algorithms<GraphList<std::string>, std::string> alg(g);
 
-    EXPECT_NO_THROW(alg.BFS_list(1));
+    EXPECT_NO_THROW(bfsAlg->run(g, 1));
 }
 
-TEST(BFSTest, SingleVertex) {
+TEST_F(BFSListFixture, SingleVertex) {
     GraphList<std::string> g;
     g.addVertex(1, "A");
 
-    Algorithms<GraphList<std::string>, std::string> alg(g);
     std::stringstream out;
     CoutGuard guard(out);
-    alg.BFS_list(1);
+    bfsAlg->run(g, 1);
 
     std::string bfsOutput = out.str();
     EXPECT_NE(bfsOutput.find("A"), std::string::npos);

@@ -1,0 +1,48 @@
+@startuml
+skinparam packageStyle rectangle
+top to bottom direction
+
+legend top right
+  | Color | Architectural Changes Description |
+  |<#FFCDD2>| **Legacy Link** (Direct monolithic coupling across layers) |
+  |<#E8F5E9>| **New CMake Components** (Physical separation into Libs/Executables) |
+  |<#BBDEFB>| **Preserved Packages** (Original logical layers) |
+endlegend
+
+note "ARCHITECTURAL CHANGE (Modularization):\nThe logical layers were physically separated using CMake.\nCore logic is now a standalone Static Library,\nensuring UI interacts strictly through defined component boundaries." as N1
+
+component "Project1 <<Executable UI>>" as UI_Comp #E8F5E9 {
+    package "Presentation Layer" #BBDEFB {
+        package UI
+    }
+}
+
+component "GalaxyEngine <<Static Library>>" as Engine_Comp #E8F5E9 {
+    package "Business/Domain Layer" #BBDEFB {
+        package PHYSICS
+        package DOMAIN
+    }
+
+    package "Utility Layer" #BBDEFB {
+        package ALGORITHMS
+        package GRAPH
+    }
+}
+
+component "Tests & Benchmark <<Executables>>" as Tests_Comp #E8F5E9 {
+    package "QA & Profiling" as QA #BBDEFB
+}
+
+UI ..[#red]> PHYSICS : "<<legacy use>>"
+UI ..[#red]> DOMAIN : "<<legacy use>>"
+UI ..[#red]> GRAPH : "<<legacy use>>"
+UI ..[#red]> ALGORITHMS : "<<legacy use>>"
+
+UI_Comp =[#009900,bold]=> Engine_Comp : "<<CMake target_link_libraries>>"
+Tests_Comp =[#009900,bold]=> Engine_Comp : "<<CMake target_link_libraries>>"
+
+PHYSICS ..> DOMAIN : "<<use>>"
+DOMAIN ..> GRAPH : "<<use>>"
+ALGORITHMS ..> GRAPH : "<<use>>"
+
+@enduml

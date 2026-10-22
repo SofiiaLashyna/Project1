@@ -1,0 +1,81 @@
+\doxysection{galaxyview.\+h}
+\hypertarget{galaxyview_8h_source}{}\label{galaxyview_8h_source}\index{GalaxyView/galaxyview.h@{GalaxyView/galaxyview.h}}
+\mbox{\hyperlink{galaxyview_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ GALAXYVIEW\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ GALAXYVIEW\_H}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_random_utilities_8h}{RandomUtilities.h}}"{}}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_celestial_object_8h}{CelestialObject.h}}"{}}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_galaxy_8h}{Galaxy.h}}"{}}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_graph_list_8h}{GraphList.h}}"{}}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ "{}nlohmann/json.hpp"{}}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_graph_widget_8h}{GraphWidget.h}}"{}}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ <cmath>}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ <qboxlayout.h>}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ <QPushButton>}}
+\DoxyCodeLine{00013\ \textcolor{comment}{//\ Forward\ declarations\ to\ avoid\ circular\ dependencies}}
+\DoxyCodeLine{00014\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_galaxy_edit_dialog}{GalaxyEditDialog}};}
+\DoxyCodeLine{00015\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_add_star_system_dialog}{AddStarSystemDialog}};}
+\DoxyCodeLine{00016\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_add_nebula_dialog}{AddNebulaDialog}};}
+\DoxyCodeLine{00017\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_edit_star_system_dialog}{EditStarSystemDialog}};}
+\DoxyCodeLine{00018\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_edit_nebula_dialog}{EditNebulaDialog}};}
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00024\ QT\_BEGIN\_NAMESPACE}
+\DoxyCodeLine{00025\ }
+\DoxyCodeLine{00034\ \textcolor{keyword}{namespace\ }Ui\ \{}
+\DoxyCodeLine{00035\ \ \ \ \ \textcolor{keyword}{class\ }GalaxyView;}
+\DoxyCodeLine{00036\ \}}
+\DoxyCodeLine{00037\ }
+\DoxyCodeLine{00038\ QT\_END\_NAMESPACE}
+\DoxyCodeLine{00039\ }
+\DoxyCodeLine{00040\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_galaxy_view_a067dbc9b7d569e4e8645e0af6d3168db}{GalaxyView}}\ :\ \textcolor{keyword}{public}\ QWidget\ \{}
+\DoxyCodeLine{00041\ \ \ \ \ Q\_OBJECT}
+\DoxyCodeLine{00042\ }
+\DoxyCodeLine{00043\ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00049\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_galaxy_view_a6a999cdb98b31cb83a4187a5f37d6ed1}{resizeEvent}}(QResizeEvent\ *event)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00050\ }
+\DoxyCodeLine{00051\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00056\ \ \ \ \ \textcolor{keyword}{explicit}\ \mbox{\hyperlink{class_galaxy_view_a067dbc9b7d569e4e8645e0af6d3168db}{GalaxyView}}(QWidget\ *parent\ =\ \textcolor{keyword}{nullptr});}
+\DoxyCodeLine{00057\ }
+\DoxyCodeLine{00062\ \ \ \ \ \mbox{\hyperlink{class_galaxy_view_a35a86b940942ce424f01922819adddce}{\string~GalaxyView}}()\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00063\ }
+\DoxyCodeLine{00071\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_galaxy_view_a0947343835de8bb13584fc52b67d8408}{generateAndDisplayGalaxy}}(\textcolor{keyword}{const}\ nlohmann::json\ \&data,\ \mbox{\hyperlink{class_random_generator}{RandomGenerator}}\ \&rng);}
+\DoxyCodeLine{00072\ }
+\DoxyCodeLine{00073\ \textcolor{keyword}{private}\ slots:}
+\DoxyCodeLine{00078\ \ \ \ \ \textcolor{keywordtype}{void}\ on\_paramsButton\_clicked();}
+\DoxyCodeLine{00079\ }
+\DoxyCodeLine{00084\ \ \ \ \ \textcolor{keywordtype}{void}\ on\_editButton\_clicked();}
+\DoxyCodeLine{00085\ }
+\DoxyCodeLine{00090\ \ \ \ \ \textcolor{keywordtype}{void}\ on\_vertexDoubleClicked(\textcolor{keywordtype}{int}\ vertexId);}
+\DoxyCodeLine{00091\ }
+\DoxyCodeLine{00096\ \ \ \ \ \textcolor{keywordtype}{void}\ on\_zoomOutButton\_clicked();}
+\DoxyCodeLine{00097\ }
+\DoxyCodeLine{00102\ }
+\DoxyCodeLine{00103\ \ \ \ \ \textcolor{keywordtype}{void}\ showObjectParameters(\mbox{\hyperlink{class_celestial_object}{CelestialObject}}\ *obj);}
+\DoxyCodeLine{00104\ }
+\DoxyCodeLine{00109\ \ \ \ \ \textcolor{keywordtype}{void}\ on\_editObjectButton\_clicked();}
+\DoxyCodeLine{00110\ }
+\DoxyCodeLine{00111\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00112\ \ \ \ \ Ui::GalaxyView\ *ui;\ }
+\DoxyCodeLine{00113\ \ \ \ \ \mbox{\hyperlink{class_galaxy}{Galaxy<GraphList<CelestialObject\ *>}}\ >\ *galaxy\ =\ \textcolor{keyword}{nullptr};\ }
+\DoxyCodeLine{00117\ \ \ \ \ \textcolor{keywordtype}{void}\ updateParametersWindow();}
+\DoxyCodeLine{00118\ }
+\DoxyCodeLine{00122\ \ \ \ \ \textcolor{keywordtype}{void}\ updateGraphDisplay();}
+\DoxyCodeLine{00123\ }
+\DoxyCodeLine{00124\ \ \ \ \ \mbox{\hyperlink{class_graph_widget}{GraphWidget}}\ *graphWidget\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00126\ \ \ \ \ QPushButton\ *paramsButton\ =\ \textcolor{keyword}{nullptr};\ }
+\DoxyCodeLine{00127\ \ \ \ \ QWidget\ *paramsWindow\ =\ \textcolor{keyword}{nullptr};\ }
+\DoxyCodeLine{00128\ \ \ \ \ \mbox{\hyperlink{class_random_generator}{RandomGenerator}}\ *rngPtr\ =\ \textcolor{keyword}{nullptr};\ }
+\DoxyCodeLine{00129\ \ \ \ \ nlohmann::json\ *dataPtr\ =\ \textcolor{keyword}{nullptr};\ }
+\DoxyCodeLine{00130\ \ \ \ \ QPushButton\ *editButton\ =\ \textcolor{keyword}{nullptr};\ }
+\DoxyCodeLine{00131\ \ \ \ \ QPushButton\ *zoomOutButton\ =\ \textcolor{keyword}{nullptr};\ }
+\DoxyCodeLine{00132\ \ \ \ \ std::vector<QPointF>\ vertexPositions;\ }
+\DoxyCodeLine{00137\ \ \ \ \ \textcolor{keywordtype}{void}\ editStarSystem(\mbox{\hyperlink{class_star_system}{StarSystem}}\ *system);}
+\DoxyCodeLine{00138\ }
+\DoxyCodeLine{00143\ \ \ \ \ \textcolor{keywordtype}{void}\ editNebula(\mbox{\hyperlink{class_nebula}{Nebula}}\ *nebula);}
+\DoxyCodeLine{00144\ \};}
+\DoxyCodeLine{00145\ }
+\DoxyCodeLine{00146\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//GALAXYVIEW\_H}}
+
+\end{DoxyCode}

@@ -1,0 +1,109 @@
+\doxysection{Is\+Connected\+Matrix\texorpdfstring{$<$}{<} T \texorpdfstring{$>$}{>} Class Template Reference}
+\hypertarget{class_is_connected_matrix}{}\label{class_is_connected_matrix}\index{IsConnectedMatrix$<$ T $>$@{IsConnectedMatrix$<$ T $>$}}
+
+
+A strategy class that executes a check for connectivity.  
+
+
+
+
+{\ttfamily \#include $<$Is\+Connected\+Matrix.\+h$>$}
+
+Inheritance diagram for Is\+Connected\+Matrix\texorpdfstring{$<$}{<} T \texorpdfstring{$>$}{>}\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_is_connected_matrix}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{class_is_connected_matrix_ae0f3658599e21335c499c0ae396cb0a8}{run}} (\mbox{\hyperlink{class_graph_matrix}{Graph\+Matrix}}$<$ T $>$ \&g, int start\+Id=0, int end\+Id=-\/1) override
+\begin{DoxyCompactList}\small\item\em Performs a connection check algorithm for a graph represented by an adjacency matrix. \end{DoxyCompactList}\item 
+\Hypertarget{class_is_connected_matrix_a65ffe1f757fc089ba36252deee260723}\label{class_is_connected_matrix_a65ffe1f757fc089ba36252deee260723} 
+virtual {\bfseries \texorpdfstring{$\sim$}{\string~}\+Is\+Connected\+Matrix} ()=default
+\begin{DoxyCompactList}\small\item\em Default destructor. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{class_graph_algorithm}{Graph\+Algorithm$<$ Graph\+Matrix$<$ T $>$, T $>$}}}
+\begin{DoxyCompactItemize}
+\item 
+virtual {\bfseries \texorpdfstring{$\sim$}{\string~}\+Graph\+Algorithm} ()=default
+\begin{DoxyCompactList}\small\item\em Virtual destructor. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\subsubsection*{template$<$typename T$>$\newline
+class Is\+Connected\+Matrix$<$ T $>$}
+A strategy class that executes a check for connectivity. 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em T} & The data type stored in the graph vertices. \\
+\hline
+\end{DoxyTemplParams}
+
+
+\label{doc-func-members}
+\Hypertarget{class_is_connected_matrix_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_is_connected_matrix_ae0f3658599e21335c499c0ae396cb0a8}\index{IsConnectedMatrix$<$ T $>$@{IsConnectedMatrix$<$ T $>$}!run@{run}}
+\index{run@{run}!IsConnectedMatrix$<$ T $>$@{IsConnectedMatrix$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{run()}{run()}}
+{\footnotesize\ttfamily \label{class_is_connected_matrix_ae0f3658599e21335c499c0ae396cb0a8} 
+template$<$typename T$>$ \\
+int \mbox{\hyperlink{class_is_connected_matrix}{Is\+Connected\+Matrix}}$<$ T $>$\+::run (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_graph_matrix}{Graph\+Matrix}}$<$ T $>$ \&}]{g}{, }\item[{int}]{start\+Id}{ = {\ttfamily 0}, }\item[{int}]{end\+Id}{ = {\ttfamily -\/1}}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Performs a connection check algorithm for a graph represented by an adjacency matrix. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em g} & The \doxylink{class_graph_matrix}{Graph\+Matrix} object to traverse. \\
+\hline
+{\em start\+Id} & The ID of the starting vertex. \\
+\hline
+{\em end\+Id} & (Unused) Included to match the base class signature. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Always returns 1 if true, else 0. 
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{class_graph_algorithm_a002a93f79b9204a814a7c9726dc69a78}{Graph\+Algorithm$<$ Graph\+Matrix$<$ T $>$, T $>$}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00028\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00029\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_is_connected_matrix}{n}}\ =\ \mbox{\hyperlink{class_is_connected_matrix}{g}}.adjacencyMatrix.size();}
+\DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{class_is_connected_matrix}{n}}\ ==\ 0)\ \textcolor{keywordflow}{return}\ 1;}
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00032\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_is_connected_matrix}{std::vector<bool>}}\ \mbox{\hyperlink{class_is_connected_matrix}{visited}}(\mbox{\hyperlink{class_is_connected_matrix}{n}},\ \textcolor{keyword}{false});}
+\DoxyCodeLine{00033\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_is_connected_matrix}{std::vector<int>}}\ \mbox{\hyperlink{class_is_connected_matrix}{stack}};}
+\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_is_connected_matrix}{stack}}.push\_back(0);}
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}\ (!\mbox{\hyperlink{class_is_connected_matrix}{stack}}.empty())\ \{}
+\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_is_connected_matrix}{v}}\ =\ \mbox{\hyperlink{class_is_connected_matrix}{stack}}.back();}
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_is_connected_matrix}{stack}}.pop\_back();}
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{class_is_connected_matrix}{visited}}[\mbox{\hyperlink{class_is_connected_matrix}{v}}])\ \textcolor{keywordflow}{continue};}
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_is_connected_matrix}{visited}}[\mbox{\hyperlink{class_is_connected_matrix}{v}}]\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00041\ }
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_is_connected_matrix}{u}}\ =\ 0;\ \mbox{\hyperlink{class_is_connected_matrix}{u}}\ <\ \mbox{\hyperlink{class_is_connected_matrix}{n}};\ ++\mbox{\hyperlink{class_is_connected_matrix}{u}})}
+\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{class_is_connected_matrix}{g}}.adjacencyMatrix[\mbox{\hyperlink{class_is_connected_matrix}{v}}][\mbox{\hyperlink{class_is_connected_matrix}{u}}]\ \&\&\ !\mbox{\hyperlink{class_is_connected_matrix}{visited}}[\mbox{\hyperlink{class_is_connected_matrix}{u}}])}
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_is_connected_matrix}{stack}}.push\_back(\mbox{\hyperlink{class_is_connected_matrix}{u}});}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_is_connected_matrix}{i}}\ =\ 0;\ \mbox{\hyperlink{class_is_connected_matrix}{i}}\ <\ \mbox{\hyperlink{class_is_connected_matrix}{n}};\ ++\mbox{\hyperlink{class_is_connected_matrix}{i}})\ \{}
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!\mbox{\hyperlink{class_is_connected_matrix}{visited}}[\mbox{\hyperlink{class_is_connected_matrix}{i}}])}
+\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00051\ }
+\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ 1;}
+\DoxyCodeLine{00053\ \ \ \ \ \}}
+
+\end{DoxyCode}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Algorithms/\mbox{\hyperlink{_is_connected_matrix_8h}{Is\+Connected\+Matrix.\+h}}\end{DoxyCompactItemize}

@@ -1,6 +1,6 @@
 #ifndef ISCONNECTED_MATRIX_H
 #define ISCONNECTED_MATRIX_H
-#include "Algorithm.h"
+#include "GraphAlgorithms.h"
 #include "GraphMatrix.h"
 /**
  * @file isConnectedMatrix.h

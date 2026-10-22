@@ -1,0 +1,101 @@
+\doxysection{ui\+\_\+\+Window\+Interface.\+h}
+\hypertarget{ui___window_interface_8h_source}{}\label{ui___window_interface_8h_source}\index{cmake-\/build-\/debug/ProjectLib\_autogen/include/ui\_WindowInterface.h@{cmake-\/build-\/debug/ProjectLib\_autogen/include/ui\_WindowInterface.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/********************************************************************************}}
+\DoxyCodeLine{00002\ \textcolor{comment}{**\ Form\ generated\ from\ reading\ UI\ file\ 'windowinterface.ui'}}
+\DoxyCodeLine{00003\ \textcolor{comment}{**}}
+\DoxyCodeLine{00004\ \textcolor{comment}{**\ Created\ by:\ Qt\ User\ Interface\ Compiler\ version\ 6.9.3}}
+\DoxyCodeLine{00005\ \textcolor{comment}{**}}
+\DoxyCodeLine{00006\ \textcolor{comment}{**\ WARNING!\ All\ changes\ made\ in\ this\ file\ will\ be\ lost\ when\ recompiling\ UI\ file!}}
+\DoxyCodeLine{00007\ \textcolor{comment}{********************************************************************************/}}
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#ifndef\ UI\_WINDOWINTERFACE\_H}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#define\ UI\_WINDOWINTERFACE\_H}}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ <QtCore/QVariant>}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ <QtWidgets/QApplication>}}
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#include\ <QtWidgets/QLabel>}}
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#include\ <QtWidgets/QPushButton>}}
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#include\ <QtWidgets/QStackedWidget>}}
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#include\ <QtWidgets/QWidget>}}
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00019\ QT\_BEGIN\_NAMESPACE}
+\DoxyCodeLine{00020\ }
+\DoxyCodeLine{00021\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_ui___window_interface}{Ui\_WindowInterface}}}
+\DoxyCodeLine{00022\ \{}
+\DoxyCodeLine{00023\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00024\ \ \ \ \ QStackedWidget\ *stackedWidget;}
+\DoxyCodeLine{00025\ \ \ \ \ QWidget\ *page;}
+\DoxyCodeLine{00026\ \ \ \ \ QLabel\ *label;}
+\DoxyCodeLine{00027\ \ \ \ \ QPushButton\ *pushButton;}
+\DoxyCodeLine{00028\ \ \ \ \ QPushButton\ *pushButton\_2;}
+\DoxyCodeLine{00029\ \ \ \ \ QWidget\ *page\_2;}
+\DoxyCodeLine{00030\ \ \ \ \ QPushButton\ *pushButton\_3;}
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00032\ \ \ \ \ \textcolor{keywordtype}{void}\ setupUi(QWidget\ *\mbox{\hyperlink{class_window_interface}{WindowInterface}})}
+\DoxyCodeLine{00033\ \ \ \ \ \{}
+\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{class_window_interface}{WindowInterface}}-\/>objectName().isEmpty())}
+\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_window_interface}{WindowInterface}}-\/>setObjectName(\textcolor{stringliteral}{"{}WindowInterface"{}});}
+\DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_window_interface}{WindowInterface}}-\/>resize(1228,\ 689);}
+\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_window_interface}{WindowInterface}}-\/>setStyleSheet(QString::fromUtf8(\textcolor{stringliteral}{"{}background-\/color:\ rgb(0,\ 0,\ 0);"{}}));}
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ stackedWidget\ =\ \textcolor{keyword}{new}\ QStackedWidget(\mbox{\hyperlink{class_window_interface}{WindowInterface}});}
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ stackedWidget-\/>setObjectName(\textcolor{stringliteral}{"{}stackedWidget"{}});}
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ stackedWidget-\/>setGeometry(QRect(10,\ -\/10,\ 1231,\ 681));}
+\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ page\ =\ \textcolor{keyword}{new}\ QWidget();}
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ page-\/>setObjectName(\textcolor{stringliteral}{"{}page"{}});}
+\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ label\ =\ \textcolor{keyword}{new}\ QLabel(page);}
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ label-\/>setObjectName(\textcolor{stringliteral}{"{}label"{}});}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ label-\/>setGeometry(QRect(190,\ 160,\ 841,\ 51));}
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ label-\/>setStyleSheet(QString::fromUtf8(\textcolor{stringliteral}{"{}font:\ 26pt\ \(\backslash\)"{}Ravie\(\backslash\)"{};\(\backslash\)n"{}}}
+\DoxyCodeLine{00047\ \textcolor{stringliteral}{"{}background-\/color:\ qlineargradient(spread:pad,\ x1:0,\ y1:0,\ x2:1,\ y2:1,\ stop:0\ rgba(0,\ 0,\ 0,\ 0),\ stop:1\ rgba(0,\ 0,\ 0,\ 0));"{}}));}
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ pushButton\ =\ \textcolor{keyword}{new}\ QPushButton(page);}
+\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ pushButton-\/>setObjectName(\textcolor{stringliteral}{"{}pushButton"{}});}
+\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ pushButton-\/>setGeometry(QRect(420,\ 310,\ 331,\ 71));}
+\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ pushButton-\/>setStyleSheet(QString::fromUtf8(\textcolor{stringliteral}{"{}font:\ 28pt\ \(\backslash\)"{}Segoe\ Print\(\backslash\)"{};\(\backslash\)n"{}}}
+\DoxyCodeLine{00052\ \textcolor{stringliteral}{"{}background-\/color:\ qlineargradient(spread:pad,\ x1:0.091,\ y1:0.097,\ x2:1,\ y2:1,\ stop:0\ rgba(104,\ 0,\ 123,\ 197),\ stop:1\ rgba(255,\ 255,\ 255,\ 0));\(\backslash\)n"{}}}
+\DoxyCodeLine{00053\ \textcolor{stringliteral}{"{}border-\/top-\/color:\ rgb(225,\ 0,\ 255);"{}}));}
+\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ pushButton\_2\ =\ \textcolor{keyword}{new}\ QPushButton(page);}
+\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ pushButton\_2-\/>setObjectName(\textcolor{stringliteral}{"{}pushButton\_2"{}});}
+\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ pushButton\_2-\/>setGeometry(QRect(420,\ 420,\ 331,\ 71));}
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ pushButton\_2-\/>setStyleSheet(QString::fromUtf8(\textcolor{stringliteral}{"{}font:\ 20pt\ \(\backslash\)"{}Segoe\ Print\(\backslash\)"{};\(\backslash\)n"{}}}
+\DoxyCodeLine{00058\ \textcolor{stringliteral}{"{}background-\/color:\ qlineargradient(spread:pad,\ x1:0.091,\ y1:0.097,\ x2:1,\ y2:1,\ stop:0\ rgba(0,\ 109,\ 202,\ 188),\ stop:1\ rgba(255,\ 255,\ 255,\ 0));\(\backslash\)n"{}}}
+\DoxyCodeLine{00059\ \textcolor{stringliteral}{"{}border-\/top-\/color:\ rgb(255,\ 170,\ 0);"{}}));}
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ stackedWidget-\/>addWidget(page);}
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ page\_2\ =\ \textcolor{keyword}{new}\ QWidget();}
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ page\_2-\/>setObjectName(\textcolor{stringliteral}{"{}page\_2"{}});}
+\DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ pushButton\_3\ =\ \textcolor{keyword}{new}\ QPushButton(page\_2);}
+\DoxyCodeLine{00064\ \ \ \ \ \ \ \ \ pushButton\_3-\/>setObjectName(\textcolor{stringliteral}{"{}pushButton\_3"{}});}
+\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ pushButton\_3-\/>setGeometry(QRect(998,\ 640,\ 181,\ 41));}
+\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ pushButton\_3-\/>setStyleSheet(QString::fromUtf8(\textcolor{stringliteral}{"{}background-\/color:\ qlineargradient(spread:pad,\ x1:0,\ y1:0.003,\ x2:1,\ y2:1,\ stop:0\ rgba(200,\ 108,\ 0,\ 197),\ stop:1\ rgba(255,\ 255,\ 255,\ 0));\(\backslash\)n"{}}}
+\DoxyCodeLine{00067\ \textcolor{stringliteral}{"{}font:\ 16pt\ \(\backslash\)"{}Segoe\ Print\(\backslash\)"{};"{}}));}
+\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ stackedWidget-\/>addWidget(page\_2);}
+\DoxyCodeLine{00069\ }
+\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ retranslateUi(\mbox{\hyperlink{class_window_interface}{WindowInterface}});}
+\DoxyCodeLine{00071\ }
+\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ stackedWidget-\/>setCurrentIndex(0);}
+\DoxyCodeLine{00073\ }
+\DoxyCodeLine{00074\ }
+\DoxyCodeLine{00075\ \ \ \ \ \ \ \ \ QMetaObject::connectSlotsByName(\mbox{\hyperlink{class_window_interface}{WindowInterface}});}
+\DoxyCodeLine{00076\ \ \ \ \ \}\ \textcolor{comment}{//\ setupUi}}
+\DoxyCodeLine{00077\ }
+\DoxyCodeLine{00078\ \ \ \ \ \textcolor{keywordtype}{void}\ retranslateUi(QWidget\ *\mbox{\hyperlink{class_window_interface}{WindowInterface}})}
+\DoxyCodeLine{00079\ \ \ \ \ \{}
+\DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_window_interface}{WindowInterface}}-\/>setWindowTitle(QCoreApplication::translate(\textcolor{stringliteral}{"{}WindowInterface"{}},\ \textcolor{stringliteral}{"{}WindowInterface"{}},\ \textcolor{keyword}{nullptr}));}
+\DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ label-\/>setText(QCoreApplication::translate(\textcolor{stringliteral}{"{}WindowInterface"{}},\ \textcolor{stringliteral}{"{}Welcome\ to\ the\ Galaxy\ Simulator!"{}},\ \textcolor{keyword}{nullptr}));}
+\DoxyCodeLine{00082\ \ \ \ \ \ \ \ \ pushButton-\/>setText(QCoreApplication::translate(\textcolor{stringliteral}{"{}WindowInterface"{}},\ \textcolor{stringliteral}{"{}Generate\ Galaxy"{}},\ \textcolor{keyword}{nullptr}));}
+\DoxyCodeLine{00083\ \ \ \ \ \ \ \ \ pushButton\_2-\/>setText(QCoreApplication::translate(\textcolor{stringliteral}{"{}WindowInterface"{}},\ \textcolor{stringliteral}{"{}Input\ existing\ Galaxy"{}},\ \textcolor{keyword}{nullptr}));}
+\DoxyCodeLine{00084\ \ \ \ \ \ \ \ \ pushButton\_3-\/>setText(QCoreApplication::translate(\textcolor{stringliteral}{"{}WindowInterface"{}},\ \textcolor{stringliteral}{"{}Return\ to\ home"{}},\ \textcolor{keyword}{nullptr}));}
+\DoxyCodeLine{00085\ \ \ \ \ \}\ \textcolor{comment}{//\ retranslateUi}}
+\DoxyCodeLine{00086\ }
+\DoxyCodeLine{00087\ \};}
+\DoxyCodeLine{00088\ }
+\DoxyCodeLine{00089\ \textcolor{keyword}{namespace\ }Ui\ \{}
+\DoxyCodeLine{00090\ \ \ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_ui_1_1_window_interface}{WindowInterface}}:\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_ui___window_interface}{Ui\_WindowInterface}}\ \{\};}
+\DoxyCodeLine{00091\ \}\ \textcolor{comment}{//\ namespace\ Ui}}
+\DoxyCodeLine{00092\ }
+\DoxyCodeLine{00093\ QT\_END\_NAMESPACE}
+\DoxyCodeLine{00094\ }
+\DoxyCodeLine{00095\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ UI\_WINDOWINTERFACE\_H}}
+
+\end{DoxyCode}

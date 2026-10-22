@@ -1,0 +1,84 @@
+@startuml
+skinparam classAttributeIconSize 0
+skinparam monochrome true
+left to right direction
+
+package ALGORITHMS {
+
+    class "Algorithms <GraphType, T>" as Algorithms {
+      - graph : GraphType&
+      + Algorithms(g: GraphType&)
+      + BFS_list(startId: int) : void
+      + BFS_matrix(startId: int) : void
+      + DFS_list(startId: int) : void
+      + DFS_matrix(startId: int) : void
+      + Dijkstra_list(startId: int, endId: int) : int
+      + Dijkstra_matrix(startId: int, endId: int) : int
+      + Dijkstra_findPath(startId: int, endId: int) : std::vector<int>
+    }
+
+    abstract class "GraphAlgorithm <GraphType, T>" as GraphAlgorithm <<Interface>> {
+      + ~GraphAlgorithm()
+      + {abstract} run(g: GraphType&, startId: int, endId: int) : int
+    }
+
+    class "BFSAlgorithm <T>" as BFSAlgorithm {
+      + run(g: GraphList<T>&, startId: int, endId: int) : int
+    }
+    
+    class "BFSMatrixAlgorithm <T>" as BFSMatrixAlgorithm {
+      + run(g: GraphMatrix<T>&, startId: int, endId: int) : int
+    }
+
+    class "DFSAlgorithm <T>" as DFSAlgorithm {
+      + run(g: GraphList<T>&, startId: int, endId: int) : int
+    }
+    
+    class "DFSMatrixAlgorithm <T>" as DFSMatrixAlgorithm {
+      + run(g: GraphMatrix<T>&, startId: int, endId: int) : int
+    }
+
+    class "DijkstraListAlgorithm <T>" as DijkstraListAlgorithm {
+      + run(g: GraphList<T>&, startId: int, endId: int) : int
+    }
+    
+    class "DijkstraMatrixAlgorithm <T>" as DijkstraMatrixAlgorithm {
+      + run(g: GraphMatrix<T>&, startId: int, endId: int) : int
+    }
+
+    class "IsConnectedList <T>" as IsConnectedList {
+      + run(g: GraphList<T>&, startId: int, endId: int) : int
+    }
+    
+    class "IsConnectedMatrix <T>" as IsConnectedMatrix {
+      + run(g: GraphMatrix<T>&, startId: int, endId: int) : int
+    }
+
+    class "DijkstraPathList <T>" as DijkstraPathList {
+      + findShortestPath(g: GraphList<T>&, startId: int, endId: int) : std::vector<int>
+    }
+
+
+    GraphAlgorithm <|-- BFSAlgorithm
+    GraphAlgorithm <|-- BFSMatrixAlgorithm
+    GraphAlgorithm <|-- DFSAlgorithm
+    GraphAlgorithm <|-- DFSMatrixAlgorithm
+    GraphAlgorithm <|-- DijkstraListAlgorithm
+    GraphAlgorithm <|-- DijkstraMatrixAlgorithm
+    GraphAlgorithm <|-- IsConnectedList
+    GraphAlgorithm <|-- IsConnectedMatrix
+
+
+    BFSAlgorithm ..> Algorithms : <<uses>>
+    BFSMatrixAlgorithm ..> Algorithms : <<uses>>
+    DFSAlgorithm ..> Algorithms : <<uses>>
+    DFSMatrixAlgorithm ..> Algorithms : <<uses>>
+    DijkstraListAlgorithm ..> Algorithms : <<uses>>
+    DijkstraMatrixAlgorithm ..> Algorithms : <<uses>>
+    IsConnectedList ..> Algorithms : <<uses>>
+    IsConnectedMatrix ..> Algorithms : <<uses>>
+    
+    DijkstraPathList ..> Algorithms : <<uses>>
+}
+
+@enduml

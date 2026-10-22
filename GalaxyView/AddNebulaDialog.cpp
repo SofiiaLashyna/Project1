@@ -4,10 +4,11 @@
 #include <QVBoxLayout>
 #include <QLabel>
 #include "Galaxy.h"
+#include "GalaxyFactory.h"
 
 AddNebulaDialog::AddNebulaDialog(RandomGenerator &rngRef,
-const nlohmann::json &dataRef,
-QWidget *parent)
+                                 const nlohmann::json &dataRef,
+                                 QWidget *parent)
 : QDialog(parent), rng(rngRef), data(dataRef) {
     setWindowTitle("Add Nebula");
 
@@ -39,8 +40,8 @@ QWidget *parent)
 }
 Nebula *AddNebulaDialog::getNewNebula() const {
     Galaxy<GraphList<CelestialObject *> > temp_galaxy;
+    Nebula *nebula =  GalaxyFactory::createNebula(data, rng);
 
-    Nebula *nebula = temp_galaxy.generateNebula(rng, data);
 
     if (!nebula) return nullptr;
 

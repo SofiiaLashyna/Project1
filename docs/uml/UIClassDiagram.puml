@@ -1,0 +1,112 @@
+@startuml
+skinparam classAttributeIconSize 0
+skinparam monochrome true
+top to bottom direction
+
+package "Qt Framework" <<Frame>> {
+    class QWidget <<External>>
+    class QDialog <<External>>
+    class QAbstractListModel <<External>>
+}
+
+package UI {
+    class WindowInterface {
+        - ui : Ui::WindowInterface*
+        - galaxyView : GalaxyView*
+        - galaxyView3D : GalaxyView3D*
+        + WindowInterface(parent: QWidget*)
+        + ~WindowInterface()
+    }
+
+    class GalaxyView {
+        - ui : Ui::GalaxyView*
+        - graphWidget : GraphWidget*
+        - physicsController : GalaxyPhysicsController*
+        + GalaxyView(parent: QWidget*)
+        + ~GalaxyView()
+        + generateAndDisplayGalaxy(...) : void
+        - updateGraphDisplay() : void
+        - initPhysicsSimulation() : void
+    }
+
+    class GalaxyView3D {
+        - ui : Ui::GalaxyView3D*
+        - celestialModelPtr : CelestialObject3DModel*
+        - planetModelPtr : PlanetarySystemModel*
+        + GalaxyView3D(parent: QWidget*)
+        + generateAndDisplayGalaxy(...) : void
+    }
+
+    class GraphWidget {
+        - vertices : std::vector<W_Vertex>
+        - edges : std::vector<W_Edge>
+        + GraphWidget(parent: QWidget*)
+        + setGraph(v: vector<W_Vertex>, e: vector<W_Edge>, objects) : void
+        # paintEvent(event: QPaintEvent*) : void
+    }
+
+    class CelestialObject3DModel {
+        - objects : std::vector<CelestialObject*>
+        + rowCount(...) : int
+        + data(...) : QVariant
+        + updatePositions(...) : void
+    }
+
+    class PlanetarySystemModel {
+        + updateSystem(system: StarSystem*) : void
+    }
+
+    class GalaxyEditDialog {
+        + GalaxyEditDialog(...)
+    }
+
+    class W_Vertex <<Struct>> {
+        + id : int
+        + x : double
+        + y : double
+        + name : QString
+    }
+
+    class W_Edge <<Struct>> {
+        + from : int
+        + to : int
+        + weight : int
+    }
+
+
+    QWidget <|-- WindowInterface
+    QWidget <|-- GalaxyView
+    QWidget <|-- GalaxyView3D
+    QWidget <|-- GraphWidget
+    QDialog <|-- GalaxyEditDialog
+    QAbstractListModel <|-- CelestialObject3DModel
+    QAbstractListModel <|-- PlanetarySystemModel
+
+    WindowInterface *-- GalaxyView
+    WindowInterface *-- GalaxyView3D
+    GalaxyView *-- GraphWidget
+    
+    GraphWidget ..> W_Vertex : "uses"
+    GraphWidget ..> W_Edge : "uses"
+    
+    GalaxyView3D ..> GalaxyEditDialog : "opens"
+}
+
+package "Physics" <<Frame>> {
+    class GalaxyPhysicsController
+}
+
+package "Domain" <<Frame>> {
+    class Galaxy
+    class CelestialObject
+    class StarSystem
+}
+
+
+GalaxyView --> GalaxyPhysicsController : "calls"
+GalaxyView --> Galaxy : "displays"
+GalaxyView3D --> Galaxy : "displays"
+CelestialObject3DModel --> CelestialObject : "retains"
+PlanetarySystemModel --> StarSystem : "wraps"
+
+@enduml

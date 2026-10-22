@@ -4,10 +4,11 @@
 #include <QPushButton>
 #include "GraphList.h"
 #include "Galaxy.h"
+#include "GalaxyFactory.h"
 
 AddStarSystemDialog::AddStarSystemDialog(RandomGenerator &rngRef,
-const nlohmann::json &dataRef,
-QWidget *parent)
+                                         const nlohmann::json &dataRef,
+                                         QWidget *parent)
 : QDialog(parent), rng(rngRef), data(dataRef) {
     setWindowTitle("Add Star System");
 
@@ -47,7 +48,7 @@ QWidget *parent)
 StarSystem *AddStarSystemDialog::getNewStarSystem(int id) const {
     Galaxy<GraphList<CelestialObject *> > temp_galaxy;
 
-    StarSystem *system = temp_galaxy.generateStarSystem(id, rng, data);
+    StarSystem *system = GalaxyFactory::createStarSystem(id, data, rng);
 
     if (!system) return nullptr;
 
@@ -68,7 +69,7 @@ StarSystem *AddStarSystemDialog::getNewStarSystem(int id) const {
     } else if (targetPlanetCount > system->getPlanets().size()) {
         int dif = targetPlanetCount - system->getPlanets().size();
         for (auto i = 0; i != dif; ++i) {
-            Planet *planet = temp_galaxy.generatePlanet(rng, data);
+            Planet *planet = GalaxyFactory::createPlanet(data, rng);
             system->addPlanet(planet);
         }
     }

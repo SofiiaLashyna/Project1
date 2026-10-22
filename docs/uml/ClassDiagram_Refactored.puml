@@ -1,0 +1,94 @@
+@startuml
+top to bottom direction
+skinparam classAttributeIconSize 0
+
+legend top right
+  | Color | High-Level Architectural Changes |
+  |<#FFCDD2>| **Removed** (Legacy monolithic classes & links) |
+  |<#C8E6C9>| **Added** (New factories, strategies, and structures) |
+  |<#BBDEFB>| **Interface** (Abstraction layer) |
+endlegend
+
+package DOMAIN {
+    abstract class CelestialObject
+    class Star
+    class Planet
+    class Nebula
+    class StarSystem
+    class Galaxy
+    
+    class "GalaxyFactory" as GalaxyFactory #C8E6C9
+    struct "RGBColor" as RGBColor #C8E6C9
+
+    CelestialObject <|-- Star
+    CelestialObject <|-- Planet
+    CelestialObject <|-- Nebula
+    CelestialObject <|-- StarSystem
+
+    StarSystem *-- Star
+    StarSystem *-- Planet
+    Galaxy --> CelestialObject
+    
+    GalaxyFactory ..> Galaxy : <color:green>**creates**</color>
+    GalaxyFactory ..> CelestialObject : <color:green>**creates**</color>
+    Planet --> RGBColor : <color:green>**uses**</color>
+}
+
+package GRAPH {
+    abstract class "Graph<T>" as Graph
+    class "GraphList<T>" as GraphList
+    class "GraphMatrix<T>" as GraphMatrix
+    class "Edge<T>" as Edge
+    class "Vertex<T>" as Vertex
+
+    Graph <|-- GraphList
+    Graph <|-- GraphMatrix
+    Graph *-- Vertex
+    Graph *-- Edge
+}
+
+package UI {
+    class GalaxyView
+    class GraphWidget
+    class GalaxyEditDialog
+    class EditStarSystemDialog
+    class EditNebulaDialog
+
+    GalaxyView --> GraphWidget
+    GalaxyView --> GalaxyEditDialog
+    GalaxyView --> EditStarSystemDialog
+    GalaxyView --> EditNebulaDialog
+    GalaxyView --> Galaxy
+}
+
+package PHYSICS {
+    class PhysicsEngine
+    class GalaxyPhysicsController
+    class CelestialBodyToRigidWrapper
+    class BlackHoleGravityField
+
+    GalaxyView --> GalaxyPhysicsController
+    GalaxyPhysicsController --> PhysicsEngine
+    GalaxyPhysicsController --> CelestialBodyToRigidWrapper
+    GalaxyPhysicsController --> BlackHoleGravityField
+    CelestialBodyToRigidWrapper --> CelestialObject
+}
+
+package ALGORITHMS {
+    class "Algorithms (God Object)" as LegacyAlgorithms #FFCDD2
+    
+    interface "GraphAlgorithm" as GraphAlgorithm <<Interface>> #BBDEFB
+    class "DijkstraListAlgorithm" as DijkstraList #C8E6C9
+    class "DijkstraMatrixAlgorithm" as DijkstraMatrix #C8E6C9
+    class "..." as MoreStrategies #C8E6C9
+
+    GraphAlgorithm <|.. DijkstraList
+    GraphAlgorithm <|.. DijkstraMatrix
+    GraphAlgorithm <|.. MoreStrategies
+
+    GalaxyView ..[#red]> LegacyAlgorithms : <color:red>~~legacy use~~</color>
+    GalaxyView =[#green]=> GraphAlgorithm : <color:green>**strategy context**</color>
+}
+Galaxy --> Graph : uses for topology
+
+@enduml

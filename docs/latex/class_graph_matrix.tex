@@ -1,0 +1,332 @@
+\doxysection{Graph\+Matrix\texorpdfstring{$<$}{<} T \texorpdfstring{$>$}{>} Class Template Reference}
+\hypertarget{class_graph_matrix}{}\label{class_graph_matrix}\index{GraphMatrix$<$ T $>$@{GraphMatrix$<$ T $>$}}
+
+
+A concrete implementation of the \doxylink{class_graph}{Graph} interface using an adjacency matrix.  
+
+
+
+
+{\ttfamily \#include $<$Graph\+Matrix.\+h$>$}
+
+Inheritance diagram for Graph\+Matrix\texorpdfstring{$<$}{<} T \texorpdfstring{$>$}{>}\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_graph_matrix}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_graph_matrix_a1e3385735a2f56c624a530593c093962}\label{class_graph_matrix_a1e3385735a2f56c624a530593c093962} 
+{\bfseries Graph\+Matrix} ()=default
+\begin{DoxyCompactList}\small\item\em Default constructor. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_graph_matrix_a362f41a1781712c0782582d31c2b96bd}{Graph\+Matrix}} (const std\+::vector$<$ \mbox{\hyperlink{class_vertex}{Vertex}}$<$ T $>$ $>$ \&verts, const std\+::vector$<$ \mbox{\hyperlink{class_edge}{Edge}}$<$ T $>$ $>$ \&eds)
+\begin{DoxyCompactList}\small\item\em Constructor to initialize the graph from existing vertex/edge lists. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_graph_matrix_ac2b4a261fc30a5778d0c8016d34f78fb}{construct\+Adjacency}} () override
+\begin{DoxyCompactList}\small\item\em Rebuilds the adjacency matrix from the internal edges vector. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_graph_matrix_af9091b0d546d246377ce1c51616ba59d}{add\+Edge}} (int f\+Id, int t\+Id, int weight=1) override
+\begin{DoxyCompactList}\small\item\em Adds an edge and rebuilds the adjacency matrix. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_graph_matrix_a4b0f8c9c4a89ab4e166d1616ee276848}{add\+Vertex}} (int id, T data) override
+\begin{DoxyCompactList}\small\item\em Adds a vertex and rebuilds the (inefficient) adjacency matrix. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_graph_matrix_a312d45b577f0794ab7479d9f3da7bc1b}{print}} () const override
+\begin{DoxyCompactList}\small\item\em Prints a user-\/friendly representation of the adjacency matrix to the console. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_graph_matrix_a3051eacf62c784a25b28600dc656969c}{remove\+Vertex}} (int id) override
+\begin{DoxyCompactList}\small\item\em Removes a vertex (soft delete) and rebuilds the adjacency matrix. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_graph_matrix_ac58fb8956859adc453489f4b38d30bb9}{remove\+Edge}} (int f\+Id, int t\+Id) override
+\begin{DoxyCompactList}\small\item\em Removes an edge (soft delete) and rebuilds the adjacency matrix. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{class_graph}{Graph$<$ T $>$}}}
+\begin{DoxyCompactItemize}
+\item 
+virtual {\bfseries \texorpdfstring{$\sim$}{\string~}\+Graph} ()=default
+\begin{DoxyCompactList}\small\item\em Default virtual destructor. \end{DoxyCompactList}\item 
+const std\+::vector$<$ \mbox{\hyperlink{class_vertex}{Vertex}}$<$ T $>$ $>$ \& \mbox{\hyperlink{class_graph_a07f5e993208f94a3317370e567fe1f85}{get\+Vertices}} () const
+\begin{DoxyCompactList}\small\item\em Gets a constant reference to the vector of vertices. \end{DoxyCompactList}\item 
+const std\+::vector$<$ \mbox{\hyperlink{class_edge}{Edge}}$<$ T $>$ $>$ \& \mbox{\hyperlink{class_graph_a440d4ce2ed2c0d957d3ebaf98c969599}{get\+Edges}} () const
+\begin{DoxyCompactList}\small\item\em Gets a constant reference to the vector of edges. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{class_graph_a6371204aa3d58d988b58e38ce6e4539d}{find\+Index\+By\+Id}} (int id) const
+\begin{DoxyCompactList}\small\item\em Finds the internal vector index for a vertex given its public ID. \end{DoxyCompactList}\item 
+T \mbox{\hyperlink{class_graph_aa45e9a5fe844587f2e1f38cd631e2fc4}{vertex\+Search}} (int id)
+\begin{DoxyCompactList}\small\item\em Searches for a vertex by its public ID. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_graph_acd93f77f0bf9eda8d34d78d96ba842d4}{edge\+Exists}} (int f\+Id, int t\+Id) const
+\begin{DoxyCompactList}\small\item\em Checks if an active edge exists between two vertex IDs. \end{DoxyCompactList}\item 
+std\+::vector$<$ T $>$ \mbox{\hyperlink{class_graph_a7100e8fbbca57ae52c6425d7f4f3950b}{get\+Neighbors}} (int id)
+\begin{DoxyCompactList}\small\item\em Returns a list of neighbor data for a given vertex ID. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_graph_matrix_aa17b58c7cfd89f9010996dae21cd3e3c}\label{class_graph_matrix_aa17b58c7cfd89f9010996dae21cd3e3c} 
+std\+::vector$<$ std\+::vector$<$ int $>$ $>$ {\bfseries adjacency\+Matrix}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Additional Inherited Members}
+\doxysubsection*{Protected Attributes inherited from \mbox{\hyperlink{class_graph}{Graph$<$ T $>$}}}
+\begin{DoxyCompactItemize}
+\item 
+std\+::vector$<$ \mbox{\hyperlink{class_vertex}{Vertex}}$<$ T $>$ $>$ {\bfseries vertices}
+\begin{DoxyCompactList}\small\item\em The list of all vertices in the graph. \end{DoxyCompactList}\item 
+std\+::vector$<$ \mbox{\hyperlink{class_edge}{Edge}}$<$ T $>$ $>$ {\bfseries edges}
+\begin{DoxyCompactList}\small\item\em The list of all edges in the graph. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\subsubsection*{template$<$typename T$>$\newline
+class Graph\+Matrix$<$ T $>$}
+A concrete implementation of the \doxylink{class_graph}{Graph} interface using an adjacency matrix. 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em T} & The type of data stored in the vertices. \\
+\hline
+\end{DoxyTemplParams}
+
+
+\label{doc-constructors}
+\Hypertarget{class_graph_matrix_doc-constructors}
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_graph_matrix_a362f41a1781712c0782582d31c2b96bd}\index{GraphMatrix$<$ T $>$@{GraphMatrix$<$ T $>$}!GraphMatrix@{GraphMatrix}}
+\index{GraphMatrix@{GraphMatrix}!GraphMatrix$<$ T $>$@{GraphMatrix$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{GraphMatrix()}{GraphMatrix()}}
+{\footnotesize\ttfamily \label{class_graph_matrix_a362f41a1781712c0782582d31c2b96bd} 
+template$<$typename T$>$ \\
+\mbox{\hyperlink{class_graph_matrix}{Graph\+Matrix}}$<$ T $>$\+::\+Graph\+Matrix (\begin{DoxyParamCaption}\item[{const std\+::vector$<$ \mbox{\hyperlink{class_vertex}{Vertex}}$<$ T $>$ $>$ \&}]{verts}{, }\item[{const std\+::vector$<$ \mbox{\hyperlink{class_edge}{Edge}}$<$ T $>$ $>$ \&}]{eds}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Constructor to initialize the graph from existing vertex/edge lists. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em verts} & Vector of vertices to add. \\
+\hline
+{\em eds} & Vector of edges to add. \\
+\hline
+\end{DoxyParams}
+\begin{DoxySeeAlso}{See also}
+\doxylink{class_graph}{Graph} The adjacency matrix. Index \mbox{[}row\mbox{]}\mbox{[}col\mbox{]} stores the edge weight. 
+\end{DoxySeeAlso}
+
+
+\label{doc-func-members}
+\Hypertarget{class_graph_matrix_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_graph_matrix_af9091b0d546d246377ce1c51616ba59d}\index{GraphMatrix$<$ T $>$@{GraphMatrix$<$ T $>$}!addEdge@{addEdge}}
+\index{addEdge@{addEdge}!GraphMatrix$<$ T $>$@{GraphMatrix$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{addEdge()}{addEdge()}}
+{\footnotesize\ttfamily \label{class_graph_matrix_af9091b0d546d246377ce1c51616ba59d} 
+template$<$typename T$>$ \\
+void \mbox{\hyperlink{class_graph_matrix}{Graph\+Matrix}}$<$ T $>$\+::add\+Edge (\begin{DoxyParamCaption}\item[{int}]{f\+Id}{, }\item[{int}]{t\+Id}{, }\item[{int}]{weight}{ = {\ttfamily 1}}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Adds an edge and rebuilds the adjacency matrix. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em f\+Id} & The public ID of the \textquotesingle{}from\textquotesingle{} vertex. \\
+\hline
+{\em t\+Id} & The public ID of the \textquotesingle{}to\textquotesingle{} vertex. \\
+\hline
+{\em weight} & The weight of the edge (default is 1). \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{class_graph_aa900eb7513aa4de87d89fcac3f2276ac}{Graph$<$ T $>$}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_graph_matrix}{f}}\ =\ this-\/>\mbox{\hyperlink{class_graph_a6371204aa3d58d988b58e38ce6e4539d}{findIndexById}}(\mbox{\hyperlink{class_graph_matrix}{fId}});}
+\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_graph_matrix}{t}}\ =\ this-\/>\mbox{\hyperlink{class_graph_a6371204aa3d58d988b58e38ce6e4539d}{findIndexById}}(\mbox{\hyperlink{class_graph_matrix}{tId}});}
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{class_graph_matrix}{f}}\ ==\ -\/1\ ||\ \mbox{\hyperlink{class_graph_matrix}{t}}\ ==\ -\/1)\ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (this-\/>\mbox{\hyperlink{class_graph_acd93f77f0bf9eda8d34d78d96ba842d4}{edgeExists}}(\mbox{\hyperlink{class_graph_matrix}{fId}},\ \mbox{\hyperlink{class_graph_matrix}{tId}}))\ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00059\ }
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_graph_matrix}{Edge<T>}}\ \mbox{\hyperlink{class_graph_matrix}{edge}};}
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_graph_matrix}{edge}}.connect(\mbox{\hyperlink{class_graph_matrix}{f}},\ \mbox{\hyperlink{class_graph_matrix}{t}});}
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_graph_matrix}{edge}}.weight\ =\ \mbox{\hyperlink{class_graph_matrix}{weight}};}
+\DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ this-\/>\mbox{\hyperlink{class_graph_ac32560ab2c280c1617b70f2a57f9c848}{edges}}.push\_back(\mbox{\hyperlink{class_graph_matrix}{edge}});}
+\DoxyCodeLine{00064\ }
+\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_graph_matrix_ac2b4a261fc30a5778d0c8016d34f78fb}{constructAdjacency}}();}
+\DoxyCodeLine{00066\ \ \ \ \ \}}
+
+\end{DoxyCode}
+\Hypertarget{class_graph_matrix_a4b0f8c9c4a89ab4e166d1616ee276848}\index{GraphMatrix$<$ T $>$@{GraphMatrix$<$ T $>$}!addVertex@{addVertex}}
+\index{addVertex@{addVertex}!GraphMatrix$<$ T $>$@{GraphMatrix$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{addVertex()}{addVertex()}}
+{\footnotesize\ttfamily \label{class_graph_matrix_a4b0f8c9c4a89ab4e166d1616ee276848} 
+template$<$typename T$>$ \\
+void \mbox{\hyperlink{class_graph_matrix}{Graph\+Matrix}}$<$ T $>$\+::add\+Vertex (\begin{DoxyParamCaption}\item[{int}]{id}{, }\item[{T}]{data}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Adds a vertex and rebuilds the (inefficient) adjacency matrix. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em id} & The public ID for the new vertex. \\
+\hline
+{\em data} & The data (of type T) to store in the vertex. \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{class_graph_ae16fa8484fa8da1d50a32d56eca2ab65}{Graph$<$ T $>$}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (this-\/>\mbox{\hyperlink{class_graph_a6371204aa3d58d988b58e38ce6e4539d}{findIndexById}}(\textcolor{keywordtype}{id})\ !=\ -\/1)\ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_graph_matrix}{Vertex<T>}}\ \mbox{\hyperlink{class_graph_matrix}{vertex}};\ \mbox{\hyperlink{class_graph_matrix}{vertex}}.setId(\textcolor{keywordtype}{id});\ \mbox{\hyperlink{class_graph_matrix}{vertex}}.setData(\mbox{\hyperlink{class_graph_matrix}{data}});}
+\DoxyCodeLine{00075\ \ \ \ \ \ \ \ \ this-\/>\mbox{\hyperlink{class_graph_a4677e7cca232583023ea6e4dcca62a6f}{vertices}}.push\_back(\mbox{\hyperlink{class_graph_matrix}{vertex}});}
+\DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_graph_matrix_ac2b4a261fc30a5778d0c8016d34f78fb}{constructAdjacency}}();}
+\DoxyCodeLine{00077\ \ \ \ \ \}}
+
+\end{DoxyCode}
+\Hypertarget{class_graph_matrix_ac2b4a261fc30a5778d0c8016d34f78fb}\index{GraphMatrix$<$ T $>$@{GraphMatrix$<$ T $>$}!constructAdjacency@{constructAdjacency}}
+\index{constructAdjacency@{constructAdjacency}!GraphMatrix$<$ T $>$@{GraphMatrix$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{constructAdjacency()}{constructAdjacency()}}
+{\footnotesize\ttfamily \label{class_graph_matrix_ac2b4a261fc30a5778d0c8016d34f78fb} 
+template$<$typename T$>$ \\
+void \mbox{\hyperlink{class_graph_matrix}{Graph\+Matrix}}$<$ T $>$\+::construct\+Adjacency (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Rebuilds the adjacency matrix from the internal edges vector. 
+
+
+
+Implements \mbox{\hyperlink{class_graph_a12ad2745e70e6a943324bb9d838b8b1a}{Graph$<$ T $>$}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_graph_matrix}{n}}\ =\ this-\/>\mbox{\hyperlink{class_graph_a4677e7cca232583023ea6e4dcca62a6f}{vertices}}.size();}
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ adjacencyMatrix.assign(\mbox{\hyperlink{class_graph_matrix}{n}},\ \mbox{\hyperlink{class_graph_matrix}{std::vector<int>}}(\mbox{\hyperlink{class_graph_matrix}{n}},\ 0));}
+\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\ \&\mbox{\hyperlink{class_graph_matrix}{edge}}:\ this-\/>\mbox{\hyperlink{class_graph_ac32560ab2c280c1617b70f2a57f9c848}{edges}})\ \{}
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{class_graph_matrix}{edge}}.isActive())\ \{}
+\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ adjacencyMatrix[\mbox{\hyperlink{class_graph_matrix}{edge}}.from][\mbox{\hyperlink{class_graph_matrix}{edge}}.to]\ =\ \mbox{\hyperlink{class_graph_matrix}{edge}}.weight;}
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ adjacencyMatrix[\mbox{\hyperlink{class_graph_matrix}{edge}}.to][\mbox{\hyperlink{class_graph_matrix}{edge}}.from]\ =\ \mbox{\hyperlink{class_graph_matrix}{edge}}.weight;}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00047\ \ \ \ \ \}}
+
+\end{DoxyCode}
+\Hypertarget{class_graph_matrix_a312d45b577f0794ab7479d9f3da7bc1b}\index{GraphMatrix$<$ T $>$@{GraphMatrix$<$ T $>$}!print@{print}}
+\index{print@{print}!GraphMatrix$<$ T $>$@{GraphMatrix$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{print()}{print()}}
+{\footnotesize\ttfamily \label{class_graph_matrix_a312d45b577f0794ab7479d9f3da7bc1b} 
+template$<$typename T$>$ \\
+void \mbox{\hyperlink{class_graph_matrix}{Graph\+Matrix}}$<$ T $>$\+::print (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Prints a user-\/friendly representation of the adjacency matrix to the console. 
+
+
+
+Implements \mbox{\hyperlink{class_graph_a1fb75b362b6bce22a77f0646cfdf73d0}{Graph$<$ T $>$}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00082\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_graph_matrix}{n}}\ =\ adjacencyMatrix.size();}
+\DoxyCodeLine{00083\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{class_graph_matrix}{n}}\ ==\ 0)\ \{}
+\DoxyCodeLine{00084\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_graph_matrix}{std::cout}}\ <<\ \textcolor{stringliteral}{"{}Graph\ is\ empty.\(\backslash\)n"{}};}
+\DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00086\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00087\ }
+\DoxyCodeLine{00088\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_graph_matrix}{std::cout}}\ <<\ \textcolor{stringliteral}{"{}\ \ \ \ "{}};}
+\DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ \&\mbox{\hyperlink{class_graph_matrix}{v}}\ :\ this-\/>\mbox{\hyperlink{class_graph_a4677e7cca232583023ea6e4dcca62a6f}{vertices}})}
+\DoxyCodeLine{00090\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_graph_matrix}{std::cout}}\ <<\ \mbox{\hyperlink{class_graph_matrix}{v}}.getId()\ <<\ \textcolor{stringliteral}{"{}\ "{}};}
+\DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_graph_matrix}{std::cout}}\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)n"{}};}
+\DoxyCodeLine{00092\ }
+\DoxyCodeLine{00093\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_graph_matrix}{i}}\ =\ 0;\ \mbox{\hyperlink{class_graph_matrix}{i}}\ <\ \mbox{\hyperlink{class_graph_matrix}{n}};\ ++\mbox{\hyperlink{class_graph_matrix}{i}})\ \{}
+\DoxyCodeLine{00094\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_graph_matrix}{std::cout}}\ <<\ this-\/>\mbox{\hyperlink{class_graph_a4677e7cca232583023ea6e4dcca62a6f}{vertices}}[\mbox{\hyperlink{class_graph_matrix}{i}}].getId()\ <<\ \textcolor{stringliteral}{"{}\ :\ "{}};}
+\DoxyCodeLine{00095\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_graph_matrix}{j}}\ =\ 0;\ \mbox{\hyperlink{class_graph_matrix}{j}}\ <\ \mbox{\hyperlink{class_graph_matrix}{n}};\ ++\mbox{\hyperlink{class_graph_matrix}{j}})\ \{}
+\DoxyCodeLine{00096\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_graph_matrix}{std::cout}}\ <<\ adjacencyMatrix[\mbox{\hyperlink{class_graph_matrix}{i}}][\mbox{\hyperlink{class_graph_matrix}{j}}]\ <<\ \textcolor{stringliteral}{"{}\ "{}};}
+\DoxyCodeLine{00097\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00098\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_graph_matrix}{std::cout}}\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)n"{}};}
+\DoxyCodeLine{00099\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00100\ \ \ \ \ \}}
+
+\end{DoxyCode}
+\Hypertarget{class_graph_matrix_ac58fb8956859adc453489f4b38d30bb9}\index{GraphMatrix$<$ T $>$@{GraphMatrix$<$ T $>$}!removeEdge@{removeEdge}}
+\index{removeEdge@{removeEdge}!GraphMatrix$<$ T $>$@{GraphMatrix$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{removeEdge()}{removeEdge()}}
+{\footnotesize\ttfamily \label{class_graph_matrix_ac58fb8956859adc453489f4b38d30bb9} 
+template$<$typename T$>$ \\
+void \mbox{\hyperlink{class_graph_matrix}{Graph\+Matrix}}$<$ T $>$\+::remove\+Edge (\begin{DoxyParamCaption}\item[{int}]{f\+Id}{, }\item[{int}]{t\+Id}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Removes an edge (soft delete) and rebuilds the adjacency matrix. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em f\+Id} & The public ID of the \textquotesingle{}from\textquotesingle{} vertex. \\
+\hline
+{\em t\+Id} & The public ID of the \textquotesingle{}to\textquotesingle{} vertex. \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{class_graph_a9a49b970e67048dd310355034317f246}{Graph$<$ T $>$}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00123\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00124\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_graph_matrix}{f}}\ =\ this-\/>\mbox{\hyperlink{class_graph_a6371204aa3d58d988b58e38ce6e4539d}{findIndexById}}(\mbox{\hyperlink{class_graph_matrix}{fId}});}
+\DoxyCodeLine{00125\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_graph_matrix}{t}}\ =\ this-\/>\mbox{\hyperlink{class_graph_a6371204aa3d58d988b58e38ce6e4539d}{findIndexById}}(\mbox{\hyperlink{class_graph_matrix}{tId}});}
+\DoxyCodeLine{00126\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{class_graph_matrix}{f}}\ ==\ -\/1\ ||\ \mbox{\hyperlink{class_graph_matrix}{t}}\ ==\ -\/1)\ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00127\ }
+\DoxyCodeLine{00128\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\ \&\mbox{\hyperlink{class_graph_matrix}{edge}}\ :\ this-\/>\mbox{\hyperlink{class_graph_ac32560ab2c280c1617b70f2a57f9c848}{edges}})\ \{}
+\DoxyCodeLine{00129\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ ((\mbox{\hyperlink{class_graph_matrix}{edge}}.from\ ==\ \mbox{\hyperlink{class_graph_matrix}{f}}\ \&\&\ \mbox{\hyperlink{class_graph_matrix}{edge}}.to\ ==\ \mbox{\hyperlink{class_graph_matrix}{t}})\ ||\ (\mbox{\hyperlink{class_graph_matrix}{edge}}.from\ ==\ \mbox{\hyperlink{class_graph_matrix}{t}}\ \&\&\ \mbox{\hyperlink{class_graph_matrix}{edge}}.to\ ==\ \mbox{\hyperlink{class_graph_matrix}{f}}))}
+\DoxyCodeLine{00130\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_graph_matrix}{edge}}.disconnect();}
+\DoxyCodeLine{00131\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00132\ }
+\DoxyCodeLine{00133\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_graph_matrix_ac2b4a261fc30a5778d0c8016d34f78fb}{constructAdjacency}}();}
+\DoxyCodeLine{00134\ \ \ \ \ \}}
+
+\end{DoxyCode}
+\Hypertarget{class_graph_matrix_a3051eacf62c784a25b28600dc656969c}\index{GraphMatrix$<$ T $>$@{GraphMatrix$<$ T $>$}!removeVertex@{removeVertex}}
+\index{removeVertex@{removeVertex}!GraphMatrix$<$ T $>$@{GraphMatrix$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{removeVertex()}{removeVertex()}}
+{\footnotesize\ttfamily \label{class_graph_matrix_a3051eacf62c784a25b28600dc656969c} 
+template$<$typename T$>$ \\
+void \mbox{\hyperlink{class_graph_matrix}{Graph\+Matrix}}$<$ T $>$\+::remove\+Vertex (\begin{DoxyParamCaption}\item[{int}]{id}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Removes a vertex (soft delete) and rebuilds the adjacency matrix. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em id} & The public ID of the vertex to remove. \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{class_graph_a9d0f5262b2907aebbc45bec2921dff2f}{Graph$<$ T $>$}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00105\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00106\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_graph_matrix}{idx}}\ =\ this-\/>\mbox{\hyperlink{class_graph_a6371204aa3d58d988b58e38ce6e4539d}{findIndexById}}(\textcolor{keywordtype}{id});}
+\DoxyCodeLine{00107\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{class_graph_matrix}{idx}}\ ==\ -\/1)\ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00108\ }
+\DoxyCodeLine{00109\ \ \ \ \ \ \ \ \ this-\/>\mbox{\hyperlink{class_graph_a4677e7cca232583023ea6e4dcca62a6f}{vertices}}[\mbox{\hyperlink{class_graph_matrix}{idx}}].setId(-\/1);}
+\DoxyCodeLine{00110\ \ \ \ \ \ \ \ \ this-\/>\mbox{\hyperlink{class_graph_a4677e7cca232583023ea6e4dcca62a6f}{vertices}}[\mbox{\hyperlink{class_graph_matrix}{idx}}].setData(\mbox{\hyperlink{class_graph_matrix}{T}}\{\});}
+\DoxyCodeLine{00111\ }
+\DoxyCodeLine{00112\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\ \&\mbox{\hyperlink{class_graph_matrix}{edge}}\ :\ this-\/>\mbox{\hyperlink{class_graph_ac32560ab2c280c1617b70f2a57f9c848}{edges}})\ \{}
+\DoxyCodeLine{00113\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{class_graph_matrix}{edge}}.from\ ==\ \mbox{\hyperlink{class_graph_matrix}{idx}}\ ||\ \mbox{\hyperlink{class_graph_matrix}{edge}}.to\ ==\ \mbox{\hyperlink{class_graph_matrix}{idx}})\ \mbox{\hyperlink{class_graph_matrix}{edge}}.disconnect();}
+\DoxyCodeLine{00114\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00115\ }
+\DoxyCodeLine{00116\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_graph_matrix_ac2b4a261fc30a5778d0c8016d34f78fb}{constructAdjacency}}();}
+\DoxyCodeLine{00117\ \ \ \ \ \}}
+
+\end{DoxyCode}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Graph/\mbox{\hyperlink{_graph_matrix_8h}{Graph\+Matrix.\+h}}\end{DoxyCompactItemize}

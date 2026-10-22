@@ -1,0 +1,154 @@
+\doxysection{Add\+Star\+System\+Dialog Class Reference}
+\hypertarget{class_add_star_system_dialog}{}\label{class_add_star_system_dialog}\index{AddStarSystemDialog@{AddStarSystemDialog}}
+
+
+A QDialog window that provides fields for a user to define and create a new \doxylink{class_star_system}{Star\+System}.  
+
+
+
+
+{\ttfamily \#include $<$Add\+Star\+System\+Dialog.\+h$>$}
+
+Inheritance diagram for Add\+Star\+System\+Dialog\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_add_star_system_dialog}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_add_star_system_dialog_a21941fb48d3372c346d15232582e9811}{Add\+Star\+System\+Dialog}} (\mbox{\hyperlink{class_random_generator}{Random\+Generator}} \&rng, const nlohmann\+::json \&data, QWidget \texorpdfstring{$\ast$}{*}parent=nullptr)
+\begin{DoxyCompactList}\small\item\em Constructor for \doxylink{class_add_star_system_dialog}{Add\+Star\+System\+Dialog}. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_star_system}{Star\+System}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_add_star_system_dialog_a54f39f42a0a0c81414084a5ffabcb2d6}{get\+New\+Star\+System}} (int id) const
+\begin{DoxyCompactList}\small\item\em Creates a new \doxylink{class_star_system}{Star\+System} instance based on dialog input. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+A QDialog window that provides fields for a user to define and create a new \doxylink{class_star_system}{Star\+System}. 
+
+\label{doc-constructors}
+\Hypertarget{class_add_star_system_dialog_doc-constructors}
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_add_star_system_dialog_a21941fb48d3372c346d15232582e9811}\index{AddStarSystemDialog@{AddStarSystemDialog}!AddStarSystemDialog@{AddStarSystemDialog}}
+\index{AddStarSystemDialog@{AddStarSystemDialog}!AddStarSystemDialog@{AddStarSystemDialog}}
+\doxysubsubsection{\texorpdfstring{AddStarSystemDialog()}{AddStarSystemDialog()}}
+{\footnotesize\ttfamily \label{class_add_star_system_dialog_a21941fb48d3372c346d15232582e9811} 
+Add\+Star\+System\+Dialog\+::\+Add\+Star\+System\+Dialog (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_random_generator}{Random\+Generator}} \&}]{rng}{, }\item[{const nlohmann\+::json \&}]{data}{, }\item[{QWidget \texorpdfstring{$\ast$}{*}}]{parent}{ = {\ttfamily nullptr}}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}}
+
+
+
+Constructor for \doxylink{class_add_star_system_dialog}{Add\+Star\+System\+Dialog}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em rng} & Reference to the random generator (for generating planets/star). \\
+\hline
+{\em data} & Reference to the JSON config data. \\
+\hline
+{\em parent} & The parent Qt widget. \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00011\ :\ QDialog(parent),\ rng(rngRef),\ data(dataRef)\ \{}
+\DoxyCodeLine{00012\ \ \ \ \ setWindowTitle(\textcolor{stringliteral}{"{}Add\ Star\ System"{}});}
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00014\ \ \ \ \ QVBoxLayout\ *layout\ =\ \textcolor{keyword}{new}\ QVBoxLayout(\textcolor{keyword}{this});}
+\DoxyCodeLine{00015\ }
+\DoxyCodeLine{00016\ \ \ \ \ layout-\/>addWidget(\textcolor{keyword}{new}\ QLabel(\textcolor{stringliteral}{"{}System\ Name:"{}},\ \textcolor{keyword}{this}));}
+\DoxyCodeLine{00017\ \ \ \ \ nameEdit\ =\ \textcolor{keyword}{new}\ QLineEdit(\textcolor{stringliteral}{"{}New\ Star\ System"{}},\ \textcolor{keyword}{this});}
+\DoxyCodeLine{00018\ \ \ \ \ layout-\/>addWidget(nameEdit);}
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00020\ \ \ \ \ layout-\/>addWidget(\textcolor{keyword}{new}\ QLabel(\textcolor{stringliteral}{"{}Number\ of\ Planets:"{}},\ \textcolor{keyword}{this}));}
+\DoxyCodeLine{00021\ \ \ \ \ planetCountSpinBox\ =\ \textcolor{keyword}{new}\ QSpinBox(\textcolor{keyword}{this});}
+\DoxyCodeLine{00022\ \ \ \ \ planetCountSpinBox-\/>setRange(0,\ 10);}
+\DoxyCodeLine{00023\ \ \ \ \ planetCountSpinBox-\/>setValue(3);}
+\DoxyCodeLine{00024\ \ \ \ \ layout-\/>addWidget(planetCountSpinBox);}
+\DoxyCodeLine{00025\ }
+\DoxyCodeLine{00026\ \ \ \ \ layout-\/>addWidget(\textcolor{keyword}{new}\ QLabel(\textcolor{stringliteral}{"{}Star\ Type:"{}},\ \textcolor{keyword}{this}));}
+\DoxyCodeLine{00027\ \ \ \ \ starTypeComboBox\ =\ \textcolor{keyword}{new}\ QComboBox(\textcolor{keyword}{this});}
+\DoxyCodeLine{00028\ \ \ \ \ starTypeComboBox-\/>addItem(\textcolor{stringliteral}{"{}Main\_sequence\_Star"{}});}
+\DoxyCodeLine{00029\ \ \ \ \ starTypeComboBox-\/>addItem(\textcolor{stringliteral}{"{}Red\_Giant"{}});}
+\DoxyCodeLine{00030\ \ \ \ \ starTypeComboBox-\/>addItem(\textcolor{stringliteral}{"{}White\_Dwarf"{}});}
+\DoxyCodeLine{00031\ \ \ \ \ starTypeComboBox-\/>addItem(\textcolor{stringliteral}{"{}Brown\_Dwarf"{}});}
+\DoxyCodeLine{00032\ \ \ \ \ starTypeComboBox-\/>addItem(\textcolor{stringliteral}{"{}Neutron\_Star"{}});}
+\DoxyCodeLine{00033\ \ \ \ \ starTypeComboBox-\/>addItem(\textcolor{stringliteral}{"{}Red\_Dwarf"{}});}
+\DoxyCodeLine{00034\ \ \ \ \ layout-\/>addWidget(starTypeComboBox);}
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00036\ \ \ \ \ QPushButton\ *okButton\ =\ \textcolor{keyword}{new}\ QPushButton(\textcolor{stringliteral}{"{}Add"{}},\ \textcolor{keyword}{this});}
+\DoxyCodeLine{00037\ \ \ \ \ QPushButton\ *cancelButton\ =\ \textcolor{keyword}{new}\ QPushButton(\textcolor{stringliteral}{"{}Cancel"{}},\ \textcolor{keyword}{this});}
+\DoxyCodeLine{00038\ }
+\DoxyCodeLine{00039\ \ \ \ \ QHBoxLayout\ *buttonLayout\ =\ \textcolor{keyword}{new}\ QHBoxLayout;}
+\DoxyCodeLine{00040\ \ \ \ \ buttonLayout-\/>addWidget(okButton);}
+\DoxyCodeLine{00041\ \ \ \ \ buttonLayout-\/>addWidget(cancelButton);}
+\DoxyCodeLine{00042\ \ \ \ \ layout-\/>addLayout(buttonLayout);}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ \ \ \ \ connect(okButton,\ \&QPushButton::clicked,\ \textcolor{keyword}{this},\ \&QDialog::accept);}
+\DoxyCodeLine{00045\ \ \ \ \ connect(cancelButton,\ \&QPushButton::clicked,\ \textcolor{keyword}{this},\ \&QDialog::reject);}
+\DoxyCodeLine{00046\ \}}
+
+\end{DoxyCode}
+
+
+\label{doc-func-members}
+\Hypertarget{class_add_star_system_dialog_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_add_star_system_dialog_a54f39f42a0a0c81414084a5ffabcb2d6}\index{AddStarSystemDialog@{AddStarSystemDialog}!getNewStarSystem@{getNewStarSystem}}
+\index{getNewStarSystem@{getNewStarSystem}!AddStarSystemDialog@{AddStarSystemDialog}}
+\doxysubsubsection{\texorpdfstring{getNewStarSystem()}{getNewStarSystem()}}
+{\footnotesize\ttfamily \label{class_add_star_system_dialog_a54f39f42a0a0c81414084a5ffabcb2d6} 
+\mbox{\hyperlink{class_star_system}{Star\+System}} \texorpdfstring{$\ast$}{*} Add\+Star\+System\+Dialog\+::get\+New\+Star\+System (\begin{DoxyParamCaption}\item[{int}]{id}{}\end{DoxyParamCaption}) const}
+
+
+
+Creates a new \doxylink{class_star_system}{Star\+System} instance based on dialog input. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em id} & The unique ID to assign to the created system. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A pointer to the newly created \doxylink{class_star_system}{Star\+System}. Ownership is passed to the caller. 
+\end{DoxyReturn}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00048\ \ \ \ \ Galaxy<GraphList<CelestialObject\ *>\ >\ temp\_galaxy;}
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00050\ \ \ \ \ StarSystem\ *system\ =\ temp\_galaxy.\mbox{\hyperlink{class_galaxy_a3613886d9c5d8bfc3eefc011e563e918}{generateStarSystem}}(\textcolor{keywordtype}{id},\ rng,\ data);}
+\DoxyCodeLine{00051\ }
+\DoxyCodeLine{00052\ \ \ \ \ \textcolor{keywordflow}{if}\ (!system)\ \textcolor{keywordflow}{return}\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00053\ }
+\DoxyCodeLine{00054\ \ \ \ \ std::string\ newName\ =\ nameEdit-\/>text().toStdString();}
+\DoxyCodeLine{00055\ \ \ \ \ system-\/>\mbox{\hyperlink{class_celestial_object_ae9a24ff06397904ce8e865651fba13e6}{setName}}(newName);}
+\DoxyCodeLine{00056\ }
+\DoxyCodeLine{00057\ \ \ \ \ std::string\ starTypeStr\ =\ starTypeComboBox-\/>currentText().toStdString();}
+\DoxyCodeLine{00058\ }
+\DoxyCodeLine{00059\ \ \ \ \ system-\/>\mbox{\hyperlink{class_star_system_ab7524a0bf726864cf308d760a262907e}{getStar}}().\mbox{\hyperlink{class_star_a27809895a466195a4dcd7a3564a7bc38}{setStarType}}(starTypeStr);}
+\DoxyCodeLine{00060\ }
+\DoxyCodeLine{00061\ }
+\DoxyCodeLine{00062\ \ \ \ \ \textcolor{keywordtype}{int}\ targetPlanetCount\ =\ planetCountSpinBox-\/>value();}
+\DoxyCodeLine{00063\ \ \ \ \ \textcolor{keywordflow}{if}\ (targetPlanetCount\ <\ system-\/>getPlanets().size())\ \{}
+\DoxyCodeLine{00064\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ dif\ =\ system-\/>\mbox{\hyperlink{class_star_system_a4a74205c3a6f18415a550de9268b500f}{getPlanets}}().size()\ -\/\ targetPlanetCount;}
+\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\ i\ =\ 0;\ i\ !=\ dif;\ ++i)\ \{}
+\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ \ \ \ \ system-\/>\mbox{\hyperlink{class_star_system_adaa8cbfb308bee3b33d220fe3778cf59}{removePlanet}}();}
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00068\ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (targetPlanetCount\ >\ system-\/>\mbox{\hyperlink{class_star_system_a4a74205c3a6f18415a550de9268b500f}{getPlanets}}().size())\ \{}
+\DoxyCodeLine{00069\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ dif\ =\ targetPlanetCount\ -\/\ system-\/>\mbox{\hyperlink{class_star_system_a4a74205c3a6f18415a550de9268b500f}{getPlanets}}().size();}
+\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\ i\ =\ 0;\ i\ !=\ dif;\ ++i)\ \{}
+\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ \ \ \ \ Planet\ *planet\ =\ temp\_galaxy.\mbox{\hyperlink{class_galaxy_ac5f09bba3f9219f06ada6c001968f65e}{generatePlanet}}(rng,\ data);}
+\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ \ \ \ \ system-\/>\mbox{\hyperlink{class_star_system_a0668e461727f666cdb15a6798bf7f0ae}{addPlanet}}(planet);}
+\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00074\ \ \ \ \ \}}
+\DoxyCodeLine{00075\ \ \ \ \ \textcolor{keywordflow}{return}\ system;}
+\DoxyCodeLine{00076\ \}}
+
+\end{DoxyCode}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Galaxy\+View/\mbox{\hyperlink{_add_star_system_dialog_8h}{Add\+Star\+System\+Dialog.\+h}}\item 
+Galaxy\+View/Add\+Star\+System\+Dialog.\+cpp\end{DoxyCompactItemize}

@@ -1,0 +1,28 @@
+\doxysection{BFSList.\+h}
+\hypertarget{_b_f_s_list_8h_source}{}\label{_b_f_s_list_8h_source}\index{Algorithms/BFSList.h@{Algorithms/BFSList.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ BFS\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ BFS\_H}}
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_algorithm_8h}{Algorithm.h}}"{}}}
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_graph_list_8h}{GraphList.h}}"{}}}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00017\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00018\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_b_f_s_algorithm}{BFSAlgorithm}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_graph_algorithm}{GraphAlgorithm}}<GraphList<T>,\ T>\ \{}
+\DoxyCodeLine{00019\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00033\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_b_f_s_algorithm_aecc4ec9eb3d1a972f3620ee9df011991}{run}}(\mbox{\hyperlink{class_graph_list}{GraphList<T>}}\&\ g,\ \textcolor{keywordtype}{int}\ startId,\ \textcolor{keywordtype}{int}\ endId\ =\ -\/1)\textcolor{keyword}{\ override\ }\{}
+\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_algorithms}{Algorithms<GraphList<T>}},\ T>\ alg(g);}
+\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ alg.BFS\_list(startId);}
+\DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{00037\ \ \ \ \ \}}
+\DoxyCodeLine{00038\ }
+\DoxyCodeLine{00040\ \ \ \ \ \mbox{\hyperlink{class_b_f_s_algorithm_a4f20b35d5a9d7ddabb5d7bd5b7f1110b}{\string~BFSAlgorithm}}()\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00041\ \};}
+\DoxyCodeLine{00042\ }
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ }
+\DoxyCodeLine{00045\ }
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//BFS\_H}}
+
+\end{DoxyCode}

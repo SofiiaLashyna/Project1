@@ -1,0 +1,242 @@
+\doxysection{Edge\texorpdfstring{$<$}{<} T \texorpdfstring{$>$}{>} Class Template Reference}
+\hypertarget{class_edge}{}\label{class_edge}\index{Edge$<$ T $>$@{Edge$<$ T $>$}}
+
+
+Represents a connection (edge) between two vertices in a graph.  
+
+
+
+
+{\ttfamily \#include $<$Edge.\+h$>$}
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_edge_a15b7017ce7b7cac044d8422727e2bf77}{Edge}} ()
+\begin{DoxyCompactList}\small\item\em Default constructor. Initializes an inactive edge. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_edge_a31e08ff54a09853cbfa46ee5b9080952}{change\+Weight}} (int w)
+\begin{DoxyCompactList}\small\item\em Sets the weight of the edge. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{class_edge_a86da8e53b3ae18fb45ba52c384dd3f39}{get\+Weight}} ()
+\item 
+void \mbox{\hyperlink{class_edge_afdb9d64043c99c189319cf8449a4d2da}{connect}} (int u, int v)
+\begin{DoxyCompactList}\small\item\em Connects two vertices. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{class_edge_ab457a35fb54eb27e5e12d34c8e7335aa}{get\+From}} ()
+\item 
+int \mbox{\hyperlink{class_edge_a9a93e34c437f1b1ca47e69855b6a2f33}{get\+To}} ()
+\item 
+void \mbox{\hyperlink{class_edge_a57355f05135a93cbb868dc4f9966bb56}{disconnect}} ()
+\begin{DoxyCompactList}\small\item\em Resets the edge to an inactive state. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_edge_a7f162f9456d819746bc1405085787ffa}{connects}} (int u, int v) const
+\begin{DoxyCompactList}\small\item\em Checks if this edge connects two specific vertices (undirected). \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_edge_acc3d49348b3cb3e7a3d09542c28257cc}{is\+Active}} () const
+\begin{DoxyCompactList}\small\item\em Checks if the edge is currently active (connected). \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_edge_a28b339418bd43fa47de8486110b51b8f}\label{class_edge_a28b339418bd43fa47de8486110b51b8f} 
+int {\bfseries from}
+\begin{DoxyCompactList}\small\item\em The index of the starting vertex. \end{DoxyCompactList}\item 
+\Hypertarget{class_edge_a3ab1498982a785bd27a869bc06aae01c}\label{class_edge_a3ab1498982a785bd27a869bc06aae01c} 
+int {\bfseries to}
+\begin{DoxyCompactList}\small\item\em The index of the ending vertex. \end{DoxyCompactList}\item 
+\Hypertarget{class_edge_a552034b6475eb988035a4a65e0349e91}\label{class_edge_a552034b6475eb988035a4a65e0349e91} 
+int {\bfseries weight}
+\begin{DoxyCompactList}\small\item\em The weight of the edge (e.\+g., distance). \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\subsubsection*{template$<$typename T$>$\newline
+class Edge$<$ T $>$}
+Represents a connection (edge) between two vertices in a graph. 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em T} & The template parameter (templating for compatibility with \doxylink{class_graph}{Graph} class). \\
+\hline
+\end{DoxyTemplParams}
+\begin{DoxyNote}{Note}
+This edge is conceptually undirected, since \doxylink{class_edge_a7f162f9456d819746bc1405085787ffa}{connects()} checks both directions. 
+\end{DoxyNote}
+
+
+\label{doc-constructors}
+\Hypertarget{class_edge_doc-constructors}
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_edge_a15b7017ce7b7cac044d8422727e2bf77}\index{Edge$<$ T $>$@{Edge$<$ T $>$}!Edge@{Edge}}
+\index{Edge@{Edge}!Edge$<$ T $>$@{Edge$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{Edge()}{Edge()}}
+{\footnotesize\ttfamily \label{class_edge_a15b7017ce7b7cac044d8422727e2bf77} 
+template$<$typename T$>$ \\
+\mbox{\hyperlink{class_edge}{Edge}}$<$ T $>$\+::\+Edge (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Default constructor. Initializes an inactive edge. 
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00023\ \ \ \ \ \ \ \ \ \ \ \ :\ \mbox{\hyperlink{class_edge_a28b339418bd43fa47de8486110b51b8f}{from}}(-\/1),\ \mbox{\hyperlink{class_edge_a3ab1498982a785bd27a869bc06aae01c}{to}}(-\/1),\ \mbox{\hyperlink{class_edge_a552034b6475eb988035a4a65e0349e91}{weight}}(0)\ \{}
+\DoxyCodeLine{00024\ \ \ \ \ \}}
+
+\end{DoxyCode}
+
+
+\label{doc-func-members}
+\Hypertarget{class_edge_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_edge_a31e08ff54a09853cbfa46ee5b9080952}\index{Edge$<$ T $>$@{Edge$<$ T $>$}!changeWeight@{changeWeight}}
+\index{changeWeight@{changeWeight}!Edge$<$ T $>$@{Edge$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{changeWeight()}{changeWeight()}}
+{\footnotesize\ttfamily \label{class_edge_a31e08ff54a09853cbfa46ee5b9080952} 
+template$<$typename T$>$ \\
+void \mbox{\hyperlink{class_edge}{Edge}}$<$ T $>$\+::change\+Weight (\begin{DoxyParamCaption}\item[{int}]{w}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Sets the weight of the edge. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em w} & The new weight. \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00030\ \{\ \mbox{\hyperlink{class_edge_a552034b6475eb988035a4a65e0349e91}{weight}}\ =\ \mbox{\hyperlink{class_edge}{w}};\ \}}
+
+\end{DoxyCode}
+\Hypertarget{class_edge_afdb9d64043c99c189319cf8449a4d2da}\index{Edge$<$ T $>$@{Edge$<$ T $>$}!connect@{connect}}
+\index{connect@{connect}!Edge$<$ T $>$@{Edge$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{connect()}{connect()}}
+{\footnotesize\ttfamily \label{class_edge_afdb9d64043c99c189319cf8449a4d2da} 
+template$<$typename T$>$ \\
+void \mbox{\hyperlink{class_edge}{Edge}}$<$ T $>$\+::connect (\begin{DoxyParamCaption}\item[{int}]{u}{, }\item[{int}]{v}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Connects two vertices. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em u} & The index of the first vertex. \\
+\hline
+{\em v} & The index of the second vertex. \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_edge_a28b339418bd43fa47de8486110b51b8f}{from}}\ =\ \mbox{\hyperlink{class_edge}{u}};}
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_edge_a3ab1498982a785bd27a869bc06aae01c}{to}}\ =\ \mbox{\hyperlink{class_edge}{v}};}
+\DoxyCodeLine{00043\ \ \ \ \ \}}
+
+\end{DoxyCode}
+\Hypertarget{class_edge_a7f162f9456d819746bc1405085787ffa}\index{Edge$<$ T $>$@{Edge$<$ T $>$}!connects@{connects}}
+\index{connects@{connects}!Edge$<$ T $>$@{Edge$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{connects()}{connects()}}
+{\footnotesize\ttfamily \label{class_edge_a7f162f9456d819746bc1405085787ffa} 
+template$<$typename T$>$ \\
+bool \mbox{\hyperlink{class_edge}{Edge}}$<$ T $>$\+::connects (\begin{DoxyParamCaption}\item[{int}]{u}{, }\item[{int}]{v}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Checks if this edge connects two specific vertices (undirected). 
+
+
+\begin{DoxyParams}{Parameters}
+{\em u} & Index of the first vertex. \\
+\hline
+{\em v} & Index of the second vertex. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+True if it connects u and v, false otherwise. 
+\end{DoxyReturn}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00069\ \{\ \textcolor{keywordflow}{return}\ (\mbox{\hyperlink{class_edge_a28b339418bd43fa47de8486110b51b8f}{from}}\ ==\ \mbox{\hyperlink{class_edge}{u}}\ \&\&\ \mbox{\hyperlink{class_edge_a3ab1498982a785bd27a869bc06aae01c}{to}}\ ==\ \mbox{\hyperlink{class_edge}{v}})\ ||\ (\mbox{\hyperlink{class_edge_a28b339418bd43fa47de8486110b51b8f}{from}}\ ==\ \mbox{\hyperlink{class_edge}{v}}\ \&\&\ \mbox{\hyperlink{class_edge_a3ab1498982a785bd27a869bc06aae01c}{to}}\ ==\ \mbox{\hyperlink{class_edge}{u}});\ \}}
+
+\end{DoxyCode}
+\Hypertarget{class_edge_a57355f05135a93cbb868dc4f9966bb56}\index{Edge$<$ T $>$@{Edge$<$ T $>$}!disconnect@{disconnect}}
+\index{disconnect@{disconnect}!Edge$<$ T $>$@{Edge$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{disconnect()}{disconnect()}}
+{\footnotesize\ttfamily \label{class_edge_a57355f05135a93cbb868dc4f9966bb56} 
+template$<$typename T$>$ \\
+void \mbox{\hyperlink{class_edge}{Edge}}$<$ T $>$\+::disconnect (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Resets the edge to an inactive state. 
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_edge_a28b339418bd43fa47de8486110b51b8f}{from}}\ =\ -\/1;}
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_edge_a3ab1498982a785bd27a869bc06aae01c}{to}}\ =\ -\/1;}
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_edge_a552034b6475eb988035a4a65e0349e91}{weight}}\ =\ 0;}
+\DoxyCodeLine{00061\ \ \ \ \ \}}
+
+\end{DoxyCode}
+\Hypertarget{class_edge_ab457a35fb54eb27e5e12d34c8e7335aa}\index{Edge$<$ T $>$@{Edge$<$ T $>$}!getFrom@{getFrom}}
+\index{getFrom@{getFrom}!Edge$<$ T $>$@{Edge$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{getFrom()}{getFrom()}}
+{\footnotesize\ttfamily \label{class_edge_ab457a35fb54eb27e5e12d34c8e7335aa} 
+template$<$typename T$>$ \\
+int \mbox{\hyperlink{class_edge}{Edge}}$<$ T $>$\+::get\+From (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00048\ \{\ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{class_edge_a28b339418bd43fa47de8486110b51b8f}{from}};\ \}}
+
+\end{DoxyCode}
+\Hypertarget{class_edge_a9a93e34c437f1b1ca47e69855b6a2f33}\index{Edge$<$ T $>$@{Edge$<$ T $>$}!getTo@{getTo}}
+\index{getTo@{getTo}!Edge$<$ T $>$@{Edge$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{getTo()}{getTo()}}
+{\footnotesize\ttfamily \label{class_edge_a9a93e34c437f1b1ca47e69855b6a2f33} 
+template$<$typename T$>$ \\
+int \mbox{\hyperlink{class_edge}{Edge}}$<$ T $>$\+::get\+To (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00053\ \{\ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{class_edge_a3ab1498982a785bd27a869bc06aae01c}{to}};\ \}}
+
+\end{DoxyCode}
+\Hypertarget{class_edge_a86da8e53b3ae18fb45ba52c384dd3f39}\index{Edge$<$ T $>$@{Edge$<$ T $>$}!getWeight@{getWeight}}
+\index{getWeight@{getWeight}!Edge$<$ T $>$@{Edge$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{getWeight()}{getWeight()}}
+{\footnotesize\ttfamily \label{class_edge_a86da8e53b3ae18fb45ba52c384dd3f39} 
+template$<$typename T$>$ \\
+int \mbox{\hyperlink{class_edge}{Edge}}$<$ T $>$\+::get\+Weight (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\begin{DoxyReturn}{Returns}
+The int value of the weight. 
+\end{DoxyReturn}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00034\ \{\ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{class_edge_a552034b6475eb988035a4a65e0349e91}{weight}};\ \}}
+
+\end{DoxyCode}
+\Hypertarget{class_edge_acc3d49348b3cb3e7a3d09542c28257cc}\index{Edge$<$ T $>$@{Edge$<$ T $>$}!isActive@{isActive}}
+\index{isActive@{isActive}!Edge$<$ T $>$@{Edge$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{isActive()}{isActive()}}
+{\footnotesize\ttfamily \label{class_edge_acc3d49348b3cb3e7a3d09542c28257cc} 
+template$<$typename T$>$ \\
+bool \mbox{\hyperlink{class_edge}{Edge}}$<$ T $>$\+::is\+Active (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Checks if the edge is currently active (connected). 
+
+\begin{DoxyReturn}{Returns}
+True if active, false otherwise. 
+\end{DoxyReturn}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00074\ \{\ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{class_edge_a28b339418bd43fa47de8486110b51b8f}{from}}\ !=\ -\/1\ \&\&\ \mbox{\hyperlink{class_edge_a3ab1498982a785bd27a869bc06aae01c}{to}}\ !=\ -\/1;\ \}}
+
+\end{DoxyCode}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Graph/\mbox{\hyperlink{_edge_8h}{Edge.\+h}}\end{DoxyCompactItemize}

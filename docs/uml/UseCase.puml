@@ -1,0 +1,55 @@
+@startuml
+left to right direction
+skinparam monochrome true
+
+actor "User" as User
+
+rectangle "Galaxy Simulator" {
+
+  ' Menu
+  usecase "Select 2D Mode" as UC_2D
+  usecase "Select 3D Mode" as UC_3D
+  usecase "Generate Random Galaxy" as UC_Random
+
+  ' Navigation
+  usecase "Zoom into Nebula" as UC_ZoomNeb
+  usecase "Zoom into Star System" as UC_ZoomSys
+  usecase "Zoom into Planet" as UC_ZoomPlanet
+  usecase "Zoom Out" as UC_Back
+  usecase "Exit to Main Menu" as UC_Exit
+
+  ' Actions
+  usecase "Measure Distance between Objects" as UC_Dist
+
+  ' Object interaction (ANY object)
+  usecase "View Selected Object Parameters" as UC_View
+  usecase "Edit Selected Object Properties" as UC_Edit
+
+}
+
+User --> UC_2D
+User --> UC_3D
+UC_2D ..> UC_Random : <<include>>
+UC_3D ..> UC_Random : <<include>>
+
+User --> UC_ZoomNeb
+User --> UC_ZoomSys
+User --> UC_ZoomPlanet
+User --> UC_Back
+User --> UC_Exit
+User --> UC_Dist
+User --> UC_View
+
+
+
+UC_ZoomPlanet ..> UC_ZoomSys : <<extend>>
+UC_Edit ..> UC_View : <<extend>>
+
+note right of UC_ZoomPlanet
+  Available in 2D only
+end note
+note right of UC_Exit
+  Planned for refactoring
+end note
+
+@enduml

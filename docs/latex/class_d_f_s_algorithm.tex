@@ -1,0 +1,93 @@
+\doxysection{DFSAlgorithm\texorpdfstring{$<$}{<} T \texorpdfstring{$>$}{>} Class Template Reference}
+\hypertarget{class_d_f_s_algorithm}{}\label{class_d_f_s_algorithm}\index{DFSAlgorithm$<$ T $>$@{DFSAlgorithm$<$ T $>$}}
+
+
+A strategy class that executes DFS on a \doxylink{class_graph_list}{Graph\+List}.  
+
+
+
+
+{\ttfamily \#include $<$DFSList.\+h$>$}
+
+Inheritance diagram for DFSAlgorithm\texorpdfstring{$<$}{<} T \texorpdfstring{$>$}{>}\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_d_f_s_algorithm}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{class_d_f_s_algorithm_a7e8672691affd5b4a36b47cfc5c36c82}{run}} (\mbox{\hyperlink{class_graph_list}{Graph\+List}}$<$ T $>$ \&g, int start\+Id, int end\+Id=-\/1) override
+\begin{DoxyCompactList}\small\item\em Performs iterative DFS on a graph represented by an adjacency list. \end{DoxyCompactList}\item 
+\Hypertarget{class_d_f_s_algorithm_a608019ac3b1c5b8800d9bcf19c32857c}\label{class_d_f_s_algorithm_a608019ac3b1c5b8800d9bcf19c32857c} 
+{\bfseries \texorpdfstring{$\sim$}{\string~}\+DFSAlgorithm} ()=default
+\begin{DoxyCompactList}\small\item\em Default destructor. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{class_graph_algorithm}{Graph\+Algorithm$<$ Graph\+List$<$ T $>$, T $>$}}}
+\begin{DoxyCompactItemize}
+\item 
+virtual {\bfseries \texorpdfstring{$\sim$}{\string~}\+Graph\+Algorithm} ()=default
+\begin{DoxyCompactList}\small\item\em Virtual destructor. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\subsubsection*{template$<$typename T$>$\newline
+class DFSAlgorithm$<$ T $>$}
+A strategy class that executes DFS on a \doxylink{class_graph_list}{Graph\+List}. 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em T} & The type stored in graph vertices. \\
+\hline
+\end{DoxyTemplParams}
+\begin{Desc}
+\item[Examples]\par
+\mbox{\hyperlink{_basic_usage_example_8cpp-example}{Basic\+Usage\+Example.\+cpp}}.\end{Desc}
+
+
+\label{doc-func-members}
+\Hypertarget{class_d_f_s_algorithm_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_d_f_s_algorithm_a7e8672691affd5b4a36b47cfc5c36c82}\index{DFSAlgorithm$<$ T $>$@{DFSAlgorithm$<$ T $>$}!run@{run}}
+\index{run@{run}!DFSAlgorithm$<$ T $>$@{DFSAlgorithm$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{run()}{run()}}
+{\footnotesize\ttfamily \label{class_d_f_s_algorithm_a7e8672691affd5b4a36b47cfc5c36c82} 
+template$<$typename T$>$ \\
+int \mbox{\hyperlink{class_d_f_s_algorithm}{DFSAlgorithm}}$<$ T $>$\+::run (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_graph_list}{Graph\+List}}$<$ T $>$ \&}]{g}{, }\item[{int}]{start\+Id}{, }\item[{int}]{end\+Id}{ = {\ttfamily -\/1}}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Performs iterative DFS on a graph represented by an adjacency list. 
+
+Prints the traversal order to std\+::cout. The graph remains unchanged.
+
+
+\begin{DoxyParams}{Parameters}
+{\em g} & \doxylink{class_graph_list}{Graph\+List} object to traverse. \\
+\hline
+{\em start\+Id} & Starting vertex ID. \\
+\hline
+{\em end\+Id} & Unused.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Always returns 0. 
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{class_graph_algorithm_a002a93f79b9204a814a7c9726dc69a78}{Graph\+Algorithm$<$ Graph\+List$<$ T $>$, T $>$}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00032\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_d_f_s_algorithm}{Algorithms<GraphList<T>}},\ \mbox{\hyperlink{class_d_f_s_algorithm}{T}}>\ \mbox{\hyperlink{class_d_f_s_algorithm}{alg}}(\mbox{\hyperlink{class_d_f_s_algorithm}{g}});}
+\DoxyCodeLine{00033\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_d_f_s_algorithm}{alg}}.DFS\_list(\mbox{\hyperlink{class_d_f_s_algorithm}{startId}});}
+\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{00035\ \ \ \ \ \}}
+
+\end{DoxyCode}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Algorithms/DFSList.\+h\end{DoxyCompactItemize}

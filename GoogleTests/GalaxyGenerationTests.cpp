@@ -1,5 +1,6 @@
 #include "gtest/gtest.h"
 #include "Galaxy.h"
+#include "GalaxyFactory.h"
 #include "GraphList.h"
 #include "RandomUtilities.h"
 #include "StarSystem.h"
@@ -8,7 +9,7 @@
 #include "TestFixtures.h"
 
 TEST_F(GalaxyGenerationTestFixture, GeneratePlanetCreatesValidObject) {
-    Planet *planet = g.generatePlanet(rng, testData);
+    Planet *planet = GalaxyFactory::createPlanet(testData, rng);
 
     ASSERT_NE(planet, nullptr);
     EXPECT_EQ(planet->getType(), "Planet");
@@ -22,7 +23,7 @@ TEST_F(GalaxyGenerationTestFixture, GeneratePlanetCreatesValidObject) {
 }
 
 TEST_F(GalaxyGenerationTestFixture, GenerateNebulaCreatesValidObject) {
-    Nebula *nebula = g.generateNebula(rng, testData);
+    Nebula *nebula = GalaxyFactory::createNebula(testData, rng);
 
     ASSERT_NE(nebula, nullptr);
     EXPECT_EQ(nebula->getType(), "Nebula");
@@ -36,7 +37,7 @@ TEST_F(GalaxyGenerationTestFixture, GenerateNebulaCreatesValidObject) {
 }
 
 TEST_F(GalaxyGenerationTestFixture, GenerateStarSystemCreatesValidSystem) {
-    StarSystem *system = g.generateStarSystem(101, rng, testData);
+    StarSystem *system = GalaxyFactory::createStarSystem(101, testData, rng);
 
     ASSERT_NE(system, nullptr);
     EXPECT_EQ(system->getId(), 101);

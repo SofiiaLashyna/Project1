@@ -1,0 +1,383 @@
+\doxysection{Algorithms\texorpdfstring{$<$}{<} Graph\+Type, T \texorpdfstring{$>$}{>} Class Template Reference}
+\hypertarget{class_algorithms}{}\label{class_algorithms}\index{Algorithms$<$ GraphType, T $>$@{Algorithms$<$ GraphType, T $>$}}
+
+
+A collection of classic graph algorithms (BFS, DFS, Dijkstra) implemented for a user-\/supplied graph type.  
+
+
+
+
+{\ttfamily \#include $<$Algorithm.\+h$>$}
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_algorithms_a54f0846620f45ce420bf79b3b5c85e63}{Algorithms}} (Graph\+Type \&g)
+\begin{DoxyCompactList}\small\item\em Constructor for the \doxylink{class_algorithms}{Algorithms} class. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_algorithms_a08fc8d3f9f559b8825725e093ef968e8}{BFS\+\_\+list}} (int start\+Id)
+\item 
+void \mbox{\hyperlink{class_algorithms_a4fccd7b13390a54933cee8d14f819c66}{BFS\+\_\+matrix}} (int start\+Id)
+\begin{DoxyCompactList}\small\item\em Performs Breadth-\/\+First Search using an adjacency matrix. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_algorithms_a82a1d86af0814f8d862b8fd4675d2761}{DFS\+\_\+list}} (int start\+Id)
+\item 
+void \mbox{\hyperlink{class_algorithms_a333fa6513c592d980b769018f096a483}{DFS\+\_\+matrix}} (int start\+Id)
+\begin{DoxyCompactList}\small\item\em Performs an iterative Depth-\/\+First Search using an adjacency matrix. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{class_algorithms_adb9cfb9a1fe5f3e723deecf01f953f05}{Dijkstra\+\_\+list}} (int start\+Id, int end\+Id)
+\item 
+int \mbox{\hyperlink{class_algorithms_af59f32c1da9d6c4199776f4e123f6ed5}{Dijkstra\+\_\+matrix}} (int start\+Id, int end\+Id)
+\begin{DoxyCompactList}\small\item\em Computes the shortest path using Dijkstra’s algorithm on a graph represented by an adjacency matrix. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\subsubsection*{template$<$typename Graph\+Type, typename T$>$\newline
+class Algorithms$<$ Graph\+Type, T $>$}
+A collection of classic graph algorithms (BFS, DFS, Dijkstra) implemented for a user-\/supplied graph type. 
+
+This is a templated utility class that operates on an external graph object. The graph type is expected to provide\+:
+\begin{DoxyItemize}
+\item {\ttfamily find\+Index\+By\+Id(int)} — returns internal vertex index by ID
+\item {\ttfamily get\+Vertices()} — returns container of vertices
+\item {\ttfamily adjacency\+List} — std\+::vector$<$std\+::vector$<$std\+::pair$<$int,int$>$$>$$>$ where pair = (neighbor\+Index, weight).
+\item {\ttfamily adjacency\+Matrix} — 2D matrix of weights (0 = no edge)
+\end{DoxyItemize}
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em Graph\+Type} & The graph representation (list/matrix) that algorithms operate on. \\
+\hline
+{\em T} & The data type stored in each graph vertex. \\
+\hline
+\end{DoxyTemplParams}
+\begin{Desc}
+\item[Examples]\par
+\mbox{\hyperlink{_c_1_2_users_2_prj_2_project1_2_algorithms_2_algorithm_8h-example}{C\+:/\+Users/\+Prj/\+Project1/\+Algorithms/\+Algorithm.\+h}}.\end{Desc}
+
+
+\label{doc-constructors}
+\Hypertarget{class_algorithms_doc-constructors}
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_algorithms_a54f0846620f45ce420bf79b3b5c85e63}\index{Algorithms$<$ GraphType, T $>$@{Algorithms$<$ GraphType, T $>$}!Algorithms@{Algorithms}}
+\index{Algorithms@{Algorithms}!Algorithms$<$ GraphType, T $>$@{Algorithms$<$ GraphType, T $>$}}
+\doxysubsubsection{\texorpdfstring{Algorithms()}{Algorithms()}}
+{\footnotesize\ttfamily \label{class_algorithms_a54f0846620f45ce420bf79b3b5c85e63} 
+template$<$typename Graph\+Type, typename T$>$ \\
+\mbox{\hyperlink{class_algorithms}{Algorithms}}$<$ Graph\+Type, T $>$\+::\+Algorithms (\begin{DoxyParamCaption}\item[{Graph\+Type \&}]{g}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Constructor for the \doxylink{class_algorithms}{Algorithms} class. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em g} & A reference to the graph that the algorithms will run on. \\
+\hline
+\end{DoxyParams}
+\begin{Desc}
+\item[Examples]\par
+\mbox{\hyperlink{_c_1_2_users_2_prj_2_project1_2_algorithms_2_algorithm_8h-example}{C\+:/\+Users/\+Prj/\+Project1/\+Algorithms/\+Algorithm.\+h}}.\end{Desc}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00083\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ :\ graph(\mbox{\hyperlink{class_algorithms}{g}})\ \{}
+\DoxyCodeLine{00084\ \ \ \ \ \}}
+
+\end{DoxyCode}
+
+
+\label{doc-func-members}
+\Hypertarget{class_algorithms_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_algorithms_a08fc8d3f9f559b8825725e093ef968e8}\index{Algorithms$<$ GraphType, T $>$@{Algorithms$<$ GraphType, T $>$}!BFS\_list@{BFS\_list}}
+\index{BFS\_list@{BFS\_list}!Algorithms$<$ GraphType, T $>$@{Algorithms$<$ GraphType, T $>$}}
+\doxysubsubsection{\texorpdfstring{BFS\_list()}{BFS\_list()}}
+{\footnotesize\ttfamily \label{class_algorithms_a08fc8d3f9f559b8825725e093ef968e8} 
+template$<$typename Graph\+Type, typename T$>$ \\
+void \mbox{\hyperlink{class_algorithms}{Algorithms}}$<$ Graph\+Type, T $>$\+::\+BFS\+\_\+list (\begin{DoxyParamCaption}\item[{int}]{start\+Id}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\begin{Desc}
+\item[Examples]\par
+\mbox{\hyperlink{_c_1_2_users_2_prj_2_project1_2_algorithms_2_algorithm_8h-example}{C\+:/\+Users/\+Prj/\+Project1/\+Algorithms/\+Algorithm.\+h}}.\end{Desc}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00109\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00110\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_algorithms}{start}}\ =\ graph.findIndexById(\mbox{\hyperlink{class_algorithms}{startId}});}
+\DoxyCodeLine{00111\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{class_algorithms}{start}}\ ==\ -\/1)\ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00112\ }
+\DoxyCodeLine{00113\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_algorithms}{std::vector<bool>}}\ \mbox{\hyperlink{class_algorithms}{visited}}(graph.getVertices().size(),\ \textcolor{keyword}{false});}
+\DoxyCodeLine{00114\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_algorithms}{Queue<int>}}\ \mbox{\hyperlink{class_algorithms}{q}};}
+\DoxyCodeLine{00115\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_algorithms}{q}}.push(\mbox{\hyperlink{class_algorithms}{start}},\ 0);}
+\DoxyCodeLine{00116\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_algorithms}{visited}}[\mbox{\hyperlink{class_algorithms}{start}}]\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00117\ }
+\DoxyCodeLine{00118\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_algorithms}{std::cout}}\ <<\ \textcolor{stringliteral}{"{}BFS\ order:\ "{}};}
+\DoxyCodeLine{00119\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}\ (!\mbox{\hyperlink{class_algorithms}{q}}.empty())\ \{}
+\DoxyCodeLine{00120\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ [\mbox{\hyperlink{class_algorithms}{u}},\ \mbox{\hyperlink{class_algorithms}{d}}]\ =\ \mbox{\hyperlink{class_algorithms}{q}}.popMin();}
+\DoxyCodeLine{00121\ }
+\DoxyCodeLine{00122\ \ \ \ \ \ \ \ \ \ \ \ \ printVertexData(graph.getVertices()[\mbox{\hyperlink{class_algorithms}{u}}].getData());}
+\DoxyCodeLine{00123\ }
+\DoxyCodeLine{00124\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\ \&[\mbox{\hyperlink{class_algorithms}{v}},\ \mbox{\hyperlink{class_algorithms}{w}}]:\ graph.adjacencyList[\mbox{\hyperlink{class_algorithms}{u}}])\ \{}
+\DoxyCodeLine{00125\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!\mbox{\hyperlink{class_algorithms}{visited}}[\mbox{\hyperlink{class_algorithms}{v}}])\ \{}
+\DoxyCodeLine{00126\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_algorithms}{visited}}[\mbox{\hyperlink{class_algorithms}{v}}]\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00127\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_algorithms}{q}}.push(\mbox{\hyperlink{class_algorithms}{v}},\ 0);}
+\DoxyCodeLine{00128\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00129\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00130\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00131\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_algorithms}{std::cout}}\ <<\ \mbox{\hyperlink{class_algorithms}{std::endl}};}
+\DoxyCodeLine{00132\ \ \ \ \ \}}
+
+\end{DoxyCode}
+\Hypertarget{class_algorithms_a4fccd7b13390a54933cee8d14f819c66}\index{Algorithms$<$ GraphType, T $>$@{Algorithms$<$ GraphType, T $>$}!BFS\_matrix@{BFS\_matrix}}
+\index{BFS\_matrix@{BFS\_matrix}!Algorithms$<$ GraphType, T $>$@{Algorithms$<$ GraphType, T $>$}}
+\doxysubsubsection{\texorpdfstring{BFS\_matrix()}{BFS\_matrix()}}
+{\footnotesize\ttfamily \label{class_algorithms_a4fccd7b13390a54933cee8d14f819c66} 
+template$<$typename Graph\+Type, typename T$>$ \\
+void \mbox{\hyperlink{class_algorithms}{Algorithms}}$<$ Graph\+Type, T $>$\+::\+BFS\+\_\+matrix (\begin{DoxyParamCaption}\item[{int}]{start\+Id}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Performs Breadth-\/\+First Search using an adjacency matrix. 
+
+The traversal begins at the vertex with ID {\ttfamily start\+Id}. The method prints the BFS visitation order instead of returning it.
+
+BFS processes vertices level-\/by-\/level using a queue. Only matrix cells with positive weights are treated as valid edges.
+
+
+\begin{DoxyParams}{Parameters}
+{\em start\+Id} & The ID of the starting vertex.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyNote}{Note}
+Vertices are checked in ascending index order (0..n-\/1). 
+
+A matrix value of 0 means “no edge” (except diagonal entries). 
+\end{DoxyNote}
+\begin{Desc}
+\item[Examples]\par
+\mbox{\hyperlink{_c_1_2_users_2_prj_2_project1_2_algorithms_2_algorithm_8h-example}{C\+:/\+Users/\+Prj/\+Project1/\+Algorithms/\+Algorithm.\+h}}.\end{Desc}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00148\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00149\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_algorithms}{start}}\ =\ graph.findIndexById(\mbox{\hyperlink{class_algorithms}{startId}});}
+\DoxyCodeLine{00150\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{class_algorithms}{start}}\ ==\ -\/1\ ||\ graph.adjacencyMatrix.empty())\ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00151\ }
+\DoxyCodeLine{00152\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_algorithms}{n}}\ =\ graph.adjacencyMatrix.size();}
+\DoxyCodeLine{00153\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_algorithms}{std::vector<bool>}}\ \mbox{\hyperlink{class_algorithms}{visited}}(\mbox{\hyperlink{class_algorithms}{n}},\ \textcolor{keyword}{false});}
+\DoxyCodeLine{00154\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_algorithms}{Queue<int>}}\ \mbox{\hyperlink{class_algorithms}{q}};}
+\DoxyCodeLine{00155\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_algorithms}{q}}.push(\mbox{\hyperlink{class_algorithms}{start}},\ 0);}
+\DoxyCodeLine{00156\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_algorithms}{visited}}[\mbox{\hyperlink{class_algorithms}{start}}]\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00157\ }
+\DoxyCodeLine{00158\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_algorithms}{std::cout}}\ <<\ \textcolor{stringliteral}{"{}BFS\ order:\ "{}};}
+\DoxyCodeLine{00159\ }
+\DoxyCodeLine{00160\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}\ (!\mbox{\hyperlink{class_algorithms}{q}}.empty())\ \{}
+\DoxyCodeLine{00161\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ [\mbox{\hyperlink{class_algorithms}{u}},\ \mbox{\hyperlink{class_algorithms}{\_}}]\ =\ \mbox{\hyperlink{class_algorithms}{q}}.popMin();}
+\DoxyCodeLine{00162\ }
+\DoxyCodeLine{00163\ \ \ \ \ \ \ \ \ \ \ \ \ printVertexData(graph.getVertices()[\mbox{\hyperlink{class_algorithms}{u}}].getData());}
+\DoxyCodeLine{00164\ }
+\DoxyCodeLine{00165\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_algorithms}{v}}\ =\ 0;\ \mbox{\hyperlink{class_algorithms}{v}}\ <\ \mbox{\hyperlink{class_algorithms}{n}};\ ++\mbox{\hyperlink{class_algorithms}{v}})\ \{}
+\DoxyCodeLine{00166\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (graph.adjacencyMatrix[\mbox{\hyperlink{class_algorithms}{u}}][\mbox{\hyperlink{class_algorithms}{v}}]\ \&\&\ !\mbox{\hyperlink{class_algorithms}{visited}}[\mbox{\hyperlink{class_algorithms}{v}}])\ \{}
+\DoxyCodeLine{00167\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_algorithms}{visited}}[\mbox{\hyperlink{class_algorithms}{v}}]\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00168\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_algorithms}{q}}.push(\mbox{\hyperlink{class_algorithms}{v}},\ 0);}
+\DoxyCodeLine{00169\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00170\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00171\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00172\ }
+\DoxyCodeLine{00173\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_algorithms}{std::cout}}\ <<\ \mbox{\hyperlink{class_algorithms}{std::endl}};}
+\DoxyCodeLine{00174\ \ \ \ \ \}}
+
+\end{DoxyCode}
+\Hypertarget{class_algorithms_a82a1d86af0814f8d862b8fd4675d2761}\index{Algorithms$<$ GraphType, T $>$@{Algorithms$<$ GraphType, T $>$}!DFS\_list@{DFS\_list}}
+\index{DFS\_list@{DFS\_list}!Algorithms$<$ GraphType, T $>$@{Algorithms$<$ GraphType, T $>$}}
+\doxysubsubsection{\texorpdfstring{DFS\_list()}{DFS\_list()}}
+{\footnotesize\ttfamily \label{class_algorithms_a82a1d86af0814f8d862b8fd4675d2761} 
+template$<$typename Graph\+Type, typename T$>$ \\
+void \mbox{\hyperlink{class_algorithms}{Algorithms}}$<$ Graph\+Type, T $>$\+::\+DFS\+\_\+list (\begin{DoxyParamCaption}\item[{int}]{start\+Id}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\begin{Desc}
+\item[Examples]\par
+\mbox{\hyperlink{_c_1_2_users_2_prj_2_project1_2_algorithms_2_algorithm_8h-example}{C\+:/\+Users/\+Prj/\+Project1/\+Algorithms/\+Algorithm.\+h}}.\end{Desc}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00197\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00198\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_algorithms}{start}}\ =\ graph.findIndexById(\mbox{\hyperlink{class_algorithms}{startId}});}
+\DoxyCodeLine{00199\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{class_algorithms}{start}}\ ==\ -\/1)\ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00200\ }
+\DoxyCodeLine{00201\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_algorithms}{std::vector<bool>}}\ \mbox{\hyperlink{class_algorithms}{visited}}(graph.getVertices().size(),\ \textcolor{keyword}{false});}
+\DoxyCodeLine{00202\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_algorithms}{std::vector<int>}}\ \mbox{\hyperlink{class_algorithms}{stack}};}
+\DoxyCodeLine{00203\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_algorithms}{stack}}.push\_back(\mbox{\hyperlink{class_algorithms}{start}});}
+\DoxyCodeLine{00204\ }
+\DoxyCodeLine{00205\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_algorithms}{std::cout}}\ <<\ \textcolor{stringliteral}{"{}DFS\ order:\ "{}};}
+\DoxyCodeLine{00206\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}\ (!\mbox{\hyperlink{class_algorithms}{stack}}.empty())\ \{}
+\DoxyCodeLine{00207\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_algorithms}{v}}\ =\ \mbox{\hyperlink{class_algorithms}{stack}}.back();}
+\DoxyCodeLine{00208\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_algorithms}{stack}}.pop\_back();}
+\DoxyCodeLine{00209\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{class_algorithms}{visited}}[\mbox{\hyperlink{class_algorithms}{v}}])\ \textcolor{keywordflow}{continue};}
+\DoxyCodeLine{00210\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_algorithms}{visited}}[\mbox{\hyperlink{class_algorithms}{v}}]\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00211\ }
+\DoxyCodeLine{00212\ \ \ \ \ \ \ \ \ \ \ \ \ printVertexData(graph.getVertices()[\mbox{\hyperlink{class_algorithms}{v}}].getData());}
+\DoxyCodeLine{00213\ }
+\DoxyCodeLine{00214\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_algorithms}{i}}\ =\ (\textcolor{keywordtype}{int})\ graph.adjacencyList[\mbox{\hyperlink{class_algorithms}{v}}].size()\ -\/\ 1;\ \mbox{\hyperlink{class_algorithms}{i}}\ >=\ 0;\ -\/-\/\mbox{\hyperlink{class_algorithms}{i}})\ \{}
+\DoxyCodeLine{00215\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_algorithms}{neighbor}}\ =\ graph.adjacencyList[\mbox{\hyperlink{class_algorithms}{v}}][\mbox{\hyperlink{class_algorithms}{i}}].first;}
+\DoxyCodeLine{00216\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!\mbox{\hyperlink{class_algorithms}{visited}}[\mbox{\hyperlink{class_algorithms}{neighbor}}])\ \mbox{\hyperlink{class_algorithms}{stack}}.push\_back(\mbox{\hyperlink{class_algorithms}{neighbor}});}
+\DoxyCodeLine{00217\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00218\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00219\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_algorithms}{std::cout}}\ <<\ \mbox{\hyperlink{class_algorithms}{std::endl}};}
+\DoxyCodeLine{00220\ \ \ \ \ \}}
+
+\end{DoxyCode}
+\Hypertarget{class_algorithms_a333fa6513c592d980b769018f096a483}\index{Algorithms$<$ GraphType, T $>$@{Algorithms$<$ GraphType, T $>$}!DFS\_matrix@{DFS\_matrix}}
+\index{DFS\_matrix@{DFS\_matrix}!Algorithms$<$ GraphType, T $>$@{Algorithms$<$ GraphType, T $>$}}
+\doxysubsubsection{\texorpdfstring{DFS\_matrix()}{DFS\_matrix()}}
+{\footnotesize\ttfamily \label{class_algorithms_a333fa6513c592d980b769018f096a483} 
+template$<$typename Graph\+Type, typename T$>$ \\
+void \mbox{\hyperlink{class_algorithms}{Algorithms}}$<$ Graph\+Type, T $>$\+::\+DFS\+\_\+matrix (\begin{DoxyParamCaption}\item[{int}]{start\+Id}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Performs an iterative Depth-\/\+First Search using an adjacency matrix. 
+
+The traversal begins at vertex {\ttfamily start\+Id}. The method prints the visitation sequence without returning it.
+
+DFS uses an explicit stack. Since the adjacency matrix stores neighbors by numeric index, the algorithm scans the row of the matrix in reverse order (n-\/1 → 0) so that the resulting traversal resembles a natural left-\/to-\/right DFS.
+
+
+\begin{DoxyParams}{Parameters}
+{\em start\+Id} & The ID of the starting vertex.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyNote}{Note}
+A matrix entry \texorpdfstring{$>$}{>} 0 is treated as an edge. 
+
+Vertices are visited at most once. 
+\end{DoxyNote}
+\begin{Desc}
+\item[Examples]\par
+\mbox{\hyperlink{_c_1_2_users_2_prj_2_project1_2_algorithms_2_algorithm_8h-example}{C\+:/\+Users/\+Prj/\+Project1/\+Algorithms/\+Algorithm.\+h}}.\end{Desc}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00238\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00239\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_algorithms}{start}}\ =\ graph.findIndexById(\mbox{\hyperlink{class_algorithms}{startId}});}
+\DoxyCodeLine{00240\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{class_algorithms}{start}}\ ==\ -\/1\ ||\ graph.adjacencyMatrix.empty())}
+\DoxyCodeLine{00241\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00242\ }
+\DoxyCodeLine{00243\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_algorithms}{n}}\ =\ graph.adjacencyMatrix.size();}
+\DoxyCodeLine{00244\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_algorithms}{std::vector<bool>}}\ \mbox{\hyperlink{class_algorithms}{visited}}(\mbox{\hyperlink{class_algorithms}{n}},\ \textcolor{keyword}{false});}
+\DoxyCodeLine{00245\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_algorithms}{std::vector<int>}}\ \mbox{\hyperlink{class_algorithms}{stack}};}
+\DoxyCodeLine{00246\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_algorithms}{stack}}.push\_back(\mbox{\hyperlink{class_algorithms}{start}});}
+\DoxyCodeLine{00247\ }
+\DoxyCodeLine{00248\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_algorithms}{std::cout}}\ <<\ \textcolor{stringliteral}{"{}DFS\ (matrix)\ order:\ "{}};}
+\DoxyCodeLine{00249\ }
+\DoxyCodeLine{00250\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}\ (!\mbox{\hyperlink{class_algorithms}{stack}}.empty())\ \{}
+\DoxyCodeLine{00251\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_algorithms}{v}}\ =\ \mbox{\hyperlink{class_algorithms}{stack}}.back();}
+\DoxyCodeLine{00252\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_algorithms}{stack}}.pop\_back();}
+\DoxyCodeLine{00253\ }
+\DoxyCodeLine{00254\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{class_algorithms}{visited}}[\mbox{\hyperlink{class_algorithms}{v}}])}
+\DoxyCodeLine{00255\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{continue};}
+\DoxyCodeLine{00256\ }
+\DoxyCodeLine{00257\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_algorithms}{visited}}[\mbox{\hyperlink{class_algorithms}{v}}]\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00258\ }
+\DoxyCodeLine{00259\ \ \ \ \ \ \ \ \ \ \ \ \ printVertexData(graph.getVertices()[\mbox{\hyperlink{class_algorithms}{v}}].getData());}
+\DoxyCodeLine{00260\ }
+\DoxyCodeLine{00261\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_algorithms}{u}}\ =\ \mbox{\hyperlink{class_algorithms}{n}}\ -\/\ 1;\ \mbox{\hyperlink{class_algorithms}{u}}\ >=\ 0;\ -\/-\/\mbox{\hyperlink{class_algorithms}{u}})\ \{}
+\DoxyCodeLine{00262\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (graph.adjacencyMatrix[\mbox{\hyperlink{class_algorithms}{v}}][\mbox{\hyperlink{class_algorithms}{u}}]\ \&\&\ !\mbox{\hyperlink{class_algorithms}{visited}}[\mbox{\hyperlink{class_algorithms}{u}}])\ \{}
+\DoxyCodeLine{00263\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_algorithms}{stack}}.push\_back(\mbox{\hyperlink{class_algorithms}{u}});}
+\DoxyCodeLine{00264\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00265\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00266\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00267\ }
+\DoxyCodeLine{00268\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_algorithms}{std::cout}}\ <<\ \mbox{\hyperlink{class_algorithms}{std::endl}};}
+\DoxyCodeLine{00269\ \ \ \ \ \}}
+
+\end{DoxyCode}
+\Hypertarget{class_algorithms_adb9cfb9a1fe5f3e723deecf01f953f05}\index{Algorithms$<$ GraphType, T $>$@{Algorithms$<$ GraphType, T $>$}!Dijkstra\_list@{Dijkstra\_list}}
+\index{Dijkstra\_list@{Dijkstra\_list}!Algorithms$<$ GraphType, T $>$@{Algorithms$<$ GraphType, T $>$}}
+\doxysubsubsection{\texorpdfstring{Dijkstra\_list()}{Dijkstra\_list()}}
+{\footnotesize\ttfamily \label{class_algorithms_adb9cfb9a1fe5f3e723deecf01f953f05} 
+template$<$typename Graph\+Type, typename T$>$ \\
+int \mbox{\hyperlink{class_algorithms}{Algorithms}}$<$ Graph\+Type, T $>$\+::\+Dijkstra\+\_\+list (\begin{DoxyParamCaption}\item[{int}]{start\+Id}{, }\item[{int}]{end\+Id}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00298\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00299\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_algorithms}{start}}\ =\ graph.findIndexById(\mbox{\hyperlink{class_algorithms}{startId}});}
+\DoxyCodeLine{00300\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_algorithms}{end}}\ =\ graph.findIndexById(\mbox{\hyperlink{class_algorithms}{endId}});}
+\DoxyCodeLine{00301\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{class_algorithms}{start}}\ ==\ -\/1\ ||\ \mbox{\hyperlink{class_algorithms}{end}}\ ==\ -\/1)\ \textcolor{keywordflow}{return}\ -\/1;}
+\DoxyCodeLine{00302\ }
+\DoxyCodeLine{00303\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_algorithms}{V}}\ =\ graph.getVertices().size();}
+\DoxyCodeLine{00304\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_algorithms}{std::vector<int>}}\ \mbox{\hyperlink{class_algorithms}{dist}}(\mbox{\hyperlink{class_algorithms}{V}},\ \mbox{\hyperlink{class_algorithms}{INT\_MAX}});}
+\DoxyCodeLine{00305\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_algorithms}{dist}}[\mbox{\hyperlink{class_algorithms}{start}}]\ =\ 0;}
+\DoxyCodeLine{00306\ }
+\DoxyCodeLine{00307\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_algorithms}{Queue<int>}}\ \mbox{\hyperlink{class_algorithms}{q}};}
+\DoxyCodeLine{00308\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_algorithms}{q}}.push(\mbox{\hyperlink{class_algorithms}{start}},\ 0);}
+\DoxyCodeLine{00309\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}\ (!\mbox{\hyperlink{class_algorithms}{q}}.empty())\ \{}
+\DoxyCodeLine{00310\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ [\mbox{\hyperlink{class_algorithms}{u}},\ \mbox{\hyperlink{class_algorithms}{d}}]\ =\ \mbox{\hyperlink{class_algorithms}{q}}.popMin();}
+\DoxyCodeLine{00311\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\ \&[\mbox{\hyperlink{class_algorithms}{v}},\ \mbox{\hyperlink{class_algorithms}{w}}]:\ graph.adjacencyList[\mbox{\hyperlink{class_algorithms}{u}}])\ \{}
+\DoxyCodeLine{00312\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{class_algorithms}{dist}}[\mbox{\hyperlink{class_algorithms}{v}}]\ >\ \mbox{\hyperlink{class_algorithms}{dist}}[\mbox{\hyperlink{class_algorithms}{u}}]\ +\ \mbox{\hyperlink{class_algorithms}{w}})\ \{}
+\DoxyCodeLine{00313\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_algorithms}{dist}}[\mbox{\hyperlink{class_algorithms}{v}}]\ =\ \mbox{\hyperlink{class_algorithms}{dist}}[\mbox{\hyperlink{class_algorithms}{u}}]\ +\ \mbox{\hyperlink{class_algorithms}{w}};}
+\DoxyCodeLine{00314\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_algorithms}{q}}.push(\mbox{\hyperlink{class_algorithms}{v}},\ \mbox{\hyperlink{class_algorithms}{dist}}[\mbox{\hyperlink{class_algorithms}{v}}]);}
+\DoxyCodeLine{00315\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00316\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00317\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00318\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{class_algorithms}{dist}}[\mbox{\hyperlink{class_algorithms}{end}}]\ ==\ \mbox{\hyperlink{class_algorithms}{INT\_MAX}}\ ?\ -\/1\ :\ \mbox{\hyperlink{class_algorithms}{dist}}[\mbox{\hyperlink{class_algorithms}{end}}];}
+\DoxyCodeLine{00319\ \ \ \ \ \}}
+
+\end{DoxyCode}
+\Hypertarget{class_algorithms_af59f32c1da9d6c4199776f4e123f6ed5}\index{Algorithms$<$ GraphType, T $>$@{Algorithms$<$ GraphType, T $>$}!Dijkstra\_matrix@{Dijkstra\_matrix}}
+\index{Dijkstra\_matrix@{Dijkstra\_matrix}!Algorithms$<$ GraphType, T $>$@{Algorithms$<$ GraphType, T $>$}}
+\doxysubsubsection{\texorpdfstring{Dijkstra\_matrix()}{Dijkstra\_matrix()}}
+{\footnotesize\ttfamily \label{class_algorithms_af59f32c1da9d6c4199776f4e123f6ed5} 
+template$<$typename Graph\+Type, typename T$>$ \\
+int \mbox{\hyperlink{class_algorithms}{Algorithms}}$<$ Graph\+Type, T $>$\+::\+Dijkstra\+\_\+matrix (\begin{DoxyParamCaption}\item[{int}]{start\+Id}{, }\item[{int}]{end\+Id}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Computes the shortest path using Dijkstra’s algorithm on a graph represented by an adjacency matrix. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em start\+Id} & ID of the starting vertex. \\
+\hline
+{\em end\+Id} & ID of the target vertex. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Shortest path distance, or -\/1 if unreachable.
+\end{DoxyReturn}
+\begin{DoxyNote}{Note}
+Cells with value 0 are interpreted as absence of an edge (except diagonal). 
+\end{DoxyNote}
+\begin{DoxyPrecond}{Precondition}
+\doxylink{class_edge}{Edge} weights must be non-\/negative. 
+\end{DoxyPrecond}
+\begin{Desc}
+\item[Examples]\par
+\mbox{\hyperlink{_c_1_2_users_2_prj_2_project1_2_algorithms_2_algorithm_8h-example}{C\+:/\+Users/\+Prj/\+Project1/\+Algorithms/\+Algorithm.\+h}}.\end{Desc}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00332\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00333\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_algorithms}{start}}\ =\ graph.findIndexById(\mbox{\hyperlink{class_algorithms}{startId}});}
+\DoxyCodeLine{00334\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_algorithms}{end}}\ =\ graph.findIndexById(\mbox{\hyperlink{class_algorithms}{endId}});}
+\DoxyCodeLine{00335\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{class_algorithms}{start}}\ ==\ -\/1\ ||\ \mbox{\hyperlink{class_algorithms}{end}}\ ==\ -\/1)\ \textcolor{keywordflow}{return}\ -\/1;}
+\DoxyCodeLine{00336\ }
+\DoxyCodeLine{00337\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_algorithms}{V}}\ =\ graph.getVertices().size();}
+\DoxyCodeLine{00338\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_algorithms}{std::vector<int>}}\ \mbox{\hyperlink{class_algorithms}{dist}}(\mbox{\hyperlink{class_algorithms}{V}},\ \mbox{\hyperlink{class_algorithms}{INT\_MAX}});}
+\DoxyCodeLine{00339\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_algorithms}{dist}}[\mbox{\hyperlink{class_algorithms}{start}}]\ =\ 0;}
+\DoxyCodeLine{00340\ }
+\DoxyCodeLine{00341\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_algorithms}{Queue<int>}}\ \mbox{\hyperlink{class_algorithms}{q}};}
+\DoxyCodeLine{00342\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_algorithms}{q}}.push(\mbox{\hyperlink{class_algorithms}{start}},\ 0);}
+\DoxyCodeLine{00343\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}\ (!\mbox{\hyperlink{class_algorithms}{q}}.empty())\ \{}
+\DoxyCodeLine{00344\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ [\mbox{\hyperlink{class_algorithms}{u}},\ \mbox{\hyperlink{class_algorithms}{d}}]\ =\ \mbox{\hyperlink{class_algorithms}{q}}.popMin();}
+\DoxyCodeLine{00345\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_algorithms}{n}}\ =\ graph.adjacencyMatrix.size();}
+\DoxyCodeLine{00346\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_algorithms}{v}}\ =\ 0;\ \mbox{\hyperlink{class_algorithms}{v}}\ <\ \mbox{\hyperlink{class_algorithms}{n}};\ ++\mbox{\hyperlink{class_algorithms}{v}})\ \{}
+\DoxyCodeLine{00347\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_algorithms}{w}}\ =\ graph.adjacencyMatrix[\mbox{\hyperlink{class_algorithms}{u}}][\mbox{\hyperlink{class_algorithms}{v}}];}
+\DoxyCodeLine{00348\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{class_algorithms}{w}}\ >\ 0\ \&\&\ \mbox{\hyperlink{class_algorithms}{dist}}[\mbox{\hyperlink{class_algorithms}{v}}]\ >\ \mbox{\hyperlink{class_algorithms}{dist}}[\mbox{\hyperlink{class_algorithms}{u}}]\ +\ \mbox{\hyperlink{class_algorithms}{w}})\ \{}
+\DoxyCodeLine{00349\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_algorithms}{dist}}[\mbox{\hyperlink{class_algorithms}{v}}]\ =\ \mbox{\hyperlink{class_algorithms}{dist}}[\mbox{\hyperlink{class_algorithms}{u}}]\ +\ \mbox{\hyperlink{class_algorithms}{w}};}
+\DoxyCodeLine{00350\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_algorithms}{q}}.push(\mbox{\hyperlink{class_algorithms}{v}},\ \mbox{\hyperlink{class_algorithms}{dist}}[\mbox{\hyperlink{class_algorithms}{v}}]);}
+\DoxyCodeLine{00351\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00352\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00353\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00354\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{class_algorithms}{dist}}[\mbox{\hyperlink{class_algorithms}{end}}]\ ==\ \mbox{\hyperlink{class_algorithms}{INT\_MAX}}\ ?\ -\/1\ :\ \mbox{\hyperlink{class_algorithms}{dist}}[\mbox{\hyperlink{class_algorithms}{end}}];}
+\DoxyCodeLine{00355\ \ \ \ \ \}}
+
+\end{DoxyCode}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Algorithms/\mbox{\hyperlink{_algorithm_8h}{Algorithm.\+h}}\end{DoxyCompactItemize}

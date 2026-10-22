@@ -1,0 +1,60 @@
+@startuml
+skinparam monochrome true
+skinparam ActivityBackgroundColor white
+
+start
+:Receive generation request (JSON data, RNG);
+
+partition "Generate Star Systems" {
+    :Determine systemCount = rng(40, 60);
+    :i = 0;
+    repeat
+        :Generate Central Star;
+        :Determine planetCount = rng(0, 5);
+        
+        :p = 0;
+        while (p < planetCount?) is (yes)
+            :Generate Planet (type, mass, color);
+            :Add Planet to Star System;
+            
+            if (Conditions for life met?) then (yes)
+                :Set habitable = true;
+            else (no)
+            endif
+            
+            :p++;
+        endwhile (no)
+        
+        :Calculate total mass of Star System;
+        :Add Star System to Galaxy Object List;
+        :i++;
+    repeat while (i < systemCount?) is (yes)
+}
+
+partition "Generate Nebulae" {
+    :Determine nebulaCount = rng(20, 65);
+    :n = 0;
+    repeat
+        :Generate Nebula from JSON templates;
+        :Add Nebula to Galaxy Object List;
+        :n++;
+    repeat while (n < nebulaCount?) is (yes)
+}
+
+partition "Connect Objects (Graph Edges)" {
+
+    if (Total Objects > 1?) then (yes)
+        :i = 0;
+        while (i < Total Objects - 1?) is (yes)
+            :Select random target j (from i+1 to Total-1);
+            :Determine random distance = rng(100, 450);
+            :systemGraph.addEdge(i, j, distance);
+            :i++;
+        endwhile (no)
+    else (no)
+    endif
+}
+
+stop
+
+@enduml

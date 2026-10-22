@@ -1,31 +1,28 @@
+#include <DFSList.h>
 #include <RAIIGuard.h>
 #include <gtest/gtest.h>
 #include "GraphList.h"
-#include "Algorithm.h"
 #include <sstream>
 #include <string>
 #include "TestFixtures.h"
-TEST(DFSListTests, EmptyGraph) {
+TEST_F(DFSListFixture, EmptyGraph) {
     GraphList<std::string> g;
-    Algorithms<GraphList<std::string>, std::string> alg(g);
 
     std::stringstream out;
     CoutGuard guard(out);
-    alg.DFS_list(1);
+    dfsAlg->run(g, 1);
 
     std::string output = out.str();
     EXPECT_TRUE(output.empty()) << "DFS on empty graph should produce no output";
 }
 
-TEST(DFSListTests, SingleVertex) {
+TEST_F(DFSListFixture, SingleVertex) {
     GraphList<std::string> g;
     g.addVertex(1, "A");
 
-    Algorithms<GraphList<std::string>, std::string> alg(g);
-
     std::stringstream out;
     CoutGuard guard(out);
-    alg.DFS_list(1);
+    dfsAlg->run(g, 1);
 
     std::string dfsOutput = out.str();
     EXPECT_NE(dfsOutput.find("A"), std::string::npos) << "DFS should visit vertex A";
@@ -38,10 +35,12 @@ TEST(DFSListTests, SingleVertex) {
     }
     EXPECT_EQ(countA, 1) << "DFS should output vertex A only once";
 }
-TEST_F(BFSListFixture, BasicDFSOrder) {
+TEST_F(DFSListFixture, BasicDFSOrder) {
     std::stringstream out;
     CoutGuard guard(out);
-    alg->DFS_list(1);
+
+
+    dfsAlg->run(g, 1);
 
     std::string dfsOutput = out.str();
     std::istringstream iss(dfsOutput);

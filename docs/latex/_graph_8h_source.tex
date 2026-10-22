@@ -1,0 +1,70 @@
+\doxysection{Graph.\+h}
+\hypertarget{_graph_8h_source}{}\label{_graph_8h_source}\index{Graph/Graph.h@{Graph/Graph.h}}
+\mbox{\hyperlink{_graph_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ GRAPH\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ GRAPH\_H}}
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <iostream>}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_edge_8h}{Edge.h}}"{}}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_vertex_8h}{Vertex.h}}"{}}}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00020\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00021\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_graph}{Graph}}\ \{}
+\DoxyCodeLine{00022\ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00023\ \ \ \ \ std::vector<Vertex<T>\ >\ \mbox{\hyperlink{class_graph_a4677e7cca232583023ea6e4dcca62a6f}{vertices}};\ }
+\DoxyCodeLine{00024\ \ \ \ \ std::vector<Edge<T>\ >\ \mbox{\hyperlink{class_graph_ac32560ab2c280c1617b70f2a57f9c848}{edges}};\ }
+\DoxyCodeLine{00025\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00029\ \ \ \ \ \textcolor{keyword}{virtual}\ \mbox{\hyperlink{class_graph_a2ccc82f656fb8cd443feef0add6e32a1}{\string~Graph}}()\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00034\ \ \ \ \ \textcolor{keyword}{const}\ std::vector<Vertex<T>>\&\ \mbox{\hyperlink{class_graph_a07f5e993208f94a3317370e567fe1f85}{getVertices}}()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{class_graph_a4677e7cca232583023ea6e4dcca62a6f}{vertices}};\ \}}
+\DoxyCodeLine{00039\ \ \ \ \ \textcolor{keyword}{const}\ std::vector<Edge<T>>\&\ \mbox{\hyperlink{class_graph_a440d4ce2ed2c0d957d3ebaf98c969599}{getEdges}}()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{class_graph_ac32560ab2c280c1617b70f2a57f9c848}{edges}};\ \}}
+\DoxyCodeLine{00045\ }
+\DoxyCodeLine{00046\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_graph_a6371204aa3d58d988b58e38ce6e4539d}{findIndexById}}(\textcolor{keywordtype}{int}\ \textcolor{keywordtype}{id})\textcolor{keyword}{\ const}\{}
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ \mbox{\hyperlink{class_graph_a4677e7cca232583023ea6e4dcca62a6f}{vertices}}.size();\ ++i)}
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{class_graph_a4677e7cca232583023ea6e4dcca62a6f}{vertices}}[i].getId()\ ==\ \textcolor{keywordtype}{id})\ \textcolor{keywordflow}{return}\ i;}
+\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ -\/1;}
+\DoxyCodeLine{00050\ \ \ \ \ \}}
+\DoxyCodeLine{00054\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_graph_a12ad2745e70e6a943324bb9d838b8b1a}{constructAdjacency}}()\ =\ 0;}
+\DoxyCodeLine{00060\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_graph_ae16fa8484fa8da1d50a32d56eca2ab65}{addVertex}}(\textcolor{keywordtype}{int}\ \textcolor{keywordtype}{id},\ T\ data)\ =\ 0;}
+\DoxyCodeLine{00067\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_graph_aa900eb7513aa4de87d89fcac3f2276ac}{addEdge}}(\textcolor{keywordtype}{int}\ fId,\ \textcolor{keywordtype}{int}\ tId,\ \textcolor{keywordtype}{int}\ weight\ =\ 1)\ =\ 0;}
+\DoxyCodeLine{00073\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_graph_a9d0f5262b2907aebbc45bec2921dff2f}{removeVertex}}(\textcolor{keywordtype}{int}\ \textcolor{keywordtype}{id})\ =\ 0;}
+\DoxyCodeLine{00080\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_graph_a9a49b970e67048dd310355034317f246}{removeEdge}}(\textcolor{keywordtype}{int}\ fId,\ \textcolor{keywordtype}{int}\ tId)\ =\ 0;}
+\DoxyCodeLine{00084\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_graph_a1fb75b362b6bce22a77f0646cfdf73d0}{print}}()\ \textcolor{keyword}{const}\ =\ 0;}
+\DoxyCodeLine{00092\ \ \ \ \ T\ \mbox{\hyperlink{class_graph_aa45e9a5fe844587f2e1f38cd631e2fc4}{vertexSearch}}(\textcolor{keywordtype}{int}\ \textcolor{keywordtype}{id})\ \{}
+\DoxyCodeLine{00093\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\ \&vert:\ \mbox{\hyperlink{class_graph_a4677e7cca232583023ea6e4dcca62a6f}{vertices}})\ \{}
+\DoxyCodeLine{00094\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (vert.getId()\ ==\ \textcolor{keywordtype}{id})\ \{}
+\DoxyCodeLine{00095\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ vert.getData();}
+\DoxyCodeLine{00096\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00097\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00098\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::runtime\_error(\textcolor{stringliteral}{"{}Vertex\ not\ found"{}});}
+\DoxyCodeLine{00099\ \ \ \ \ \}}
+\DoxyCodeLine{00100\ }
+\DoxyCodeLine{00107\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_graph_acd93f77f0bf9eda8d34d78d96ba842d4}{edgeExists}}(\textcolor{keywordtype}{int}\ fId,\ \textcolor{keywordtype}{int}\ tId)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00108\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ f\ =\ \mbox{\hyperlink{class_graph_a6371204aa3d58d988b58e38ce6e4539d}{findIndexById}}(fId);}
+\DoxyCodeLine{00109\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ t\ =\ \mbox{\hyperlink{class_graph_a6371204aa3d58d988b58e38ce6e4539d}{findIndexById}}(tId);}
+\DoxyCodeLine{00110\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (f\ ==\ -\/1\ ||\ t\ ==\ -\/1)\ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00111\ }
+\DoxyCodeLine{00112\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\ \&ed:\ \mbox{\hyperlink{class_graph_ac32560ab2c280c1617b70f2a57f9c848}{edges}})}
+\DoxyCodeLine{00113\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (ed.connects(f,\ t)\ \&\&\ ed.isActive())\ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00114\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00115\ \ \ \ \ \}}
+\DoxyCodeLine{00125\ \ \ \ \ std::vector<T>\ \mbox{\hyperlink{class_graph_a7100e8fbbca57ae52c6425d7f4f3950b}{getNeighbors}}(\textcolor{keywordtype}{int}\ \textcolor{keywordtype}{id})\ \{}
+\DoxyCodeLine{00126\ \ \ \ \ \ \ \ \ std::vector<T>\ neighbors;}
+\DoxyCodeLine{00127\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ idx\ =\ \mbox{\hyperlink{class_graph_a6371204aa3d58d988b58e38ce6e4539d}{findIndexById}}(\textcolor{keywordtype}{id});}
+\DoxyCodeLine{00128\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (idx\ ==\ -\/1)\ \textcolor{keywordflow}{return}\ neighbors;}
+\DoxyCodeLine{00129\ }
+\DoxyCodeLine{00130\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\&\ ed\ :\ \mbox{\hyperlink{class_graph_ac32560ab2c280c1617b70f2a57f9c848}{edges}})\ \{}
+\DoxyCodeLine{00131\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!ed.isActive())\ \textcolor{keywordflow}{continue};}
+\DoxyCodeLine{00132\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (ed.from\ ==\ idx)\ neighbors.push\_back(\mbox{\hyperlink{class_graph_aa45e9a5fe844587f2e1f38cd631e2fc4}{vertexSearch}}(this-\/>vertices[ed.to].getId()));}
+\DoxyCodeLine{00133\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (ed.to\ ==\ idx)\ neighbors.push\_back(\mbox{\hyperlink{class_graph_aa45e9a5fe844587f2e1f38cd631e2fc4}{vertexSearch}}(this-\/>vertices[ed.from].getId()));}
+\DoxyCodeLine{00134\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00135\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ neighbors;}
+\DoxyCodeLine{00136\ \ \ \ \ \}}
+\DoxyCodeLine{00137\ }
+\DoxyCodeLine{00138\ }
+\DoxyCodeLine{00139\ }
+\DoxyCodeLine{00140\ \};}
+\DoxyCodeLine{00141\ }
+\DoxyCodeLine{00142\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//GRAPH}}
+
+\end{DoxyCode}

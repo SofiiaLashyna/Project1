@@ -1,0 +1,75 @@
+@startuml
+top to bottom direction
+skinparam monochrome true
+
+package DOMAIN {
+abstract class CelestialObject
+class Star
+class Planet
+class Nebula
+class StarSystem
+class Galaxy
+
+CelestialObject <|-- Star
+CelestialObject <|-- Planet
+CelestialObject <|-- Nebula
+CelestialObject <|-- StarSystem
+
+StarSystem *-- Star
+StarSystem *-- Planet
+Galaxy --> CelestialObject
+}
+
+package GRAPH {
+abstract class Graph<T>
+class GraphList<T>
+class GraphMatrix<T>
+class Edge<T>
+class Vertex<T>
+
+Graph <|-- GraphList
+Graph <|-- GraphMatrix
+Graph *-- Vertex
+Graph *-- Edge
+}
+
+package UI {
+class GalaxyView
+class GraphWidget
+class GalaxyEditDialog
+class EditStarSystemDialog
+class EditNebulaDialog
+
+GalaxyView --> GraphWidget
+GalaxyView --> GalaxyEditDialog
+GalaxyView --> EditStarSystemDialog
+GalaxyView --> EditNebulaDialog
+GalaxyView --> Galaxy
+}
+
+package PHYSICS {
+class PhysicsEngine
+class GalaxyPhysicsController
+class CelestialBodyToRigidWrapper
+class BlackHoleGravityField
+
+GalaxyView --> GalaxyPhysicsController
+GalaxyPhysicsController --> PhysicsEngine
+GalaxyPhysicsController --> CelestialBodyToRigidWrapper
+GalaxyPhysicsController --> BlackHoleGravityField
+CelestialBodyToRigidWrapper --> CelestialObject
+}
+
+
+package ALGORITHMS {
+
+interface PathFindingStrategy
+class DijkstraList
+class DijkstraMatrix
+
+PathFindingStrategy <|.. DijkstraList
+PathFindingStrategy <|.. DijkstraMatrix
+
+GalaxyView --> PathFindingStrategy
+}
+@enduml

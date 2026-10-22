@@ -1,35 +1,35 @@
+#include <DFSMatrix.h>
+
 #include "gtest/gtest.h"
 #include "GraphMatrix.h"
-#include "Algorithm.h"
 #include <string>
 #include "TestFixtures.h"
-TEST(DFSMatrixTests, EmptyGraph) {
+TEST_F(DFSMatrixFixture, EmptyGraph) {
     GraphMatrix<std::string> g;
-    Algorithms<GraphMatrix<std::string>, std::string> alg(g);
 
     testing::internal::CaptureStdout();
-    alg.DFS_matrix(1);
+    dfsAlg->run(g, 1);
     std::string output = testing::internal::GetCapturedStdout();
 
     EXPECT_TRUE(output.find("A") == std::string::npos);
 }
 
-TEST(DFSMatrixTests, SingleVertex) {
+TEST_F(DFSMatrixFixture, SingleVertex) {
     GraphMatrix<std::string> g;
     g.addVertex(1, "A");
 
-    Algorithms<GraphMatrix<std::string>, std::string> alg(g);
 
     testing::internal::CaptureStdout();
-    alg.DFS_matrix(1);
+    dfsAlg->run(g, 1);
     std::string output = testing::internal::GetCapturedStdout();
 
     EXPECT_NE(output.find("A"), std::string::npos);
 }
 
-TEST_F(BFSMatrixFixture, BasicDFS_Clean) {
+TEST_F(DFSMatrixFixture, BasicDFS_Clean) {
     testing::internal::CaptureStdout();
-    alg->DFS_matrix(1);
+
+    dfsAlg->run(g, 1);
     std::string output = testing::internal::GetCapturedStdout();
 
     std::string expected = "DFS (matrix) order: A B C \n";
