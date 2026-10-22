@@ -1,3 +1,6 @@
+#include <QCoreApplication>
+#include <QDir>
+#include <QDebug>
 #include "windowinterface.h"
 #include "ui_WindowInterface.h"
 #include "galaxyview.h"
@@ -53,7 +56,10 @@ WindowInterface::WindowInterface(QWidget *parent)
 }
 
 void WindowInterface::loadJsonData() {
-    std::ifstream inFile("C:/Users/Prj/Project1/RandomGalaxy/CelestialObjects.json");
+    QString jsonPath = QDir(QCoreApplication::applicationDirPath())
+                       .filePath("../RandomGalaxy/CelestialObjects.json");
+
+    std::ifstream inFile(jsonPath.toStdString());
     if (!inFile.is_open()) {
         qDebug() << "Cannot open JSON file!";
         return;

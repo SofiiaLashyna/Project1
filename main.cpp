@@ -12,6 +12,7 @@
 #include "DijkstraMatrix.h"
 #include "DijkstraList.h"
 
+/*
 void runPerformanceTest() {
     GraphList<std::string> gList;
     GraphMatrix<std::string> gMatrix;
@@ -88,12 +89,12 @@ void runPerformanceTest() {
     end = std::chrono::high_resolution_clock::now();
     std::cout << "Dijkstra (Matrix): " << std::chrono::duration_cast<std::chrono::milliseconds>(end - start).count() << " ms\n";
     std::cout << "==================================================" << std::endl;
-}
+}*/
 int main(int argc, char *argv[]) {
-    // QApplication a(argc, argv);
-    // WindowInterface w;
-    // w.show();
-    // return a.exec();
-    runPerformanceTest();
+    QApplication a(argc, argv);
+    WindowInterface w;
+    w.show();
+    return a.exec();
+    // runPerformanceTest();
 }
 
